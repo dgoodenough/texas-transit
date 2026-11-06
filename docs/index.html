@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Texas Transit Plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A statewide transit plan for Texas at DFW Transit's spending rate: high-speed rail, conventional trains to the neighbours and Monterrey, and rail and BRT in 25 metros, timed under one budget to 2100.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: a planning brief driven by one year control. Year + running totals, the statewide map and spending chart, one metro at a time, then the tables. */
+:root{
+  --bg:#f3f4f1; --surface:#fbfbf9; --ink:#1d2421; --muted:#5d6762; --rule:#d5d9d3;
+  --land:#e6e8e1; --land-tx:#fdfdfb; --state-line:#b9beb5;
+  --hsr:#b3261e; --hsr-later:#e2b9b4; --metro:#1f5fbf; --brt:#0f8a6c; --rail:#7a3fa0; --rail-later:#cdb7da; --street:#c26a00;
+  --existing:#4a4f4c; --later:#c3c8c1; --dot:#8b958f; --focus:#1f5fbf; --budget:#1d2421;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141917; --surface:#1b211f; --ink:#e6ebe8; --muted:#9ba6a0; --rule:#2e3633;
+  --land:#20272a; --land-tx:#262f2c; --state-line:#3d4744;
+  --hsr:#ff6b5e; --hsr-later:#5a2f2b; --metro:#6aa3ff; --brt:#3cc79f; --rail:#c08be3; --rail-later:#4a3a55; --street:#f0a040;
+  --existing:#a5aca8; --later:#3a4440; --dot:#5d6964; --focus:#6aa3ff; --budget:#e6ebe8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141917; --surface:#1b211f; --ink:#e6ebe8; --muted:#9ba6a0; --rule:#2e3633;
+  --land:#20272a; --land-tx:#262f2c; --state-line:#3d4744;
+  --hsr:#ff6b5e; --hsr-later:#5a2f2b; --metro:#6aa3ff; --brt:#3cc79f; --rail:#c08be3; --rail-later:#4a3a55; --street:#f0a040;
+  --existing:#a5aca8; --later:#3a4440; --dot:#5d6964; --focus:#6aa3ff; --budget:#e6ebe8; color-scheme:dark}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:.01em;line-height:1.05;margin:0;text-wrap:balance}
+h1{font-size:clamp(40px,6vw,64px)}
+h2{font-size:30px}
+h3{font-size:21px;font-weight:600}
+p{margin:0;max-width:68ch}
+.eyebrow{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:13px;color:var(--muted)}
+header{display:flex;flex-direction:column;gap:12px}
+.lede{font-size:17px}
+section{display:flex;flex-direction:column;gap:16px}
+.yearbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);
+  display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding-block:10px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.year{font-family:var(--display);font-size:52px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;min-width:3.2ch}
+input[type=range]{width:100%;accent-color:var(--hsr)}
+button{font:inherit;cursor:pointer}
+.play{border:1px solid var(--rule);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;font-size:14px}
+input[type=range]:focus-visible,button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.figs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.fig{background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.fig .n{font-family:var(--display);font-size:30px;font-weight:700;line-height:1.05;font-variant-numeric:tabular-nums}
+.fig .l{font-size:12.5px;color:var(--muted)}
+.mapgrid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}
+.panel{display:flex;flex-direction:column;gap:14px;min-width:0}
+svg{display:block;width:100%;height:auto}
+.legend svg{display:inline-block;width:14px;height:14px;flex:none}
+.mapbox{background:var(--surface);border:1px solid var(--rule)}
+.dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14px;font-variant-numeric:tabular-nums;margin:0}
+.dl dt{color:var(--muted)}
+.dl dd{margin:0;text-align:right}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:18px;height:0;border-top:4px solid;display:inline-block}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{font-size:13px;padding:4px 10px;border-radius:999px;border:1px solid var(--rule);background:var(--surface);color:var(--ink)}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chips button.none{color:var(--muted)}
+.tablewrap{overflow-x:auto;border-top:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 10px;text-align:right;border-bottom:1px solid var(--rule);white-space:nowrap}
+th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}
+th{font-family:var(--display);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+td.name{white-space:normal;min-width:220px}
+tr.future td{color:var(--muted)}
+.pill{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:999px;border:1px solid var(--rule)}
+.pill.ok{border-color:var(--brt);color:var(--brt)}
+.note{font-size:13.5px;color:var(--muted);max-width:75ch}
+.warn{border-left:3px solid var(--street);padding:2px 0 2px 14px}
+ul.caveats{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;max-width:80ch}
+a{color:var(--metro)}
+@media (max-width:860px){.mapgrid{grid-template-columns:1fr}.figs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:480px){.figs{grid-template-columns:repeat(2,minmax(0,1fr))}.year{font-size:40px}.yearbar{grid-template-columns:auto 1fr}.play{grid-column:1/-1;justify-self:start}}
+@media (prefers-reduced-motion:reduce){.play{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Statewide study · draft · November 2026</div>
+  <h1>Texas Transit Plan</h1>
+  <p class="lede">What DFW Transit's money buys if all of Texas spends at the same rate per resident, $9.0B a year of capital to 2100: high-speed rail between the big metros, conventional trains to the neighbours and Monterrey, and rail and BRT inside 25 metros. Dallas-Fort Worth keeps <a href="https://dgoodenough.github.io/dfw-transit/">its own plan</a> and $2.3B of that a year. Move the year to watch it get built.</p>
+</header>
+
+<div class="yearbar">
+  <div class="year" id="ylab" aria-live="polite">2050</div>
+  <label class="slider" for="year"><span class="eyebrow">Year</span><input id="year" type="range" min="2025" max="2100" step="1" value="2050"></label>
+  <button class="play" id="play" type="button">Play</button>
+</div>
+
+<div class="figs" aria-label="Totals for the selected year">
+  <div class="fig"><span class="n" id="f-spent"></span><span class="l">capital spent to date, outside DFW</span></div>
+  <div class="fig"><span class="n" id="f-urban"></span><span class="l">new daily transit trips in the metros</span></div>
+  <div class="fig"><span class="n" id="f-inter"></span><span class="l">intercity rail trips a year</span></div>
+  <div class="fig"><span class="n" id="f-flights"></span><span class="l">fewer flights a day</span></div>
+  <div class="fig"><span class="n" id="f-gain"></span><span class="l">travellers' gain a year</span></div>
+  <div class="fig"><span class="n" id="f-gap"></span><span class="l">operating cost minus fares a year</span></div>
+</div>
+
+<section aria-labelledby="map-h">
+  <h2 id="map-h">The state</h2>
+  <div class="mapgrid">
+    <div class="mapbox"><svg id="state" role="img" aria-label="Map of Texas: high-speed rail, conventional trains and metro areas in the selected year"></svg></div>
+    <div class="panel">
+      <div class="legend">
+        <span><i class="sw" style="border-color:var(--hsr)"></i>high-speed, open</span>
+        <span><i class="sw" style="border-color:var(--hsr);border-top-style:dashed"></i>building</span>
+        <span><i class="sw" style="border-color:var(--hsr-later)"></i>later</span>
+        <span><i class="sw" style="border-color:var(--rail);border-top-style:dotted"></i>conventional trains</span>
+        <span><svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="none" stroke="var(--brt)" stroke-width="2"></circle></svg>metro, sized by new transit trips</span>
+      </div>
+      <h3>Spending</h3>
+      <svg id="spend" role="img" aria-label="Capital spent to date by layer against the budget"></svg>
+      <div class="legend">
+        <span><i class="sw" style="border-color:var(--brt)"></i>urban</span>
+        <span><i class="sw" style="border-color:var(--hsr)"></i>high-speed</span>
+        <span><i class="sw" style="border-color:var(--rail)"></i>conventional</span>
+        <span><i class="sw" style="border-color:var(--budget);border-top-width:2px;border-top-style:dashed"></i>budget to date</span>
+      </div>
+      <p class="note" id="next"></p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="urb-h">
+  <h2 id="urb-h">Inside the metros</h2>
+  <p>Each network is drawn by DFW Transit's generator from Census population and jobs, commute flows and real roads and rail, at DFW's rate per resident. Lines open in the generator's order as the budget allows. Pick a metro.</p>
+  <div class="chips" id="chips" role="group" aria-label="Metro"></div>
+  <div class="mapgrid">
+    <div class="mapbox"><svg id="metro" role="img" aria-label="The selected metro's network in the selected year"></svg></div>
+    <div class="panel">
+      <h3 id="mname"></h3>
+      <dl class="dl" id="mstats"></dl>
+      <div class="legend">
+        <span><i class="sw" style="border-color:var(--metro)"></i>metro</span>
+        <span><i class="sw" style="border-color:var(--brt)"></i>BRT</span>
+        <span><i class="sw" style="border-color:var(--rail)"></i>regional rail</span>
+        <span><i class="sw" style="border-color:var(--later)"></i>not open yet</span>
+        <span><i class="sw" style="border-color:var(--existing);border-top-style:dashed"></i>today</span>
+      </div>
+      <p class="note" id="mnote"></p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="t1">
+  <h2 id="t1">Intercity lines, in the order they open</h2>
+  <p>Each project's ratio is travellers' gain (plus any operating surplus) over capital plus the operating deficit, across 50 years at 3%. A ratio of 1 or more means travellers' gains alone pay for it. The budget is spent either way; the ratio sets the order.</p>
+  <div class="tablewrap"><table id="tinter"><thead><tr><th>Opens</th><th>Line</th><th>Capital</th><th>Trips a year</th><th>Travellers' gain a year</th><th>Fares − operating</th><th>Ratio</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section aria-labelledby="t2">
+  <h2 id="t2">By layer</h2>
+  <div class="tablewrap"><table id="tlayer"><thead><tr><th>Layer</th><th>Projects</th><th>Built by 2100</th><th>Capital</th><th>Travellers' gain a year</th><th>Fares − operating a year</th><th>Ratio</th><th>Ratio 1 or more</th></tr></thead><tbody></tbody></table></div>
+  <p class="note warn" id="unspent"></p>
+</section>
+
+<section aria-labelledby="cv">
+  <h2 id="cv">What to keep in mind</h2>
+  <ul class="caveats">
+    <li>Only two projects pay for themselves in travellers' gains alone: high-speed rail from Austin to San Antonio and from Houston to Austin. Everything else is built on the plan's premise, spending DFW's rate, in the order that buys the most. Wider benefits (less congestion, safety, emissions, land value) aren't counted.</li>
+    <li>An urban trip is worth about $8 to its traveller in DFW Transit's commute model, an intercity trip $40-80 in the intercity model. So the order favours the Triangle's high-speed lines, and most metro lines open after 2050: Houston has 2 of its 49 open by then. Valuing urban trips higher, or counting congestion relief, would bring the metros forward.</li>
+    <li>Operating cost is outside the capital budget, as in DFW Transit. By 2100 the lines cost about $1.6B a year more to run than they take in fares, and no budget pays that yet.</li>
+    <li>The model overrates infrequent rail: at its constant it puts about 16,000 riders a day on Austin's Red Line, and NTD counts 1,636. Regional rail and the conventional trains are likely overrated; metro and BRT are where the calibration holds.</li>
+    <li>For high-speed rail, the constant against car alone moves the first four corridors between 30M and 74M trips a year.</li>
+    <li>Values grow with Texas's population trend and nothing else: no new land use around stations, no change in driving or flying.</li>
+  </ul>
+  <p class="note">Source and method: <a href="https://github.com/dgoodenough/texas-transit">github.com/dgoodenough/texas-transit</a> (study/timing.md, hsr_options.md, interstate_rail.md, urban_metros.md).</p>
+</section>
+</div>
+
+<script>
+(function () {
+const NS = "http://www.w3.org/2000/svg";
+const el = (n, a, p) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
+const fmt = n => Math.round(n).toLocaleString("en-US");
+const money = m => (m < 0 ? "−" : "") + (Math.abs(m) >= 1000 ? "$" + (Math.abs(m) / 1000).toFixed(1) + "B" : "$" + fmt(Math.abs(m)) + "M");
+const pathD = pts => pts.map((p, i) => (i ? "L" : "M") + p[0] + " " + p[1]).join("");
+const status = (p, y) => !p || !p.open ? "never" : p.open <= y ? "open" : p.start <= y ? "building" : "later";
+
+Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.json").then(r => r.json())]).then(([M, T]) => {
+  const P = {}; T.projects.forEach(p => { P[p.id] = p; });
+  const Y = {}; T.yearly.forEach(r => { Y[r.year] = r; });
+  const yIn = document.getElementById("year");
+
+  // ---------- statewide map ----------
+  const S = document.getElementById("state");
+  const all = [];
+  M.states.TX.forEach(r => r.forEach(p => all.push(p)));
+  Object.values(M.conv).forEach(c => c.forEach(p => all.push(p)));
+  const xs = all.map(p => p[0]), ys = all.map(p => p[1]);
+  const x0 = Math.min(...xs) - 40, x1 = Math.max(...xs) + 110, y0 = Math.min(...ys) - 40, y1 = Math.max(...ys) + 40;
+  S.setAttribute("viewBox", `${x0} ${y0} ${x1 - x0} ${y1 - y0}`);
+  el("rect", {x: x0, y: y0, width: x1 - x0, height: y1 - y0, fill: "var(--land)"}, S);
+  for (const st in M.states) M.states[st].forEach(r => el("path", {d: pathD(r) + "Z", fill: st === "TX" ? "var(--land-tx)" : "var(--land)",
+    stroke: "var(--state-line)", "stroke-width": 1.2, "stroke-linejoin": "round"}, S));
+  const metroG = el("g", {}, S);
+  const circles = M.metros.map(m => {
+    const c = el("circle", {cx: m.xy[0], cy: m.xy[1], r: 0, fill: "var(--brt)", "fill-opacity": 0.12, stroke: "var(--brt)", "stroke-width": 1.6}, metroG);
+    const t = el("title", {}, c);
+    return {m, c, t};
+  });
+  el("circle", {cx: M.dfw.xy[0], cy: M.dfw.xy[1], r: 30, fill: "none", stroke: "var(--ink)", "stroke-width": 1.2, "stroke-dasharray": "3 3"}, metroG);
+  const convG = el("g", {}, S), hsrG = el("g", {}, S), labG = el("g", {}, S);
+  const conv = Object.entries(M.conv).map(([id, pts]) => {
+    const p = el("path", {d: pathD(pts), fill: "none", "stroke-linecap": "round", "stroke-linejoin": "round"}, convG);
+    el("title", {}, p).textContent = P[id] ? P[id].name : id;
+    return {id, p};
+  });
+  const hsrL = Object.entries(M.hsr).map(([id, pts]) => {
+    const p = el("path", {d: pathD(pts), fill: "none", "stroke-linecap": "round", "stroke-linejoin": "round"}, hsrG);
+    el("title", {}, p).textContent = P[id] ? P[id].name : id;
+    return {id, p};
+  });
+  const labels = {"Dallas": [9, -9], "Fort Worth": [-78, -9], "Houston": [9, 17], "Austin": [-52, 4], "San Antonio": [-92, 14],
+    "El Paso": [8, -8], "Lubbock": [9, -6], "Oklahoma City": [9, 4], "Shreveport": [9, 4], "New Orleans": [-34, 22], "Laredo": [-54, 5],
+    "Corpus Christi": [9, 6], "McAllen": [-60, 6], "Midland": [-22, -11], "Waco": [9, 4]};
+  const lab = (x, y, t, muted) => { el("text", {x, y, "font-size": muted ? 19 : 21, fill: muted ? "var(--muted)" : "var(--ink)",
+    "font-family": "Barlow Condensed, Arial Narrow, sans-serif", "font-weight": 600}, labG).textContent = t; };
+  const stEls = {};
+  for (const s in M.hsr_stations) {
+    const st = M.hsr_stations[s];
+    stEls[s] = el("circle", {cx: st.xy[0], cy: st.xy[1], r: st.kind === "major" ? 4.5 : 2.8, fill: "var(--surface)", stroke: "var(--ink)", "stroke-width": 1.4}, labG);
+    if (labels[s]) lab(st.xy[0] + labels[s][0], st.xy[1] + labels[s][1], s);
+  }
+  for (const n in M.conv_ends) { const p = M.conv_ends[n]; el("circle", {cx: p[0], cy: p[1], r: 3.5, fill: "var(--surface)", stroke: "var(--rail)", "stroke-width": 1.6}, labG); lab(p[0] + 8, p[1] + 5, n, true); }
+  el("text", {x: M.dfw.xy[0] + 24, y: M.dfw.xy[1] - 28, "font-size": 16, fill: "var(--muted)", "font-family": "Public Sans, sans-serif"}, labG).textContent = "DFW Transit's own plan";
+
+  // ---------- spending chart ----------
+  const C = document.getElementById("spend");
+  const W = 300, H = 170, pl = 34, pb = 20, pt = 8, pr = 6;
+  C.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const yrs = T.yearly.map(r => r.year);
+  const cum = {urban: [], hsr: [], conventional: []};
+  const per = {urban: {}, hsr: {}, conventional: {}};
+  T.projects.forEach(p => { if (!p.open) return; const b = p.open - p.start; for (let y = p.start; y < p.open; y++) per[p.layer][y] = (per[p.layer][y] || 0) + p.capital / b; });
+  for (const k in cum) { let s = 0; yrs.forEach(y => { s += per[k][y] || 0; cum[k].push(s); }); }
+  const budget = yrs.map((y, i) => T.other_musd * (i + 1));
+  const ymax = Math.ceil(budget[budget.length - 1] / 100000) * 100000;
+  const sx = y => pl + (y - yrs[0]) / (yrs[yrs.length - 1] - yrs[0]) * (W - pl - pr);
+  const sy = v => H - pb - v / ymax * (H - pb - pt);
+  for (let v = 0; v <= ymax; v += 100000) {
+    el("path", {d: `M${pl} ${sy(v)}H${W - pr}`, stroke: "var(--rule)", "stroke-width": 0.6}, C);
+    el("text", {x: pl - 4, y: sy(v) + 3, "text-anchor": "end", "font-size": 9, fill: "var(--muted)", "font-family": "Public Sans, sans-serif"}, C).textContent = "$" + v / 1000 + "B";
+  }
+  [2025, 2050, 2075, 2100].forEach(y => el("text", {x: sx(y), y: H - 6, "text-anchor": "middle", "font-size": 9, fill: "var(--muted)", "font-family": "Public Sans, sans-serif"}, C).textContent = y);
+  let base = yrs.map(() => 0);
+  [["urban", "var(--brt)"], ["hsr", "var(--hsr)"], ["conventional", "var(--rail)"]].forEach(([k, col]) => {
+    const top = base.map((b, i) => b + cum[k][i]);
+    const d = "M" + yrs.map((y, i) => `${sx(y)} ${sy(top[i])}`).join("L") + "L" + yrs.slice().reverse().map((y, j) => `${sx(y)} ${sy(base[yrs.length - 1 - j])}`).join("L") + "Z";
+    el("path", {d, fill: col, "fill-opacity": 0.55, stroke: "none"}, C);
+    base = top;
+  });
+  el("path", {d: "M" + yrs.map((y, i) => `${sx(y)} ${sy(budget[i])}`).join("L"), fill: "none", stroke: "var(--budget)", "stroke-width": 1.2, "stroke-dasharray": "4 3"}, C);
+  const cursor = el("path", {d: "", stroke: "var(--ink)", "stroke-width": 1}, C);
+
+  // ---------- one metro ----------
+  const MS = document.getElementById("metro");
+  const COL = {metro: "var(--metro)", brt: "var(--brt)", commuter: "var(--rail)", streetcar: "var(--street)"};
+  const chips = document.getElementById("chips");
+  let cur = "houston", mEls = [];
+  function buildMetro(id) {
+    cur = id;
+    const m = M.metros.find(x => x.id === id);
+    chips.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.id === id)));
+    while (MS.firstChild) MS.removeChild(MS.firstChild);
+    const X = [], Yv = [];
+    m.dots.forEach(d => { X.push(d[0]); Yv.push(d[1]); });
+    m.net.forEach(l => l.pts.forEach(p => { X.push(p[0]); Yv.push(p[1]); }));
+    let bx0 = Math.min(...X) - 3, by0 = Math.min(...Yv) - 3;
+    const w = Math.max(...X) + 3 - bx0, h = Math.max(...Yv) + 3 - by0, Wd = Math.max(w, h * 1.25), Hd = Wd / 1.25;
+    bx0 -= (Wd - w) / 2; by0 -= (Hd - h) / 2;
+    MS.setAttribute("viewBox", `${bx0} ${by0} ${Wd} ${Hd}`);
+    el("rect", {x: bx0, y: by0, width: Wd, height: Hd, fill: "var(--surface)"}, MS);
+    const maxd = Math.max(...m.dots.map(d => d[2]));
+    m.dots.forEach(d => el("rect", {x: d[0] - 0.5, y: d[1] - 0.5, width: 1, height: 1, fill: "var(--dot)", "fill-opacity": (0.12 + 0.6 * Math.sqrt(d[2] / maxd)).toFixed(2)}, MS));
+    const sw = Wd / 260;
+    mEls = [];
+    m.net.filter(l => l.status === "existing").forEach(l => el("path", {d: pathD(l.pts), fill: "none", stroke: "var(--existing)", "stroke-width": sw * 2.2, "stroke-dasharray": `${sw * 4} ${sw * 3}`}, MS));
+    m.net.filter(l => l.status !== "existing").forEach(l => {
+      const p = el("path", {d: pathD(l.pts), fill: "none", "stroke-linecap": "round", "stroke-linejoin": "round"}, MS);
+      const pr_ = P[l.project];
+      el("title", {}, p).textContent = `${l.name}${pr_ && pr_.open ? ", opens " + pr_.open : ""}`;
+      mEls.push({l, p, sw});
+    });
+    const sx0 = bx0 + Wd * 0.05, sy0 = by0 + Hd * 0.94;
+    el("path", {d: `M${sx0} ${sy0}h10`, stroke: "var(--ink)", "stroke-width": sw * 1.5, fill: "none"}, MS);
+    el("text", {x: sx0, y: sy0 - sw * 3, "font-size": sw * 6, fill: "var(--muted)", "font-family": "Public Sans, sans-serif"}, MS).textContent = "10 km";
+    document.getElementById("mname").textContent = m.name;
+    drawMetro(+yIn.value);
+  }
+  function drawMetro(y) {
+    const m = M.metros.find(x => x.id === cur);
+    mEls.forEach(({l, p, sw}) => {
+      const s = status(P[l.project], y);
+      p.setAttribute("stroke", s === "open" ? (COL[l.mode] || "var(--ink)") : "var(--later)");
+      p.setAttribute("stroke-width", s === "open" ? sw * 3 : sw * 1.6);
+      p.setAttribute("stroke-dasharray", s === "building" ? `${sw * 5} ${sw * 3}` : "none");
+      if (s === "open") p.parentNode.appendChild(p);
+    });
+    const ps = T.projects.filter(p => p.metro === cur);
+    const open = ps.filter(p => status(p, y) === "open");
+    const km = k => fmt(open.filter(p => p.mode === k).reduce((a, p) => a + p.km, 0));
+    const rows = [["People (2020)", fmt(m.pop)], ["Lines open / planned", `${open.length} / ${ps.length}`],
+      ["Metro / BRT / regional rail open", `${km("metro")} / ${km("brt")} / ${km("commuter")} km`],
+      ["Capital in open lines", money(open.reduce((a, p) => a + p.capital, 0))],
+      ["New daily transit trips (today's land use)", fmt(open.reduce((a, p) => a + p.trips_day, 0))],
+      ["Budget share, 30 years", money(m.budget)]];
+    document.getElementById("mstats").innerHTML = rows.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("");
+    const next = ps.filter(p => p.open && p.open > y).sort((a, b) => a.open - b.open)[0];
+    document.getElementById("mnote").textContent = !ps.length ? "No corridor here reaches the density the generator needs for BRT or rail."
+      : next ? `Next to open: ${next.name} (${next.mode === "commuter" ? "regional rail" : next.mode}), ${next.open}.` : "Every line in this metro's plan is open.";
+  }
+  M.metros.forEach(m => {
+    const b = document.createElement("button");
+    b.type = "button"; b.dataset.id = m.id; b.textContent = m.name.split("-")[0];
+    if (!T.projects.some(p => p.metro === m.id)) b.classList.add("none");
+    b.addEventListener("click", () => buildMetro(m.id));
+    chips.appendChild(b);
+  });
+
+  // ---------- tables ----------
+  const inter = T.projects.filter(p => p.layer !== "urban").sort((a, b) => (a.open || 9999) - (b.open || 9999));
+  const tb = document.querySelector("#tinter tbody");
+  tb.innerHTML = inter.map(p => `<tr data-id="${p.id}"><td>${p.open || "not built"}</td><td class="name">${p.name}</td><td>${money(p.capital)}</td>` +
+    `<td>${(p.trips_year / 1e6).toFixed(2)}M</td><td>${money(p.benefit)}</td><td>${money(p.fares - p.opex)}</td>` +
+    `<td>${p.bcr.toFixed(2)}${p.bcr >= 1 ? ' <span class="pill ok">pays</span>' : ""}</td></tr>`).join("");
+  const LAY = [["urban", "Urban rail and BRT, 25 metros"], ["hsr", "High-speed rail"], ["conventional", "Conventional trains"]];
+  document.querySelector("#tlayer tbody").innerHTML = LAY.map(([k, n]) => {
+    const ps = T.projects.filter(p => p.layer === k), bs = ps.filter(p => p.open);
+    const cap = bs.reduce((a, p) => a + p.capital, 0), ben = bs.reduce((a, p) => a + p.benefit, 0), mg = bs.reduce((a, p) => a + p.fares - p.opex, 0);
+    const r = (ben + Math.max(mg, 0)) * 25.73 / (cap + Math.max(-mg, 0) * 25.73);
+    const ok = ps.filter(p => p.bcr >= 1);
+    return `<tr><td>${n}</td><td>${ps.length}</td><td>${bs.length}</td><td>${money(cap)}</td><td>${money(ben)}</td><td>${money(mg)}</td><td>${r.toFixed(2)}</td><td>${ok.length}</td></tr>`;
+  }).join("");
+  const built = T.projects.filter(p => p.open).reduce((a, p) => a + p.capital, 0), avail = T.other_musd * (T.years[1] - T.years[0] + 1);
+  document.getElementById("unspent").innerHTML = `<b>${money(built)} built of ${money(avail)} available by 2100.</b> What's left (${money(avail - built)}) isn't enough for the last high-speed corridors (Fort Worth - Lubbock, then West Texas to El Paso), which come last on ratio.`;
+
+  // ---------- the year ----------
+  function draw() {
+    const y = +yIn.value, r = Y[y];
+    document.getElementById("ylab").textContent = y;
+    let spent = 0; T.yearly.forEach(q => { if (q.year <= y) spent += q.spend; });
+    document.getElementById("f-spent").textContent = money(spent);
+    document.getElementById("f-urban").textContent = fmt(r.urban_trips_day);
+    document.getElementById("f-inter").textContent = (r.intercity_trips_year / 1e6).toFixed(1) + "M";
+    document.getElementById("f-flights").textContent = fmt(r.flights_day);
+    document.getElementById("f-gain").textContent = money(r.benefit);
+    document.getElementById("f-gap").textContent = money(r.opex - r.fares);
+    hsrL.forEach(({id, p}) => {
+      const s = status(P[id], y);
+      p.setAttribute("stroke", s === "open" || s === "building" ? "var(--hsr)" : "var(--hsr-later)");
+      p.setAttribute("stroke-width", s === "open" ? 7 : s === "building" ? 4 : 2.5);
+      p.setAttribute("stroke-dasharray", s === "building" ? "10 6" : s === "open" ? "none" : "6 6");
+      if (s === "open") hsrG.appendChild(p);
+    });
+    const live = new Set();
+    hsrL.forEach(({id}) => { if (status(P[id], y) === "open") (M.hsr[id] || []).forEach(q => live.add(q.join())); });
+    for (const s in stEls) stEls[s].setAttribute("fill", live.has(M.hsr_stations[s].xy.join()) ? "var(--hsr)" : "var(--surface)");
+    conv.forEach(({id, p}) => {
+      const s = status(P[id], y);
+      p.setAttribute("stroke", s === "open" ? "var(--rail)" : "var(--rail-later)");
+      p.setAttribute("stroke-width", s === "open" ? 3.5 : 2.5);
+      p.setAttribute("stroke-dasharray", s === "open" ? "1 6" : "1 8");
+    });
+    const tr = {};
+    T.projects.forEach(p => { if (p.layer === "urban" && status(p, y) === "open") tr[p.metro] = (tr[p.metro] || 0) + p.trips_day; });
+    const maxT = Math.max(1, ...M.metros.map(m => T.projects.filter(p => p.metro === m.id).reduce((a, p) => a + p.trips_day, 0)));
+    circles.forEach(({m, c, t}) => {
+      const v = tr[m.id] || 0;
+      c.setAttribute("r", v ? 5 + 30 * Math.sqrt(v / maxT) : 0);
+      t.textContent = `${m.name}: ${fmt(v)} new daily transit trips open by ${y} (today's land use)`;
+    });
+    cursor.setAttribute("d", `M${sx(y)} ${pt}V${H - pb}`);
+    const nx = inter.filter(p => p.open && p.open > y)[0];
+    document.getElementById("next").textContent = nx ? `Next intercity opening: ${nx.name}, ${nx.open}.` : "Every intercity line that fits the budget is open.";
+    tb.querySelectorAll("tr").forEach(row => row.classList.toggle("future", !(P[row.dataset.id].open && P[row.dataset.id].open <= y)));
+    drawMetro(y);
+  }
+  yIn.addEventListener("input", draw);
+  let timer = null;
+  const play = document.getElementById("play");
+  play.addEventListener("click", () => {
+    if (timer) { clearInterval(timer); timer = null; play.textContent = "Play"; return; }
+    if (+yIn.value >= 2100) yIn.value = 2025;
+    play.textContent = "Pause";
+    timer = setInterval(() => { if (+yIn.value >= 2100) { clearInterval(timer); timer = null; play.textContent = "Play"; return; } yIn.value = +yIn.value + 1; draw(); }, 180);
+  });
+  buildMetro("houston");
+  draw();
+}).catch(e => { document.querySelector(".wrap").insertAdjacentHTML("beforeend", `<p class="note warn">The map data didn't load (${e.message}). Open this page from its site, not as a local file.</p>`); });
+})();
+</script>
+</body>
+</html>

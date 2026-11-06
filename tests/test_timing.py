@@ -1,0 +1,50 @@
+"""The timing step (study/timing.py) and the travellers' gain (texas/intercity.py logsum_gain)."""
+import os
+import sys
+import unittest
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, ROOT)
+sys.path.insert(0, os.path.join(ROOT, "study"))
+from texas import intercity as ic  # noqa: E402
+import timing  # noqa: E402
+
+
+def project(pid, capital, benefit, build=2, after=(), opex=0.0, fares=0.0):
+    return {"id": pid, "layer": "hsr", "capital": capital, "benefit": benefit, "opex": opex, "fares": fares,
+            "build": build, "after": list(after), "base_year": 2050}
+
+
+class GainTests(unittest.TestCase):
+    def test_no_rail_no_gain_and_small_share_gain_is_about_the_share(self):
+        self.assertEqual(ic.logsum_gain(0.9, 0.1, 0.0, 0.6), 0.0)
+        g = ic.logsum_gain(0.95, 0.05, 0.01, 1.0)
+        r = ic.nested_split(0.95, 0.05, 0.01, 1.0)[2]
+        self.assertAlmostEqual(g, r, delta=0.1 * r)
+        self.assertGreater(ic.logsum_gain(0.8, 0.2, 0.5, 0.6), ic.logsum_gain(0.8, 0.2, 0.1, 0.6))
+
+
+class ScheduleTests(unittest.TestCase):
+    def test_ratio_counts_operating_deficit_as_cost(self):
+        a = project("a", 1000, 100)
+        b = project("b", 1000, 100, opex=50, fares=10)
+        timing.ratio(a)
+        timing.ratio(b)
+        self.assertAlmostEqual(a["bcr"], 100 * timing.PV_FACTOR / 1000)
+        self.assertAlmostEqual(b["bcr"], 100 * timing.PV_FACTOR / (1000 + 40 * timing.PV_FACTOR))
+
+    def test_best_first_within_the_budget_and_dependents_open_after(self):
+        ps = [project("low", 500, 10), project("high", 500, 100), project("child", 300, 1000, build=1, after=["low"])]
+        built, spend = timing.schedule(ps, 200)
+        by = {p["id"]: p for p in ps}
+        self.assertLessEqual(by["high"]["start"], by["low"]["start"])          # better ratio first
+        self.assertGreaterEqual(by["child"]["open"], by["low"]["open"])        # opens no earlier than its parent
+        cum_b = cum_s = 0.0
+        for y in timing.YEARS:                                                  # never borrows
+            cum_b += 200
+            cum_s += spend[y]
+            self.assertLessEqual(cum_s, cum_b + 1e-6)
+
+
+if __name__ == "__main__":
+    unittest.main()
