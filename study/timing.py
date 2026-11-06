@@ -28,6 +28,7 @@ Writes study/timing.md and docs/data/timeline.json (the site's data).
    whether or not a project's ratio reaches 1 (the plan spends DFW's rate); the ratios say which
    projects pay for themselves in travellers' gains alone.
 """
+import copy
 import csv
 import json
 import math
@@ -50,6 +51,8 @@ PV_FACTOR = (1 - 1.03 ** -50) / 0.03                      # 25.7
 BUILD_YEARS = {"metro": 5, "brt": 2, "commuter": 4, "streetcar": 3, "hsr": 8, "conventional": 3}
 HSR_YEAR = 2050
 HSR_HEADWAY = 30
+METRO_YEARS = 30          # the metros-first scenario: each metro's budget over this many years from 2025
+SCENARIOS = (("ratio", "Best ratio first"), ("metros_first", "Metros first"))
 
 
 def texas_pop():
@@ -187,10 +190,13 @@ def ratio(pr):
     return pr["bcr"]
 
 
-def schedule(projects, budget_per_year):
-    """Best ratio first; each starts in the first year its spending fits under cumulative budget, no
-    earlier than what it depends on starts, and opens no earlier than that opens (a dependent's
-    priority is capped at its parent's)."""
+def schedule(projects, budget, spend=None, order=None):
+    """Schedule `projects` (sets each one's start and open years; None if it doesn't fit by 2100).
+    `budget`: $M a year, a number or {year: $M}; `spend`: {year: $M} already committed (counted
+    against the same budget). Each project starts in the first year its spending fits: cumulative
+    spending never exceeds cumulative budget (carryover, no borrowing), no earlier than what it depends
+    on starts, and it opens no earlier than that opens. Order: best ratio first (a dependent's priority
+    capped at its parent's), or the given list `order`."""
     by = {p["id"]: p for p in projects}
     for p in projects:
         ratio(p)
@@ -198,30 +204,35 @@ def schedule(projects, budget_per_year):
     def prio(p):
         r = p["bcr"]
         for d in p["after"]:
-            r = min(r, prio(by[d]))
+            if d in by:
+                r = min(r, prio(by[d]))
         return r
     for p in projects:
         p["priority"] = prio(p)
-    spend = {y: 0.0 for y in YEARS}
+    per_year = budget if isinstance(budget, dict) else {y: budget for y in YEARS}
+    cum_budget, c = {}, 0.0
+    for y in YEARS:
+        c += per_year.get(y, 0.0)
+        cum_budget[y] = c
+    spend = dict(spend) if spend else {y: 0.0 for y in YEARS}
     built = []
-    for p in sorted(projects, key=lambda p: -p["priority"]):
+    for p in (order if order is not None else sorted(projects, key=lambda p: -p["priority"])):
         p["start"] = p["open"] = None
-        if any(by[d]["open"] is None for d in p["after"]):
+        deps = [by[d] for d in p["after"] if d in by]
+        if any(d["open"] is None for d in deps):
             continue
         # a project's value assumes the ones before it are there: it may be built alongside them, but
         # opens no earlier than they do
-        first = max([YEARS[0]] + [max(by[d]["start"], by[d]["open"] - p["build"]) for d in p["after"]])
+        first = max([YEARS[0]] + [max(d["start"], d["open"] - p["build"]) for d in deps])
         per = p["capital"] / p["build"]
-        for y in range(first, YEARS[-1] - p["build"] + 2):
+        for y in range(first, YEARS[-1] - p["build"] + 1):   # opens by the last year
             trial = dict(spend)
             for k in range(p["build"]):
                 trial[y + k] += per
-            cum_b = cum_s = 0.0
-            ok = True
+            cum_s, ok = 0.0, True
             for yy in YEARS:
-                cum_b += budget_per_year
                 cum_s += trial[yy]
-                if cum_s > cum_b + 1e-6:
+                if cum_s > cum_budget[yy] + 1e-6:
                     ok = False
                     break
             if ok:
@@ -230,6 +241,30 @@ def schedule(projects, budget_per_year):
                 built.append(p)
                 break
     return built, spend
+
+
+def metros_first(projects):
+    """Scenario: each metro gets its own stream, its 30-year generator budget (urban/metros.json
+    budget_musd) spread evenly over METRO_YEARS from 2025, and builds its lines in the generator's
+    order as that stream allows. Intercity projects take what's left of the $6.7B a year (including
+    whatever the metros don't spend), best ratio first."""
+    reg = json.load(open(os.path.join(ROOT, "urban", "metros.json"), encoding="utf-8"))
+    spend = {y: 0.0 for y in YEARS}
+    built = []
+    for m in reg["metros"]:
+        ps = [p for p in projects if p.get("metro") == m["id"]]
+        if not ps:
+            continue
+        stream = {y: (m["budget_musd"] / METRO_YEARS if y < YEARS[0] + METRO_YEARS else 0.0) for y in YEARS}
+        b, s_m = schedule(ps, stream, order=ps)   # generator order (the list is already in it)
+        built += b
+        for y in YEARS:
+            spend[y] += s_m[y]
+    inter = [p for p in projects if p["layer"] != "urban"]
+    b, spend = schedule(inter, OTHER_MUSD, spend=spend)
+    for p in projects:
+        ratio(p)
+    return built + b, spend
 
 
 def yearly(projects, spend, pop):
@@ -246,13 +281,72 @@ def yearly(projects, spend, pop):
     return rows
 
 
+def pv(rows, key):
+    """Present value in 2025 at 3% of a yearly series."""
+    return sum(r[key] / 1.03 ** (r["year"] - YEARS[0]) for r in rows)
+
+
 def main():
     pop = texas_pop()
     print("projects ...")
     projects = urban_projects() + hsr_projects() + conventional_projects()
-    built, spend = schedule(projects, OTHER_MUSD)
-    rows = yearly(projects, spend, pop)
-    write(projects, built, rows, pop)
+    runs = {}
+    for key, _ in SCENARIOS:
+        ps = copy.deepcopy(projects)
+        built, spend = schedule(ps, OTHER_MUSD) if key == "ratio" else metros_first(ps)
+        rows = yearly(ps, spend, pop)
+        for r in rows:
+            r["net"] = r["benefit"] + r["fares"] - r["opex"]
+        runs[key] = {"projects": ps, "built": built, "rows": rows}
+    write(runs, pop)
+
+
+def scenario_section(runs):
+    """Best ratio first against metros first: when things open and what it adds up to."""
+    a, b = runs["ratio"], runs["metros_first"]
+    L = ["## Scenario: metros first", "",
+         f"Each of the 25 metros gets its own stream, its 30-year budget from step 4 (DFW's rate per resident) spread "
+         f"over {METRO_YEARS} years from 2025, and builds its lines in the generator's order as that stream allows. "
+         "Intercity rail takes what's left of the $6.7B a year, including whatever the metros can't spend, best ratio "
+         "first. Values, costs and the budget are the same as above.", "",
+         "| | Best ratio first | Metros first |", "|---|---|---|"]
+
+    def at(run, y, k):
+        return next(r[k] for r in run["rows"] if r["year"] == y)
+
+    def built_cap(run, layer):
+        return sum(p["capital"] for p in run["projects"] if p.get("open") and p["layer"] == layer)
+    for y in (2040, 2050, 2075, 2100):
+        L.append(f"| New daily urban transit trips, {y} | {at(a, y, 'urban_trips_day'):,.0f} | {at(b, y, 'urban_trips_day'):,.0f} |")
+    for y in (2050, 2100):
+        L.append(f"| Intercity rail trips a year, {y} | {at(a, y, 'intercity_trips_year') / 1e6:.1f}M | "
+                 f"{at(b, y, 'intercity_trips_year') / 1e6:.1f}M |")
+        L.append(f"| Fewer flights a day, {y} | {at(a, y, 'flights_day'):.0f} | {at(b, y, 'flights_day'):.0f} |")
+    for layer, lab in (("urban", "Urban capital built by 2100"), ("hsr", "High-speed capital built by 2100"),
+                       ("conventional", "Conventional capital built by 2100")):
+        L.append(f"| {lab} | {money(built_cap(a, layer))} | {money(built_cap(b, layer))} |")
+    for k, lab in (("benefit", "Travellers' gain, 2025-2100, present value at 3%"),
+                   ("net", "Gain + fares - operating cost, present value at 3%")):
+        L.append(f"| {lab} | {money(pv(a['rows'], k))} | {money(pv(b['rows'], k))} |")
+    L += ["", "When the intercity lines open:", "", "| Line | Best ratio first | Metros first |", "|---|---|---|"]
+    bw = {p["id"]: p for p in b["projects"]}
+    for p in sorted((p for p in a["projects"] if p["layer"] != "urban"), key=lambda p: (p["open"] or 9999)):
+        q = bw[p["id"]]
+        L.append(f"| {p['name']} | {p['open'] or 'not built'} | {q['open'] or 'not built'} |")
+    L += ["", "When each metro's plan is complete:", "", "| Metro | Lines | Best ratio first | Metros first |", "|---|---|---|---|"]
+    for mid in dict.fromkeys(p["metro"] for p in a["projects"] if p["layer"] == "urban"):
+        pa = [p for p in a["projects"] if p.get("metro") == mid]
+        pb = [p for p in b["projects"] if p.get("metro") == mid]
+
+        def done(ps):
+            return "not all built" if any(not p.get("open") for p in ps) else max(p["open"] for p in ps)
+        L.append(f"| {pa[0]['metro_name']} | {len(pa)} | {done(pa)} | {done(pb)} |")
+    ga, gb = pv(a["rows"], "net"), pv(b["rows"], "net")
+    L += ["", f"Metros first finishes the metro networks decades sooner and pushes the high-speed lines back; over "
+          f"2025-2100 it returns {money(gb - ga) if gb >= ga else money(ga - gb) + ' less'} in present-value travellers' "
+          "gain net of operating cost, at these trip values ($8 an urban trip, $40-80 an intercity one). The urban "
+          "lines' operating deficits start sooner too.", ""]
+    return L
 
 
 def money(m):
@@ -260,7 +354,8 @@ def money(m):
     return f"{sign}${abs(m) / 1000:.1f}B" if abs(m) >= 1000 else f"{sign}${abs(m):,.0f}M"
 
 
-def write(projects, built, rows, pop):
+def write(runs, pop):
+    projects, built, rows = runs["ratio"]["projects"], runs["ratio"]["built"], runs["ratio"]["rows"]
     layers = (("urban", "Urban rail and BRT (25 metros)"), ("hsr", "High-speed rail"), ("conventional", "Conventional trains"))
     L = ["# Timing: every layer under the one budget", "",
          "Generated by `python study/timing.py`. Every project from steps 3-5, valued the same way and scheduled under "
@@ -335,14 +430,21 @@ def write(projects, built, rows, pop):
           "- Operating cost is outside the capital budget, as in DFW Transit; the deficits are in the ratio, but no "
           "budget pays them yet.",
           "- Dallas-Fort Worth's plan runs on its own timetable (DFW Transit) and isn't re-ranked here.", ""]
+    L += scenario_section(runs)
     with open(os.path.join(ROOT, "study", "timing.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(L))
     os.makedirs(os.path.join(ROOT, "docs", "data"), exist_ok=True)
     keep = ("id", "layer", "metro", "metro_name", "name", "mode", "km", "capital", "opex", "fares", "benefit", "trips_day",
             "trips_year", "air_day", "flights_day", "bcr", "start", "open", "chain", "after")
     data = {"budget_musd": STATE_MUSD, "dfw_musd": DFW_MUSD, "other_musd": OTHER_MUSD, "years": [YEARS[0], YEARS[-1]],
+            "metro_years": METRO_YEARS,
             "projects": [{k: (round(v, 3) if isinstance(v, float) else v) for k, v in p.items() if k in keep} for p in projects],
-            "yearly": [{k: (round(v, 1) if isinstance(v, float) else v) for k, v in r.items()} for r in rows]}
+            "yearly": [{k: (round(v, 1) if isinstance(v, float) else v) for k, v in r.items()} for r in rows],
+            "scenarios": {key: {"label": label,
+                                "when": {p["id"]: [p["start"], p["open"]] for p in runs[key]["projects"] if p.get("open")},
+                                "yearly": [{k: (round(v, 1) if isinstance(v, float) else v) for k, v in r.items()}
+                                           for r in runs[key]["rows"]]}
+                          for key, label in SCENARIOS}}
     with open(os.path.join(ROOT, "docs", "data", "timeline.json"), "w", encoding="utf-8") as f:
         json.dump(data, f, separators=(",", ":"))
     print("\n".join(L[:40]))
