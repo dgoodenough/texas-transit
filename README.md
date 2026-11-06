@@ -78,11 +78,17 @@ high-speed rail versus metro systems is an output, not an input.
    end. All seven together are $14B of capital and run about $330M a year more than fares bring
    in. On the same routes, high-speed rail carries seven to eleven times the riders, at 40-60% of
    the riders per dollar of capital.
-   Next, the timing step: every layer under the one budget, with the urban layer's unspent $67B,
-   operating costs and fares for high-speed rail, and user benefits so intercity and urban trips
-   can be compared.
-6. **The site:** a statewide map with the time slider, high-speed rail and flights, linking to
-   DFW Transit for the DFW detail.
+6. **Timing and the site** (`study/timing.py`, `study/timing.md`, `docs/`): every project from
+   steps 3-5 valued the same way, by what travellers gain (the logsum of the same logit models,
+   plus fares minus operating cost, over capital plus the operating deficit, 50 years at 3%).
+   They're scheduled best ratio first under the $6.7B a year left after DFW's $2.3B, and built
+   whether or not a ratio reaches 1, since the plan spends DFW's rate. By 2100 that's $484B of
+   $507B: 12 high-speed corridors, 91 of 93 metro lines and all seven conventional routes.
+   About 750,000 new daily metro transit trips, 109M intercity rail trips a year and about 170
+   fewer flights a day. Only Austin - San Antonio and Houston - Austin high-speed rail pay for
+   themselves in travellers' gains alone, and by 2100 the lines run $1.6B a year more than fares
+   bring in. The site (`docs/index.html`, data from `tools/build_site.py`) shows it all by year,
+   linking to DFW Transit for DFW.
 
 ## Reusing DFW Transit's code
 

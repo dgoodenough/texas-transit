@@ -8,12 +8,20 @@ Capital cost (2025 dollars) = track km x COST_PER_KM + a station cost by kind. C
 between the two recent US references: Texas Central (240 miles; above $30B in 2023, above $40B by
 USDOT's 2025 figure: about $80-105M per km) and Brightline West (218 miles, mostly in a freeway
 median; $21.5B: about $60M per km). The study tests $60M and $110M.
+
+Operating cost a year (assumptions, 2025 dollars): every link runs the timetable's trains both ways
+over the service day (intercity.json hsr: a train every headway_min for SERVICE_HOURS) at
+OPEX_PER_TRAIN_KM, plus MAINTENANCE_PER_KM of track and systems upkeep. European high-speed
+operators run about $25-45 a train-km before infrastructure.
 """
 from texas.intercity import km
 
 TRACK_FACTOR = 1.12          # track km per straight-line km between neighbouring stations (assumption)
 COST_PER_KM = 90.0           # $M per track km, 2025 dollars
 STATION_COST = {"major": 600.0, "minor": 150.0}   # $M: a downtown terminal and its approach; a town stop
+SERVICE_HOURS = 18
+OPEX_PER_TRAIN_KM = 40.0     # $ (trains of about 400 seats)
+MAINTENANCE_PER_KM = 0.25    # $M per track km a year
 
 STATIONS = {
     # name: (lat, lon, kind)
@@ -111,3 +119,11 @@ def capital_musd(corridor_ids, cost_per_km=COST_PER_KM, built=()):
 
 def track_km(corridor_ids):
     return sum(t for _, _, t in network_links(corridor_ids))
+
+
+def opex_musd(corridor_ids, headway_min, built=()):
+    """Operating cost a year ($M) of the corridors' own links (those not already in `built`)."""
+    have = {tuple(sorted((a, b))) for a, b, _ in network_links(built)}
+    track = sum(t for a, b, t in network_links(corridor_ids) if tuple(sorted((a, b))) not in have)
+    trains = SERVICE_HOURS * 60 / headway_min   # each way, a day
+    return (2 * track * trains * 365 * OPEX_PER_TRAIN_KM) / 1e6 + track * MAINTENANCE_PER_KM

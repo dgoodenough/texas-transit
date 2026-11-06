@@ -281,11 +281,24 @@ def nested_split(s_car, s_air, rail_odds, scale):
     return (1 - nest), nest * (1 - within_rail), nest * within_rail
 
 
+def logsum_gain(s_car, s_air, rail_odds, scale):
+    """Change in the logsum (utils per traveller) when rail joins: today's shares stand for
+    exp(utility), so today's logsum is ln(s_car + s_air) = 0 and the new one is ln(s_car + exp(I)),
+    I the air-rail nest's inclusive value. Divided by the cost coefficient it is the traveller's
+    gain in dollars (consumer surplus)."""
+    if rail_odds <= 0 or s_car <= 0:
+        return 0.0
+    w_rail = math.log(s_car) + math.log(rail_odds)
+    terms = [math.exp(w_rail / scale)] + ([math.exp(math.log(s_air) / scale)] if s_air > 0 else [])
+    return math.log(s_car + math.exp(scale * math.log(sum(terms))))
+
+
 def run(base, zones, p, network=None, growth=None):
     """Mode split for every pair, today and with `network` (a RailNetwork, high-speed by default).
     `growth` ({zone: population factor}, from zone_growth) scales each pair's trips by the
     geometric mean of its two zones' growth. Returns {pair: {km, base: {car, air}, new: {car, air,
-    rail, induced}}} in daily person-trips; `induced` is extra rail travel on top of `rail`."""
+    rail, induced}, benefit_usd}} in daily person-trips; `induced` is extra rail travel on top of `rail`;
+    `benefit_usd` is the travellers' gain a day (logsum_gain), induced trips' own gain left out."""
     out = {}
     for pair, d in base.items():
         g = math.sqrt(growth[pair[0]] * growth[pair[1]]) if growth else 1.0
@@ -293,7 +306,7 @@ def run(base, zones, p, network=None, growth=None):
         if total <= 0:
             continue
         res = {"km": d["km"], "base": {"car": d["car"] * g, "air": d["air"] * g},
-               "new": {"car": 0.0, "air": 0.0, "rail": 0.0, "induced": 0.0}}
+               "new": {"car": 0.0, "air": 0.0, "rail": 0.0, "induced": 0.0}, "benefit_usd": 0.0}
         for purpose, share in (("work", d["work_share"]), ("nonwork", 1 - d["work_share"])):
             trips = total * share
             s_car, s_air = d["car"] / (d["car"] + d["air"]), d["air"] / (d["car"] + d["air"])
@@ -305,6 +318,9 @@ def run(base, zones, p, network=None, growth=None):
             res["new"]["car"] += trips * c
             res["new"]["air"] += trips * a
             res["new"]["rail"] += trips * r
+            if rail_odds > 0:   # travellers' gain, $ a day (induced trips' own gain is left out)
+                res["benefit_usd"] += trips * logsum_gain(s_car, s_air, rail_odds, p["nest_public_scale"]) / \
+                    abs(p["cost_coef_per_dollar"][purpose])
         svc = network.svc if network is not None else p["hsr"]
         res["new"]["induced"] = res["new"]["rail"] * svc.get("induced_share", 0.0)
         out[pair] = res
