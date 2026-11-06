@@ -1,0 +1,13 @@
+corridor,route,place,lat,lon,aadt,segments,counted
+Dallas-Houston,IH0045,Centerville,31.258,-95.978,43430,9,11-01-2026
+Dallas-Austin,IH0035,West,31.802,-97.093,75563,7,11-01-2026
+Austin-San Antonio,IH0035,between Kyle and San Marcos,29.935,-97.905,133636,18,11-01-2026
+Houston-San Antonio,IH0010,Weimar,29.7,-96.78,36981,11,11-01-2026
+Houston-Austin,US0290,Carmine,30.142,-96.687,18641,9,11-01-2026
+Houston-Victoria / Corpus Christi / Rio Grande Valley,US0059,Wharton,29.33,-96.12,23028,10,11-01-2026
+Dallas-Fort Worth to West Texas,IH0020,Cisco,32.395,-98.975,29247,15,11-01-2026
+San Antonio-El Paso,IH0010,Ozona,30.713,-101.2,10987,14,11-01-2026
+Dallas-Fort Worth to Oklahoma,IH0035,Gainesville,33.7,-97.15,51116,5,11-01-2026
+Dallas-Fort Worth to Arkansas,IH0030,Mount Pleasant,33.16,-94.975,28912,20,11-01-2026
+Dallas-Fort Worth to Shreveport,IH0020,Marshall,32.53,-94.36,37029,17,11-01-2026
+Houston to Louisiana,IH0010,Orange,30.095,-93.77,57416,17,11-01-2026
