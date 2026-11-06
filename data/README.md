@@ -14,6 +14,7 @@ against. Every file here is rebuilt by a script in `tools/`; raw downloads go to
 | `flows/air_city_pairs.csv` | Air origin-destination passengers a day by city-pair market, every market with a Texas end, average of four quarters | DOT / BTS Consumer Airfare Report, Table 6 (DB1B 10% ticket sample) | `tools/fetch_air.py` |
 | `flows/road_screenlines.csv` | Two-way daily traffic at a rural point on each intercity corridor | TxDOT AADT (open data) | `tools/fetch_counts.py` |
 | `flows/nhts_od_2022_texas.csv` | Annual long-distance person trips between NextGen zones (metro areas, rest of state) with a Texas end, by mode and purpose | FHWA / ORNL NextGen NHTS national OD data, 2022 | `tools/fetch_nhts_od.py` |
+| `flows/air_monterrey.csv` | Passengers between each Texas airport and Monterrey, latest 12 months, both directions (hub airports carry connections) | DOT International Report: Passengers (T-100 international segment, data.transportation.gov `xgub-n9bw`) | `study/interstate_rail.py` |
 | `urban/ntd_2024_weekday_tx.csv` | Average typical weekday boardings, every Texas transit agency and mode, 2024 | NTD annual data, Service by Mode and Time Period (data.transportation.gov `wwdp-t4re`) | `tools/fetch_transit_use.py` |
 | `urban/acs_transit_share_cbsa.csv` | Workers and public transportation commuters for every metro with a Texas county | ACS 2020-2024 5-year, table B08301 (Census table-based summary file) | `tools/fetch_transit_use.py` |
 
