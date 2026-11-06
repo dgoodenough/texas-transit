@@ -1,0 +1,6 @@
+center_id,name,kind,lat,lon,activity,pop,jobs,peak_density_per_km2,peak_job_density_per_km2
+T01,5th Street / Avenue U,town,31.075958,-97.352374,30161,9436,20725,6730,5064
+T02,Mohawk Drive,town,31.078159,-97.803406,29046,26319,2727,3889,123
+T03,10th Street / Rancier,town,31.124406,-97.72434,20842,16448,4394,3250,816
+T04,Highway 190 / Avenue D,town,31.119247,-97.891851,13862,10719,3143,3382,755
+T05,Avenue D / Main,town,31.053946,-97.469645,8836,3662,5174,3976,2033

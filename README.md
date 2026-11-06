@@ -30,10 +30,11 @@ high-speed rail versus metro systems is an output, not an input.
 
 ## The model: three layers
 
-1. **Urban (exists).** DFW keeps its hand-built plan. The other 25 metros use DFW Transit's
-   network generator (`python -m metro generate <id>`), once it has:
-   - each metro calibrated to its own Census transit commute share (ACS table B08301), not DFW's;
-   - regional construction costs.
+1. **Urban.** DFW keeps its hand-built plan. The other 25 metros use DFW Transit's network
+   generator (`python -m metro generate <id>`), driven from this repo (`urban/`). Each metro's
+   ridership constant comes from its own transit use: Houston's is fitted to NTD rail and BRT
+   riders, and the rest are set from their ACS transit commute share (table B08301). Construction
+   costs are still DFW's.
 2. **Intercity (new, the core).** Counties (254) as zones. Long-distance trips by purpose
    (business, personal), with a mode choice among car, air, high-speed rail, conventional rail
    and intercity bus on door-to-door time, cost and frequency. Calibrated to today's travel:
@@ -62,13 +63,29 @@ high-speed rail versus metro systems is an output, not an input.
    first three form the Triangle's west and south sides: Austin - San Antonio ($14B, about 15M
    trips a year), Houston - Austin ($24B) and Dallas - Austin ($31B): 41M trips a year for $68B.
    Next: operating costs and revenue, then timing under the budget alongside the urban layer.
-4. **Urban systems** for the other metros, with per-metro calibration.
-5. **Interstate rail.**
+4. **Urban systems** (`study/urban_metros.py`, `study/urban_metros.md`): a generated rail and BRT
+   network for each of the other 25 metros at DFW's rate per resident. $105B of the $172B budget
+   buys 93 lines, mostly BRT: about 444,000 daily transit trips against 59,000 today. Houston
+   alone is $61B and 219,000 trips. Ten metros get no line, because nothing there is dense enough
+   for rail or BRT. One check is a warning: at its constant the model puts 16,000 riders a day on
+   Austin's Red Line, and NTD counts 1,600, so infrequent rail is overrated.
+5. **Interstate rail.** Then the timing step: every layer under the one budget, with the
+   urban layer's unspent $67B, HSR operating costs and revenue, and user benefits so intercity
+   and urban trips can be compared.
 6. **The site:** a statewide map with the time slider, high-speed rail and flights, linking to
    DFW Transit for the DFW detail.
 
 ## Reusing DFW Transit's code
 
 For now `dfw-transit` is a git submodule at `vendor/dfw-transit`
-(`git submodule update --init`); scripts put it on the Python path. Packaging it
+(`git submodule update --init`); scripts put it on the Python path. The urban layer runs DFW
+Transit's `metro` package with `METRO_HOME=urban`, so the registry (`urban/metros.json`), inputs
+(`urban/data/metros/<id>/`) and networks (`urban/generated/<id>/`) live here:
+
+```
+python tools/build_metro_registry.py
+python tools/fetch_transit_use.py
+(cd vendor/dfw-transit && for id in houston austin ...; do METRO_HOME=../../urban python -m metro fetch $id; done)
+python study/urban_metros.py calibrate && python study/urban_metros.py generate && python study/urban_metros.py summary
+``` Packaging it
 (`pip install git+https://github.com/dgoodenough/dfw-transit`) would replace the submodule.

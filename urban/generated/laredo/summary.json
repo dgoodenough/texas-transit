@@ -1,0 +1,30 @@
+{
+ "id": "laredo",
+ "name": "Laredo, TX",
+ "texas_pop": 267114,
+ "pop": 267114.0,
+ "jobs": 100368.0,
+ "budget_musd": 2468,
+ "capital_musd": 414.26130498198216,
+ "opex_new_musd": 8.840605697898187,
+ "lines": 1,
+ "by_mode": {
+  "brt": {
+   "lines": 1,
+   "km": 12.208126121681627,
+   "capital_musd": 414.24378365044896
+  }
+ },
+ "stations_new": 9,
+ "existing_lines": 0,
+ "pop_800m": 0.12002740402974012,
+ "pop_800m_today": 0.0,
+ "trips_today": 0.0,
+ "trips": 3140.848349028383,
+ "boardings": 3140.848349028383,
+ "jobs_45": 3718.311738237606,
+ "jobs_45_today": null,
+ "asc": 0.4677,
+ "asc_note": "set from the registry (asc +0.468; DFW +0.430): DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.72% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)",
+ "minutes": 0.013013621171315512
+}

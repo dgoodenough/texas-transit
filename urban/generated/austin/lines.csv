@@ -1,0 +1,12 @@
+line_id,name,mode,status,color,headway_min,notes
+m150_550,550-Metro Rail Red Line,commuter,existing,#E2231A,30.0,"GTFS Capital Metro route 550; 4 AM-peak trips (07:00-09:00, busier direction) on 2026-06-09; headway basis am_peak; midday headway 60.0 min"
+G01,Airport / Huntland - Wood Hollow / Greystone BRT,brt,proposed,#8e24aa,,"generated (R033): 10,920 per route-km >= BRT 3,000 (metro needs >= 6 km); 867 new daily trips for $0.21B capital (2.99 per $M incl. opex)"
+G02,Lamar / 45th Street - Gattis School / Lawnmont Rail,commuter,proposed,#4e342e,,"generated (Q092): rail corridor, 11,458 people+jobs within 1.6 km per km >= 2,000; 3,397 new daily trips for $1.22B capital (2.25 per $M incl. opex)"
+G03,I-35 / Oltorf - US-290 BRT,brt,proposed,#00897b,,"generated (R050): 5,377 per route-km >= BRT 3,000 (< metro 7,000); 735 new daily trips for $0.40B capital (1.29 per $M incl. opex)"
+G04,I-35 / Oltorf - Hunters Chase / Research Metro,metro,proposed,#d32f2f,,"generated (R049): 14,051 people+jobs per route-km >= metro 7,000; 2,594 new daily trips for $0.72B capital (2.89 per $M incl. opex); extends R041"
+G05,Airport / Huntland - Rundberg / Northgate BRT,brt,proposed,#6d4c41,,"generated (R034): 11,124 per route-km >= BRT 3,000 (metro needs >= 6 km); 295 new daily trips for $0.21B capital (0.99 per $M incl. opex)"
+G06,Lamar / 45th Street - LBJ / Sessom Rail,commuter,proposed,#37474f,,"generated (Q091): rail corridor, 8,605 people+jobs within 1.6 km per km >= 2,000; 1,338 new daily trips for $1.14B capital (0.95 per $M incl. opex); extends Q090"
+G07,5th Street / Congress - US-290 Metro,metro,proposed,#1976d2,,"generated (R011): 15,654 people+jobs per route-km >= metro 7,000; 3,729 new daily trips for $3.53B capital (0.89 per $M incl. opex)"
+G08,Airport / Huntland - Farmhaven / Harris Branch BRT,brt,proposed,#3949ab,,"generated (R039): 5,481 per route-km >= BRT 3,000 (< metro 7,000); 557 new daily trips for $0.45B capital (0.87 per $M incl. opex)"
+G09,Burnet / Esperanza Crossing - US-183 BRT,brt,proposed,#c0ca33,,"generated (R015): 4,555 per route-km >= BRT 3,000 (< metro 7,000); 586 new daily trips for $0.34B capital (1.18 per $M incl. opex); extends R014"
+G10,Gattis School / Lawnmont - Sonny / Bagdad BRT,brt,proposed,#e64a19,,"generated (R068): 3,133 per route-km >= BRT 3,000 (< metro 7,000); 864 new daily trips for $0.93B capital (0.65 per $M incl. opex)"

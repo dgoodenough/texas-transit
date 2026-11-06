@@ -1,0 +1,4 @@
+center_id,name,kind,lat,lon,activity,pop,jobs,peak_density_per_km2,peak_job_density_per_km2
+T01,Grant / 14th Street,town,31.854748,-102.374855,67074,42334,24740,5828,3810
+T02,Eastridge / Billy Hext,town,31.89969,-102.298375,10083,6317,3766,3102,1159
+T03,91st Street / Evans,town,31.94241,-102.391563,9835,9375,460,3520,184

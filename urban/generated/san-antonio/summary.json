@@ -1,0 +1,35 @@
+{
+ "id": "san-antonio",
+ "name": "San Antonio-New Braunfels, TX",
+ "texas_pop": 2558143,
+ "pop": 2558143.0,
+ "jobs": 1138312.0,
+ "budget_musd": 23633,
+ "capital_musd": 14808.613468185382,
+ "opex_new_musd": 299.37331248678765,
+ "lines": 16,
+ "by_mode": {
+  "brt": {
+   "lines": 14,
+   "km": 310.8064305578947,
+   "capital_musd": 10588.170863490877
+  },
+  "metro": {
+   "lines": 2,
+   "km": 26.943652011482584,
+   "capital_musd": 5002.106351178198
+  }
+ },
+ "stations_new": 217,
+ "existing_lines": 0,
+ "pop_800m": 0.16748438222570045,
+ "pop_800m_today": 0.0,
+ "trips_today": 0.0,
+ "trips": 63897.59928021508,
+ "boardings": 73285.45261781539,
+ "jobs_45": 69174.12361614233,
+ "jobs_45_today": null,
+ "asc": 0.7474,
+ "asc_note": "set from the registry (asc +0.747; DFW +0.430): DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 1.26% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)",
+ "minutes": 0.8807755867640178
+}

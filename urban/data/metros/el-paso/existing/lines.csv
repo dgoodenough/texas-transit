@@ -1,0 +1,7 @@
+line_id,name,mode,status,color,headway_min,notes
+m148_205,205 Mesa BRIO,bus,existing,#009EDC,15.0,"GTFS Sun Metro route 14128; 8 AM-peak trips (07:00-09:00, busier direction) on 2024-02-13; headway basis am_peak; midday headway 15.0 min"
+m148_206,206 Alameda BRIO,bus,existing,#A0BA24,15.0,"GTFS Sun Metro route 14129; 8 AM-peak trips (07:00-09:00, busier direction) on 2024-02-13; headway basis am_peak; midday headway 15.0 min"
+m148_207,207 Dyer BRIO,bus,existing,#6A1763,15.0,"GTFS Sun Metro route 14130; 8 AM-peak trips (07:00-09:00, busier direction) on 2024-02-13; headway basis am_peak; midday headway 15.0 min"
+m148_208,208 Montana BRIO,bus,existing,#FF8000,15.0,"GTFS Sun Metro route 14131; 8 AM-peak trips (07:00-09:00, busier direction) on 2024-02-13; headway basis am_peak; midday headway 16.0 min"
+m148_500,500 Streetcar UTL,bus,existing,#7DA7AD,15.0,"GTFS Sun Metro route 14145; 8 AM-peak trips (07:00-09:00, busier direction) on 2024-02-13; headway basis am_peak; midday headway 21.8 min"
+m148_59,59 Eastside Connector,bus,existing,#0000FF,13.3,"GTFS Sun Metro route 14152; 9 AM-peak trips (07:00-09:00, busier direction) on 2024-02-13; headway basis am_peak; midday headway 14.1 min"

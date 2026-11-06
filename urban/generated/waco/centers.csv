@@ -1,0 +1,3 @@
+center_id,name,kind,lat,lon,activity,pop,jobs,peak_density_per_km2,peak_job_density_per_km2
+C01,8th Street / Dutton,downtown,31.544711,-97.120493,23757,10804,12953,8268,3430
+T01,Hewitt Drive,town,31.486158,-97.209199,26761,10227,16534,6592,4299

@@ -1,0 +1,4 @@
+center_id,name,kind,lat,lon,activity,pop,jobs,peak_density_per_km2,peak_job_density_per_km2
+T01,Martin Luther King Junior / Wall,town,30.078417,-94.105124,34624,12168,22456,5599,4589
+T02,Turtle Creek Drive,town,29.954596,-93.975731,24696,19991,4705,3359,760
+T03,Stadium / Lewis,town,29.911433,-93.903655,13897,11749,2148,2693,130

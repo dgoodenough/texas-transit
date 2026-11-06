@@ -1,0 +1,244 @@
+{
+  "metro": {
+    "id": "texarkana",
+    "name": "Texarkana, TX-AR",
+    "cbsa": "45500",
+    "state_fips": [
+      "05",
+      "48"
+    ],
+    "state_abbr": {
+      "05": "ar",
+      "48": "tx"
+    },
+    "county_fips": [
+      "05081",
+      "05091",
+      "48037"
+    ],
+    "county_names": {
+      "05081": "Little River",
+      "05091": "Miller",
+      "48037": "Bowie"
+    },
+    "downtowns": [
+      {
+        "name": "Texarkana (city's Census internal point)",
+        "lat": 33.451136,
+        "lon": -94.090087
+      }
+    ],
+    "texas_pop": 92893,
+    "budget_musd": 858,
+    "ridership_asc": {
+      "asc": -0.1598,
+      "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.21% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+    }
+  },
+  "sources": {
+    "cbsa_delineation": {
+      "status": "ok",
+      "url": "https://www2.census.gov/programs-surveys/metro-micro/geographies/reference-files/2023/delineation-files/list1_2023.xlsx",
+      "vintage": "2023 (OMB Bulletin 23-01)",
+      "cbsa_title": "Texarkana, TX-AR",
+      "registry_matches": true,
+      "missing_from_registry": [],
+      "not_in_cbsa": [],
+      "checked_at": "2026-11-06T20:55:39+00:00"
+    },
+    "cenpop2020": {
+      "vintage": "2020 Census (P.L. 94-171), centres of population by block group",
+      "status": "ok",
+      "files": [
+        {
+          "state": "05",
+          "url": "https://www2.census.gov/geo/docs/reference/cenpop2020/blkgrp/CenPop2020_Mean_BG05.txt",
+          "status": "ok",
+          "read_from": "download",
+          "path": "../../urban/data/metros/texarkana/raw/CenPop2020_Mean_BG05.txt",
+          "rows": 53
+        },
+        {
+          "state": "48",
+          "url": "https://www2.census.gov/geo/docs/reference/cenpop2020/blkgrp/CenPop2020_Mean_BG48.txt",
+          "status": "ok",
+          "read_from": "repo copy",
+          "path": "data/CenPop2020_BG_TX.txt",
+          "rows": 80
+        }
+      ],
+      "checked_at": "2026-11-06T20:55:39+00:00"
+    },
+    "tiger2020_bg": {
+      "vintage": "TIGER/Line 2020 block groups (ALAND)",
+      "status": "ok",
+      "files": [
+        {
+          "state": "05",
+          "url": "https://www2.census.gov/geo/tiger/TIGER2020/BG/tl_2020_05_bg.zip",
+          "status": "ok",
+          "rows": 53
+        },
+        {
+          "state": "48",
+          "url": "https://www2.census.gov/geo/tiger/TIGER2020/BG/tl_2020_48_bg.zip",
+          "status": "ok",
+          "rows": 80
+        }
+      ],
+      "checked_at": "2026-11-06T20:55:40+00:00"
+    },
+    "lodes_wac": {
+      "vintage": "LODES 8, 2024, all jobs (S000/JT00, C000)",
+      "year": 2024,
+      "status": "ok",
+      "files": [
+        {
+          "state": "05",
+          "url": "https://lehd.ces.census.gov/data/lodes/LODES8/ar/wac/ar_wac_S000_JT00_2024.csv.gz",
+          "status": "ok"
+        },
+        {
+          "state": "48",
+          "url": "https://lehd.ces.census.gov/data/lodes/LODES8/tx/wac/tx_wac_S000_JT00_2024.csv.gz",
+          "status": "ok"
+        }
+      ],
+      "checked_at": "2026-11-06T20:55:43+00:00"
+    },
+    "lodes_od": {
+      "vintage": "LODES 8, 2024, all jobs (S000)",
+      "year": 2024,
+      "status": "ok",
+      "files": [
+        {
+          "state": "05",
+          "url": "https://lehd.ces.census.gov/data/lodes/LODES8/ar/od/ar_od_main_JT00_2024.csv.gz",
+          "status": "ok"
+        },
+        {
+          "state": "05",
+          "url": "https://lehd.ces.census.gov/data/lodes/LODES8/ar/od/ar_od_aux_JT00_2024.csv.gz",
+          "status": "ok"
+        },
+        {
+          "state": "48",
+          "url": "https://lehd.ces.census.gov/data/lodes/LODES8/tx/od/tx_od_main_JT00_2024.csv.gz",
+          "status": "ok"
+        },
+        {
+          "state": "48",
+          "url": "https://lehd.ces.census.gov/data/lodes/LODES8/tx/od/tx_od_aux_JT00_2024.csv.gz",
+          "status": "ok"
+        }
+      ],
+      "checked_at": "2026-11-06T20:56:03+00:00"
+    },
+    "mobility_database": {
+      "status": "ok",
+      "url": "https://storage.googleapis.com/mdb-csv/sources.csv",
+      "catalog_rows": 3617,
+      "selected": [],
+      "checked_at": "2026-11-06T20:56:37+00:00"
+    },
+    "gtfs": {
+      "status": "missing",
+      "feeds": [],
+      "checked_at": "2026-11-06T20:56:37+00:00"
+    },
+    "overture_transportation": {
+      "status": "ok",
+      "release": "2026-09-23.1",
+      "url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=transportation/type=segment/",
+      "license": "\u00a9 OpenStreetMap contributors, ODbL 1.0 (via Overture Maps Foundation)",
+      "bbox": [
+        -94.7822,
+        32.9707,
+        -93.7405,
+        33.9415
+      ],
+      "files": {
+        "roads.parquet": {
+          "subtype": "road",
+          "classes": [
+            "motorway",
+            "trunk",
+            "primary",
+            "secondary",
+            "tertiary"
+          ],
+          "rows": 7483,
+          "sha256": "64f3a6abf6e4e5c38230eea193d3d6191fe53c84112ae93dd04a7b077fd037ce"
+        },
+        "rail.parquet": {
+          "subtype": "rail",
+          "classes": null,
+          "rows": 584,
+          "sha256": "0d2e02e509c225cdb54446fb2f4f4a01682f44f16490f1988d348a66840ea2db"
+        }
+      },
+      "checked_at": "2026-11-06T20:57:04+00:00"
+    }
+  },
+  "outputs": {
+    "zones.csv": {
+      "rows": 133,
+      "pop": 147519,
+      "jobs": 56210,
+      "jobs_in_unknown_block_groups": 0,
+      "by_county": {
+        "05081": 14,
+        "05091": 39,
+        "48037": 80
+      },
+      "empty_columns": [],
+      "written_at": "2026-11-06T20:55:43+00:00"
+    },
+    "od_tracts.csv": {
+      "rows": 1753,
+      "written_at": "2026-11-06T20:56:37+00:00"
+    },
+    "existing/lines.csv": {
+      "rows": 0,
+      "written_at": "2026-11-06T20:56:37+00:00"
+    },
+    "existing/stations.csv": {
+      "rows": 0,
+      "written_at": "2026-11-06T20:56:37+00:00"
+    },
+    "existing/line_stops.csv": {
+      "rows": 0,
+      "written_at": "2026-11-06T20:56:37+00:00"
+    },
+    "existing/line_segments.csv": {
+      "rows": 0,
+      "written_at": "2026-11-06T20:56:37+00:00"
+    },
+    "existing/routes.csv": {
+      "rows": 0,
+      "written_at": "2026-11-06T20:56:37+00:00"
+    },
+    "osm/roads.parquet": {
+      "rows": 7483,
+      "written_at": "2026-11-06T20:56:51+00:00"
+    },
+    "osm/rail.parquet": {
+      "rows": 584,
+      "written_at": "2026-11-06T20:57:04+00:00"
+    }
+  },
+  "bbox": [
+    -94.7822,
+    32.9707,
+    -93.7405,
+    33.9415
+  ],
+  "fetched_at": "2026-11-06T20:57:04+00:00",
+  "missing": [
+    {
+      "item": "existing/",
+      "source": "gtfs",
+      "why": "ok"
+    }
+  ]
+}

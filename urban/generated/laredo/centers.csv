@@ -1,0 +1,3 @@
+center_id,name,kind,lat,lon,activity,pop,jobs,peak_density_per_km2,peak_job_density_per_km2
+C01,Calton / McPherson,downtown,27.5408,-99.48298,26118,20344,5774,7100,2530
+T01,Sierra Vista Boulevard,town,27.444286,-99.465906,25943,25421,522,4613,105

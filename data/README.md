@@ -14,6 +14,8 @@ against. Every file here is rebuilt by a script in `tools/`; raw downloads go to
 | `flows/air_city_pairs.csv` | Air origin-destination passengers a day by city-pair market, every market with a Texas end, average of four quarters | DOT / BTS Consumer Airfare Report, Table 6 (DB1B 10% ticket sample) | `tools/fetch_air.py` |
 | `flows/road_screenlines.csv` | Two-way daily traffic at a rural point on each intercity corridor | TxDOT AADT (open data) | `tools/fetch_counts.py` |
 | `flows/nhts_od_2022_texas.csv` | Annual long-distance person trips between NextGen zones (metro areas, rest of state) with a Texas end, by mode and purpose | FHWA / ORNL NextGen NHTS national OD data, 2022 | `tools/fetch_nhts_od.py` |
+| `urban/ntd_2024_weekday_tx.csv` | Average typical weekday boardings, every Texas transit agency and mode, 2024 | NTD annual data, Service by Mode and Time Period (data.transportation.gov `wwdp-t4re`) | `tools/fetch_transit_use.py` |
+| `urban/acs_transit_share_cbsa.csv` | Workers and public transportation commuters for every metro with a Texas county | ACS 2020-2024 5-year, table B08301 (Census table-based summary file) | `tools/fetch_transit_use.py` |
 
 Hosts these need: `www2.census.gov`, `lehd.ces.census.gov`, `data.transportation.gov`,
 `services.arcgis.com`, `nhts.ornl.gov` (the `transit-planning` cloud environment allows them).
@@ -76,3 +78,20 @@ Road, two-way vehicles a day (TxDOT AADT, all vehicles, trucks and local trips i
   trips that start or end along the corridor.
 - **NHTS zones are metro areas and the rest of each state**, coarser than counties. The
   model's county zones are distributed within them by population and jobs.
+
+## The urban layer's inputs
+
+Each metro's inputs are in `../urban/data/metros/<id>/`, gathered by DFW Transit's
+`python -m metro fetch` (its `metro/README.md` has the data contract): block-group population
+and jobs, today's transit from GTFS, and Overture roads and rail. Downloads (`raw/`), the Overture
+parquet files and the LODES tract flows (`od_tracts.csv`) are git-ignored and reproducible.
+Gaps:
+
+- No GTFS feed in the Mobility Database for San Antonio (VIA's entries are deprecated and point to
+  Transitland), McAllen, Killeen, Brownsville and most small metros. This doesn't change the
+  model, which carries only rail and BRT (local buses are its feeder grid), and only Houston and
+  Austin have either.
+- El Paso's streetcar is missing from Sun Metro's feed, which is also stale (2024).
+- CapMetro files its Red Line as a tram. `study/urban_metros.py` corrects it to commuter rail
+  (`MODE_FIXES`).
+

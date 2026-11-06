@@ -1,0 +1,3 @@
+center_id,name,kind,lat,lon,activity,pop,jobs,peak_density_per_km2,peak_job_density_per_km2
+T01,Brook / 11th Street,town,33.901911,-98.503003,22410,10244,12166,4663,3478
+T02,Langford Lane,town,33.849488,-98.572532,9459,8962,497,2610,81

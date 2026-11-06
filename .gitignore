@@ -1,2 +1,6 @@
 data/raw/
 __pycache__/
+urban/data/metros/*/raw/
+urban/data/metros/*/osm/*.parquet
+urban/generated/*/cache/
+urban/data/metros/*/od_tracts.csv

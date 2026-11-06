@@ -1,0 +1,30 @@
+{
+ "id": "college-station",
+ "name": "College Station-Bryan, TX",
+ "texas_pop": 268248,
+ "pop": 268248.0,
+ "jobs": 128204.0,
+ "budget_musd": 2478,
+ "capital_musd": 493.6235985703841,
+ "opex_new_musd": 10.674092337097278,
+ "lines": 1,
+ "by_mode": {
+  "brt": {
+   "lines": 1,
+   "km": 14.58276120343794,
+   "capital_musd": 493.4828361031382
+  }
+ },
+ "stations_new": 11,
+ "existing_lines": 0,
+ "pop_800m": 0.06596880498643047,
+ "pop_800m_today": 0.0,
+ "trips_today": 0.0,
+ "trips": 8728.66736795837,
+ "boardings": 8728.667367958367,
+ "jobs_45": 2150.428101990695,
+ "jobs_45_today": null,
+ "asc": 0.8473,
+ "asc_note": "set from the registry (asc +0.847; DFW +0.430): DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 1.54% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)",
+ "minutes": 0.020229307810465495
+}

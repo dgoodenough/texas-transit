@@ -1,0 +1,2 @@
+line_id,name,mode,status,color,headway_min,notes
+G01,Villa Maria / John Sharp - Alexandria / Southern Plantation BRT,brt,proposed,#8e24aa,,"generated (R001): 4,196 per route-km >= BRT 3,000 (< metro 7,000); 2,026 new daily trips for $0.49B capital (2.87 per $M incl. opex)"

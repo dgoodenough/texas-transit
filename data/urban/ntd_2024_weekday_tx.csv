@@ -1,0 +1,85 @@
+ntd_id,agency,mode,mode_name,type_of_service,uza,weekday_boardings
+60048,"Capital Metropolitan Transportation Authority, dba: Capital Metro",CB,Commuter Bus,PT,"Austin, TX",521
+60048,"Capital Metropolitan Transportation Authority, dba: Capital Metro",DR,Demand Response,PT,"Austin, TX",3659
+60048,"Capital Metropolitan Transportation Authority, dba: Capital Metro",MB,Bus,PT,"Austin, TX",74506
+60048,"Capital Metropolitan Transportation Authority, dba: Capital Metro",VP,Vanpool,PT,"Austin, TX",1387
+60048,"Capital Metropolitan Transportation Authority, dba: Capital Metro",YR,Hybrid Rail,PT,"Austin, TX",1636
+60016,"City of Beaumont, dba: Beaumont Municipal Transit System",DR,Demand Response,PT,"Beaumont, TX",72
+60016,"City of Beaumont, dba: Beaumont Municipal Transit System",MB,Bus,PT,"Beaumont, TX",1061
+60014,"City of Brownsville, dba: Brownsville Metro",DR,Demand Response,DO,"Brownsville, TX",89
+60014,"City of Brownsville, dba: Brownsville Metro",MB,Bus,DO,"Brownsville, TX",3973
+60059,Brazos Transit District,DR,Demand Response,DO,"College Station--Bryan, TX",324
+60059,Brazos Transit District,MB,Bus,DO,"College Station--Bryan, TX",1664
+60051,"Corpus Christi Regional Transportation Authority, dba: The B",DR,Demand Response,PT,"Corpus Christi, TX",686
+60051,"Corpus Christi Regional Transportation Authority, dba: The B",MB,Bus,DO,"Corpus Christi, TX",10184
+60051,"Corpus Christi Regional Transportation Authority, dba: The B",MB,Bus,PT,"Corpus Christi, TX",779
+60051,"Corpus Christi Regional Transportation Authority, dba: The B",VP,Vanpool,PT,"Corpus Christi, TX",321
+60041,"City of Arlington, dba: Arlington Transportation",DR,Demand Response,DO,"Dallas--Fort Worth--Arlington, TX",122
+60041,"City of Arlington, dba: Arlington Transportation",DR,Demand Response,PT,"Dallas--Fort Worth--Arlington, TX",384
+60056,Dallas Area Rapid Transit,CR,Commuter Rail,PT,"Dallas--Fort Worth--Arlington, TX",4206
+60056,Dallas Area Rapid Transit,DR,Demand Response,PT,"Dallas--Fort Worth--Arlington, TX",4144
+60056,Dallas Area Rapid Transit,LR,Light Rail,DO,"Dallas--Fort Worth--Arlington, TX",67308
+60056,Dallas Area Rapid Transit,MB,Bus,DO,"Dallas--Fort Worth--Arlington, TX",90111
+60056,Dallas Area Rapid Transit,SR,Streetcar Rail,DO,"Dallas--Fort Worth--Arlington, TX",483
+60007,"Fort Worth Transportation Authority, dba: Trinity Metro",CR,Commuter Rail,PT,"Dallas--Fort Worth--Arlington, TX",2128
+60007,"Fort Worth Transportation Authority, dba: Trinity Metro",DR,Demand Response,DO,"Dallas--Fort Worth--Arlington, TX",380
+60007,"Fort Worth Transportation Authority, dba: Trinity Metro",DR,Demand Response,PT,"Dallas--Fort Worth--Arlington, TX",728
+60007,"Fort Worth Transportation Authority, dba: Trinity Metro",MB,Bus,DO,"Dallas--Fort Worth--Arlington, TX",14141
+60007,"Fort Worth Transportation Authority, dba: Trinity Metro",MB,Bus,PT,"Dallas--Fort Worth--Arlington, TX",316
+60007,"Fort Worth Transportation Authority, dba: Trinity Metro",VP,Vanpool,PT,"Dallas--Fort Worth--Arlington, TX",1386
+60133,McKinney Avenue Transit Authority,SR,Streetcar Rail,DO,"Dallas--Fort Worth--Arlington, TX",782
+60114,STAR Transit,DR,Demand Response,DO,"Dallas--Fort Worth--Arlington, TX",640
+60114,STAR Transit,MB,Bus,DO,"Dallas--Fort Worth--Arlington, TX",169
+60101,Denton County Transportation Authority,DR,Demand Response,DO,"Denton--Lewisville, TX",98
+60101,Denton County Transportation Authority,DR,Demand Response,PT,"Denton--Lewisville, TX",2527
+60101,Denton County Transportation Authority,MB,Bus,DO,"Denton--Lewisville, TX",6924
+60101,Denton County Transportation Authority,VP,Vanpool,PT,"Denton--Lewisville, TX",900
+60101,Denton County Transportation Authority,YR,Hybrid Rail,PT,"Denton--Lewisville, TX",911
+60006,"City of El Paso, dba: Sun Metro",DR,Demand Response,PT,"El Paso, TX--NM",914
+60006,"City of El Paso, dba: Sun Metro",MB,Bus,DO,"El Paso, TX--NM",19882
+60006,"City of El Paso, dba: Sun Metro",MB,Bus,PT,"El Paso, TX--NM",698
+60006,"City of El Paso, dba: Sun Metro",SR,Streetcar Rail,DO,"El Paso, TX--NM",676
+60015,"City of Galveston, dba: Galveston Island Transit",MB,Bus,DO,"Galveston--Texas City, TX",742
+60015,"City of Galveston, dba: Galveston Island Transit",SR,Streetcar Rail,DO,"Galveston--Texas City, TX",96
+60103,"Fort Bend County, Texas, dba: Fort Bend Transit",CB,Commuter Bus,PT,"Houston, TX",836
+60103,"Fort Bend County, Texas, dba: Fort Bend Transit",DR,Demand Response,PT,"Houston, TX",506
+60108,"Harris County, dba: Harris County Transit",CB,Commuter Bus,PT,"Houston, TX",13
+60108,"Harris County, dba: Harris County Transit",MB,Bus,PT,"Houston, TX",417
+60008,"Metropolitan Transit Authority of Harris County, Texas, dba: METRO",CB,Commuter Bus,DO,"Houston, TX",11721
+60008,"Metropolitan Transit Authority of Harris County, Texas, dba: METRO",CB,Commuter Bus,PT,"Houston, TX",2977
+60008,"Metropolitan Transit Authority of Harris County, Texas, dba: METRO",DR,Demand Response,PT,"Houston, TX",6643
+60008,"Metropolitan Transit Authority of Harris County, Texas, dba: METRO",LR,Light Rail,DO,"Houston, TX",42946
+60008,"Metropolitan Transit Authority of Harris County, Texas, dba: METRO",MB,Bus,DO,"Houston, TX",137587
+60008,"Metropolitan Transit Authority of Harris County, Texas, dba: METRO",MB,Bus,PT,"Houston, TX",34538
+60008,"Metropolitan Transit Authority of Harris County, Texas, dba: METRO",RB,Bus Rapid Transit,DO,"Houston, TX",974
+60008,"Metropolitan Transit Authority of Harris County, Texas, dba: METRO",VP,Vanpool,DO,"Houston, TX",1648
+60091,"Hill Country Transit District, dba: The Hop",CB,Commuter Bus,DO,"Killeen, TX",125
+60091,"Hill Country Transit District, dba: The Hop",DR,Demand Response,DO,"Killeen, TX",686
+60091,"Hill Country Transit District, dba: The Hop",MB,Bus,DO,"Killeen, TX",1103
+60009,"City of Laredo, dba: Laredo Transit Management Inc.",DR,Demand Response,DO,"Laredo, TX",117
+60009,"City of Laredo, dba: Laredo Transit Management Inc.",MB,Bus,DO,"Laredo, TX",5974
+60010,"City of Lubbock, dba: Citibus",DR,Demand Response,DO,"Lubbock, TX",552
+60010,"City of Lubbock, dba: Citibus",MB,Bus,DO,"Lubbock, TX",9478
+60090,Lower Rio Grande Valley Development Council,DR,Demand Response,DO,"McAllen, TX",30
+60090,Lower Rio Grande Valley Development Council,MB,Bus,DO,"McAllen, TX",1093
+60273,University of Texas Rio Grande Valley,MB,Bus,DO,"McAllen, TX",1325
+60273,University of Texas Rio Grande Valley,MB,Bus,PT,"McAllen, TX",1221
+60270,"City of McKinney, dba: Collin County Transit",DR,Demand Response,PT,"McKinney--Frisco, TX",56
+60130,"Alamo Area Council of Governments, dba: Alamo Regional Transit",DR,Demand Response,DO,"New Braunfels, TX",375
+60130,"Alamo Area Council of Governments, dba: Alamo Regional Transit",MB,Bus,DO,"New Braunfels, TX",151
+60102,Concho Valley Transit District,DR,Demand Response,DO,"San Angelo, TX",277
+60102,Concho Valley Transit District,MB,Bus,DO,"San Angelo, TX",729
+60011,"VIA Metropolitan Transit, dba: VIA",DR,Demand Response,DO,"San Antonio, TX",1589
+60011,"VIA Metropolitan Transit, dba: VIA",DR,Demand Response,PT,"San Antonio, TX",3180
+60011,"VIA Metropolitan Transit, dba: VIA",MB,Bus,DO,"San Antonio, TX",88288
+60011,"VIA Metropolitan Transit, dba: VIA",VP,Vanpool,PT,"San Antonio, TX",1108
+60269,"Texas State University, dba: Bobcat Shuttle",MB,Bus,PT,"San Marcos, TX",11575
+60107,"Texoma Area Paratransit System, Inc",DR,Demand Response,PT,"Sherman--Denison, TX",158
+60134,The Woodlands Township,CB,Commuter Bus,PT,"The Woodlands--Conroe, TX",1155
+60134,The Woodlands Township,MB,Bus,DO,"The Woodlands--Conroe, TX",426
+60095,"Golden Crescent Regional Planning Commission, dba: Victoria Transit",CB,Commuter Bus,DO,"Victoria, TX",364
+60095,"Golden Crescent Regional Planning Commission, dba: Victoria Transit",DR,Demand Response,DO,"Victoria, TX",172
+60095,"Golden Crescent Regional Planning Commission, dba: Victoria Transit",DR,Demand Response,PT,"Victoria, TX",190
+60095,"Golden Crescent Regional Planning Commission, dba: Victoria Transit",MB,Bus,DO,"Victoria, TX",379
+60012,"City of Waco, dba: Waco Transit System, Inc.",DR,Demand Response,DO,"Waco, TX",233
+60012,"City of Waco, dba: Waco Transit System, Inc.",MB,Bus,DO,"Waco, TX",2719

@@ -1,0 +1,2 @@
+line_id,name,mode,status,color,headway_min,notes
+G01,Van Buren / 6th Street - Robertson / Sam Houston BRT,brt,proposed,#8e24aa,,"generated (R004): 4,034 per route-km >= BRT 3,000 (< metro 7,000); 703 new daily trips for $0.36B capital (1.38 per $M incl. opex)"

@@ -1,0 +1,73 @@
+feed,route_id,short_name,long_name,route_type,class,trips_on_date,am_trips_busier_dir,headway_min,headway_basis,midday_headway_min,mode,kept,reason
+m150,1,1,1-North Lamar/South Congress,3,bus,76,4,30.0,am_peak,26.7,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,10,10,10-South 1st/Red River,3,bus,133,8,15.0,am_peak,15.0,bus,1,frequent bus
+m150,103,103,103-Manchaca Flyer,3,bus,3,1,90.0,all_day_mean,,bus,0,bus not frequent (peak headway 90.0 > 15 min)
+m150,105,105,105-South 5th Flyer,3,bus,4,1,105.0,all_day_mean,,bus,0,bus not frequent (peak headway 105.0 > 15 min)
+m150,111,111,111-South Mopac Flyer,3,bus,4,1,90.0,all_day_mean,,bus,0,bus not frequent (peak headway 90.0 > 15 min)
+m150,135,135,135-Dell Limited,3,bus,4,0,96.0,all_day_mean,,bus,0,bus not frequent (peak headway 96.0 > 15 min)
+m150,142,142,142-Metric Flyer,3,bus,4,1,91.0,all_day_mean,,bus,0,bus not frequent (peak headway 91.0 > 15 min)
+m150,152,152,152-Round Rock Tech Ridge Limited,3,bus,24,2,60.0,am_peak,80.0,bus,0,bus not frequent (peak headway 60.0 > 15 min)
+m150,171,171,171-Oak Hill Flyer,3,bus,6,1,37.5,all_day_mean,,bus,0,bus not frequent (peak headway 37.5 > 15 min)
+m150,18,18,18-Martin Luther King,3,bus,74,4,30.0,am_peak,30.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,2,2,2-Rosewood/CESAR CHAVEZ,3,bus,134,8,15.0,am_peak,15.0,bus,1,frequent bus
+m150,20,20,20-Riverside,3,bus,145,8,15.0,am_peak,15.0,bus,1,frequent bus
+m150,201,201,201-Southpark Meadows,3,bus,62,4,30.0,am_peak,30.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,214,214,214-Northwest Feeder,3,bus,34,2,60.0,am_peak,60.0,bus,0,bus not frequent (peak headway 60.0 > 15 min)
+m150,217,217,217-Montopolis Feeder,3,bus,78,4,30.0,am_peak,30.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,228,228,228-VA Clinic,3,bus,46,4,30.0,am_peak,34.3,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,233,233,233-Decker/Daffan Ln,3,bus,40,3,40.0,am_peak,48.0,bus,0,bus not frequent (peak headway 40.0 > 15 min)
+m150,237,237,237-Northeast Feeder,3,bus,0,0,,,,,0,no trips on service date
+m150,243,243,243-Wells Branch,3,bus,63,3,40.0,am_peak,34.3,bus,0,bus not frequent (peak headway 40.0 > 15 min)
+m150,271,271,271-Del Valle,3,bus,73,5,24.0,am_peak,30.0,bus,0,bus not frequent (peak headway 24.0 > 15 min)
+m150,3,3,3-Burnet/Manchaca,3,bus,73,4,30.0,am_peak,30.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,30,30,30-Barton Creek/Bull Creek,3,bus,63,4,30.0,am_peak,34.3,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,300,300,300-Springdale/Oltorf,3,bus,130,8,15.0,am_peak,14.1,bus,1,frequent bus
+m150,310,310,310-Parker/Wickersham,3,bus,71,4,30.0,am_peak,30.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,311,311,311-Stassney,3,bus,132,8,15.0,am_peak,15.0,bus,1,frequent bus
+m150,315,315,315-Ben White,3,bus,71,4,30.0,am_peak,30.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,318,318,318-Westgate/Slaughter,3,bus,72,4,30.0,am_peak,30.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,320,320,320-Manor Road,3,bus,74,4,30.0,am_peak,30.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,322,322,322-Chicon/Cherrywood,3,bus,70,4,30.0,am_peak,30.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,323,323,323-Anderson,3,bus,0,0,,,,,0,no trips on service date
+m150,324,324,324-Georgian/Ohlen,3,bus,71,4,30.0,am_peak,30.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,325,325,325-Metric/Rundberg,3,bus,128,8,15.0,am_peak,15.0,bus,1,frequent bus
+m150,333,333,333-William Cannon,3,bus,130,8,15.0,am_peak,15.0,bus,1,frequent bus
+m150,335,335,335 35th/38th,3,bus,75,4,30.0,am_peak,30.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,337,337,337-Koenig/Colony Park,3,bus,127,8,15.0,am_peak,15.0,bus,1,frequent bus
+m150,339,339,339-Tuscany,3,bus,63,4,30.0,am_peak,40.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,345,345,345-45th,3,bus,72,4,30.0,am_peak,30.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,350,350,350-Airport Blvd,3,bus,70,4,30.0,am_peak,30.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,383,383,383-Research,3,bus,73,4,30.0,am_peak,30.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,392,392,392-Braker,3,bus,64,4,30.0,am_peak,34.3,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,4,4,4-7th Street,3,bus,134,8,15.0,am_peak,15.0,bus,1,frequent bus
+m150,465,465,465-MLK/University of Texas,3,bus,48,5,24.0,am_peak,30.0,bus,0,bus not frequent (peak headway 24.0 > 15 min)
+m150,466,466,466-Kramer/Domain,3,bus,37,6,20.0,am_peak,40.0,bus,0,bus not frequent (peak headway 20.0 > 15 min)
+m150,481,481,481-Night Owl North Lamar,3,bus,18,0,23.8,all_day_mean,,bus,0,bus not frequent (peak headway 23.8 > 15 min)
+m150,483,483,483-Night Owl Riverside,3,bus,14,0,31.2,all_day_mean,,bus,0,bus not frequent (peak headway 31.2 > 15 min)
+m150,484,484,484-Night Owl South Lamar,3,bus,10,0,45.0,all_day_mean,,bus,0,bus not frequent (peak headway 45.0 > 15 min)
+m150,485,485,485-Night Owl 7th Street/Cameron,3,bus,12,0,35.0,all_day_mean,,bus,0,bus not frequent (peak headway 35.0 > 15 min)
+m150,486,486,486-Night Owl South Congress,3,bus,14,0,30.0,all_day_mean,,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,490,490,490-HEB Shuttle,3,bus,0,0,,,,,0,no trips on service date
+m150,491,491,491-Allandale,3,bus,0,0,,,,,0,no trips on service date
+m150,492,492,492-Delwood,3,bus,0,0,,,,,0,no trips on service date
+m150,493,493,493-Eastview,3,bus,0,0,,,,,0,no trips on service date
+m150,5,5,5-Woodrow/Lamar,3,bus,73,4,30.0,am_peak,30.0,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,50,50,50-Round Rock Techridge,3,bus,24,2,60.0,am_peak,80.0,bus,0,bus not frequent (peak headway 60.0 > 15 min)
+m150,550,550,550-Metro Rail Red Line,0,tram,37,4,30.0,am_peak,60.0,metro,1,rail
+m150,640,640,640-Forty Acres,3,bus,147,12,10.0,am_peak,10.0,bus,1,frequent bus
+m150,642,642,642-West Campus/UT,3,bus,43,6,20.0,am_peak,17.1,bus,0,bus not frequent (peak headway 20.0 > 15 min)
+m150,656,656,656-Intramural Fields/UT,3,bus,79,7,17.1,am_peak,18.5,bus,0,bus not frequent (peak headway 17.1 > 15 min)
+m150,661,661,661-Far West/UT,3,bus,96,6,20.0,am_peak,17.1,bus,0,bus not frequent (peak headway 20.0 > 15 min)
+m150,663,663,663-Lake Austin/UT,3,bus,73,5,24.0,am_peak,21.8,bus,0,bus not frequent (peak headway 24.0 > 15 min)
+m150,670,670,670-North Riverside,3,bus,72,6,20.0,am_peak,20.0,bus,0,bus not frequent (peak headway 20.0 > 15 min)
+m150,672,672,672-Lakeshore,3,bus,66,5,24.0,am_peak,26.7,bus,0,bus not frequent (peak headway 24.0 > 15 min)
+m150,7,7,7-Duval / Dove Springs,3,bus,138,8,15.0,am_peak,14.1,bus,1,frequent bus
+m150,800,800,800 PLEASANT VALLEY,3,bus,196,12,10.0,am_peak,10.0,bus,1,frequent bus
+m150,801,801,801-N Lamar S Congress,3,bus,193,11,10.9,am_peak,10.0,bus,1,frequent bus
+m150,803,803,803-Burnet/S Lamar,3,bus,185,12,10.0,am_peak,10.0,bus,1,frequent bus
+m150,837,837,837-EXPO CENTER,3,bus,194,10,12.0,am_peak,10.0,bus,1,frequent bus
+m150,935,935,935-Tech Ridge Express,3,bus,4,1,30.0,all_day_mean,,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,980,980,980-North Mopac Express,3,bus,2,1,,single_trip,,bus,0,bus not frequent (peak headway n/a > 15 min)
+m150,982,982,982-Pavilion Express,3,bus,10,4,30.0,am_peak,,bus,0,bus not frequent (peak headway 30.0 > 15 min)
+m150,985,985,985-Leander/Lakeline Direct,3,bus,12,3,40.0,am_peak,,bus,0,bus not frequent (peak headway 40.0 > 15 min)
+m150,990,990,990-Manor/Elgin Express,3,bus,6,1,65.0,all_day_mean,,bus,0,bus not frequent (peak headway 65.0 > 15 min)
