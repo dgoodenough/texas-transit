@@ -95,7 +95,11 @@ high-speed rail versus metro systems is an output, not an input.
    transit center. A second scenario, **metros first**, gives each metro its own 30-year stream:
    500,000 new daily trips outside DFW by 2050 instead of 166,000, the Triangle's high-speed lines
    10-15 years later, $18B less in present value. The site (`docs/index.html`, data from
-   `tools/build_site.py`) shows both scenarios by year.
+   `tools/build_site.py`) shows both scenarios by year, with a zoomable map of every metro's
+   network (`tools/build_metro_maps.py`: full alignments, stations and the main roads).
+7. **Toward DFW's transit share in the other metros** (`study/metro_potential.py`,
+   `study/metro_potential.md`): a first look at how much of DFW's share each metro's layout
+   allows, and what the generator, DFW's spending and DFW's policies get there.
 
 ## Reusing DFW Transit's code
 
