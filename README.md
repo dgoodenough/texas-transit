@@ -54,12 +54,14 @@ high-speed rail versus metro systems is an output, not an input.
    corridor counts and NextGen NHTS long-distance trips.
 2. **Intercity demand model** (`texas/intercity.py`, parameters in `texas/intercity.json`): today's
    trips between NextGen zones as the base, a pivot-point nested logit (air and rail in one nest)
-   for new rail. First results in `study/hsr_first_look.md`: with today's travel, Texas Central
-   carries about 3.1M trips a year (Dallas - Houston 1.6M of them) and a Texas Triangle about
-   19M. Next: growth to future years and induced trips, then corridor options with costs.
-3. **High-speed rail options.** The Triangle (Dallas-Houston, Dallas/Fort Worth-Austin-San
-   Antonio, Houston-San Antonio or Houston-Austin) and possible branches (Rio Grande Valley,
-   Laredo, Waco/Killeen). Costs, ridership, air trips replaced.
+   for new rail; each county uses its own nearest station. First results in
+   `study/hsr_first_look.md`: with today's travel, Texas Central carries about 4.9M trips a year
+   (Dallas - Houston 1.6M of them) and a Texas Triangle about 22M.
+3. **High-speed rail options** (`texas/hsr.py`, `study/hsr_options.md`): 14 corridors ranked by new
+   riders per dollar in 2050, with trend growth (`tools/build_growth.py`) and induced trips. The
+   first three form the Triangle's west and south sides: Austin - San Antonio ($14B, about 15M
+   trips a year), Houston - Austin ($24B) and Dallas - Austin ($31B): 41M trips a year for $68B.
+   Next: operating costs and revenue, then timing under the budget alongside the urban layer.
 4. **Urban systems** for the other metros, with per-metro calibration.
 5. **Interstate rail.**
 6. **The site:** a statewide map with the time slider, high-speed rail and flights, linking to

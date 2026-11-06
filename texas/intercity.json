@@ -54,6 +54,8 @@
     "asc_vs_car": -0.5,
     "speed_kmh": 260,
     "stop_min": 3,
-    "_doc": "Station access and egress minutes (driving or local transit to a downtown or airport station); terminal minutes (boarding, no security queue); half the headway is the wait, capped; fare fixed + per km of track. Average speed between stops (Texas Central planned about 90 minutes Dallas-Houston for 240 miles with one stop). Constant relative to car: assumption, tested at 0 and -1.0."
+    "_doc": "Station access and egress minutes (driving or local transit to a downtown or airport station); terminal minutes (boarding, no security queue); half the headway is the wait, capped; fare fixed + per km of track. Average speed between stops (Texas Central planned about 90 minutes Dallas-Houston for 240 miles with one stop). Constant relative to car: assumption, tested at 0 and -1.0.",
+    "induced_share": 0.1,
+    "_induced": "New trips rail itself generates (travel that wouldn't happen without it), as a share of the trips it takes from car and air. Assumption: HSR studies typically find 5-20%; tested at 0 and 0.2."
   }
 }

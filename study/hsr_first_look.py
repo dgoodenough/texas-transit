@@ -46,7 +46,7 @@ def summarize(name, res, zones, p):
              f"({air / max(rail, 1):.0%}); about {flights:.0f} fewer flights a day",
              "", "| Pair | Today (car + air) | Rail | Rail share | From air |", "|---|---|---|---|---|"]
     for t, pr, r in top:
-        a, b = (zones[z]["name"].split(",")[0].split("-")[0] for z in pr)
+        a, b = (ic.short_name(zones[z]) for z in pr)
         today = r["base"]["car"] + r["base"]["air"]
         lines.append(f"| {a} - {b} | {today:,.0f} | {t:,.0f} | {t / today:.0%} | {r['base']['air'] - r['new']['air']:,.0f} |")
     return lines, rail

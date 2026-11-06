@@ -8,39 +8,43 @@ Dallas - Houston today: 30,209 trips a day, 12% by air, 38% for work.
 
 ### Texas Central (Dallas - Brazos Valley - Houston)
 
-- **8,614 rail trips a day, 3.1M a year**: 7,142 from car, 1,472 from air (17%); about 14 fewer flights a day
+- **13,542 rail trips a day, 4.9M a year**: 11,829 from car, 1,713 from air (13%); about 16 fewer flights a day
 
 | Pair | Today (car + air) | Rail | Rail share | From air |
 |---|---|---|---|---|
-| Dallas - Houston | 30,209 | 4,299 | 14% | 1,429 |
-| College Station - Houston | 29,101 | 3,803 | 13% | 32 |
-| College Station - Dallas | 4,319 | 512 | 12% | 11 |
+| Dallas - Houston | 30,209 | 4,414 | 15% | 1,457 |
+| College Station - Houston | 29,101 | 3,719 | 13% | 32 |
+| Houston - rural TX (E) | 123,131 | 2,234 | 2% | 3 |
+| Dallas - rural TX (NE) | 215,811 | 1,714 | 1% | 165 |
+| Houston - rural TX (NE) | 124,442 | 896 | 1% | 42 |
+| College Station - Dallas | 4,319 | 511 | 12% | 11 |
+| Dallas - rural TX (E) | 1,861 | 55 | 3% | 5 |
 
 ### Texas Triangle (Texas Central + Dallas - Austin - San Antonio + Houston - San Antonio)
 
-- **51,172 rail trips a day, 18.7M a year**: 47,433 from car, 3,739 from air (7%); about 36 fewer flights a day
+- **60,380 rail trips a day, 22.0M a year**: 56,243 from car, 4,137 from air (7%); about 40 fewer flights a day
 
 | Pair | Today (car + air) | Rail | Rail share | From air |
 |---|---|---|---|---|
-| Austin - San Antonio | 149,960 | 18,878 | 13% | 45 |
-| Austin - Killeen | 62,070 | 6,145 | 10% | 0 |
-| Houston - San Antonio | 28,265 | 4,888 | 17% | 371 |
-| Dallas - Houston | 30,209 | 4,299 | 14% | 1,429 |
-| College Station - Houston | 29,101 | 3,803 | 13% | 32 |
-| Austin - Dallas | 25,592 | 3,269 | 13% | 707 |
-| Dallas - Waco | 19,398 | 2,714 | 14% | 54 |
-| Austin - Houston | 36,959 | 1,882 | 5% | 229 |
+| Austin - San Antonio | 149,960 | 21,058 | 14% | 46 |
+| Austin - Killeen | 62,070 | 5,227 | 8% | 0 |
+| Houston - San Antonio | 28,265 | 5,027 | 18% | 373 |
+| Dallas - Houston | 30,209 | 4,414 | 15% | 1,457 |
+| College Station - Houston | 29,101 | 3,719 | 13% | 32 |
+| Austin - Dallas | 25,592 | 3,429 | 13% | 723 |
+| Dallas - Waco | 19,398 | 2,784 | 14% | 55 |
+| Dallas - rural TX (NE) | 215,811 | 2,404 | 1% | 177 |
 
 ### Sensitivity (Texas Central, rail trips a day)
 
 | Change | Rail trips a day | A year |
 |---|---|---|
-| as above | 8,614 | 3.1M |
-| constant vs car 0 (no penalty) | 13,366 | 4.9M |
-| constant vs car -1.0 | 5,259 | 1.9M |
-| fare 30% lower | 11,396 | 4.2M |
-| trains every 60 min | 7,113 | 2.6M |
-| air-rail nest 0.4 (closer substitutes) | 8,565 | 3.1M |
-| no nest (plain logit) | 9,012 | 3.3M |
+| as above | 13,542 | 4.9M |
+| constant vs car 0 (no penalty) | 21,428 | 7.8M |
+| constant vs car -1.0 | 8,247 | 3.0M |
+| fare 30% lower | 17,452 | 6.4M |
+| trains every 60 min | 11,152 | 4.1M |
+| air-rail nest 0.4 (closer substitutes) | 13,524 | 4.9M |
+| no nest (plain logit) | 13,952 | 5.1M |
 
 Benchmarks for Dallas - Houston: TxDOT (2013) 0.7-2.7M riders a year by 2035; Reason Foundation (2017) 1.4M by 2035; Texas Central 5-6M a year early on and 10-13M by 2050 (with growth and induced trips).

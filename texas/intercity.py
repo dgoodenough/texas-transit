@@ -8,7 +8,10 @@ zone pair. Mode choice is a pivot-point nested logit: each pair keeps its observ
 through pair-specific constants; a new rail mode's utility is set against car's from its time,
 cost and frequency (texas/intercity.json), and rail shares a nest with air (public modes), so it
 draws more from air than the shares alone would say. Only pairs whose centres are at least
-`min_km` apart count. Station access is averaged over a zone's counties, weighted by people.
+`min_km` apart count. Each county of a zone uses its own nearest station, so a metro with several
+stations is served where its people live; rail's odds for a zone pair are the people-weighted
+average over its county pairs. Trips grow with population (`growth`), and rail adds induced
+trips (a share of its riders, `hsr.induced_share`).
 """
 import csv
 import heapq
@@ -42,12 +45,36 @@ def load_zones(folder=os.path.join(ROOT, "data", "zones")):
         for r in csv.DictReader(f):
             if r["lat"]:
                 out[r["zone_id"]] = {"name": r["name"], "state": r["state"], "pop": int(r["pop_2020"]),
-                                     "at": (float(r["lat"]), float(r["lon"])), "parts": []}
+                                     "at": (float(r["lat"]), float(r["lon"])), "parts": [], "fips": []}
     with open(os.path.join(folder, "county_zones.csv"), encoding="utf-8") as f:
         for r in csv.DictReader(f):
             if r["zone_id"] in out:
                 out[r["zone_id"]]["parts"].append(((float(r["lat"]), float(r["lon"])), int(r["pop_2020"])))
+                out[r["zone_id"]]["fips"].append(r["county_fips"])
     return out
+
+
+def zone_growth(zones, year, path=os.path.join(ROOT, "data", "zones", "county_growth.csv")):
+    """{zone_id: population in `year` / 2020}, from the counties' trend (tools/build_growth.py)."""
+    if year <= 2020:
+        return {z: 1.0 for z in zones}
+    with open(path, encoding="utf-8") as f:
+        rows = {r["county_fips"]: r for r in csv.DictReader(f)}
+    col = f"pop_{year}"
+    out = {}
+    for z, v in zones.items():
+        now = sum(int(rows[c]["pop_2020"]) for c in v["fips"] if c in rows)
+        then = sum(float(rows[c][col]) for c in v["fips"] if c in rows)
+        out[z] = then / now if now else 1.0
+    return out
+
+
+def short_name(zone):
+    """'Dallas' for 'Dallas-Fort Worth-Arlington, TX'; 'rural TX (NE)' for 'TX-NonMSA areas (NE)'."""
+    name = zone["name"]
+    if "NonMSA" in name:
+        return f"rural {zone['state']} {name[name.find('('):]}" if "(" in name else f"rural {zone['state']}"
+    return name.split(",")[0].split("-")[0]
 
 
 def _market_zone(city, zones):
@@ -131,11 +158,65 @@ class RailNetwork:
 
     def __init__(self, stations, links, svc, reach_km=60):
         self.stations, self.svc, self.reach_km = stations, svc, reach_km
+        self._cache, self._ends_cache = {}, {}
         self.adj = defaultdict(list)
         for a, b, track in links:
             t = track / svc["speed_kmh"] * 60
             self.adj[a].append((b, t, track))
             self.adj[b].append((a, t, track))
+
+    def _paths_from(self, a):
+        if a not in self._cache:
+            best = {a: (0.0, 0.0)}
+            heap = [(0.0, 0.0, a)]
+            while heap:
+                t, k, s = heapq.heappop(heap)
+                if t > best[s][0]:
+                    continue
+                for n, dt, dk in self.adj[s]:
+                    nt = t + dt + (self.svc["stop_min"] if s != a else 0)
+                    if n not in best or nt < best[n][0]:
+                        best[n] = (nt, k + dk)
+                        heapq.heappush(heap, (nt, k + dk, n))
+            self._cache[a] = best
+        return self._cache[a]
+
+    def nearest(self, at):
+        """(station, km) nearest a point, or (None, km) beyond reach."""
+        name, d = min(((s, km(at, ll)) for s, ll in self.stations.items()), key=lambda x: x[1])
+        return (name, d) if d <= self.reach_km else (None, d)
+
+    def _ends(self, zone):
+        """[(county point, share of the zone's people, station or None, km to it)] for a zone."""
+        key = id(zone)
+        if key not in self._ends_cache:
+            parts = zone["parts"] or [(zone["at"], 1)]
+            total = sum(n for _, n in parts) or 1
+            self._ends_cache[key] = [(at, n / total) + self.nearest(at) for at, n in parts]
+        return self._ends_cache[key]
+
+    def odds(self, za, zb, purpose, p, local_kmh=60):
+        """Rail's odds against car for a zone pair: the people-weighted average over its county
+        pairs of exp(V_rail - V_car + constant). Car is measured county to county; a county beyond
+        reach of a station, or a county pair under `min_km` apart, adds nothing."""
+        s = self.svc
+        fixed = s["access_min"] + s["egress_min"] + s["terminal_min"] + min(s["headway_min"] / 2, s["max_wait_min"])
+        ea = [e for e in self._ends(za) if e[2]]
+        eb = [e for e in self._ends(zb) if e[2]]
+        acc = 0.0
+        for at_a, wa, sa, da in ea:
+            paths = self._paths_from(sa)
+            for at_b, wb, sb, db in eb:
+                if sa == sb or sb not in paths:
+                    continue
+                dist = km(at_a, at_b)
+                if dist < p["min_km"]:
+                    continue
+                ride, track = paths[sb]
+                los = (ride, fixed + (da + db) / local_kmh * 60, s["fare_fixed"] + s["fare_per_km"] * track)
+                v_car = utility(car_los(dist, purpose, p), purpose, p)
+                acc += wa * wb * math.exp(utility(los, purpose, p) - v_car + s["asc_vs_car"])
+        return acc
 
     def station_for(self, zone):
         parts = zone["parts"] or [(zone["at"], 1)]
@@ -192,30 +273,31 @@ def nested_split(s_car, s_air, rail_odds, scale):
     return (1 - nest), nest * (1 - within_rail), nest * within_rail
 
 
-def run(base, zones, p, network=None):
+def run(base, zones, p, network=None, growth=None):
     """Mode split for every pair, today and with `network` (a RailNetwork, high-speed by default).
-    Returns {pair: {km, base: {car, air}, new: {car, air, rail}}} in daily person-trips."""
+    `growth` ({zone: population factor}, from zone_growth) scales each pair's trips by the
+    geometric mean of its two zones' growth. Returns {pair: {km, base: {car, air}, new: {car, air,
+    rail, induced}}} in daily person-trips; `induced` is extra rail travel on top of `rail`."""
     out = {}
     for pair, d in base.items():
-        total = d["car"] + d["air"]
+        g = math.sqrt(growth[pair[0]] * growth[pair[1]]) if growth else 1.0
+        total = (d["car"] + d["air"]) * g
         if total <= 0:
             continue
-        res = {"km": d["km"], "base": {"car": d["car"], "air": d["air"]},
-               "new": {"car": 0.0, "air": 0.0, "rail": 0.0}}
+        res = {"km": d["km"], "base": {"car": d["car"] * g, "air": d["air"] * g},
+               "new": {"car": 0.0, "air": 0.0, "rail": 0.0, "induced": 0.0}}
         for purpose, share in (("work", d["work_share"]), ("nonwork", 1 - d["work_share"])):
             trips = total * share
-            s_car, s_air = d["car"] / total, d["air"] / total
+            s_car, s_air = d["car"] / (d["car"] + d["air"]), d["air"] / (d["car"] + d["air"])
             rail_odds = 0.0   # rail's odds against car: exp(V_rail + asc - V_car)
             if network is not None:
-                los = network.los(zones[pair[0]], zones[pair[1]], purpose, p)
-                if los is not None:
-                    dv = utility(los, purpose, p) - utility(car_los(d["km"], purpose, p), purpose, p)
-                    rail_odds = math.exp(dv + p["hsr"]["asc_vs_car"])
+                rail_odds = network.odds(zones[pair[0]], zones[pair[1]], purpose, p)
             # pivot point: today's shares stand for exp(V + pair constant); rail joins relative to car
             c, a, r = nested_split(s_car, s_air, rail_odds, p["nest_public_scale"]) if s_car > 0 else (0, s_air, 0)
             res["new"]["car"] += trips * c
             res["new"]["air"] += trips * a
             res["new"]["rail"] += trips * r
+        res["new"]["induced"] = res["new"]["rail"] * p["hsr"].get("induced_share", 0.0)
         out[pair] = res
     return out
 

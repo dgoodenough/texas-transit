@@ -64,6 +64,19 @@ class DataTests(unittest.TestCase):
         self.assertAlmostEqual(r["new"]["car"], r["base"]["car"], places=6)   # no network: today unchanged
         self.assertEqual(r["new"]["rail"], 0.0)
 
+    def test_growth_scales_trips_and_keeps_shares(self):
+        p = ic.load_params()
+        zones = ic.load_zones()
+        pair = tuple(sorted(("19100_TX", "26420_TX")))
+        base = {pair: ic.base_trips(zones, p)[pair]}
+        growth = {z: 1.0 for z in zones}
+        growth[pair[0]], growth[pair[1]] = 1.44, 1.0
+        r = next(iter(ic.run(base, zones, p, growth=growth).values()))
+        today = base[pair]["car"] + base[pair]["air"]
+        self.assertAlmostEqual(r["new"]["car"] + r["new"]["air"], today * 1.2, places=6)   # sqrt(1.44 x 1.0)
+        self.assertAlmostEqual(r["new"]["air"] / (r["new"]["car"] + r["new"]["air"]),
+                               base[pair]["air"] / today, places=9)
+
 
 if __name__ == "__main__":
     unittest.main()
