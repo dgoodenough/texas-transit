@@ -1,0 +1,59 @@
+{
+  "_doc": "Intercity mode choice (texas/intercity.py). Today's trips between NextGen zones (FHWA/ORNL NextGen NHTS 2022) are the base; each zone pair keeps its observed car/air split through pair-specific constants (a pivot-point nested logit), so the base reproduces today exactly. New modes (high-speed rail, later conventional rail) enter with their own time, cost and frequency and a constant relative to car, nested with air. No growth and no induced trips here: those are separate steps. Money is 2025 dollars. Values marked assumption are this study's, to be tested in the sensitivity runs.",
+  "min_km": 80,
+  "_min_km": "Zone pairs whose centres are closer than this are left out (metro-scale trips, the urban layer's job).",
+  "purposes": {
+    "work": {
+      "vot_per_hour": 45.0,
+      "occupancy": 1.2
+    },
+    "nonwork": {
+      "vot_per_hour": 22.0,
+      "occupancy": 1.9
+    },
+    "_doc": "Value of time per person-hour and car occupancy by purpose (NextGen NHTS splits trips into work and non-work). Values of time: assumption, in the range of USDOT's intercity guidance (business well above personal). Occupancy: assumption, typical long-distance car occupancy for business and personal trips."
+  },
+  "cost_coef_per_dollar": {
+    "work": -0.012,
+    "nonwork": -0.024
+  },
+  "_cost_coef": "Utility per dollar (assumption: long-distance models' range). The time coefficient follows from the value of time: b_time = b_cost * vot / 60 per minute.",
+  "out_of_vehicle_weight": 1.5,
+  "_ovt": "Access, egress, terminal and waiting minutes count this many times in-vehicle minutes (assumption; 1.5-2.5 is usual).",
+  "nest_public_scale": 0.6,
+  "_nest": "Air and rail sit in one nest (public modes) with this scale: 1 is a plain logit; smaller makes them closer substitutes, so new rail draws more from air than from car. Assumption: 0.4-0.8 is the usual range for intercity nests; tested at 0.4 and 1.0.",
+  "car": {
+    "circuity": 1.2,
+    "speed_kmh": 100,
+    "terminal_min": 15,
+    "cost_per_vehicle_km": 0.12,
+    "_doc": "Road km = straight-line km x circuity; average door-to-door speed including the urban ends (assumption); marginal operating cost per vehicle-km (fuel, wear; AAA-style marginal cost, assumption), split among the occupants; terminal minutes for parking and walking."
+  },
+  "air": {
+    "block_min_fixed": 35,
+    "block_km_per_min": 12.5,
+    "access_min": 45,
+    "egress_min": 30,
+    "terminal_min": 70,
+    "seats_per_flight": 130,
+    "load_factor": 0.8,
+    "service_hours": 18,
+    "max_schedule_delay_min": 90,
+    "fare_fixed": 60,
+    "fare_per_km": 0.12,
+    "_doc": "Flight (gate-to-gate) minutes = fixed + km / km-per-minute; airport access and egress; terminal minutes for check-in, security and boarding; schedule delay = a quarter of the service day / daily departures each way, capped (departures from the market's passengers / seats x load factor). Fares: the market's average from the airline ticket sample where it has one, else fixed + per km (assumption). All assumption-grade defaults to be checked against today's air share by distance."
+  },
+  "hsr": {
+    "access_min": 25,
+    "egress_min": 20,
+    "terminal_min": 15,
+    "headway_min": 30,
+    "max_wait_min": 30,
+    "fare_fixed": 15,
+    "fare_per_km": 0.2,
+    "asc_vs_car": -0.5,
+    "speed_kmh": 260,
+    "stop_min": 3,
+    "_doc": "Station access and egress minutes (driving or local transit to a downtown or airport station); terminal minutes (boarding, no security queue); half the headway is the wait, capped; fare fixed + per km of track. Average speed between stops (Texas Central planned about 90 minutes Dallas-Houston for 240 miles with one stop). Constant relative to car: assumption, tested at 0 and -1.0."
+  }
+}

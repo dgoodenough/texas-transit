@@ -51,14 +51,18 @@ high-speed rail versus metro systems is an output, not an input.
 1. **Inputs and today's travel.** County zones with population and jobs; reproduce today's
    intercity flows (air, road) closely enough to trust comparisons. The inputs are gathered
    (`data/README.md`): county zones, LODES county commutes, airline city-pair passengers, TxDOT
-   corridor counts and NextGen NHTS long-distance trips. Next: the intercity demand model,
-   calibrated to them.
-2. **High-speed rail options.** The Triangle (Dallas-Houston, Dallas/Fort Worth-Austin-San
+   corridor counts and NextGen NHTS long-distance trips.
+2. **Intercity demand model** (`texas/intercity.py`, parameters in `texas/intercity.json`): today's
+   trips between NextGen zones as the base, a pivot-point nested logit (air and rail in one nest)
+   for new rail. First results in `study/hsr_first_look.md`: with today's travel, Texas Central
+   carries about 3.1M trips a year (Dallas - Houston 1.6M of them) and a Texas Triangle about
+   19M. Next: growth to future years and induced trips, then corridor options with costs.
+3. **High-speed rail options.** The Triangle (Dallas-Houston, Dallas/Fort Worth-Austin-San
    Antonio, Houston-San Antonio or Houston-Austin) and possible branches (Rio Grande Valley,
    Laredo, Waco/Killeen). Costs, ridership, air trips replaced.
-3. **Urban systems** for the other metros, with per-metro calibration.
-4. **Interstate rail.**
-5. **The site:** a statewide map with the time slider, high-speed rail and flights, linking to
+4. **Urban systems** for the other metros, with per-metro calibration.
+5. **Interstate rail.**
+6. **The site:** a statewide map with the time slider, high-speed rail and flights, linking to
    DFW Transit for the DFW detail.
 
 ## Reusing DFW Transit's code
