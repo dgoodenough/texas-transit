@@ -1,0 +1,30 @@
+{
+ "id": "mcallen",
+ "name": "McAllen-Edinburg-Mission, TX",
+ "texas_pop": 870781,
+ "pop": 870781.0,
+ "jobs": 292679.0,
+ "budget_musd": 8045,
+ "capital_musd": 1966.8620681005289,
+ "opex_new_musd": 43.32760869895938,
+ "lines": 2,
+ "by_mode": {
+  "brt": {
+   "lines": 2,
+   "km": 59.01702343803747,
+   "capital_musd": 1990.510703141123
+  }
+ },
+ "stations_new": 40,
+ "existing_lines": 0,
+ "pop_800m": 0.11566972637207289,
+ "pop_800m_today": 0.0,
+ "trips_today": 0.0,
+ "trips": 6575.044355966888,
+ "boardings": 6681.564413434048,
+ "jobs_45": 8542.585430138231,
+ "jobs_45_today": null,
+ "asc": -0.0875,
+ "asc_note": "set from the registry (asc -0.087; DFW +0.430): DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.24% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)",
+ "minutes": 0.06792459885279338
+}

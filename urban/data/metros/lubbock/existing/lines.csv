@@ -1,0 +1,2 @@
+line_id,name,mode,status,color,headway_min,notes
+m569_42,42 Red Raider,bus,existing,#ff0000,12.0,"GTFS Citibus route 676; 10 AM-peak trips (07:00-09:00, busier direction) on 2026-06-02; headway basis am_peak; midday headway 10.0 min"

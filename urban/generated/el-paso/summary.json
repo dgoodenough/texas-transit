@@ -1,0 +1,30 @@
+{
+ "id": "el-paso",
+ "name": "El Paso, TX",
+ "texas_pop": 868859,
+ "pop": 868859.0,
+ "jobs": 348186.0,
+ "budget_musd": 8027,
+ "capital_musd": 3299.1530262844594,
+ "opex_new_musd": 82.46393484108869,
+ "lines": 5,
+ "by_mode": {
+  "brt": {
+   "lines": 5,
+   "km": 111.21565069388363,
+   "capital_musd": 3784.469520816507
+  }
+ },
+ "stations_new": 68,
+ "existing_lines": 0,
+ "pop_800m": 0.19084569533146345,
+ "pop_800m_today": 0.0,
+ "trips_today": 0.0,
+ "trips": 22260.583797662857,
+ "boardings": 23740.18034544699,
+ "jobs_45": 28875.925290629202,
+ "jobs_45_today": null,
+ "asc": 0.4986,
+ "asc_note": "set from the registry (asc +0.499; DFW +0.430): DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.77% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)",
+ "minutes": 0.15590171416600546
+}

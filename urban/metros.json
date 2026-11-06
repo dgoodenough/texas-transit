@@ -1,0 +1,883 @@
+{
+ "_doc": "Texas metro areas other than Dallas-Fort Worth, in DFW Transit's registry format (vendor/dfw-transit/metro/metros.json). Written by tools/build_metro_registry.py; calibration keys by study/urban_metros.py.",
+ "metros": [
+  {
+   "id": "houston",
+   "name": "Houston-Pasadena-The Woodlands, TX",
+   "cbsa": "26420",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48015",
+    "48039",
+    "48071",
+    "48157",
+    "48167",
+    "48201",
+    "48291",
+    "48339",
+    "48407",
+    "48473"
+   ],
+   "county_names": {
+    "48015": "Austin",
+    "48039": "Brazoria",
+    "48071": "Chambers",
+    "48157": "Fort Bend",
+    "48167": "Galveston",
+    "48201": "Harris",
+    "48291": "Liberty",
+    "48339": "Montgomery",
+    "48407": "San Jacinto",
+    "48473": "Waller"
+   },
+   "downtowns": [
+    {
+     "name": "Houston (city's Census internal point)",
+     "lat": 29.785743,
+     "lon": -95.388806
+    }
+   ],
+   "texas_pop": 7149642,
+   "budget_musd": 66051,
+   "brt_name_pattern": "Silver Line|\\bBRT\\b",
+   "calibration": {
+    "weekday_boardings": 43920,
+    "source": "NTD 2024 average typical weekday, 60008 LR 42,946 + 60008 RB 974"
+   }
+  },
+  {
+   "id": "san-antonio",
+   "name": "San Antonio-New Braunfels, TX",
+   "cbsa": "41700",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48013",
+    "48019",
+    "48029",
+    "48091",
+    "48187",
+    "48259",
+    "48325",
+    "48493"
+   ],
+   "county_names": {
+    "48013": "Atascosa",
+    "48019": "Bandera",
+    "48029": "Bexar",
+    "48091": "Comal",
+    "48187": "Guadalupe",
+    "48259": "Kendall",
+    "48325": "Medina",
+    "48493": "Wilson"
+   },
+   "downtowns": [
+    {
+     "name": "San Antonio (city's Census internal point)",
+     "lat": 29.463408,
+     "lon": -98.524287
+    }
+   ],
+   "texas_pop": 2558143,
+   "budget_musd": 23633,
+   "ridership_asc": {
+    "asc": 0.7474,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 1.26% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "austin",
+   "name": "Austin-Round Rock-San Marcos, TX",
+   "cbsa": "12420",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48021",
+    "48055",
+    "48209",
+    "48453",
+    "48491"
+   ],
+   "county_names": {
+    "48021": "Bastrop",
+    "48055": "Caldwell",
+    "48209": "Hays",
+    "48453": "Travis",
+    "48491": "Williamson"
+   },
+   "downtowns": [
+    {
+     "name": "Austin (city's Census internal point)",
+     "lat": 30.301157,
+     "lon": -97.752695
+    }
+   ],
+   "texas_pop": 2283371,
+   "budget_musd": 21095,
+   "ridership_asc": {
+    "asc": 0.6619,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 1.06% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "mcallen",
+   "name": "McAllen-Edinburg-Mission, TX",
+   "cbsa": "32580",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48215"
+   ],
+   "county_names": {
+    "48215": "Hidalgo"
+   },
+   "downtowns": [
+    {
+     "name": "McAllen (city's Census internal point)",
+     "lat": 26.224966,
+     "lon": -98.246083
+    }
+   ],
+   "texas_pop": 870781,
+   "budget_musd": 8045,
+   "ridership_asc": {
+    "asc": -0.0875,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.24% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "el-paso",
+   "name": "El Paso, TX",
+   "cbsa": "21340",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48141",
+    "48229"
+   ],
+   "county_names": {
+    "48141": "El Paso",
+    "48229": "Hudspeth"
+   },
+   "downtowns": [
+    {
+     "name": "El Paso (city's Census internal point)",
+     "lat": 31.84778,
+     "lon": -106.431106
+    }
+   ],
+   "texas_pop": 868859,
+   "budget_musd": 8027,
+   "ridership_asc": {
+    "asc": 0.4986,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.77% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "killeen",
+   "name": "Killeen-Temple, TX",
+   "cbsa": "28660",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48027",
+    "48099",
+    "48281"
+   ],
+   "county_names": {
+    "48027": "Bell",
+    "48099": "Coryell",
+    "48281": "Lampasas"
+   },
+   "downtowns": [
+    {
+     "name": "Killeen (city's Census internal point)",
+     "lat": 31.075273,
+     "lon": -97.731617
+    }
+   ],
+   "texas_pop": 475367,
+   "budget_musd": 4392,
+   "ridership_asc": {
+    "asc": 0.015,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.29% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "corpus-christi",
+   "name": "Corpus Christi, TX",
+   "cbsa": "18580",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48007",
+    "48355",
+    "48409"
+   ],
+   "county_names": {
+    "48007": "Aransas",
+    "48355": "Nueces",
+    "48409": "San Patricio"
+   },
+   "downtowns": [
+    {
+     "name": "Corpus Christi (city's Census internal point)",
+     "lat": 27.754252,
+     "lon": -97.173385
+    }
+   ],
+   "texas_pop": 445763,
+   "budget_musd": 4118,
+   "ridership_asc": {
+    "asc": 0.6264,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.99% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "brownsville",
+   "name": "Brownsville-Harlingen, TX",
+   "cbsa": "15180",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48061"
+   ],
+   "county_names": {
+    "48061": "Cameron"
+   },
+   "downtowns": [
+    {
+     "name": "Brownsville (city's Census internal point)",
+     "lat": 25.995689,
+     "lon": -97.450848
+    }
+   ],
+   "texas_pop": 421017,
+   "budget_musd": 3890,
+   "ridership_asc": {
+    "asc": 0.2051,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.43% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "beaumont",
+   "name": "Beaumont-Port Arthur, TX",
+   "cbsa": "13140",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48199",
+    "48245",
+    "48361"
+   ],
+   "county_names": {
+    "48199": "Hardin",
+    "48245": "Jefferson",
+    "48361": "Orange"
+   },
+   "downtowns": [
+    {
+     "name": "Beaumont (city's Census internal point)",
+     "lat": 30.084912,
+     "lon": -94.14533
+    }
+   ],
+   "texas_pop": 397565,
+   "budget_musd": 3673,
+   "ridership_asc": {
+    "asc": 0.0592,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.32% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "lubbock",
+   "name": "Lubbock, TX",
+   "cbsa": "31180",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48079",
+    "48107",
+    "48169",
+    "48219",
+    "48303",
+    "48305"
+   ],
+   "county_names": {
+    "48079": "Cochran",
+    "48107": "Crosby",
+    "48169": "Garza",
+    "48219": "Hockley",
+    "48303": "Lubbock",
+    "48305": "Lynn"
+   },
+   "downtowns": [
+    {
+     "name": "Lubbock (city's Census internal point)",
+     "lat": 33.566831,
+     "lon": -101.887847
+    }
+   ],
+   "texas_pop": 351268,
+   "budget_musd": 3245,
+   "ridership_asc": {
+    "asc": 0.3216,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.54% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "waco",
+   "name": "Waco, TX",
+   "cbsa": "47380",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48035",
+    "48145",
+    "48309"
+   ],
+   "county_names": {
+    "48035": "Bosque",
+    "48145": "Falls",
+    "48309": "McLennan"
+   },
+   "downtowns": [
+    {
+     "name": "Waco (city's Census internal point)",
+     "lat": 31.560111,
+     "lon": -97.186027
+    }
+   ],
+   "texas_pop": 295782,
+   "budget_musd": 2733,
+   "ridership_asc": {
+    "asc": 0.0897,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.34% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "longview",
+   "name": "Longview, TX",
+   "cbsa": "30980",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48183",
+    "48203",
+    "48401",
+    "48459"
+   ],
+   "county_names": {
+    "48183": "Gregg",
+    "48203": "Harrison",
+    "48401": "Rusk",
+    "48459": "Upshur"
+   },
+   "downtowns": [
+    {
+     "name": "Longview (city's Census internal point)",
+     "lat": 32.519337,
+     "lon": -94.764592
+    }
+   ],
+   "texas_pop": 286184,
+   "budget_musd": 2644,
+   "ridership_asc": {
+    "asc": -0.4271,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.12% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "amarillo",
+   "name": "Amarillo, TX",
+   "cbsa": "11100",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48011",
+    "48065",
+    "48359",
+    "48375",
+    "48381"
+   ],
+   "county_names": {
+    "48011": "Armstrong",
+    "48065": "Carson",
+    "48359": "Oldham",
+    "48375": "Potter",
+    "48381": "Randall"
+   },
+   "downtowns": [
+    {
+     "name": "Amarillo (city's Census internal point)",
+     "lat": 35.198921,
+     "lon": -101.831647
+    }
+   ],
+   "texas_pop": 268691,
+   "budget_musd": 2482,
+   "ridership_asc": {
+    "asc": 0.3216,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.54% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "college-station",
+   "name": "College Station-Bryan, TX",
+   "cbsa": "17780",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48041",
+    "48051",
+    "48395"
+   ],
+   "county_names": {
+    "48041": "Brazos",
+    "48051": "Burleson",
+    "48395": "Robertson"
+   },
+   "downtowns": [
+    {
+     "name": "College Station (city's Census internal point)",
+     "lat": 30.58516,
+     "lon": -96.29636
+    }
+   ],
+   "texas_pop": 268248,
+   "budget_musd": 2478,
+   "ridership_asc": {
+    "asc": 0.8473,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 1.54% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "laredo",
+   "name": "Laredo, TX",
+   "cbsa": "29700",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48479"
+   ],
+   "county_names": {
+    "48479": "Webb"
+   },
+   "downtowns": [
+    {
+     "name": "Laredo (city's Census internal point)",
+     "lat": 27.561661,
+     "lon": -99.488203
+    }
+   ],
+   "texas_pop": 267114,
+   "budget_musd": 2468,
+   "ridership_asc": {
+    "asc": 0.4677,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.72% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "tyler",
+   "name": "Tyler, TX",
+   "cbsa": "46340",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48423"
+   ],
+   "county_names": {
+    "48423": "Smith"
+   },
+   "downtowns": [
+    {
+     "name": "Tyler (city's Census internal point)",
+     "lat": 32.317258,
+     "lon": -95.305886
+    }
+   ],
+   "texas_pop": 233479,
+   "budget_musd": 2157,
+   "ridership_asc": {
+    "asc": -0.1454,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.21% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "abilene",
+   "name": "Abilene, TX",
+   "cbsa": "10180",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48059",
+    "48253",
+    "48441"
+   ],
+   "county_names": {
+    "48059": "Callahan",
+    "48253": "Jones",
+    "48441": "Taylor"
+   },
+   "downtowns": [
+    {
+     "name": "Abilene (city's Census internal point)",
+     "lat": 32.454514,
+     "lon": -99.738147
+    }
+   ],
+   "texas_pop": 176579,
+   "budget_musd": 1631,
+   "ridership_asc": {
+    "asc": 0.0624,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.32% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "midland",
+   "name": "Midland, TX",
+   "cbsa": "33260",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48317",
+    "48329"
+   ],
+   "county_names": {
+    "48317": "Martin",
+    "48329": "Midland"
+   },
+   "downtowns": [
+    {
+     "name": "Midland (city's Census internal point)",
+     "lat": 32.024642,
+     "lon": -102.113467
+    }
+   ],
+   "texas_pop": 175220,
+   "budget_musd": 1619,
+   "ridership_asc": {
+    "asc": -0.0791,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.24% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "odessa",
+   "name": "Odessa, TX",
+   "cbsa": "36220",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48135"
+   ],
+   "county_names": {
+    "48135": "Ector"
+   },
+   "downtowns": [
+    {
+     "name": "Odessa (city's Census internal point)",
+     "lat": 31.880461,
+     "lon": -102.345314
+    }
+   ],
+   "texas_pop": 165171,
+   "budget_musd": 1526,
+   "ridership_asc": {
+    "asc": -0.1647,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.20% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "wichita-falls",
+   "name": "Wichita Falls, TX",
+   "cbsa": "48660",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48009",
+    "48077",
+    "48485"
+   ],
+   "county_names": {
+    "48009": "Archer",
+    "48077": "Clay",
+    "48485": "Wichita"
+   },
+   "downtowns": [
+    {
+     "name": "Wichita Falls (city's Census internal point)",
+     "lat": 33.906654,
+     "lon": -98.525848
+    }
+   ],
+   "texas_pop": 148128,
+   "budget_musd": 1368,
+   "ridership_asc": {
+    "asc": -0.1223,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.22% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "sherman",
+   "name": "Sherman-Denison, TX",
+   "cbsa": "43300",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48181"
+   ],
+   "county_names": {
+    "48181": "Grayson"
+   },
+   "downtowns": [
+    {
+     "name": "Sherman (city's Census internal point)",
+     "lat": 33.628596,
+     "lon": -96.626722
+    }
+   ],
+   "texas_pop": 135543,
+   "budget_musd": 1252,
+   "ridership_asc": {
+    "asc": 0.2098,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.43% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "san-angelo",
+   "name": "San Angelo, TX",
+   "cbsa": "41660",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48235",
+    "48451"
+   ],
+   "county_names": {
+    "48235": "Irion",
+    "48451": "Tom Green"
+   },
+   "downtowns": [
+    {
+     "name": "San Angelo (city's Census internal point)",
+     "lat": 31.441078,
+     "lon": -100.450499
+    }
+   ],
+   "texas_pop": 121516,
+   "budget_musd": 1123,
+   "ridership_asc": {
+    "asc": 0.1611,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.39% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "victoria",
+   "name": "Victoria, TX",
+   "cbsa": "47020",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48175",
+    "48469"
+   ],
+   "county_names": {
+    "48175": "Goliad",
+    "48469": "Victoria"
+   },
+   "downtowns": [
+    {
+     "name": "Victoria (city's Census internal point)",
+     "lat": 28.828528,
+     "lon": -96.986015
+    }
+   ],
+   "texas_pop": 98331,
+   "budget_musd": 908,
+   "ridership_asc": {
+    "asc": -0.1269,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.22% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "texarkana",
+   "name": "Texarkana, TX-AR",
+   "cbsa": "45500",
+   "state_fips": [
+    "05",
+    "48"
+   ],
+   "state_abbr": {
+    "05": "ar",
+    "48": "tx"
+   },
+   "county_fips": [
+    "05081",
+    "05091",
+    "48037"
+   ],
+   "county_names": {
+    "05081": "Little River",
+    "05091": "Miller",
+    "48037": "Bowie"
+   },
+   "downtowns": [
+    {
+     "name": "Texarkana (city's Census internal point)",
+     "lat": 33.451136,
+     "lon": -94.090087
+    }
+   ],
+   "texas_pop": 92893,
+   "budget_musd": 858,
+   "ridership_asc": {
+    "asc": -0.1598,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.21% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  },
+  {
+   "id": "eagle-pass",
+   "name": "Eagle Pass, TX",
+   "cbsa": "20580",
+   "state_fips": [
+    "48"
+   ],
+   "state_abbr": {
+    "48": "tx"
+   },
+   "county_fips": [
+    "48323"
+   ],
+   "county_names": {
+    "48323": "Maverick"
+   },
+   "downtowns": [
+    {
+     "name": "Eagle Pass (city's Census internal point)",
+     "lat": 28.712803,
+     "lon": -100.484812
+    }
+   ],
+   "texas_pop": 57887,
+   "budget_musd": 535,
+   "ridership_asc": {
+    "asc": -0.518,
+    "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.10% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
+  }
+ ],
+ "_calibration": {
+  "asc_dfw": 0.4296,
+  "share_dfw": 0.00668,
+  "slope_k": 0.499,
+  "fits": [
+   {
+    "id": "houston",
+    "ln_share_ratio": 0.8143,
+    "asc": 0.8359,
+    "weekday_boardings": 43920
+   }
+  ],
+  "checks": [
+   {
+    "id": "austin",
+    "asc": 0.6619,
+    "weekday_boardings": 1636,
+    "model_boardings": 15953
+   }
+  ]
+ }
+}

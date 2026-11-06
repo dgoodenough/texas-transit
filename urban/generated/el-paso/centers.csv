@@ -1,0 +1,8 @@
+center_id,name,kind,lat,lon,activity,pop,jobs,peak_density_per_km2,peak_job_density_per_km2
+C01,Mills / Campbell,downtown,31.763591,-106.482721,50750,15882,34868,9395,7122
+C02,Montana Avenue,minor,31.790651,-106.387815,48093,13484,34609,8902,6931
+C03,Pellicano / George Dieter,minor,31.74408,-106.303908,30772,15298,15474,7303,4588
+T01,Balboa / Cadiz,town,31.823809,-106.542646,65802,44341,21461,4100,1505
+T02,John Hayes / Pebble Hills,town,31.784018,-106.216768,36715,34711,2004,5609,251
+T03,Prince Edward / Rushing,town,31.906815,-106.420472,33033,28739,4294,3608,432
+T04,Nonap / Mark Twain,town,31.683717,-106.249201,16839,6884,9955,4743,3023

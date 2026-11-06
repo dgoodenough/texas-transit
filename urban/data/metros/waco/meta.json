@@ -1,0 +1,209 @@
+{
+  "metro": {
+    "id": "waco",
+    "name": "Waco, TX",
+    "cbsa": "47380",
+    "state_fips": [
+      "48"
+    ],
+    "state_abbr": {
+      "48": "tx"
+    },
+    "county_fips": [
+      "48035",
+      "48145",
+      "48309"
+    ],
+    "county_names": {
+      "48035": "Bosque",
+      "48145": "Falls",
+      "48309": "McLennan"
+    },
+    "downtowns": [
+      {
+        "name": "Waco (city's Census internal point)",
+        "lat": 31.560111,
+        "lon": -97.186027
+      }
+    ],
+    "texas_pop": 295782,
+    "budget_musd": 2733
+  },
+  "sources": {
+    "cbsa_delineation": {
+      "status": "ok",
+      "url": "https://www2.census.gov/programs-surveys/metro-micro/geographies/reference-files/2023/delineation-files/list1_2023.xlsx",
+      "vintage": "2023 (OMB Bulletin 23-01)",
+      "cbsa_title": "Waco, TX",
+      "registry_matches": true,
+      "missing_from_registry": [],
+      "not_in_cbsa": [],
+      "checked_at": "2026-11-06T20:43:02+00:00"
+    },
+    "cenpop2020": {
+      "vintage": "2020 Census (P.L. 94-171), centres of population by block group",
+      "status": "ok",
+      "files": [
+        {
+          "state": "48",
+          "url": "https://www2.census.gov/geo/docs/reference/cenpop2020/blkgrp/CenPop2020_Mean_BG48.txt",
+          "status": "ok",
+          "read_from": "repo copy",
+          "path": "data/CenPop2020_BG_TX.txt",
+          "rows": 205
+        }
+      ],
+      "checked_at": "2026-11-06T20:43:02+00:00"
+    },
+    "tiger2020_bg": {
+      "vintage": "TIGER/Line 2020 block groups (ALAND)",
+      "status": "ok",
+      "files": [
+        {
+          "state": "48",
+          "url": "https://www2.census.gov/geo/tiger/TIGER2020/BG/tl_2020_48_bg.zip",
+          "status": "ok",
+          "rows": 205
+        }
+      ],
+      "checked_at": "2026-11-06T20:43:02+00:00"
+    },
+    "lodes_wac": {
+      "vintage": "LODES 8, 2023, all jobs (S000/JT00, C000)",
+      "year": 2023,
+      "status": "ok",
+      "files": [
+        {
+          "state": "48",
+          "url": "https://lehd.ces.census.gov/data/lodes/LODES8/tx/wac/tx_wac_S000_JT00_2023.csv.gz",
+          "status": "ok"
+        }
+      ],
+      "checked_at": "2026-11-06T20:43:03+00:00"
+    },
+    "lodes_od": {
+      "vintage": "LODES 8, 2023, all jobs (S000)",
+      "year": 2023,
+      "status": "ok",
+      "files": [
+        {
+          "state": "48",
+          "url": "https://lehd.ces.census.gov/data/lodes/LODES8/tx/od/tx_od_main_JT00_2023.csv.gz",
+          "status": "ok"
+        },
+        {
+          "state": "48",
+          "url": "https://lehd.ces.census.gov/data/lodes/LODES8/tx/od/tx_od_aux_JT00_2023.csv.gz",
+          "status": "ok"
+        }
+      ],
+      "checked_at": "2026-11-06T20:43:03+00:00"
+    },
+    "mobility_database": {
+      "status": "ok",
+      "url": "https://storage.googleapis.com/mdb-csv/sources.csv",
+      "catalog_rows": 3617,
+      "selected": [],
+      "checked_at": "2026-11-06T20:43:33+00:00"
+    },
+    "gtfs": {
+      "status": "missing",
+      "feeds": [],
+      "checked_at": "2026-11-06T20:43:33+00:00"
+    },
+    "overture_transportation": {
+      "status": "ok",
+      "release": "2026-09-23.1",
+      "url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=transportation/type=segment/",
+      "license": "\u00a9 OpenStreetMap contributors, ODbL 1.0 (via Overture Maps Foundation)",
+      "bbox": [
+        -97.9809,
+        30.976,
+        -96.632,
+        32.1617
+      ],
+      "files": {
+        "roads.parquet": {
+          "subtype": "road",
+          "classes": [
+            "motorway",
+            "trunk",
+            "primary",
+            "secondary",
+            "tertiary"
+          ],
+          "rows": 18984,
+          "sha256": "0240c301a161bc196f1a86e20b537b8be4b0496773d6e563feed239af4331028"
+        },
+        "rail.parquet": {
+          "subtype": "rail",
+          "classes": null,
+          "rows": 534,
+          "sha256": "3b85c1983e90b357894245ef64c0dbd9c61e61b08d685d5decba4686fb5cf51b"
+        }
+      },
+      "checked_at": "2026-11-06T20:44:01+00:00"
+    }
+  },
+  "outputs": {
+    "zones.csv": {
+      "rows": 205,
+      "pop": 295782,
+      "jobs": 129143,
+      "jobs_in_unknown_block_groups": 0,
+      "by_county": {
+        "48035": 17,
+        "48145": 14,
+        "48309": 174
+      },
+      "empty_columns": [],
+      "written_at": "2026-11-06T20:43:03+00:00"
+    },
+    "od_tracts.csv": {
+      "rows": 3847,
+      "written_at": "2026-11-06T20:43:33+00:00"
+    },
+    "existing/lines.csv": {
+      "rows": 0,
+      "written_at": "2026-11-06T20:43:33+00:00"
+    },
+    "existing/stations.csv": {
+      "rows": 0,
+      "written_at": "2026-11-06T20:43:33+00:00"
+    },
+    "existing/line_stops.csv": {
+      "rows": 0,
+      "written_at": "2026-11-06T20:43:33+00:00"
+    },
+    "existing/line_segments.csv": {
+      "rows": 0,
+      "written_at": "2026-11-06T20:43:33+00:00"
+    },
+    "existing/routes.csv": {
+      "rows": 0,
+      "written_at": "2026-11-06T20:43:33+00:00"
+    },
+    "osm/roads.parquet": {
+      "rows": 18984,
+      "written_at": "2026-11-06T20:43:47+00:00"
+    },
+    "osm/rail.parquet": {
+      "rows": 534,
+      "written_at": "2026-11-06T20:44:01+00:00"
+    }
+  },
+  "bbox": [
+    -97.9809,
+    30.976,
+    -96.632,
+    32.1617
+  ],
+  "fetched_at": "2026-11-06T20:44:01+00:00",
+  "missing": [
+    {
+      "item": "existing/",
+      "source": "gtfs",
+      "why": "ok"
+    }
+  ]
+}

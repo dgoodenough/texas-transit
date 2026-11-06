@@ -1,0 +1,3 @@
+line_id,name,mode,status,color,headway_min,notes
+G01,Jackson / Schunior - 1st Street / Mayberry BRT,brt,proposed,#8e24aa,,"generated (R005): 4,326 per route-km >= BRT 3,000 (< metro 7,000); 952 new daily trips for $0.48B capital (1.39 per $M incl. opex); extends R002"
+G02,1st Street / Mayberry - Oklahoma / Republic BRT,brt,proposed,#00897b,,"generated (R007): 4,056 per route-km >= BRT 3,000 (< metro 7,000); 617 new daily trips for $0.31B capital (1.41 per $M incl. opex); extends R003"

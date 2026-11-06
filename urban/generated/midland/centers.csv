@@ -1,0 +1,4 @@
+center_id,name,kind,lat,lon,activity,pop,jobs,peak_density_per_km2,peak_job_density_per_km2
+T01,Lamesa / Nobles,town,32.01441,-102.072053,48249,19949,28300,7760,5079
+T02,Bunker Hill / Avalon,town,31.966234,-102.176895,13832,4814,9018,4256,2775
+T03,Nadine and Tom Craddick Highway,town,32.012131,-102.253774,9668,1914,7754,2975,2386

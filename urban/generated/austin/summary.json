@@ -1,0 +1,40 @@
+{
+ "id": "austin",
+ "name": "Austin-Round Rock-San Marcos, TX",
+ "texas_pop": 2283371,
+ "pop": 2283371.0,
+ "jobs": 1303090.0,
+ "budget_musd": 21095,
+ "capital_musd": 18311.011871173723,
+ "opex_new_musd": 237.3109733772717,
+ "lines": 10,
+ "by_mode": {
+  "brt": {
+   "lines": 6,
+   "km": 97.54805580578613,
+   "capital_musd": 3369.089616681857
+  },
+  "commuter": {
+   "lines": 2,
+   "km": 75.74301339106282,
+   "capital_musd": 3876.400818476813
+  },
+  "metro": {
+   "lines": 2,
+   "km": 45.2767274099719,
+   "capital_musd": 12212.05311938834
+  }
+ },
+ "stations_new": 109,
+ "existing_lines": 1,
+ "pop_800m": 0.11516043603952227,
+ "pop_800m_today": 0.014525891762661433,
+ "trips_today": 15953.003462686973,
+ "trips": 88815.49218604638,
+ "boardings": 98152.95624227646,
+ "jobs_45": 80844.98052175419,
+ "jobs_45_today": 12834.303510945349,
+ "asc": 0.6619,
+ "asc_note": "set from the registry (asc +0.662; DFW +0.430): DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 1.06% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)",
+ "minutes": 0.4984884222348531
+}

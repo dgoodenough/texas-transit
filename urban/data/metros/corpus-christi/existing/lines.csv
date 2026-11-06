@@ -1,0 +1,2 @@
+line_id,name,mode,status,color,headway_min,notes
+m315_60,60 Momentum Shuttle,bus,existing,#77D2FF,13.3,"GTFS Corpus Christi Regional Transportation Authority route 60; 9 AM-peak trips (07:00-09:00, busier direction) on 2025-04-22; headway basis am_peak; midday headway 11.4 min"

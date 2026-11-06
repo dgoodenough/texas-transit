@@ -1,0 +1,5 @@
+center_id,name,kind,lat,lon,activity,pop,jobs,peak_density_per_km2,peak_job_density_per_km2
+C01,Wolflin / Amarillo,downtown,35.191154,-101.916266,21575,3338,18237,8549,6199
+T01,Highland / 16th Avenue,town,35.230814,-101.804,14235,12818,1417,2783,310
+T02,4th Avenue / 15th Street,town,34.980831,-101.927273,13970,7254,6716,4024,2024
+T03,B Avenue,town,35.227873,-101.685165,9520,2188,7332,2929,2256

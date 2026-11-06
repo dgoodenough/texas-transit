@@ -1,0 +1,6 @@
+center_id,name,kind,lat,lon,activity,pop,jobs,peak_density_per_km2,peak_job_density_per_km2
+C01,Tancahua / Lipan,downtown,27.794665,-97.398503,25880,5251,20629,7916,6525
+T01,Staples / Saratoga,town,27.682869,-97.384235,88453,66241,22212,5263,1798
+T02,Wildcat Drive,town,27.887564,-97.317024,18146,14189,3957,3905,1254
+T03,Violet / Leopard,town,27.844914,-97.587442,10849,9506,1343,2365,360
+T04,1st Street / Avenue J,town,27.797102,-97.666414,10674,7073,3601,2901,1106
