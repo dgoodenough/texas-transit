@@ -1,0 +1,29 @@
+{
+  "_doc": "Benefits beyond what travellers themselves gain, and the station-area land tax that helps pay for urban lines. Every value is an assumption in 2025 dollars, from the ranges in US practice noted beside it; study/timing.py uses them and study/timing.md tests the totals.",
+  "car_externality_per_vkm": {
+    "urban": {"congestion": 0.15, "crashes": 0.05, "emissions": 0.05},
+    "intercity": {"congestion": 0.01, "crashes": 0.05, "emissions": 0.05},
+    "_doc": "$ per car vehicle-km taken off the road. Congestion: the delay one more car imposes on others, about 10-30 cents a km in US metro traffic averaged over the day and near zero on rural interstates (FHWA Highway Cost Allocation Study ranges). Crashes: the cost of crashes not borne by the driver, about 5 cents a km. Emissions: CO2 at about 0.25 kg a km and EPA's social cost of carbon (about $190 a tonne), plus local air pollution, about 5 cents a km."
+  },
+  "air_externality_per_pkm": 0.03,
+  "_air": "$ per air passenger-km taken out of the sky: CO2 at about 0.12 kg a passenger-km on short flights at about $190 a tonne, plus a little for noise and other emissions.",
+  "urban_car_km_per_new_trip": 12,
+  "urban_from_car_share": 0.85,
+  "urban_car_occupancy": 1.1,
+  "_urban": "Each new urban transit trip takes urban_from_car_share x urban_car_km_per_new_trip / urban_car_occupancy car km off the road: most new riders would have driven, alone, a typical metro trip (US commutes average about 19 km; non-commute trips are shorter).",
+  "intercity_car_circuity": 1.2,
+  "intercity_car_occupancy": 1.6,
+  "agglomeration_share": {"urban": 0.2, "hsr": 0.1, "conventional": 0.0},
+  "_agglomeration": "Wider economic benefits as a share of travellers' gain: firms and workers more productive when more of them can reach each other. UK appraisal (TAG) finds about 10-30% for urban rail in big cities and less for intercity rail; here 20% urban, 10% high-speed, none for a few trains a day.",
+  "land_tax": {
+    "radius_km": 0.8,
+    "value_per_resident": 110000,
+    "value_per_job": 90000,
+    "uplift": {"metro": 0.10, "commuter": 0.06, "streetcar": 0.08, "brt": 0.04},
+    "tirz_tax_rate": 0.009,
+    "pid_rate": 0.001,
+    "years": 30,
+    "bond_rate": 0.045,
+    "_doc": "Each new urban line's new stations form a district (land within radius_km). Its property is worth value_per_resident per resident and value_per_job per job (Texas market value is roughly $3.3T residential and $1.3T commercial and industrial for about 30M people and 14M jobs). A Tax Increment Reinvestment Zone (Texas Tax Code ch. 311) keeps the city and county share of the property tax on the rise in value the line brings (uplift by mode, from studies of US rail and BRT station premiums: about 5-15% for rail, less for BRT), at tirz_tax_rate (city plus county; school taxes can't be captured). A Public Improvement District (Local Government Code ch. 372) adds an assessment of pid_rate a year on all property in the district (Dallas and Houston PIDs charge about 0.05-0.15%). Both are pledged for `years` and borrowed against at bond_rate when the line opens; the proceeds pay part of its capital, so the statewide budget pays less. This changes who pays, not what a line is worth: the uplift is travellers' gain showing up in land prices, so it is not added to benefits."
+  }
+}

@@ -33,6 +33,7 @@ import csv
 import json
 import math
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -73,6 +74,86 @@ def texas_pop():
     return out
 
 
+BEN = json.load(open(os.path.join(ROOT, "texas", "benefits.json"), encoding="utf-8"))
+LT = BEN["land_tax"]
+
+
+def ext_per_vkm(kind):
+    return sum(BEN["car_externality_per_vkm"][kind].values())
+
+
+def annuity(rate, years):
+    return (1 - (1 + rate) ** -years) / rate
+
+
+URBAN_VKM_PER_TRIP = BEN["urban_from_car_share"] * BEN["urban_car_km_per_new_trip"] / BEN["urban_car_occupancy"]
+URBAN_WIDER_PER_TRIP = URBAN_VKM_PER_TRIP * ext_per_vkm("urban")      # $ a new urban trip
+
+
+def land_tax(pop, jobs, mode):
+    """(a year, bond at opening) $M from a new line's station district: TIRZ on the uplift plus PID on
+    all property (texas/benefits.json land_tax)."""
+    value = pop * LT["value_per_resident"] + jobs * LT["value_per_job"]
+    year = value * (LT["uplift"].get(mode, 0.0) * LT["tirz_tax_rate"] + LT["pid_rate"]) / 1e6
+    return year, year * annuity(LT["bond_rate"], LT["years"])
+
+
+def districts(metro_id, order):
+    """{cand_id: (people, jobs, new stations)} within land_tax.radius_km of each project's new stations;
+    a station, and a block group, belongs to the first project (in `order`) that reaches it."""
+    import numpy as np
+    d = os.path.join(ROOT, "urban", "generated", metro_id)
+    lines = list(csv.DictReader(open(os.path.join(d, "lines.csv"), encoding="utf-8")))
+    cand = {}
+    for r in lines:
+        m = re.search(r"generated \(([A-Z]\d+)\)", r["notes"] or "")
+        if m:
+            cand[r["line_id"]] = m.group(1)
+    stops = list(csv.DictReader(open(os.path.join(d, "line_stops.csv"), encoding="utf-8")))
+    st = {r["station_id"]: (float(r["lat"]), float(r["lon"])) for r in csv.DictReader(open(os.path.join(d, "stations.csv"), encoding="utf-8"))}
+    existing = {r["station_id"] for r in stops if r["line_id"] not in cand}
+    zs = list(csv.DictReader(open(os.path.join(ROOT, "urban", "data", "metros", metro_id, "zones.csv"), encoding="utf-8")))
+    lat = np.array([float(z["lat"]) for z in zs])
+    lon = np.array([float(z["lon"]) for z in zs])
+    pop = np.array([float(z["pop"] or 0) for z in zs])
+    jobs = np.array([float(z["jobs"] or 0) for z in zs])
+    taken = np.zeros(len(zs), dtype=bool)
+    seen = set(existing)
+    out = {}
+    by_line = {}
+    for r in stops:
+        if r["line_id"] in cand:
+            by_line.setdefault(cand[r["line_id"]], []).append(r["station_id"])
+    for cid in order:
+        P = J = 0.0
+        n = 0
+        for sid in by_line.get(cid, []):
+            if sid in seen or sid not in st:
+                continue
+            seen.add(sid)
+            n += 1
+            la, lo = st[sid]
+            dist = np.hypot((lat - la) * 111.2, (lon - lo) * 111.2 * math.cos(math.radians(la)))
+            near = (dist <= LT["radius_km"]) & ~taken
+            P += pop[near].sum()
+            J += jobs[near].sum()
+            taken |= near
+        out[cid] = (float(P), float(J), n)
+    return out
+
+
+def shift(res, p):
+    """(car vehicle-km, air passenger-km) a day that rail takes off the road and out of the air."""
+    vkm = sum((r["base"]["car"] - r["new"]["car"]) * r["km"] for r in res.values()) * BEN["intercity_car_circuity"] / \
+        BEN["intercity_car_occupancy"]
+    pkm = sum((r["base"]["air"] - r["new"]["air"]) * r["km"] for r in res.values())
+    return vkm, pkm
+
+
+def intercity_wider(vkm_day, pkm_day):
+    return (vkm_day * ext_per_vkm("intercity") + pkm_day * BEN["air_externality_per_pkm"]) * 365 / 1e6
+
+
 # ---------------------------------------------------------------- projects
 def urban_projects():
     reg = json.load(open(os.path.join(ROOT, "urban", "metros.json"), encoding="utf-8"))
@@ -87,9 +168,12 @@ def urban_projects():
         rows.sort(key=lambda r: int(r["order"]))
         sketch = sum(float(r["new_trips"]) for r in rows)
         model = max(s.get("trips", 0) - s.get("trips_today", 0), 0)
+        dist = districts(m["id"], [r["cand_id"] for r in rows])
         prev = None
         for r in rows:
             trips = model * float(r["new_trips"]) / sketch if sketch else 0.0
+            dp, dj, dn = dist.get(r["cand_id"], (0.0, 0.0, 0))
+            tax_year, bond = land_tax(dp, dj, r["mode"])
             benefit = trips / URBAN_B_PER_DOLLAR * URBAN_DAYS / 1e6
             fares = trips * URBAN_FARE * URBAN_DAYS / 1e6
             pid = f"{m['id']}:{r['cand_id']}"
@@ -97,6 +181,10 @@ def urban_projects():
                         "name": r["name"], "mode": r["mode"], "km": float(r["km"]),
                         "capital": float(r["capital_musd"]), "opex": float(r["opex_musd_yr"]), "fares": fares,
                         "benefit": benefit, "trips_day": trips, "trips_year": trips * URBAN_DAYS,
+                        "wider": trips * URBAN_WIDER_PER_TRIP * URBAN_DAYS / 1e6,
+                        "agglom": benefit * BEN["agglomeration_share"]["urban"],
+                        "district_pop": dp, "district_jobs": dj, "new_stations": dn,
+                        "land_tax_year": tax_year, "bond": min(bond, float(r["capital_musd"])),
                         "base_year": 2026, "after": [prev] if prev else [], "build": BUILD_YEARS[r["mode"]]})
             prev = pid
     return out
@@ -115,7 +203,7 @@ def hsr_projects(log=print):
     base = ic.base_trips(zones, p)
     tx = {k: v for k, v in base.items() if "TX" in (zones[k[0]]["state"], zones[k[1]]["state"])}
     growth = ic.zone_growth(zones, HSR_YEAR)
-    prev = {"rail": 0.0, "benefit": 0.0, "fares": 0.0, "air": 0.0, "flights": 0.0}
+    prev = {"rail": 0.0, "benefit": 0.0, "fares": 0.0, "air": 0.0, "flights": 0.0, "vkm": 0.0, "pkm": 0.0}
     out = []
     for i, cid in enumerate(order):
         built = order[:i + 1]
@@ -126,6 +214,7 @@ def hsr_projects(log=print):
                "air": sum(r["base"]["air"] - r["new"]["air"] for r in res.values()),
                "flights": sum(ic.flights_per_day(r["base"]["air"] - r["new"]["air"], p) for r in res.values()),
                "fares": 0.0}
+        tot["vkm"], tot["pkm"] = shift(res, p)
         for k, r in res.items():
             if r["new"]["rail"] > 0:
                 los = net.los(zones[k[0]], zones[k[1]], "nonwork", p)
@@ -138,6 +227,8 @@ def hsr_projects(log=print):
                     "opex": hsr.opex_musd([cid], HSR_HEADWAY, built=order[:i]),
                     "fares": d["fares"] * 365 / 1e6, "benefit": d["benefit"] * 365 / 1e6,
                     "trips_day": d["rail"], "trips_year": d["rail"] * 365, "air_day": d["air"], "flights_day": d["flights"],
+                    "wider": intercity_wider(d["vkm"], d["pkm"]),
+                    "agglom": d["benefit"] * 365 / 1e6 * BEN["agglomeration_share"]["hsr"],
                     "base_year": HSR_YEAR, "after": [f"hsr:{order[i - 1]}"] if i else [], "build": BUILD_YEARS["hsr"],
                     "chain": hsr.CORRIDORS[cid][1]})
         if log:
@@ -157,36 +248,111 @@ def conventional_projects(log=print):
 
     def totals(ids, tpd):
         if not ids or tpd <= 0:
-            return 0.0, 0.0, 0.0, 0.0
+            return 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
         rail, fares, air, res = ir.evaluate(ids, tpd, trips, zones, p, growth)
-        return rail, fares, air, sum(r["benefit_usd"] for r in res.values())
+        return (rail, fares, air, sum(r["benefit_usd"] for r in res.values())) + shift(res, p)
 
     for cid, under, against in ir.PLAN:
         today = cv.CORRIDORS[cid][2]
         after = totals(under + [cid], 4)
-        before = totals(under, 4) if against == "under" else (totals(under + [cid], today) if against == "today" else (0, 0, 0, 0))
-        rail, fares, air, ben = (after[i] - before[i] for i in range(4))
+        before = totals(under, 4) if against == "under" else (totals(under + [cid], today) if against == "today" else (0,) * 6)
+        rail, fares, air, ben, vkm, pkm = (after[i] - before[i] for i in range(6))
         opex = cv.opex_musd(cid, 4) - (cv.opex_musd(cid, today) if against == "today" else 0.0)
         dep = {"KC": ["conv:FLYER"], "EAGLE": ["conv:I20"]}.get(cid, [])
         out.append({"id": f"conv:{cid}", "layer": "conventional", "name": cv.CORRIDORS[cid][0], "mode": "conventional",
                     "km": cv.route_km(cid), "capital": cv.capital_musd(cid, 4, p["conventional"]), "opex": opex,
                     "fares": fares * 365 / 1e6, "benefit": ben * 365 / 1e6, "trips_day": rail, "trips_year": rail * 365,
-                    "air_day": air, "base_year": HSR_YEAR, "after": dep, "build": BUILD_YEARS["conventional"],
+                    "air_day": air, "wider": intercity_wider(vkm, pkm),
+                    "agglom": ben * 365 / 1e6 * BEN["agglomeration_share"]["conventional"],
+                    "base_year": HSR_YEAR, "after": dep, "build": BUILD_YEARS["conventional"],
                     "chain": cv.CORRIDORS[cid][1]})
         if log:
             log(f"  conventional {cid}: +{rail * 365 / 1e6:.2f}M trips, ${ben * 365 / 1e6:,.0f}M benefit a year")
     return out
 
 
+# ---------------------------------------------------------------- Dallas-Fort Worth
+def dfw_layer():
+    """DFW Transit's 2 million riders plan (data/dfw/dfw_plan.json, tools/build_dfw.py) as a fixed layer:
+    its own timetable and spending. Its trips and operating cost are what it adds to the current track;
+    they are valued like the other metros'. Its new stations' land tax is borrowed against when they
+    open, like the other metros' lines, and since DFW's timetable is fixed the proceeds go to the
+    statewide pot. Returns {year: {...}} and the plan."""
+    import numpy as np
+    plan = json.load(open(os.path.join(ROOT, "data", "dfw", "dfw_plan.json"), encoding="utf-8"))
+    z = plan["zones"]
+    lat = np.array([q["lat"] for q in z])
+    lon = np.array([q["lon"] for q in z])
+    pop = np.array([q["pop"] for q in z])
+    jobs = np.array([q["jobs"] for q in z])
+    taken = np.zeros(len(z), dtype=bool)
+    bonds, tax_year = {}, {}
+    for st in sorted(plan["stations"], key=lambda q: q["year"]):
+        if st["year"] <= YEARS[0]:
+            dist = np.hypot((lat - st["lat"]) * 111.2, (lon - st["lon"]) * 111.2 * math.cos(math.radians(st["lat"])))
+            taken |= dist <= LT["radius_km"]   # today's station areas: already priced in
+            continue
+        dist = np.hypot((lat - st["lat"]) * 111.2, (lon - st["lon"]) * 111.2 * math.cos(math.radians(st["lat"])))
+        near = (dist <= LT["radius_km"]) & ~taken
+        taken |= near
+        mode = max(st["modes"].split(";"), key=lambda m: LT["uplift"].get(m, 0.0))
+        yr, bond = land_tax(float(pop[near].sum()), float(jobs[near].sum()), mode)
+        bonds[st["year"]] = bonds.get(st["year"], 0.0) + bond
+        tax_year[st["year"]] = tax_year.get(st["year"], 0.0) + yr
+    rows = {}
+    for r in plan["yearly"]:
+        y = r["year"]
+        if y not in YEARS:
+            continue
+        new = max(r["trips_day"] - (r["base_trips_day"] or r["trips_day"]), 0.0)
+        ben = new / URBAN_B_PER_DOLLAR * URBAN_DAYS / 1e6
+        rows[y] = {"spend": r["spend"], "trips_day": new, "benefit": ben,
+                   "wider": new * URBAN_WIDER_PER_TRIP * URBAN_DAYS / 1e6 + ben * BEN["agglomeration_share"]["urban"],
+                   "opex": r["opex"] - (r["base_opex"] or 0.0), "fares": new * URBAN_FARE * URBAN_DAYS / 1e6,
+                   "bond": bonds.get(y, 0.0)}
+    return rows, plan, sum(tax_year.values())
+
+
+def other_budget(dfw):
+    """$M a year for everything outside DFW: the statewide rate minus what DFW spends that year, plus
+    DFW's station-area bonds."""
+    return {y: STATE_MUSD - dfw[y]["spend"] + dfw[y]["bond"] for y in YEARS}
+
+
+CONNECT = [   # (statewide station, layer, (lat, lon))
+    ("Dallas (high-speed, beside Union Station)", "hsr", hsr.point("Dallas")),
+    ("Fort Worth (high-speed)", "hsr", hsr.point("Fort Worth")),
+    ("Denton (high-speed, to Oklahoma City)", "hsr", hsr.point("Denton")),
+    ("Dallas Union Station (conventional, I-20)", "conventional", cv.point("Dallas")),
+    ("Fort Worth Central (conventional, Heartland Flyer)", "conventional", cv.point("Fort Worth")),
+]
+
+
+def connections(plan, opens=None):
+    """For each statewide station in DFW, DFW's nearest station open by the time the statewide line opens
+    (`opens`: {name: year}; any year if not given): name, distance, opening year, modes."""
+    out = []
+    for name, layer, (la, lo) in CONNECT:
+        by = (opens or {}).get(name) or 9999
+        cands = [q for q in plan["stations"] if q["year"] <= by] or plan["stations"]
+        best = min(cands, key=lambda q: ic.km((la, lo), (q["lat"], q["lon"])))
+        out.append({"name": name, "layer": layer, "dfw": best["name"], "km": ic.km((la, lo), (best["lat"], best["lon"])),
+                    "year": best["year"], "modes": best["modes"].replace(";", ", ")})
+    return out
+
+
 # ---------------------------------------------------------------- schedule
 def ratio(pr):
-    """Benefit-cost ratio over 50 years at 3%: travellers' gain (plus any operating surplus) over
-    capital plus the operating deficit (operating cost minus fares)."""
+    """Benefit-cost ratio over 50 years at 3%: all benefits (travellers' gain, wider benefits,
+    agglomeration, plus any operating surplus) over capital plus the operating deficit (operating cost
+    minus fares). Land-tax bonds change who pays, not the ratio."""
     margin = pr["fares"] - pr["opex"]
-    pr["net"] = pr["benefit"] + margin
-    pv_benefit = (pr["benefit"] + max(margin, 0.0)) * PV_FACTOR
+    pr["all_benefit"] = pr["benefit"] + pr.get("wider", 0.0) + pr.get("agglom", 0.0)
+    pr["net"] = pr["all_benefit"] + margin
+    pv_benefit = (pr["all_benefit"] + max(margin, 0.0)) * PV_FACTOR
     pv_cost = pr["capital"] + max(-margin, 0.0) * PV_FACTOR
     pr["bcr"] = pv_benefit / pv_cost if pv_cost > 0 else 0.0
+    pr["bcr_users"] = (pr["benefit"] + max(margin, 0.0)) * PV_FACTOR / pv_cost if pv_cost > 0 else 0.0
     return pr["bcr"]
 
 
@@ -224,7 +390,7 @@ def schedule(projects, budget, spend=None, order=None):
         # a project's value assumes the ones before it are there: it may be built alongside them, but
         # opens no earlier than they do
         first = max([YEARS[0]] + [max(d["start"], d["open"] - p["build"]) for d in deps])
-        per = p["capital"] / p["build"]
+        per = (p["capital"] - p.get("bond", 0.0)) / p["build"]   # land-tax bonds pay part of an urban line
         for y in range(first, YEARS[-1] - p["build"] + 1):   # opens by the last year
             trial = dict(spend)
             for k in range(p["build"]):
@@ -243,7 +409,7 @@ def schedule(projects, budget, spend=None, order=None):
     return built, spend
 
 
-def metros_first(projects):
+def metros_first(projects, budget):
     """Scenario: each metro gets its own stream, its 30-year generator budget (urban/metros.json
     budget_musd) spread evenly over METRO_YEARS from 2025, and builds its lines in the generator's
     order as that stream allows. Intercity projects take what's left of the $6.7B a year (including
@@ -261,23 +427,28 @@ def metros_first(projects):
         for y in YEARS:
             spend[y] += s_m[y]
     inter = [p for p in projects if p["layer"] != "urban"]
-    b, spend = schedule(inter, OTHER_MUSD, spend=spend)
+    b, spend = schedule(inter, budget, spend=spend)
     for p in projects:
         ratio(p)
     return built + b, spend
 
 
-def yearly(projects, spend, pop):
+def yearly(projects, spend, pop, dfw):
     rows = []
     for y in YEARS:
         open_ = [p for p in projects if p.get("open") and p["open"] <= y]
         f = {p["id"]: pop[y] / pop[p["base_year"]] for p in open_}
-        rows.append({"year": y, "spend": spend[y],
+        d = dfw[y]
+        rows.append({"year": y, "spend": spend[y], "dfw_spend": d["spend"],
+                     "land_tax": sum(p.get("bond", 0.0) for p in projects if p.get("open") == y) + d["bond"],
                      "urban_trips_day": sum(p["trips_day"] * f[p["id"]] for p in open_ if p["layer"] == "urban"),
+                     "dfw_trips_day": d["trips_day"],
                      "intercity_trips_year": sum(p["trips_year"] * f[p["id"]] for p in open_ if p["layer"] != "urban"),
-                     "benefit": sum(p["benefit"] * f[p["id"]] for p in open_),
+                     "benefit": sum(p["benefit"] * f[p["id"]] for p in open_) + d["benefit"],
+                     "wider": sum((p.get("wider", 0) + p.get("agglom", 0)) * f[p["id"]] for p in open_) + d["wider"],
                      "flights_day": sum(p.get("flights_day", 0) * f[p["id"]] for p in open_),
-                     "opex": sum(p["opex"] for p in open_), "fares": sum(p["fares"] * f[p["id"]] for p in open_)})
+                     "opex": sum(p["opex"] for p in open_) + d["opex"],
+                     "fares": sum(p["fares"] * f[p["id"]] for p in open_) + d["fares"]})
     return rows
 
 
@@ -290,15 +461,18 @@ def main():
     pop = texas_pop()
     print("projects ...")
     projects = urban_projects() + hsr_projects() + conventional_projects()
+    dfw, plan, dfw_tax_year = dfw_layer()
+    budget = other_budget(dfw)
     runs = {}
     for key, _ in SCENARIOS:
         ps = copy.deepcopy(projects)
-        built, spend = schedule(ps, OTHER_MUSD) if key == "ratio" else metros_first(ps)
-        rows = yearly(ps, spend, pop)
+        built, spend = schedule(ps, budget) if key == "ratio" else metros_first(ps, budget)
+        rows = yearly(ps, spend, pop, dfw)
         for r in rows:
-            r["net"] = r["benefit"] + r["fares"] - r["opex"]
+            r["net"] = r["benefit"] + r["wider"] + r["fares"] - r["opex"]
+            r["net_users"] = r["benefit"] + r["fares"] - r["opex"]
         runs[key] = {"projects": ps, "built": built, "rows": rows}
-    write(runs, pop)
+    write(runs, pop, dfw, plan, budget, dfw_tax_year)
 
 
 def scenario_section(runs):
@@ -307,8 +481,8 @@ def scenario_section(runs):
     L = ["## Scenario: metros first", "",
          f"Each of the 25 metros gets its own stream, its 30-year budget from step 4 (DFW's rate per resident) spread "
          f"over {METRO_YEARS} years from 2025, and builds its lines in the generator's order as that stream allows. "
-         "Intercity rail takes what's left of the $6.7B a year, including whatever the metros can't spend, best ratio "
-         "first. Values, costs and the budget are the same as above.", "",
+         "Intercity rail takes what's left of the statewide budget after DFW, including whatever the metros can't spend, best "
+         "ratio first. Values, costs, land-tax bonds and the budget are the same as above.", "",
          "| | Best ratio first | Metros first |", "|---|---|---|"]
 
     def at(run, y, k):
@@ -326,7 +500,9 @@ def scenario_section(runs):
                        ("conventional", "Conventional capital built by 2100")):
         L.append(f"| {lab} | {money(built_cap(a, layer))} | {money(built_cap(b, layer))} |")
     for k, lab in (("benefit", "Travellers' gain, 2025-2100, present value at 3%"),
-                   ("net", "Gain + fares - operating cost, present value at 3%")):
+                   ("wider", "Wider benefits, present value at 3%"),
+                   ("net_users", "Travellers' gain + fares - operating cost, present value"),
+                   ("net", "All benefits + fares - operating cost, present value")):
         L.append(f"| {lab} | {money(pv(a['rows'], k))} | {money(pv(b['rows'], k))} |")
     L += ["", "When the intercity lines open:", "", "| Line | Best ratio first | Metros first |", "|---|---|---|"]
     bw = {p["id"]: p for p in b["projects"]}
@@ -341,11 +517,14 @@ def scenario_section(runs):
         def done(ps):
             return "not all built" if any(not p.get("open") for p in ps) else max(p["open"] for p in ps)
         L.append(f"| {pa[0]['metro_name']} | {len(pa)} | {done(pa)} | {done(pb)} |")
+    ua, ub_ = pv(a["rows"], "net_users"), pv(b["rows"], "net_users")
     ga, gb = pv(a["rows"], "net"), pv(b["rows"], "net")
-    L += ["", f"Metros first finishes the metro networks decades sooner and pushes the high-speed lines back; over "
-          f"2025-2100 it returns {money(gb - ga) if gb >= ga else money(ga - gb) + ' less'} in present-value travellers' "
-          "gain net of operating cost, at these trip values ($8 an urban trip, $40-80 an intercity one). The urban "
-          "lines' operating deficits start sooner too.", ""]
+
+    def diff(x, y):
+        return f"{money(y - x)} more" if y >= x else f"{money(x - y)} less"
+    L += ["", "Metros first finishes the metro networks decades sooner and pushes the high-speed lines back. Counting "
+          f"travellers' gain only, it returns {diff(ua, ub_)} in present value net of operating cost; counting the wider "
+          f"benefits too, {diff(ga, gb)}. The urban lines' operating deficits start sooner as well.", ""]
     return L
 
 
@@ -354,100 +533,185 @@ def money(m):
     return f"{sign}${abs(m) / 1000:.1f}B" if abs(m) >= 1000 else f"{sign}${abs(m):,.0f}M"
 
 
-def write(runs, pop):
+def label(p):
+    if p["layer"] == "urban":
+        return f"{p['metro_name']}: {p['name']} ({'regional rail' if p['mode'] == 'commuter' else p['mode']})"
+    return p["name"]
+
+
+def write(runs, pop, dfw, plan, budget, dfw_tax_year):
     projects, built, rows = runs["ratio"]["projects"], runs["ratio"]["built"], runs["ratio"]["rows"]
+    avail = sum(budget.values())
     layers = (("urban", "Urban rail and BRT (25 metros)"), ("hsr", "High-speed rail"), ("conventional", "Conventional trains"))
-    L = ["# Timing: every layer under the one budget", "",
-         "Generated by `python study/timing.py`. Every project from steps 3-5, valued the same way and scheduled under "
-         f"the statewide budget: ${STATE_MUSD / 1000:.1f}B a year of capital (DFW Transit's rate per resident), of which "
-         f"Dallas-Fort Worth keeps ${DFW_MUSD / 1000:.1f}B for its own plan and ${OTHER_MUSD / 1000:.1f}B a year goes to "
-         "everything here, 2025-2100, in 2025 dollars.", "",
-         "**Value** is what travellers gain, from the same logit models that predict the riders: the logsum gain of "
-         "every intercity traveller on a pair, and for the urban commute model (where transit's share is small) one "
-         f"money coefficient's worth per new trip, ${1 / URBAN_B_PER_DOLLAR:.0f}. The **ratio** is benefit over cost across "
-         "50 years at 3%: travellers' gain (plus any operating surplus) over capital plus the operating deficit "
-         "(operating cost minus fares). Projects open best ratio first as the budget allows (spending spread over the "
-         "construction years, carryover allowed, no borrowing). The budget is spent whether or not a ratio reaches 1, "
-         "since the plan spends DFW's rate; a ratio of 1 or more means travellers' gains alone pay for it.", "",
-         "## By layer", "",
-         "| Layer | Projects | Built | Capital built | Trips a year (when valued) | Travellers' gain a year | Fares - operating cost a year | Ratio, built | Ratio 1 or more | Not built |",
-         "|---|---|---|---|---|---|---|---|---|---|"]
+    dfw_spent = sum(dfw[y]["spend"] for y in YEARS)
+    L = ["# Timing: one statewide plan under one budget", "",
+         "Generated by `python study/timing.py`. Every project from steps 3-5 and Dallas-Fort Worth's own plan, valued "
+         f"the same way and scheduled under the statewide budget: ${STATE_MUSD / 1000:.1f}B a year of capital (DFW Transit's "
+         "rate per resident), 2025-2100, in 2025 dollars.", "",
+         f"**Dallas-Fort Worth** runs DFW Transit's 2 million riders plan on its own timetable (`data/dfw/dfw_plan.json`). It "
+         f"spends {money(dfw_spent)} of its {money(DFW_MUSD * len(YEARS))}, and every year the rest of the state gets what DFW "
+         f"doesn't spend, plus the land-tax bonds DFW's new stations raise: {money(avail)} in all for everything else.", "",
+         "**Value.** Travellers' gain, from the same logit models that predict the riders (the logsum gain of every intercity "
+         f"traveller on a pair; for the urban commute model one money coefficient's worth per new trip, ${1 / URBAN_B_PER_DOLLAR:.0f}), "
+         "plus wider benefits (`texas/benefits.json`): congestion, crashes and emissions avoided for each car-km off the road "
+         f"(${ext_per_vkm('urban'):.2f} a km in the metros, ${ext_per_vkm('intercity'):.2f} between them) and air passenger-km "
+         f"(${BEN['air_externality_per_pkm']:.2f}), and agglomeration ({BEN['agglomeration_share']['urban']:.0%} of travellers' "
+         f"gain for urban lines, {BEN['agglomeration_share']['hsr']:.0%} for high-speed rail). An urban trip is worth about "
+         f"${1 / URBAN_B_PER_DOLLAR * (1 + BEN['agglomeration_share']['urban']) + URBAN_WIDER_PER_TRIP:.0f} in all. The **ratio** "
+         "is benefit over cost across 50 years at 3%: all benefits (plus any operating surplus) over capital plus the operating "
+         "deficit. Projects open best ratio first as the budget allows (spending spread over the construction years, carryover "
+         "allowed, no borrowing beyond the land-tax bonds); the budget is spent whether or not a ratio reaches 1.", "",
+         "**Land tax.** Each new urban line's new stations form a Tax Increment Reinvestment Zone and a Public Improvement "
+         f"District ({LT['radius_km'] * 1000:.0f} m around them): the city and county tax on the rise in value the line brings, "
+         f"plus a {LT['pid_rate']:.1%} assessment, pledged for {LT['years']} years and borrowed against when the line opens. The "
+         "bonds pay part of the line's capital, so the statewide budget pays less; they don't change its ratio (the rise in "
+         "land value is travellers' gain showing up in prices).", "",
+         "## Statewide, by layer (best ratio first)", "",
+         "| Layer | Projects | Built by 2100 | Capital built | Land-tax bonds | Travellers' gain a year | Wider benefits a year | "
+         "Fares - operating cost a year | Ratio, users only | Ratio, all benefits | Ratio 1 or more (all benefits) |",
+         "|---|---|---|---|---|---|---|---|---|---|---|"]
     for key, lab in layers:
         ps = [p for p in projects if p["layer"] == key]
         bs = [p for p in ps if p.get("open")]
         cap = sum(p["capital"] for p in bs)
-        t = sum(p["trips_year"] for p in bs)
         ben = sum(p["benefit"] for p in bs)
-        margin = sum(p["fares"] - p["opex"] for p in bs)
-        r = (ben + max(margin, 0)) * PV_FACTOR / (cap + max(-margin, 0) * PV_FACTOR) if cap else 0
+        wid = sum(p.get("wider", 0) + p.get("agglom", 0) for p in bs)
+        mg = sum(p["fares"] - p["opex"] for p in bs)
+        cost = cap + max(-mg, 0) * PV_FACTOR
+        r_u = (ben + max(mg, 0)) * PV_FACTOR / cost if cap else 0
+        r_a = (ben + wid + max(mg, 0)) * PV_FACTOR / cost if cap else 0
         ok = [p for p in ps if p["bcr"] >= 1]
-        L.append(f"| {lab} | {len(ps)} | {len(bs)} | {money(cap)} | {t / 1e6:.1f}M | {money(ben)} | "
-                 f"{money(margin)} | {r:.2f} | {len(ok)} ({money(sum(p['capital'] for p in ok))}) | "
-                 f"{money(sum(p['capital'] for p in ps if not p.get('open')))} |")
+        L.append(f"| {lab} | {len(ps)} | {len(bs)} | {money(cap)} | {money(sum(p.get('bond', 0) for p in bs))} | {money(ben)} | "
+                 f"{money(wid)} | {money(mg)} | {r_u:.2f} | {r_a:.2f} | {len(ok)} ({money(sum(p['capital'] for p in ok))}) |")
+    y100 = dfw[YEARS[-1]]
+    L.append(f"| Dallas-Fort Worth (its own plan) | {sum(1 for l in plan['lines'] if l['status'] != 'existing')} lines | "
+             f"its timetable | {money(dfw_spent)} | {money(sum(dfw[y]['bond'] for y in YEARS))} | {money(y100['benefit'])} | "
+             f"{money(y100['wider'])} | {money(y100['fares'] - y100['opex'])} | | | |")
     last = rows[-1]
     cap_all = sum(p["capital"] for p in built)
-    L += ["", f"**By 2100:** {money(cap_all)} built of {money(OTHER_MUSD * len(YEARS))} available "
-          f"({money(OTHER_MUSD * len(YEARS) - cap_all)} unspent); {last['urban_trips_day']:,.0f} new daily urban transit "
-          f"trips, {last['intercity_trips_year'] / 1e6:.0f}M intercity rail trips a year, about "
-          f"{last['flights_day']:.0f} fewer flights a day, {money(last['benefit'])} a year of travellers' gain.", ""]
-    L += ["## When things open", "", "| Year | Opening | Layer | Capital | Ratio |", "|---|---|---|---|---|"]
+    draw = sum(p["capital"] - p.get("bond", 0) for p in built)
+    L += ["", "Gains and costs a year are at full build (2050 travel for intercity, today's land use for the metros; DFW's "
+          "at 2100). ", "",
+          f"**By 2100, statewide:** outside DFW {money(cap_all)} built ({money(cap_all - draw)} of it paid by land-tax bonds) of "
+          f"{money(avail)} available, {money(avail - draw)} unspent; {last['urban_trips_day'] + last['dfw_trips_day']:,.0f} new "
+          f"daily metro transit trips ({last['dfw_trips_day']:,.0f} in DFW), {last['intercity_trips_year'] / 1e6:.0f}M intercity "
+          f"rail trips a year, about {last['flights_day']:.0f} fewer flights a day, {money(last['benefit'])} a year of "
+          f"travellers' gain and {money(last['wider'])} of wider benefits, and {money(last['opex'] - last['fares'])} a year "
+          "more to operate than fares bring in.", ""]
+    # what wider benefits change
+    flips = sorted((p for p in projects if p["bcr"] >= 1 > p["bcr_users"]), key=lambda p: -p["bcr"])
+    L += ["## What the wider benefits change", "",
+          f"With travellers' gain alone, {sum(1 for p in projects if p['bcr_users'] >= 1)} projects reach a ratio of 1; with "
+          f"the wider benefits, {sum(1 for p in projects if p['bcr'] >= 1)} do. A new urban trip is worth "
+          f"${1 / URBAN_B_PER_DOLLAR:.0f} to its rider and about ${URBAN_WIDER_PER_TRIP + 1 / URBAN_B_PER_DOLLAR * BEN['agglomeration_share']['urban']:.0f} "
+          "more to everyone else (less congestion, fewer crashes, less pollution, denser labour markets): wider benefits "
+          "lift the urban lines most, because each urban rider takes a car off congested streets.", ""]
+    if flips:
+        L += ["| Now reaches 1 | Layer | Capital | Ratio, users only | Ratio, all benefits |", "|---|---|---|---|---|"]
+        for p in flips[:25]:
+            L.append(f"| {label(p)} | {p['layer']} | {money(p['capital'])} | {p['bcr_users']:.2f} | {p['bcr']:.2f} |")
+        L.append("")
+    # land tax
+    ub = [p for p in projects if p["layer"] == "urban"]
+    L += ["## Land tax near new urban stations", "",
+          f"{sum(p['new_stations'] for p in ub)} new stations in the 25 metros reach {sum(p['district_pop'] for p in ub) / 1e6:.2f}M "
+          f"residents and {sum(p['district_jobs'] for p in ub) / 1e6:.2f}M jobs within {LT['radius_km'] * 1000:.0f} m. Their "
+          f"districts raise {money(sum(p['land_tax_year'] for p in ub))} a year, worth {money(sum(p['bond'] for p in ub))} "
+          f"in bonds, {sum(p['bond'] for p in ub) / sum(p['capital'] for p in ub):.0%} of the lines' capital. DFW's new stations "
+          f"raise {money(dfw_tax_year)} a year, {money(sum(dfw[y]['bond'] for y in YEARS))} in bonds, which go to the statewide "
+          "pot because DFW's timetable is its own.", "",
+          "| Metro | Lines | New stations | People + jobs near them | Land tax a year | Bonds | Share of capital |", "|---|---|---|---|---|---|---|"]
+    for mid in dict.fromkeys(p["metro"] for p in ub):
+        ps = [p for p in ub if p["metro"] == mid]
+        cap = sum(p["capital"] for p in ps)
+        L.append(f"| {ps[0]['metro_name']} | {len(ps)} | {sum(p['new_stations'] for p in ps)} | "
+                 f"{sum(p['district_pop'] + p['district_jobs'] for p in ps):,.0f} | {money(sum(p['land_tax_year'] for p in ps))} | "
+                 f"{money(sum(p['bond'] for p in ps))} | {sum(p['bond'] for p in ps) / cap:.0%} |")
+    # connections
+    first = {}
+    for p in projects:
+        for st in p.get("chain", []):
+            if p.get("open"):
+                first[(p["layer"], st)] = min(first.get((p["layer"], st), 9999), p["open"])
+    key = {"Dallas (high-speed, beside Union Station)": ("hsr", "Dallas"), "Fort Worth (high-speed)": ("hsr", "Fort Worth"),
+           "Denton (high-speed, to Oklahoma City)": ("hsr", "Denton"),
+           "Dallas Union Station (conventional, I-20)": ("conventional", "Dallas"),
+           "Fort Worth Central (conventional, Heartland Flyer)": ("conventional", "Fort Worth")}
+    L += ["", "## Where the statewide lines meet DFW's", "",
+          "| Statewide station | First statewide line opens | DFW's nearest station open by then | Distance | DFW station opens | DFW modes there |",
+          "|---|---|---|---|---|---|"]
+    opens = {n: first.get(k) for n, k in key.items()}
+    global CONN
+    CONN = connections(plan, opens)
+    for c in connections(plan, opens):
+        f = first.get(key[c["name"]])
+        L.append(f"| {c['name']} | {f or 'not built'} | {c['dfw']} | {c['km'] * 1000:,.0f} m | {c['year']} | {c['modes']} |")
+    far = [c["name"] for c in CONN if c["km"] > 0.4]
+    L += ["", "Within about 400 m is a walk between platforms: " + (
+        "all five are, with DFW's station open before the statewide line arrives (the Dallas high-speed station was moved "
+        "from Texas Central's Cedars site, 830 m from both the Cedars and Union Station, to beside Union Station, and "
+        "Denton's onto its transit center)." if not far else "farther: " + ", ".join(far) + " need a link of their own."), ""]
+    L += ["## When things open (best ratio first)", "", "| Year | Opening | Layer | Capital | Land-tax bonds | Ratio |", "|---|---|---|---|---|---|"]
     for p in sorted(built, key=lambda p: (p["open"], -p["bcr"])):
-        if p["layer"] == "urban":
-            label = f"{p['metro_name']}: {p['name']} ({'regional rail' if p['mode'] == 'commuter' else p['mode']})"
-        else:
-            label = p["name"]
-        L.append(f"| {p['open']} | {label} | {p['layer']} | {money(p['capital'])} | {p['bcr']:.2f} |")
-    L += ["", "## Every decade", "", "| Year | Capital spent to date | New urban trips a day | Intercity rail trips a year | "
-          "Fewer flights a day | Travellers' gain a year | Operating cost a year | Fares a year |", "|---|---|---|---|---|---|---|---|"]
-    cum = 0.0
+        L.append(f"| {p['open']} | {label(p)} | {p['layer']} | {money(p['capital'])} | "
+                 f"{money(p.get('bond', 0)) if p.get('bond') else ''} | {p['bcr']:.2f} |")
+    L += ["", "## Every decade (best ratio first, statewide with DFW)", "",
+          "| Year | Capital spent to date (outside DFW) | DFW spent to date | New metro trips a day (DFW) | Intercity rail trips a year | "
+          "Fewer flights a day | Travellers' gain a year | Wider benefits a year | Operating cost - fares a year |",
+          "|---|---|---|---|---|---|---|---|---|"]
+    cum = cum_d = 0.0
     for r in rows:
         cum += r["spend"]
+        cum_d += r["dfw_spend"]
         if r["year"] % 10 == 0 or r["year"] in (2025, 2100):
-            L.append(f"| {r['year']} | {money(cum)} | {r['urban_trips_day']:,.0f} | {r['intercity_trips_year'] / 1e6:.1f}M | "
-                     f"{r['flights_day']:.0f} | {money(r['benefit'])} | {money(r['opex'])} | {money(r['fares'])} |")
+            L.append(f"| {r['year']} | {money(cum)} | {money(cum_d)} | {r['urban_trips_day'] + r['dfw_trips_day']:,.0f} "
+                     f"({r['dfw_trips_day']:,.0f}) | {r['intercity_trips_year'] / 1e6:.1f}M | {r['flights_day']:.0f} | "
+                     f"{money(r['benefit'])} | {money(r['wider'])} | {money(r['opex'] - r['fares'])} |")
     nb = sorted((p for p in projects if not p.get("open")), key=lambda p: -p["bcr"])
-    L += ["", "## Not built", "", "| Project | Layer | Capital | Ratio | Why |", "|---|---|---|---|---|"]
+    L += ["", "## Not built (best ratio first)", "", "| Project | Layer | Capital | Ratio | Why |", "|---|---|---|---|---|"]
     for p in nb:
         why = "waits on a project not built" if any(
             not next(q for q in projects if q["id"] == d).get("open") for d in p["after"]) else "no budget left by 2100"
-        label = f"{p['metro_name']}: {p['name']}" if p["layer"] == "urban" else p["name"]
-        L.append(f"| {label} | {p['layer']} | {money(p['capital'])} | {p['bcr']:.2f} | {why} |")
+        L.append(f"| {label(p)} | {p['layer']} | {money(p['capital'])} | {p['bcr']:.2f} | {why} |")
     L += ["", "## Caveats", "",
-          "- One dollar of travellers' gain is treated the same in every layer, but the urban figure is an approximation "
-          "(exact only as transit's share goes to zero) and counts non-commute trips at the commute value; the "
-          "intercity figure leaves out induced trips' own gain. Both include each mode's constant, so the ratios are "
-          "only as good as those constants (high-speed rail's moves its first four corridors between 30M and 74M trips "
-          "a year).",
-          "- An urban trip is worth about $8 to its traveller in DFW Transit's commute model (its cost coefficient, a value "
-          "of time near $12 an hour), an intercity trip $40-80. So the order favours the Triangle's high-speed lines and "
-          "most metro lines open after 2050. Valuing urban trips higher, or counting congestion relief, would bring them "
-          "forward.",
-          "- Values grow with Texas's population trend from the year they were estimated; nothing else changes over "
-          "time (no new land use around stations, no change in car travel or flying).",
-          "- Travellers' gain is the only benefit counted: not less congestion for drivers, safety, emissions, or what "
-          "stations do for land values and the economies of the places they join. Transit projects rarely pass a "
-          "ratio of 1 on travellers' gains alone in US appraisals; the ratios rank projects more than they judge them.",
-          "- Operating cost is outside the capital budget, as in DFW Transit; the deficits are in the ratio, but no "
-          "budget pays them yet.",
-          "- Dallas-Fort Worth's plan runs on its own timetable (DFW Transit) and isn't re-ranked here.", ""]
+          "- Wider benefits are per-km and per-trip allowances from the ranges in US and UK practice (`texas/benefits.json`), "
+          "not modelled here: no traffic model says where the cars come off the road, and agglomeration is a share of "
+          "travellers' gain. Halve them and most urban lines fall back under 1.",
+          "- The urban figure for travellers' gain is an approximation (exact only as transit's share goes to zero) and counts "
+          "non-commute trips at the commute value; the intercity figure leaves out induced trips' own gain. Both include each "
+          "mode's constant, so the ratios are only as good as those constants (high-speed rail's moves its first four "
+          "corridors between 30M and 74M trips a year).",
+          "- Land-tax revenue assumes the uplift arrives with the line and the districts are formed: Texas cities form TIRZs "
+          "and PIDs one at a time, and school taxes, the biggest share, can't be captured. Values are 2020 people and jobs "
+          "at today's prices, with no growth near the stations (conservative).",
+          "- Values grow with Texas's population trend from the year they were estimated; nothing else changes over time. "
+          "DFW's numbers are its own model's, on its own growth path.",
+          "- Operating cost is outside the capital budget, as in DFW Transit; the deficits are in the ratio, but no budget pays "
+          "them yet.", ""]
     L += scenario_section(runs)
     with open(os.path.join(ROOT, "study", "timing.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(L))
     os.makedirs(os.path.join(ROOT, "docs", "data"), exist_ok=True)
-    keep = ("id", "layer", "metro", "metro_name", "name", "mode", "km", "capital", "opex", "fares", "benefit", "trips_day",
-            "trips_year", "air_day", "flights_day", "bcr", "start", "open", "chain", "after")
-    data = {"budget_musd": STATE_MUSD, "dfw_musd": DFW_MUSD, "other_musd": OTHER_MUSD, "years": [YEARS[0], YEARS[-1]],
-            "metro_years": METRO_YEARS,
-            "projects": [{k: (round(v, 3) if isinstance(v, float) else v) for k, v in p.items() if k in keep} for p in projects],
-            "yearly": [{k: (round(v, 1) if isinstance(v, float) else v) for k, v in r.items()} for r in rows],
-            "scenarios": {key: {"label": label,
+    keep = ("id", "layer", "metro", "metro_name", "name", "mode", "km", "capital", "opex", "fares", "benefit", "wider", "agglom",
+            "bond", "land_tax_year", "trips_day", "trips_year", "air_day", "flights_day", "bcr", "bcr_users", "start", "open",
+            "chain", "after")
+
+    def rnd(d, n):
+        return {k: (round(v, n) if isinstance(v, float) else v) for k, v in d.items()}
+    data = {"budget_musd": STATE_MUSD, "dfw_musd": DFW_MUSD, "other_musd": avail / len(YEARS), "other_total": avail,
+            "years": [YEARS[0], YEARS[-1]], "metro_years": METRO_YEARS,
+            "dfw": {"spent": dfw_spent, "bonds": sum(dfw[y]["bond"] for y in YEARS), "connections": CONN,
+                    "lines": sum(1 for ln in plan["lines"] if ln["status"] != "existing"), "benefit": y100["benefit"],
+                    "wider": y100["wider"], "margin": y100["fares"] - y100["opex"]},
+            "projects": [rnd({k: v for k, v in p.items() if k in keep}, 3) for p in projects],
+            "yearly": [rnd(r, 1) for r in rows],
+            "scenarios": {key: {"label": lab,
                                 "when": {p["id"]: [p["start"], p["open"]] for p in runs[key]["projects"] if p.get("open")},
-                                "yearly": [{k: (round(v, 1) if isinstance(v, float) else v) for k, v in r.items()}
-                                           for r in runs[key]["rows"]]}
-                          for key, label in SCENARIOS}}
+                                "yearly": [rnd(r, 1) for r in runs[key]["rows"]]}
+                          for key, lab in SCENARIOS}}
     with open(os.path.join(ROOT, "docs", "data", "timeline.json"), "w", encoding="utf-8") as f:
         json.dump(data, f, separators=(",", ":"))
-    print("\n".join(L[:40]))
+    print("\n".join(L[:60]))
 
 
 if __name__ == "__main__":

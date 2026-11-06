@@ -25,7 +25,8 @@ MAINTENANCE_PER_KM = 0.25    # $M per track km a year
 
 STATIONS = {
     # name: (lat, lon, kind)
-    "Dallas": (32.770, -96.802, "major"),            # Texas Central: the Cedars
+    "Dallas": (32.7728, -96.8080, "major"),          # beside Union Station, DFW Transit's busiest hub (TRE, Red and
+                                                     # Blue lines, streetcar, BRT): 300 m on foot (study/timing.md)
     "Fort Worth": (32.749, -97.327, "major"),
     "Brazos Valley": (30.590, -96.050, "minor"),     # Texas Central: Grimes County
     "Houston": (29.807, -95.458, "major"),           # Texas Central: Northwest Mall
@@ -48,7 +49,7 @@ STATIONS = {
     "Lafayette": (30.224, -92.020, "minor"),
     "Baton Rouge": (30.451, -91.187, "major"),
     "New Orleans": (29.951, -90.071, "major"),
-    "Denton": (33.215, -97.133, "minor"),
+    "Denton": (33.2139, -97.1262, "minor"),          # Downtown Denton Transit Center (A-train, DFW Transit's BRT)
     "Norman": (35.222, -97.439, "minor"),
     "Oklahoma City": (35.468, -97.516, "major"),
     "Tyler": (32.351, -95.301, "minor"),

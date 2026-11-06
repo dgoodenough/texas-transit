@@ -46,5 +46,35 @@ class ScheduleTests(unittest.TestCase):
             self.assertLessEqual(cum_s, cum_b + 1e-6)
 
 
+class WiderAndLandTaxTests(unittest.TestCase):
+    def test_wider_benefits_raise_the_ratio_but_not_the_users_ratio(self):
+        a = project("a", 1000, 50)
+        b = dict(project("b", 1000, 50), wider=20.0, agglom=10.0)
+        timing.ratio(a)
+        timing.ratio(b)
+        self.assertAlmostEqual(a["bcr_users"], b["bcr_users"])
+        self.assertAlmostEqual(b["bcr"], 80 * timing.PV_FACTOR / 1000)
+
+    def test_land_tax_bond_is_the_annuity_of_the_yearly_tax_and_rail_beats_brt(self):
+        yr, bond = timing.land_tax(10000, 5000, "metro")
+        lt = timing.LT
+        value = 10000 * lt["value_per_resident"] + 5000 * lt["value_per_job"]
+        self.assertAlmostEqual(yr, value * (lt["uplift"]["metro"] * lt["tirz_tax_rate"] + lt["pid_rate"]) / 1e6)
+        self.assertAlmostEqual(bond, yr * timing.annuity(lt["bond_rate"], lt["years"]))
+        self.assertGreater(yr, timing.land_tax(10000, 5000, "brt")[0])
+
+    def test_bonds_lower_the_budget_draw(self):
+        ps = [dict(project("a", 1000, 100, build=1), bond=400.0)]
+        built, spend = timing.schedule(ps, 10000)
+        self.assertAlmostEqual(sum(spend.values()), 600.0)
+
+    def test_dfw_layer_spends_its_plan_and_the_state_gets_the_rest(self):
+        dfw, plan, _ = timing.dfw_layer()
+        budget = timing.other_budget(dfw)
+        for y in timing.YEARS:
+            self.assertAlmostEqual(budget[y], timing.STATE_MUSD - dfw[y]["spend"] + dfw[y]["bond"])
+        self.assertGreater(dfw[2050]["trips_day"], 0)   # the plan adds trips over the current track
+
+
 if __name__ == "__main__":
     unittest.main()
