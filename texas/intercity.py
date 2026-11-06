@@ -150,6 +150,12 @@ def utility(los, purpose, p):
     return bt * (ivt + p["out_of_vehicle_weight"] * ovt) + bc * cost
 
 
+def wait_min(svc):
+    """Waiting for a train: a share of the headway (half for a turn-up-and-go service; less when
+    people plan around a timetable), capped."""
+    return min(svc["headway_min"] * svc.get("wait_share", 0.5), svc["max_wait_min"])
+
+
 # ---------- a rail network: stations, links, the fastest path ----------
 class RailNetwork:
     """Stations {name: (lat, lon)} and links [(a, b, track_km)] run at one average speed with a
@@ -200,7 +206,8 @@ class RailNetwork:
         pairs of exp(V_rail - V_car + constant). Car is measured county to county; a county beyond
         reach of a station, or a county pair under `min_km` apart, adds nothing."""
         s = self.svc
-        fixed = s["access_min"] + s["egress_min"] + s["terminal_min"] + min(s["headway_min"] / 2, s["max_wait_min"])
+        fixed = s["access_min"] + s["egress_min"] + s["terminal_min"] + wait_min(s)
+        border = za.get("border_min", 0) + zb.get("border_min", 0)   # both modes wait at the border
         ea = [e for e in self._ends(za) if e[2]]
         eb = [e for e in self._ends(zb) if e[2]]
         acc = 0.0
@@ -210,11 +217,12 @@ class RailNetwork:
                 if sa == sb or sb not in paths:
                     continue
                 dist = km(at_a, at_b)
-                if dist < p["min_km"]:
+                if dist < s.get("min_km", p["min_km"]):
                     continue
                 ride, track = paths[sb]
-                los = (ride, fixed + (da + db) / local_kmh * 60, s["fare_fixed"] + s["fare_per_km"] * track)
-                v_car = utility(car_los(dist, purpose, p), purpose, p)
+                los = (ride, fixed + border + (da + db) / local_kmh * 60, s["fare_fixed"] + s["fare_per_km"] * track)
+                ivt, ovt, cost = car_los(dist, purpose, p)
+                v_car = utility((ivt + border, ovt, cost), purpose, p)
                 acc += wa * wb * math.exp(utility(los, purpose, p) - v_car + s["asc_vs_car"])
         return acc
 
@@ -253,8 +261,8 @@ class RailNetwork:
             return None
         ride, track = route
         s = self.svc
-        ovt = (s["access_min"] + s["egress_min"] + s["terminal_min"] + min(s["headway_min"] / 2, s["max_wait_min"])
-               + (da + db) / local_kmh * 60)
+        ovt = (s["access_min"] + s["egress_min"] + s["terminal_min"] + wait_min(s) + (da + db) / local_kmh * 60
+               + za.get("border_min", 0) + zb.get("border_min", 0))
         return ride, ovt, s["fare_fixed"] + s["fare_per_km"] * track
 
 
@@ -297,7 +305,8 @@ def run(base, zones, p, network=None, growth=None):
             res["new"]["car"] += trips * c
             res["new"]["air"] += trips * a
             res["new"]["rail"] += trips * r
-        res["new"]["induced"] = res["new"]["rail"] * p["hsr"].get("induced_share", 0.0)
+        svc = network.svc if network is not None else p["hsr"]
+        res["new"]["induced"] = res["new"]["rail"] * svc.get("induced_share", 0.0)
         out[pair] = res
     return out
 

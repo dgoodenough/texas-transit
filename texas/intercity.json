@@ -57,5 +57,23 @@
     "_doc": "Station access and egress minutes (driving or local transit to a downtown or airport station); terminal minutes (boarding, no security queue); half the headway is the wait, capped; fare fixed + per km of track. Average speed between stops (Texas Central planned about 90 minutes Dallas-Houston for 240 miles with one stop). Constant relative to car: assumption, tested at 0 and -1.0.",
     "induced_share": 0.1,
     "_induced": "New trips rail itself generates (travel that wouldn't happen without it), as a share of the trips it takes from car and air. Assumption: HSR studies typically find 5-20%; tested at 0 and 0.2."
+  },
+  "conventional": {
+    "access_min": 20,
+    "egress_min": 20,
+    "terminal_min": 10,
+    "service_hours": 18,
+    "trains_per_day": 1,
+    "headway_min": 1080,
+    "wait_share": 0.0753,
+    "max_wait_min": 240,
+    "fare_fixed": 10,
+    "fare_per_km": 0.08,
+    "speed_kmh": 90,
+    "stop_min": 3,
+    "asc_vs_car": -1.7353,
+    "induced_share": 0.05,
+    "min_km": 150,
+    "_doc": "Conventional intercity trains on upgraded freight track (79 mph top speed): a few trains a day, so the headway is service_hours x 60 / trains_per_day each way and the wait is wait_share of it (people plan around a timetable), capped at max_wait_min. wait_share and asc_vs_car are fitted by study/interstate_rail.py: four trains a day carry 4^0.7 times one train's riders (frequency elasticity 0.7, assumption), and the Heartland Flyer as run today (one train a day each way) carries Amtrak's FY2024 riders. Speed between stops from the Heartland Flyer (Fort Worth - Oklahoma City, 330 km in about 4 hours with 6 stops). Fare from its FY2024 revenue per rider (about $2.2M / 80,000 = $27 for a typical 200-300 km trip). Induced trips are an assumption, half of high-speed rail's. min_km: county pairs closer than this don't use these trains (with a train or two a day, the wait outweighs the ride on short trips; without it the model's busiest Heartland Flyer pair is Dallas - Sherman, 93 km)."
   }
 }

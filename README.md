@@ -69,9 +69,18 @@ high-speed rail versus metro systems is an output, not an input.
    alone is $61B and 219,000 trips. Ten metros get no line, because nothing there is dense enough
    for rail or BRT. One check is a warning: at its constant the model puts 16,000 riders a day on
    Austin's Red Line, and NTD counts 1,600, so infrequent rail is overrated.
-5. **Interstate rail.** Then the timing step: every layer under the one budget, with the
-   urban layer's unspent $67B, HSR operating costs and revenue, and user benefits so intercity
-   and urban trips can be compared.
+5. **Interstate rail** (`texas/conventional.py`, `study/interstate_rail.md`): conventional trains,
+   two or four a day at up to 79 mph on upgraded freight track, on seven corridors. Calibrated to
+   the Heartland Flyer's 80,000 riders a year (Amtrak FY2024). At four trains a day, I-20 (Dallas -
+   Shreveport - Jackson, 0.86M new trips a year for $2.6B) and the Sunset route (Houston - New
+   Orleans, 0.58M for $2.1B) lead. Monterrey (a gravity estimate past the border) gets 0.13M.
+   Kansas City, Memphis and Albuquerque add little, because the data only has trips with a Texas
+   end. All seven together are $14B of capital and run about $330M a year more than fares bring
+   in. On the same routes, high-speed rail carries seven to eleven times the riders, at 40-60% of
+   the riders per dollar of capital.
+   Next, the timing step: every layer under the one budget, with the urban layer's unspent $67B,
+   operating costs and fares for high-speed rail, and user benefits so intercity and urban trips
+   can be compared.
 6. **The site:** a statewide map with the time slider, high-speed rail and flights, linking to
    DFW Transit for the DFW detail.
 
