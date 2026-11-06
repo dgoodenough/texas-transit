@@ -262,7 +262,7 @@ def write(yard, structs, model):
           "jobs within reach to fill trains.", ""]
     if model:
         L += ["## Model test: DFW's spending and policies, today's land use", "",
-              f"The generator at DFW's per-resident spending over 75 years (${PER_RESIDENT_75 * 1e3:,.0f} a resident), "
+              f"The generator at DFW's per-resident spending over 75 years (${PER_RESIDENT_75 * 1e6:,.0f} a resident), "
               "first with the network alone, then with the 2 million plan's policies at their mature settings; DFW "
               "itself run the same way. Share = transit commuters over commuters (after telework). No growth and no "
               "station-area development, so all shares are below the plan's published 2100 figures; what matters is "
@@ -275,10 +275,24 @@ def write(yard, structs, model):
             name = next((s["name"] for s in structs if s["id"] == mid), mid)
             L.append(f"| {name} | ${r['budget'] / 1e3:.0f}B | ${p['capital'] / 1e3:.0f}B | {p['lines']} | {n['share']:.2%} | {n['trips']:,.0f} | "
                      f"{p['share']:.2%} | {p['trips']:,.0f} | {p['share'] / ref:.0%} |" if ref else "")
-        L.append("")
+        L += ["", "Three things stand out:", "",
+              "- **Per resident, Austin, El Paso and San Antonio match or beat DFW** under the same treatment (121%, 131% "
+              "and 100% of DFW's share with the policies). Their layouts can carry DFW-level transit use; Midland gets "
+              "no line at any budget.",
+              "- **The generator can't spend DFW's money.** It stops when the next line would carry fewer than 0.5 new "
+              "daily trips per $M (`vendor/dfw-transit/metro/generate.json` selection.min_trips_per_musd), judged by its "
+              "quick sketch model. Austin finds lines for $17B of $53B; DFW itself for $73B of $172B, where DFW "
+              "Transit's hand-built plan spends $135B. The hand plan's extra network (an arterial BRT grid, infill "
+              "stations, more regional rail) is a big part of how it reaches 7-9% of commutes by 2100.",
+              "- **Houston goes backwards with the policies** (50 lines to 32): with frequent feeder buses and parking "
+              "prices, the sketch credits today's METRORail with more riders, so each new line adds less and more fall "
+              "under the 0.5 cut-off. A selection rule that judges lines with the full model, or a cut-off that eases "
+              "as policies strengthen, would fix it. Until then Houston's figure here understates it.", ""]
     L += ["## What it would take", "",
-          "- **Spend for longer.** The generated plans spend 30 years of DFW's rate; DFW's plan spends 75. In the big "
-          "metros the extra money still finds corridors dense enough to carry it.",
+          "- **A bigger network in the big metros.** The generated plans spend 30 years of DFW's rate, and even at 75 "
+          "years the generator stops at a third of the money. Loosening its cut-off and adding what DFW's hand plan has "
+          "(an arterial BRT grid on the densest streets, infill stations) is the first job; Austin, Houston, San Antonio "
+          "and El Paso have the layout to fill it.",
           "- **The policies, everywhere it's dense.** Frequent feeder buses, bikes and scooters to stations, longer walks "
           "to good stations, and parking that costs something at the biggest job centers do as much as the network in "
           "DFW's plan; they cost little capital.",
@@ -287,9 +301,11 @@ def write(yard, structs, model):
           "- **Accept a lower ceiling in the small metros.** Midland, Odessa, Tyler and Victoria have almost nobody at "
           "the densities where DFW's plan reaches double digits; their transit is local buses, and a share near today's "
           "Austin (1%) would be a success.", "",
-          "Next steps: give the generator each metro's own growth and the plan's station-area development (it runs on "
-          "today's land use), run the policy package in every metro that can use it, and put the result in the timing "
-          "study (`study/timing.py`).", ""]
+          "Next steps: (1) a generator mode that builds out to the budget in metros whose layout can use it (an arterial "
+          "BRT grid pass and a selection judged by the full model); (2) each metro's own growth and the plan's "
+          "station-area development, since the generator runs on today's land use; (3) the policy package in Austin, "
+          "Houston, San Antonio and El Paso, then the timing study (`study/timing.py`) with their bigger networks. "
+          "Target for those four: DFW's 2100 share, about 7% of commutes, with the small metros at about 1%.", ""]
     with open(os.path.join(ROOT, "study", "metro_potential.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(L))
     print("\n".join(L))

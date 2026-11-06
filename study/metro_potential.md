@@ -59,13 +59,32 @@ Densities are those of each year (2100's include the plan's growth steered to st
 | San Angelo | 0.12M | 0% | 0% | 1,203 | 42k | 0.5% | 0.8% | 21% |
 | Texarkana | 0.15M | 0% | 0% | 691 | 31k | 0.5% | 0.8% | 21% |
 
-Read across: a metro whose people live and work as densely as DFW's gets DFW's share. None of the 25 matches DFW's 2100 share on today's layout, but the large metros come within reach, and the small ones don't: most of their people live at densities where even DFW's plan carries 1-2% of commutes.
+Read across: DFW itself scores 4.0% here against the 7.3% its plan reaches in 2100, the difference being the densification the plan brings. Houston and Austin have DFW's layout: dense cores, big job markets, the same share of people at transit-friendly densities. With DFW's package, growth steered to stations included, they should reach DFW's 2100 share or close to it. San Antonio, Lubbock and El Paso can get two thirds to three quarters of the way. The small metros top out at a fifth to a quarter of DFW's share: their people live where even DFW's plan carries about 1% of commutes, because there are too few jobs within reach to fill trains.
+
+## Model test: DFW's spending and policies, today's land use
+
+The generator at DFW's per-resident spending over 75 years ($23,096 a resident), first with the network alone, then with the 2 million plan's policies at their mature settings; DFW itself run the same way. Share = transit commuters over commuters (after telework). No growth and no station-area development, so all shares are below the plan's published 2100 figures; what matters is each metro against DFW.
+
+| Metro | Budget | Capital the generator finds lines for | Lines | Network alone: share | Trips a day | With policies: share | Trips a day | Relative to DFW (with policies) |
+|---|---|---|---|---|---|---|---|---|
+| El Paso | $20B | $9B | 6 | 2.97% | 27,999 | 4.22% | 39,724 | 131% |
+| Austin-Round Rock-San Marcos | $53B | $17B | 11 | 2.52% | 88,815 | 3.87% | 136,568 | 121% |
+| San Antonio-New Braunfels | $59B | $15B | 16 | 2.07% | 63,898 | 3.22% | 99,151 | 100% |
+| Dallas-Fort Worth | $172B | $73B | 49 | 2.14% | 229,792 | 3.21% | 344,590 | 100% |
+| Houston-Pasadena-The Woodlands | $165B | $39B | 32 | 2.48% | 225,091 | 1.84% | 166,497 | 57% |
+| Midland | $4B | $0B | 0 | 0.00% | 0 | 0.00% | 0 | 0% |
+
+Three things stand out:
+
+- **Per resident, Austin, El Paso and San Antonio match or beat DFW** under the same treatment (121%, 131% and 100% of DFW's share with the policies). Their layouts can carry DFW-level transit use; Midland gets no line at any budget.
+- **The generator can't spend DFW's money.** It stops when the next line would carry fewer than 0.5 new daily trips per $M (`vendor/dfw-transit/metro/generate.json` selection.min_trips_per_musd), judged by its quick sketch model. Austin finds lines for $17B of $53B; DFW itself for $73B of $172B, where DFW Transit's hand-built plan spends $135B. The hand plan's extra network (an arterial BRT grid, infill stations, more regional rail) is a big part of how it reaches 7-9% of commutes by 2100.
+- **Houston goes backwards with the policies** (50 lines to 32): with frequent feeder buses and parking prices, the sketch credits today's METRORail with more riders, so each new line adds less and more fall under the 0.5 cut-off. A selection rule that judges lines with the full model, or a cut-off that eases as policies strengthen, would fix it. Until then Houston's figure here understates it.
 
 ## What it would take
 
-- **Spend for longer.** The generated plans spend 30 years of DFW's rate; DFW's plan spends 75. In the big metros the extra money still finds corridors dense enough to carry it.
+- **A bigger network in the big metros.** The generated plans spend 30 years of DFW's rate, and even at 75 years the generator stops at a third of the money. Loosening its cut-off and adding what DFW's hand plan has (an arterial BRT grid on the densest streets, infill stations) is the first job; Austin, Houston, San Antonio and El Paso have the layout to fill it.
 - **The policies, everywhere it's dense.** Frequent feeder buses, bikes and scooters to stations, longer walks to good stations, and parking that costs something at the biggest job centers do as much as the network in DFW's plan; they cost little capital.
 - **Steer growth to stations.** DFW's 2100 share leans on growth steered to station areas and upzoning. A metro that grows the way it has, outward, keeps its density and its ceiling.
 - **Accept a lower ceiling in the small metros.** Midland, Odessa, Tyler and Victoria have almost nobody at the densities where DFW's plan reaches double digits; their transit is local buses, and a share near today's Austin (1%) would be a success.
 
-Next steps: give the generator each metro's own growth and the plan's station-area development (it runs on today's land use), run the policy package in every metro that can use it, and put the result in the timing study (`study/timing.py`).
+Next steps: (1) a generator mode that builds out to the budget in metros whose layout can use it (an arterial BRT grid pass and a selection judged by the full model); (2) each metro's own growth and the plan's station-area development, since the generator runs on today's land use; (3) the policy package in Austin, Houston, San Antonio and El Paso, then the timing study (`study/timing.py`) with their bigger networks. Target for those four: DFW's 2100 share, about 7% of commutes, with the small metros at about 1%.
