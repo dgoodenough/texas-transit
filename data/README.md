@@ -9,6 +9,7 @@ against. Every file here is rebuilt by a script in `tools/`; raw downloads go to
 | `zones/counties.csv` | 254 Texas counties: 2020 population and its centre, land area, jobs (2022), metro or micro area | Census CenPop 2020 block groups, 2020 Gazetteer, LODES 8 WAC 2022, OMB delineation 2023 | `tools/build_zones.py` |
 | `zones/nextgen_zones.csv` | The 583 NextGen OD zones (metro areas, non-metro rest of each state) with 2020 population and centre | NextGen OD zone shapefile + Census CenPop 2020 county centres | `tools/build_nextgen_zones.py` |
 | `zones/county_zones.csv` | Each US county's NextGen zone, population and centre (how a zone's people are spread, for station access) | same | `tools/build_nextgen_zones.py` |
+| `zones/county_growth.csv` | Each US county's population by year to 2100, from its 2010-2020 trend fading by half every 40 years (Texas 43M in 2050, 64M in 2100); a trend, not an official projection | Census CenPop 2010 and 2020 county files | `tools/build_growth.py` |
 | `flows/lodes_county_commutes_2022.csv` | Home county × work county, all jobs, 2022 | LODES 8 OD (both ends in Texas) | `tools/build_zones.py` |
 | `flows/air_city_pairs.csv` | Air origin-destination passengers a day by city-pair market, every market with a Texas end, average of four quarters | DOT / BTS Consumer Airfare Report, Table 6 (DB1B 10% ticket sample) | `tools/fetch_air.py` |
 | `flows/road_screenlines.csv` | Two-way daily traffic at a rural point on each intercity corridor | TxDOT AADT (open data) | `tools/fetch_counts.py` |
