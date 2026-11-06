@@ -93,7 +93,7 @@ a{color:var(--metro)}
 <header>
   <div class="eyebrow">Statewide study · draft · November 2026</div>
   <h1>Texas Transit Plan</h1>
-  <p class="lede">What DFW Transit's money buys if all of Texas spends at the same rate per resident, $9.0B a year of capital to 2100: high-speed rail between the big metros, conventional trains to the neighbours and Monterrey, and rail and BRT inside 25 metros. Dallas-Fort Worth keeps <a href="https://dgoodenough.github.io/dfw-transit/">its own plan</a> and $2.3B of that a year. Move the year to watch it get built.</p>
+  <p class="lede">What DFW Transit's money buys if all of Texas spends at the same rate per resident, $9.0B a year of capital to 2100: high-speed rail between the big metros, conventional trains to the neighbours and Monterrey, and rail and BRT inside every metro, with Dallas-Fort Worth running <a href="https://dgoodenough.github.io/dfw-transit/">its own plan</a> on $2.3B of that a year. Land tax near new stations helps pay for the metro lines. Move the year to watch it get built.</p>
 </header>
 
 <div class="yearbar">
@@ -111,11 +111,11 @@ a{color:var(--metro)}
 </div>
 
 <div class="figs" aria-label="Totals for the selected year">
-  <div class="fig"><span class="n" id="f-spent"></span><span class="l">capital spent to date, outside DFW</span></div>
-  <div class="fig"><span class="n" id="f-urban"></span><span class="l">new daily transit trips in the metros</span></div>
+  <div class="fig"><span class="n" id="f-spent"></span><span class="l">capital spent to date, statewide</span></div>
+  <div class="fig"><span class="n" id="f-urban"></span><span class="l">new daily transit trips in the metros, DFW included</span></div>
   <div class="fig"><span class="n" id="f-inter"></span><span class="l">intercity rail trips a year</span></div>
   <div class="fig"><span class="n" id="f-flights"></span><span class="l">fewer flights a day</span></div>
-  <div class="fig"><span class="n" id="f-gain"></span><span class="l">travellers' gain a year</span></div>
+  <div class="fig"><span class="n" id="f-gain"></span><span class="l">benefits a year: travellers' gain and wider</span></div>
   <div class="fig"><span class="n" id="f-gap"></span><span class="l">operating cost minus fares a year</span></div>
 </div>
 
@@ -134,10 +134,11 @@ a{color:var(--metro)}
       <h3>Spending</h3>
       <svg id="spend" role="img" aria-label="Capital spent to date by layer against the budget"></svg>
       <div class="legend">
-        <span><i class="sw" style="border-color:var(--brt)"></i>urban</span>
+        <span><i class="sw" style="border-color:var(--metro)"></i>DFW</span>
+        <span><i class="sw" style="border-color:var(--brt)"></i>other metros</span>
         <span><i class="sw" style="border-color:var(--hsr)"></i>high-speed</span>
         <span><i class="sw" style="border-color:var(--rail)"></i>conventional</span>
-        <span><i class="sw" style="border-color:var(--budget);border-top-width:2px;border-top-style:dashed"></i>budget to date</span>
+        <span><i class="sw" style="border-color:var(--budget);border-top-width:2px;border-top-style:dashed"></i>statewide budget to date (land-tax bonds pay the rest)</span>
       </div>
       <p class="note" id="next"></p>
     </div>
@@ -168,21 +169,23 @@ a{color:var(--metro)}
 <section aria-labelledby="t1">
   <h2 id="t1">Intercity lines, in the order they open</h2>
   <p>Each project's ratio is travellers' gain (plus any operating surplus) over capital plus the operating deficit, across 50 years at 3%. A ratio of 1 or more means travellers' gains alone pay for it. The budget is spent either way; the ratio sets the order.</p>
-  <div class="tablewrap"><table id="tinter"><thead><tr><th>Opens</th><th>Line</th><th>Capital</th><th>Trips a year</th><th>Travellers' gain a year</th><th>Fares − operating</th><th>Ratio</th></tr></thead><tbody></tbody></table></div>
+  <div class="tablewrap"><table id="tinter"><thead><tr><th>Opens</th><th>Line</th><th>Capital</th><th>Trips a year</th><th>Gain a year: travellers', wider</th><th>Fares − operating</th><th>Ratio: users, all</th></tr></thead><tbody></tbody></table></div>
 </section>
 
 <section aria-labelledby="t2">
   <h2 id="t2">By layer</h2>
-  <div class="tablewrap"><table id="tlayer"><thead><tr><th>Layer</th><th>Projects</th><th>Built by 2100</th><th>Capital</th><th>Travellers' gain a year</th><th>Fares − operating a year</th><th>Ratio</th><th>Ratio 1 or more</th></tr></thead><tbody></tbody></table></div>
+  <div class="tablewrap"><table id="tlayer"><thead><tr><th>Layer</th><th>Projects</th><th>Built by 2100</th><th>Capital</th><th>Land-tax bonds</th><th>Travellers' gain a year</th><th>Wider benefits a year</th><th>Fares − operating a year</th><th>Ratio, all benefits</th><th>Ratio 1 or more</th></tr></thead><tbody></tbody></table></div>
   <p class="note warn" id="unspent"></p>
 </section>
 
 <section aria-labelledby="cv">
   <h2 id="cv">What to keep in mind</h2>
   <ul class="caveats">
-    <li>Only two projects pay for themselves in travellers' gains alone: high-speed rail from Austin to San Antonio and from Houston to Austin. Everything else is built on the plan's premise, spending DFW's rate, in the order that buys the most. Wider benefits (less congestion, safety, emissions, land value) aren't counted.</li>
-    <li>An urban trip is worth about $8 to its traveller in DFW Transit's commute model, an intercity trip $40-80 in the intercity model. So the order favours the Triangle's high-speed lines, and most metro lines open after 2050: Houston has 2 of its 49 open by then. Valuing urban trips higher, or counting congestion relief, would bring the metros forward.</li>
-    <li>Operating cost is outside the capital budget, as in DFW Transit. By 2100 the lines cost about $1.6B a year more to run than they take in fares, and no budget pays that yet.</li>
+    <li>Benefits are travellers' gain plus wider benefits: congestion, crashes and emissions avoided for every car-km off the road and air passenger-km out of the sky, and agglomeration for urban and high-speed lines. These are allowances from US and UK practice, not modelled traffic; halve them and most urban lines fall back under a ratio of 1. Even with them, few projects pay for themselves: everything else is built on the plan's premise, spending DFW's rate, in the order that buys the most.</li>
+    <li>Land tax near new urban stations (a Tax Increment Reinvestment Zone on the rise in value plus a small Public Improvement District assessment, borrowed against when the line opens) pays about an eighth of the urban lines' capital, a fifth to a third in the smaller metros. It assumes cities form the districts and the uplift arrives with the line.</li>
+    <li>Dallas-Fort Worth runs DFW Transit's 2 million riders plan on its own timetable; what it doesn't spend, and its stations' land-tax bonds, go to the rest of the state. The statewide stations meet its network on foot: Dallas high-speed beside Union Station, Fort Worth at Fort Worth Central, Denton at its transit center.</li>
+    <li>An urban trip is worth about $12 in all (its rider's $8 and $4 to everyone else), an intercity trip $40-80 to its traveller. So the order still favours the Triangle's high-speed lines; the metros-first scenario shows the other way round.</li>
+    <li>Operating cost is outside the capital budget, as in DFW Transit. By 2100 the lines statewide, DFW included, cost about $6B a year more to run than they take in fares, and no budget pays that yet.</li>
     <li>The model overrates infrequent rail: at its constant it puts about 16,000 riders a day on Austin's Red Line, and NTD counts 1,636. Regional rail and the conventional trains are likely overrated; metro and BRT are where the calibration holds.</li>
     <li>For high-speed rail, the constant against car alone moves the first four corridors between 30M and 74M trips a year.</li>
     <li>Values grow with Texas's population trend and nothing else: no new land use around stations, no change in driving or flying.</li>
@@ -234,7 +237,6 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
     const t = el("title", {}, c);
     return {m, c, t};
   });
-  el("circle", {cx: M.dfw.xy[0], cy: M.dfw.xy[1], r: 30, fill: "none", stroke: "var(--ink)", "stroke-width": 1.2, "stroke-dasharray": "3 3"}, metroG);
   const convG = el("g", {}, S), hsrG = el("g", {}, S), labG = el("g", {}, S);
   const conv = Object.entries(M.conv).map(([id, pts]) => {
     const p = el("path", {d: pathD(pts), fill: "none", "stroke-linecap": "round", "stroke-linejoin": "round"}, convG);
@@ -258,14 +260,14 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
     if (labels[s]) lab(st.xy[0] + labels[s][0], st.xy[1] + labels[s][1], s);
   }
   for (const n in M.conv_ends) { const p = M.conv_ends[n]; el("circle", {cx: p[0], cy: p[1], r: 3.5, fill: "var(--surface)", stroke: "var(--rail)", "stroke-width": 1.6}, labG); lab(p[0] + 8, p[1] + 5, n, true); }
-  el("text", {x: M.dfw.xy[0] + 24, y: M.dfw.xy[1] - 28, "font-size": 16, fill: "var(--muted)", "font-family": "Public Sans, sans-serif"}, labG).textContent = "DFW Transit's own plan";
+  el("text", {x: M.dfw.xy[0] + 24, y: M.dfw.xy[1] - 28, "font-size": 16, fill: "var(--muted)", "font-family": "Public Sans, sans-serif"}, labG).textContent = "DFW Transit's plan";
 
   // ---------- spending chart ----------
   const C = document.getElementById("spend");
   const W = 300, H = 170, pl = 34, pb = 20, pt = 8, pr = 6;
   C.setAttribute("viewBox", `0 0 ${W} ${H}`);
   const yrs = T.yearly.map(r => r.year);
-  const budget = yrs.map((y, i) => T.other_musd * (i + 1));
+  const budget = yrs.map((y, i) => T.budget_musd * (i + 1));
   const ymax = Math.ceil(budget[budget.length - 1] / 100000) * 100000;
   const sx = y => pl + (y - yrs[0]) / (yrs[yrs.length - 1] - yrs[0]) * (W - pl - pr);
   const sy = v => H - pb - v / ymax * (H - pb - pt);
@@ -277,12 +279,13 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
   const areaG = el("g", {}, C);
   function drawChart() {
     while (areaG.firstChild) areaG.removeChild(areaG.firstChild);
-    const cum = {urban: [], hsr: [], conventional: []};
-    const per = {urban: {}, hsr: {}, conventional: {}};
-    T.projects.forEach(p => { if (!p.open) return; const b = p.open - p.start; for (let y = p.start; y < p.open; y++) per[p.layer][y] = (per[p.layer][y] || 0) + p.capital / b; });
+    const cum = {dfw: [], urban: [], hsr: [], conventional: []};
+    const per = {dfw: {}, urban: {}, hsr: {}, conventional: {}};
+    YL.forEach(q => { per.dfw[q.year] = q.dfw_spend; });
+    T.projects.forEach(p => { if (!p.open) return; const b = p.open - p.start; for (let y = p.start; y < p.open; y++) per[p.layer][y] = (per[p.layer][y] || 0) + (p.capital - (p.bond || 0)) / b; });
     for (const k in cum) { let s = 0; yrs.forEach(y => { s += per[k][y] || 0; cum[k].push(s); }); }
     let base = yrs.map(() => 0);
-    [["urban", "var(--brt)"], ["hsr", "var(--hsr)"], ["conventional", "var(--rail)"]].forEach(([k, col]) => {
+    [["dfw", "var(--metro)"], ["urban", "var(--brt)"], ["hsr", "var(--hsr)"], ["conventional", "var(--rail)"]].forEach(([k, col]) => {
       const top = base.map((b, i) => b + cum[k][i]);
       const d = "M" + yrs.map((y, i) => `${sx(y)} ${sy(top[i])}`).join("L") + "L" + yrs.slice().reverse().map((y, j) => `${sx(y)} ${sy(base[yrs.length - 1 - j])}`).join("L") + "Z";
       el("path", {d, fill: col, "fill-opacity": 0.55, stroke: "none"}, areaG);
@@ -318,7 +321,8 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
     m.net.filter(l => l.status !== "existing").forEach(l => {
       const p = el("path", {d: pathD(l.pts), fill: "none", "stroke-linecap": "round", "stroke-linejoin": "round"}, MS);
       const pr_ = P[l.project];
-      el("title", {}, p).textContent = `${l.name}${pr_ && pr_.open ? ", opens " + pr_.open : ""}`;
+      const yo = l.dfw_year || (pr_ && pr_.open);
+      el("title", {}, p).textContent = `${l.name}${yo ? ", opens " + yo : ""}`;
       mEls.push({l, p, sw});
     });
     const sx0 = bx0 + Wd * 0.05, sy0 = by0 + Hd * 0.94;
@@ -330,12 +334,26 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
   function drawMetro(y) {
     const m = M.metros.find(x => x.id === cur);
     mEls.forEach(({l, p, sw}) => {
-      const s = status(P[l.project], y);
+      const s = l.dfw_year ? (l.dfw_year <= y ? "open" : "later") : status(P[l.project], y);
       p.setAttribute("stroke", s === "open" ? (COL[l.mode] || "var(--ink)") : "var(--later)");
       p.setAttribute("stroke-width", s === "open" ? sw * 3 : sw * 1.6);
       p.setAttribute("stroke-dasharray", s === "building" ? `${sw * 5} ${sw * 3}` : "none");
       if (s === "open") p.parentNode.appendChild(p);
     });
+    if (m.dfw) {
+      const len = pts => pts.reduce((a, q, i) => i ? a + Math.hypot(q[0] - pts[i - 1][0], q[1] - pts[i - 1][1]) : 0, 0);
+      const kmo = k => fmt(m.net.filter(l => l.mode === k && l.dfw_year <= y).reduce((a, l) => a + len(l.pts), 0));
+      let sp = 0; YL.forEach(q => { if (q.year <= y) sp += q.dfw_spend; });
+      const names = new Set(m.net.filter(l => l.dfw_year <= y).map(l => l.name)), all = new Set(m.net.map(l => l.name));
+      const rows = [["People (2020)", fmt(m.pop)], ["Lines open / planned", `${names.size} / ${all.size}`],
+        ["Metro / BRT / regional rail open", `${kmo("metro")} / ${kmo("brt")} / ${kmo("commuter")} km`],
+        ["Capital spent to date", money(sp)],
+        ["New daily transit trips (DFW Transit's model)", fmt(Y[y].dfw_trips_day)],
+        ["Budget", "$2.3B a year"]];
+      document.getElementById("mstats").innerHTML = rows.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("");
+      document.getElementById("mnote").innerHTML = `DFW Transit's own plan on its own timetable, the 2 million riders scenario; what it doesn't spend goes to the rest of the state. <a href="https://dgoodenough.github.io/dfw-transit/map.html">Its map</a>. The high-speed station sits beside Union Station.`;
+      return;
+    }
     const ps = T.projects.filter(p => p.metro === cur);
     const open = ps.filter(p => status(p, y) === "open");
     const km = k => fmt(open.filter(p => p.mode === k).reduce((a, p) => a + p.km, 0));
@@ -351,8 +369,8 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
   }
   M.metros.forEach(m => {
     const b = document.createElement("button");
-    b.type = "button"; b.dataset.id = m.id; b.textContent = m.name.split("-")[0];
-    if (!T.projects.some(p => p.metro === m.id)) b.classList.add("none");
+    b.type = "button"; b.dataset.id = m.id; b.textContent = m.dfw ? "DFW" : m.name.split("-")[0];
+    if (!m.dfw && !T.projects.some(p => p.metro === m.id)) b.classList.add("none");
     b.addEventListener("click", () => buildMetro(m.id));
     chips.appendChild(b);
   });
@@ -363,21 +381,23 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
   function tables() {
   inter = T.projects.filter(p => p.layer !== "urban").sort((a, b) => (a.open || 9999) - (b.open || 9999));
   tb.innerHTML = inter.map(p => `<tr data-id="${p.id}"><td>${p.open || "not built"}</td><td class="name">${p.name}</td><td>${money(p.capital)}</td>` +
-    `<td>${(p.trips_year / 1e6).toFixed(2)}M</td><td>${money(p.benefit)}</td><td>${money(p.fares - p.opex)}</td>` +
-    `<td>${p.bcr.toFixed(2)}${p.bcr >= 1 ? ' <span class="pill ok">pays</span>' : ""}</td></tr>`).join("");
+    `<td>${(p.trips_year / 1e6).toFixed(2)}M</td><td>${money(p.benefit)}, ${money((p.wider || 0) + (p.agglom || 0))}</td><td>${money(p.fares - p.opex)}</td>` +
+    `<td>${p.bcr_users.toFixed(2)}, ${p.bcr.toFixed(2)}${p.bcr >= 1 ? ' <span class="pill ok">pays</span>' : ""}</td></tr>`).join("");
   const LAY = [["urban", "Urban rail and BRT, 25 metros"], ["hsr", "High-speed rail"], ["conventional", "Conventional trains"]];
   document.querySelector("#tlayer tbody").innerHTML = LAY.map(([k, n]) => {
     const ps = T.projects.filter(p => p.layer === k), bs = ps.filter(p => p.open);
     const cap = bs.reduce((a, p) => a + p.capital, 0), ben = bs.reduce((a, p) => a + p.benefit, 0), mg = bs.reduce((a, p) => a + p.fares - p.opex, 0);
-    const r = (ben + Math.max(mg, 0)) * 25.73 / (cap + Math.max(-mg, 0) * 25.73);
+    const wid = bs.reduce((a, p) => a + (p.wider || 0) + (p.agglom || 0), 0), bond = bs.reduce((a, p) => a + (p.bond || 0), 0);
+    const r = (ben + wid + Math.max(mg, 0)) * 25.73 / (cap + Math.max(-mg, 0) * 25.73);
     const ok = ps.filter(p => p.bcr >= 1);
-    return `<tr><td>${n}</td><td>${ps.length}</td><td>${bs.length}</td><td>${money(cap)}</td><td>${money(ben)}</td><td>${money(mg)}</td><td>${r.toFixed(2)}</td><td>${ok.length}</td></tr>`;
-  }).join("");
-  const built = T.projects.filter(p => p.open).reduce((a, p) => a + p.capital, 0), avail = T.other_musd * (T.years[1] - T.years[0] + 1);
+    return `<tr><td>${n}</td><td>${ps.length}</td><td>${bs.length}</td><td>${money(cap)}</td><td>${money(bond)}</td><td>${money(ben)}</td><td>${money(wid)}</td><td>${money(mg)}</td><td>${r.toFixed(2)}</td><td>${ok.length}</td></tr>`;
+  }).join("") + `<tr><td>Dallas-Fort Worth, its own plan (2100)</td><td>${T.dfw.lines}</td><td>its timetable</td><td>${money(T.dfw.spent)}</td><td>${money(T.dfw.bonds)}</td>` +
+    `<td>${money(T.dfw.benefit)}</td><td>${money(T.dfw.wider)}</td><td>${money(T.dfw.margin)}</td><td></td><td></td></tr>`;
+  const built = T.projects.filter(p => p.open).reduce((a, p) => a + p.capital - (p.bond || 0), 0), avail = T.other_total;
   const left = T.projects.filter(p => !p.open);
   const names = left.filter(p => p.layer !== "urban").map(p => p.name.split(":")[0]);
   const urbanLeft = left.filter(p => p.layer === "urban").length;
-  document.getElementById("unspent").innerHTML = `<b>${money(built)} built of ${money(avail)} available by 2100.</b> What's left (${money(avail - built)}) doesn't fit ` +
+  document.getElementById("unspent").innerHTML = `<b>${money(built)} of ${money(avail)} spent by 2100 outside DFW</b> (the statewide budget minus what DFW spends, plus DFW's land-tax bonds; urban lines' own bonds pay ${money(T.projects.filter(p => p.open).reduce((a, p) => a + (p.bond || 0), 0))} more). What's left (${money(avail - built)}) doesn't fit ` +
     [names.length ? names.join(", ") : "", urbanLeft ? `${urbanLeft} metro line${urbanLeft > 1 ? "s" : ""}` : ""].filter(Boolean).join(" or ") + " before 2100.";
   }
 
@@ -385,12 +405,12 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
   function draw() {
     const y = +yIn.value, r = Y[y];
     document.getElementById("ylab").textContent = y;
-    let spent = 0; YL.forEach(q => { if (q.year <= y) spent += q.spend; });
+    let spent = 0; YL.forEach(q => { if (q.year <= y) spent += q.spend + q.dfw_spend; });
     document.getElementById("f-spent").textContent = money(spent);
-    document.getElementById("f-urban").textContent = fmt(r.urban_trips_day);
+    document.getElementById("f-urban").textContent = fmt(r.urban_trips_day + r.dfw_trips_day);
     document.getElementById("f-inter").textContent = (r.intercity_trips_year / 1e6).toFixed(1) + "M";
     document.getElementById("f-flights").textContent = fmt(r.flights_day);
-    document.getElementById("f-gain").textContent = money(r.benefit);
+    document.getElementById("f-gain").textContent = money(r.benefit + r.wider);
     document.getElementById("f-gap").textContent = money(r.opex - r.fares);
     hsrL.forEach(({id, p}) => {
       const s = status(P[id], y);
@@ -408,12 +428,12 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
       p.setAttribute("stroke-width", s === "open" ? 3.5 : 2.5);
       p.setAttribute("stroke-dasharray", s === "open" ? "1 6" : "1 8");
     });
-    const tr = {};
+    const tr = {dfw: r.dfw_trips_day};
     T.projects.forEach(p => { if (p.layer === "urban" && status(p, y) === "open") tr[p.metro] = (tr[p.metro] || 0) + p.trips_day; });
-    const maxT = Math.max(1, ...M.metros.map(m => T.projects.filter(p => p.metro === m.id).reduce((a, p) => a + p.trips_day, 0)));
+    const maxT = Math.max(1, ...YL.map(q => q.dfw_trips_day));
     circles.forEach(({m, c, t}) => {
       const v = tr[m.id] || 0;
-      c.setAttribute("r", v ? 5 + 30 * Math.sqrt(v / maxT) : 0);
+      c.setAttribute("r", v ? 5 + 40 * Math.sqrt(v / maxT) : 0);
       t.textContent = `${m.name}: ${fmt(v)} new daily transit trips open by ${y} (today's land use)`;
     });
     cursor.setAttribute("d", `M${sx(y)} ${pt}V${H - pb}`);

@@ -112,9 +112,8 @@ def main():
             "not the Texas Demographic Center's projection. Intercity trips are not comparable one for one with the "
             "urban layer's daily trips (they are longer and worth more to each traveller); comparing the layers needs "
             "user benefits, not trip counts.", "",
-            "Not yet in: operating cost and fare revenue, timing (what opens when under the budget), the urban layer "
-            "the stations feed, conventional interstate rail, and Mexico (Monterrey) demand, which the NextGen data "
-            "doesn't cover."]
+            "Operating cost, fares, wider benefits and timing under the budget: `study/timing.md`. Conventional "
+            "interstate rail and Monterrey: `study/interstate_rail.md`."]
     text = "\n".join(out) + "\n"
     with open(os.path.join(ROOT, "study", "hsr_options.md"), "w", encoding="utf-8") as f:
         f.write(text)

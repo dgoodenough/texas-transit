@@ -4,7 +4,8 @@ which study/timing.py writes).
     python tools/build_site.py
 
 Contents: state outlines (Census cartographic boundaries 1:20M, cached in data/raw/), high-speed and
-conventional stations and corridors, and each metro's generated network (urban/generated/<id>/)
+conventional stations and corridors, Dallas-Fort Worth's own plan (data/dfw/dfw_plan.json, by segment
+and opening year), and each metro's generated network (urban/generated/<id>/)
 with every line tagged with its timeline project id, plus a 1 km grid of people + jobs. Coordinates
 are projected: the statewide map in hundredths of a degree of latitude (longitude scaled at 31N),
 each metro in km around its population centre.
@@ -102,6 +103,31 @@ def metros():
     return out
 
 
+def dfw_metro():
+    """Dallas-Fort Worth's own plan (data/dfw/dfw_plan.json): each line's segments with the year they
+    open, and people + jobs on a 1 km grid."""
+    plan = json.load(open(os.path.join(ROOT, "data", "dfw", "dfw_plan.json"), encoding="utf-8"))
+    z = plan["zones"]
+    w = sum(q["pop"] for q in z) or 1
+    lat0 = sum(q["lat"] * q["pop"] for q in z) / w
+    lon0 = sum(q["lon"] * q["pop"] for q in z) / w
+    k = math.cos(math.radians(lat0))
+
+    def local(lon, lat):
+        return [round((lon - lon0) * k * 111.2, 2), round((lat0 - lat) * 111.2, 2)]
+    net = []
+    for ln in plan["lines"]:
+        for sg in ln["segments"]:
+            net.append({"dfw_year": sg["year"], "status": "existing" if sg["year"] <= 2025 else "proposed",
+                        "mode": ln["mode"], "name": ln["name"], "pts": thin([local(*q) for q in sg["pts"]], 0.15)})
+    cells = {}
+    for q in z:
+        x, y = local(q["lon"], q["lat"])
+        cells[(round(x), round(y))] = cells.get((round(x), round(y)), 0) + q["pop"] + q["jobs"]
+    return {"id": "dfw", "name": "Dallas-Fort Worth", "xy": xy(lon0, lat0), "pop": 7_637_387, "budget": None,
+            "dfw": True, "net": net, "dots": [[a, b, round(v)] for (a, b), v in cells.items() if v >= 2000]}
+
+
 def main():
     data = {
         "states": states(),
@@ -112,7 +138,7 @@ def main():
         "conv_ends": {n: xy(cv.STATIONS[n][1], cv.STATIONS[n][0]) for n in
                       ("Kansas City", "Memphis", "Jackson", "Albuquerque", "Monterrey")},
         "dfw": {"name": "Dallas-Fort Worth", "xy": xy(-96.9454, 32.8628)},
-        "metros": metros(),
+        "metros": [dfw_metro()] + metros(),
     }
     os.makedirs(os.path.join(ROOT, "docs", "data"), exist_ok=True)
     path = os.path.join(ROOT, "docs", "data", "map.json")

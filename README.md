@@ -78,22 +78,24 @@ high-speed rail versus metro systems is an output, not an input.
    end. All seven together are $14B of capital and run about $330M a year more than fares bring
    in. On the same routes, high-speed rail carries seven to eleven times the riders, at 40-60% of
    the riders per dollar of capital.
-6. **Timing and the site** (`study/timing.py`, `study/timing.md`, `docs/`): every project from
-   steps 3-5 valued the same way, by what travellers gain (the logsum of the same logit models,
-   plus fares minus operating cost, over capital plus the operating deficit, 50 years at 3%).
-   They're scheduled best ratio first under the $6.7B a year left after DFW's $2.3B, and built
-   whether or not a ratio reaches 1, since the plan spends DFW's rate. By 2100 that's $481B of
-   $507B: 12 high-speed corridors, 89 of 93 metro lines and all seven conventional routes.
-   About 750,000 new daily metro transit trips, 109M intercity rail trips a year and about 170
-   fewer flights a day. Only Austin - San Antonio and Houston - Austin high-speed rail pay for
-   themselves in travellers' gains alone, and by 2100 the lines run $1.6B a year more than fares
-   bring in. Because an urban trip is worth about $8 in the model and an intercity trip $40-80,
-   most metro lines open after 2050. A second scenario, **metros first**, gives each metro its
-   own 30-year stream (its step-4 budget) and intercity rail the rest. That triples new urban
-   trips by 2050 (490,000 a day against 163,000), finishes every metro by 2058, and opens the
-   Triangle's high-speed lines 10-15 years later, for $21B less present-value gain net of
-   operating cost at those trip values. The site (`docs/index.html`, data from
-   `tools/build_site.py`) shows both scenarios by year, linking to DFW Transit for DFW.
+6. **Timing and the site** (`study/timing.py`, `study/timing.md`, `docs/`): one statewide plan
+   under one budget. Dallas-Fort Worth runs DFW Transit's 2 million riders plan on its own
+   timetable (`tools/build_dfw.py`); what it doesn't spend goes to the rest of the state. Every
+   other project is valued the same way: travellers' gain from the same logit models, plus wider
+   benefits (`texas/benefits.json`: congestion, crashes and emissions for each car-km off the road
+   and air passenger-km out of the sky, and agglomeration), plus fares minus operating cost, over
+   capital plus the operating deficit, across 50 years at 3%. Land tax near new urban stations (a
+   Tax Increment Reinvestment Zone plus a Public Improvement District, borrowed against when a line
+   opens) pays about an eighth of the urban lines' capital. Projects go best ratio first and the
+   budget is spent whether or not a ratio reaches 1. By 2100: 13 high-speed corridors, 91 of 93
+   metro lines, all seven conventional routes and DFW's plan; about 2.5M new daily metro transit
+   trips (1.7M in DFW), 111M intercity rail trips a year and about 180 fewer flights a day. Six
+   projects pay for themselves (two on travellers' gain alone). The high-speed stations meet DFW's
+   network on foot: Dallas beside Union Station, Fort Worth at Fort Worth Central, Denton at its
+   transit center. A second scenario, **metros first**, gives each metro its own 30-year stream:
+   500,000 new daily trips outside DFW by 2050 instead of 166,000, the Triangle's high-speed lines
+   10-15 years later, $18B less in present value. The site (`docs/index.html`, data from
+   `tools/build_site.py`) shows both scenarios by year.
 
 ## Reusing DFW Transit's code
 
