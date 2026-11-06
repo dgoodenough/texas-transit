@@ -69,6 +69,7 @@ svg{display:block;width:100%;height:auto}
 .chips button{font-size:13px;padding:4px 10px;border-radius:999px;border:1px solid var(--rule);background:var(--surface);color:var(--ink)}
 .chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .chips button.none{color:var(--muted)}
+.scen{display:flex;flex-direction:column;gap:8px;margin-top:-24px}
 .tablewrap{overflow-x:auto;border-top:2px solid var(--ink)}
 table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
 th,td{padding:7px 10px;text-align:right;border-bottom:1px solid var(--rule);white-space:nowrap}
@@ -99,6 +100,14 @@ a{color:var(--metro)}
   <div class="year" id="ylab" aria-live="polite">2050</div>
   <label class="slider" for="year"><span class="eyebrow">Year</span><input id="year" type="range" min="2025" max="2100" step="1" value="2050"></label>
   <button class="play" id="play" type="button">Play</button>
+</div>
+
+<div class="scen">
+  <div class="chips" id="scen" role="group" aria-label="Scenario">
+    <button type="button" data-key="ratio" aria-pressed="true">Best ratio first</button>
+    <button type="button" data-key="metros_first" aria-pressed="false">Metros first</button>
+  </div>
+  <p class="note" id="scen-note"></p>
 </div>
 
 <div class="figs" aria-label="Totals for the selected year">
@@ -193,7 +202,19 @@ const status = (p, y) => !p || !p.open ? "never" : p.open <= y ? "open" : p.star
 
 Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.json").then(r => r.json())]).then(([M, T]) => {
   const P = {}; T.projects.forEach(p => { P[p.id] = p; });
-  const Y = {}; T.yearly.forEach(r => { Y[r.year] = r; });
+  let Y = {}, YL = T.yearly, scen = "ratio";
+  const NOTES = {
+    ratio: "Every project in one queue, best ratio first. The Triangle's high-speed lines come early; most metro lines open after 2050.",
+    metros_first: `Each metro gets its own stream, its share of the budget at DFW's rate spread over ${T.metro_years} years from 2025, and builds its lines in order. Intercity rail takes the rest. The metros finish decades sooner; the high-speed lines open 10-15 years later.`};
+  function useScenario(key) {
+    scen = key;
+    const S = T.scenarios[key];
+    T.projects.forEach(p => { const w = S.when[p.id]; p.start = w ? w[0] : null; p.open = w ? w[1] : null; });
+    YL = S.yearly; Y = {}; YL.forEach(r => { Y[r.year] = r; });
+    document.querySelectorAll("#scen button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.key === key)));
+    document.getElementById("scen-note").textContent = NOTES[key];
+  }
+  useScenario("ratio");
   const yIn = document.getElementById("year");
 
   // ---------- statewide map ----------
@@ -244,10 +265,6 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
   const W = 300, H = 170, pl = 34, pb = 20, pt = 8, pr = 6;
   C.setAttribute("viewBox", `0 0 ${W} ${H}`);
   const yrs = T.yearly.map(r => r.year);
-  const cum = {urban: [], hsr: [], conventional: []};
-  const per = {urban: {}, hsr: {}, conventional: {}};
-  T.projects.forEach(p => { if (!p.open) return; const b = p.open - p.start; for (let y = p.start; y < p.open; y++) per[p.layer][y] = (per[p.layer][y] || 0) + p.capital / b; });
-  for (const k in cum) { let s = 0; yrs.forEach(y => { s += per[k][y] || 0; cum[k].push(s); }); }
   const budget = yrs.map((y, i) => T.other_musd * (i + 1));
   const ymax = Math.ceil(budget[budget.length - 1] / 100000) * 100000;
   const sx = y => pl + (y - yrs[0]) / (yrs[yrs.length - 1] - yrs[0]) * (W - pl - pr);
@@ -256,14 +273,22 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
     el("path", {d: `M${pl} ${sy(v)}H${W - pr}`, stroke: "var(--rule)", "stroke-width": 0.6}, C);
     el("text", {x: pl - 4, y: sy(v) + 3, "text-anchor": "end", "font-size": 9, fill: "var(--muted)", "font-family": "Public Sans, sans-serif"}, C).textContent = "$" + v / 1000 + "B";
   }
-  [2025, 2050, 2075, 2100].forEach(y => el("text", {x: sx(y), y: H - 6, "text-anchor": "middle", "font-size": 9, fill: "var(--muted)", "font-family": "Public Sans, sans-serif"}, C).textContent = y);
-  let base = yrs.map(() => 0);
-  [["urban", "var(--brt)"], ["hsr", "var(--hsr)"], ["conventional", "var(--rail)"]].forEach(([k, col]) => {
-    const top = base.map((b, i) => b + cum[k][i]);
-    const d = "M" + yrs.map((y, i) => `${sx(y)} ${sy(top[i])}`).join("L") + "L" + yrs.slice().reverse().map((y, j) => `${sx(y)} ${sy(base[yrs.length - 1 - j])}`).join("L") + "Z";
-    el("path", {d, fill: col, "fill-opacity": 0.55, stroke: "none"}, C);
-    base = top;
-  });
+  [2025, 2050, 2075, 2100].forEach(y => el("text", {x: sx(y), y: H - 6, "text-anchor": y === 2100 ? "end" : y === 2025 ? "start" : "middle", "font-size": 9, fill: "var(--muted)", "font-family": "Public Sans, sans-serif"}, C).textContent = y);
+  const areaG = el("g", {}, C);
+  function drawChart() {
+    while (areaG.firstChild) areaG.removeChild(areaG.firstChild);
+    const cum = {urban: [], hsr: [], conventional: []};
+    const per = {urban: {}, hsr: {}, conventional: {}};
+    T.projects.forEach(p => { if (!p.open) return; const b = p.open - p.start; for (let y = p.start; y < p.open; y++) per[p.layer][y] = (per[p.layer][y] || 0) + p.capital / b; });
+    for (const k in cum) { let s = 0; yrs.forEach(y => { s += per[k][y] || 0; cum[k].push(s); }); }
+    let base = yrs.map(() => 0);
+    [["urban", "var(--brt)"], ["hsr", "var(--hsr)"], ["conventional", "var(--rail)"]].forEach(([k, col]) => {
+      const top = base.map((b, i) => b + cum[k][i]);
+      const d = "M" + yrs.map((y, i) => `${sx(y)} ${sy(top[i])}`).join("L") + "L" + yrs.slice().reverse().map((y, j) => `${sx(y)} ${sy(base[yrs.length - 1 - j])}`).join("L") + "Z";
+      el("path", {d, fill: col, "fill-opacity": 0.55, stroke: "none"}, areaG);
+      base = top;
+    });
+  }
   el("path", {d: "M" + yrs.map((y, i) => `${sx(y)} ${sy(budget[i])}`).join("L"), fill: "none", stroke: "var(--budget)", "stroke-width": 1.2, "stroke-dasharray": "4 3"}, C);
   const cursor = el("path", {d: "", stroke: "var(--ink)", "stroke-width": 1}, C);
 
@@ -333,8 +358,10 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
   });
 
   // ---------- tables ----------
-  const inter = T.projects.filter(p => p.layer !== "urban").sort((a, b) => (a.open || 9999) - (b.open || 9999));
+  let inter = [];
   const tb = document.querySelector("#tinter tbody");
+  function tables() {
+  inter = T.projects.filter(p => p.layer !== "urban").sort((a, b) => (a.open || 9999) - (b.open || 9999));
   tb.innerHTML = inter.map(p => `<tr data-id="${p.id}"><td>${p.open || "not built"}</td><td class="name">${p.name}</td><td>${money(p.capital)}</td>` +
     `<td>${(p.trips_year / 1e6).toFixed(2)}M</td><td>${money(p.benefit)}</td><td>${money(p.fares - p.opex)}</td>` +
     `<td>${p.bcr.toFixed(2)}${p.bcr >= 1 ? ' <span class="pill ok">pays</span>' : ""}</td></tr>`).join("");
@@ -347,13 +374,18 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
     return `<tr><td>${n}</td><td>${ps.length}</td><td>${bs.length}</td><td>${money(cap)}</td><td>${money(ben)}</td><td>${money(mg)}</td><td>${r.toFixed(2)}</td><td>${ok.length}</td></tr>`;
   }).join("");
   const built = T.projects.filter(p => p.open).reduce((a, p) => a + p.capital, 0), avail = T.other_musd * (T.years[1] - T.years[0] + 1);
-  document.getElementById("unspent").innerHTML = `<b>${money(built)} built of ${money(avail)} available by 2100.</b> What's left (${money(avail - built)}) isn't enough for the last high-speed corridors (Fort Worth - Lubbock, then West Texas to El Paso), which come last on ratio.`;
+  const left = T.projects.filter(p => !p.open);
+  const names = left.filter(p => p.layer !== "urban").map(p => p.name.split(":")[0]);
+  const urbanLeft = left.filter(p => p.layer === "urban").length;
+  document.getElementById("unspent").innerHTML = `<b>${money(built)} built of ${money(avail)} available by 2100.</b> What's left (${money(avail - built)}) doesn't fit ` +
+    [names.length ? names.join(", ") : "", urbanLeft ? `${urbanLeft} metro line${urbanLeft > 1 ? "s" : ""}` : ""].filter(Boolean).join(" or ") + " before 2100.";
+  }
 
   // ---------- the year ----------
   function draw() {
     const y = +yIn.value, r = Y[y];
     document.getElementById("ylab").textContent = y;
-    let spent = 0; T.yearly.forEach(q => { if (q.year <= y) spent += q.spend; });
+    let spent = 0; YL.forEach(q => { if (q.year <= y) spent += q.spend; });
     document.getElementById("f-spent").textContent = money(spent);
     document.getElementById("f-urban").textContent = fmt(r.urban_trips_day);
     document.getElementById("f-inter").textContent = (r.intercity_trips_year / 1e6).toFixed(1) + "M";
@@ -399,6 +431,11 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
     play.textContent = "Pause";
     timer = setInterval(() => { if (+yIn.value >= 2100) { clearInterval(timer); timer = null; play.textContent = "Play"; return; } yIn.value = +yIn.value + 1; draw(); }, 180);
   });
+  document.querySelectorAll("#scen button").forEach(b => b.addEventListener("click", () => {
+    useScenario(b.dataset.key); drawChart(); tables(); buildMetro(cur); draw();
+  }));
+  drawChart();
+  tables();
   buildMetro("houston");
   draw();
 }).catch(e => { document.querySelector(".wrap").insertAdjacentHTML("beforeend", `<p class="note warn">The map data didn't load (${e.message}). Open this page from its site, not as a local file.</p>`); });
