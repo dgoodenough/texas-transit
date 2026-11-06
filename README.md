@@ -49,7 +49,10 @@ high-speed rail versus metro systems is an output, not an input.
 ## Plan of work
 
 1. **Inputs and today's travel.** County zones with population and jobs; reproduce today's
-   intercity flows (air, road) closely enough to trust comparisons.
+   intercity flows (air, road) closely enough to trust comparisons. The inputs are gathered
+   (`data/README.md`): county zones, LODES county commutes, airline city-pair passengers, TxDOT
+   corridor counts and NextGen NHTS long-distance trips. Next: the intercity demand model,
+   calibrated to them.
 2. **High-speed rail options.** The Triangle (Dallas-Houston, Dallas/Fort Worth-Austin-San
    Antonio, Houston-San Antonio or Houston-Austin) and possible branches (Rio Grande Valley,
    Laredo, Waco/Killeen). Costs, ridership, air trips replaced.

@@ -1,0 +1,1103 @@
+city1,city2,miles,passengers_per_day,avg_fare,quarters
+"Dallas/Fort Worth, TX","New York City, NY (Metropolitan Area)",1428,6220.6,259.37,4
+"Dallas/Fort Worth, TX","Los Angeles, CA (Metropolitan Area)",1246,6150.0,250.5,4
+"Houston, TX","New York City, NY (Metropolitan Area)",1465,4669.4,256.2,4
+"Chicago, IL","Dallas/Fort Worth, TX",802,4373.2,205.84,4
+"Houston, TX","Los Angeles, CA (Metropolitan Area)",1390,4050.5,227.72,4
+"Dallas/Fort Worth, TX","Washington, DC (Metropolitan Area)",1217,3915.3,232.55,4
+"Atlanta, GA (Metropolitan Area)","Dallas/Fort Worth, TX",731,3443.7,221.61,4
+"Dallas/Fort Worth, TX","Denver, CO",651,3321.6,186.38,4
+"Dallas/Fort Worth, TX","Orlando, FL",985,3214.4,212.2,4
+"Dallas/Fort Worth, TX","Las Vegas, NV",1067,3191.6,224.23,4
+"Chicago, IL","Houston, TX",945,3073.5,210.81,4
+"Dallas/Fort Worth, TX","Miami, FL (Metropolitan Area)",1121,2972.5,230.08,4
+"Dallas/Fort Worth, TX","San Francisco, CA (Metropolitan Area)",1476,2933.8,254.96,4
+"Austin, TX","New York City, NY (Metropolitan Area)",1559,2914.7,294.52,4
+"Houston, TX","Washington, DC (Metropolitan Area)",1246,2811.1,248.57,4
+"Dallas/Fort Worth, TX","Phoenix, AZ",879,2703.2,233.11,4
+"Atlanta, GA (Metropolitan Area)","Houston, TX",696,2576.4,197.79,4
+"Houston, TX","Miami, FL (Metropolitan Area)",966,2561.0,193.93,4
+"Denver, CO","Houston, TX",883,2485.5,218.61,4
+"Austin, TX","Los Angeles, CA (Metropolitan Area)",1242,2482.0,257.09,4
+"Houston, TX","Orlando, FL",854,2399.6,196.38,4
+"Houston, TX","Las Vegas, NV",1235,2347.4,230.58,4
+"Boston, MA (Metropolitan Area)","Dallas/Fort Worth, TX",1562,2231.8,263.38,4
+"Dallas/Fort Worth, TX","Seattle, WA",1670,2111.0,240.72,4
+"Austin, TX","San Francisco, CA (Metropolitan Area)",1504,2067.5,285.99,4
+"Austin, TX","Chicago, IL",977,1773.4,217.75,4
+"Dallas/Fort Worth, TX","San Diego, CA",1182,1745.6,241.05,4
+"Dallas/Fort Worth, TX","Houston, TX",247,1737.4,221.43,4
+"Houston, TX","San Francisco, CA (Metropolitan Area)",1649,1719.2,330.01,4
+"Austin, TX","Denver, CO",775,1715.9,190.48,4
+"Houston, TX","Phoenix, AZ",1020,1593.2,217.39,4
+"Dallas/Fort Worth, TX","Tampa, FL (Metropolitan Area)",929,1581.0,217.27,4
+"Dallas/Fort Worth, TX","Philadelphia, PA",1303,1539.2,293.88,4
+"Dallas/Fort Worth, TX","Nashville, TN",631,1537.9,238.92,4
+"Dallas/Fort Worth, TX","Detroit, MI",986,1515.5,255.68,4
+"Boston, MA (Metropolitan Area)","Houston, TX",1609,1451.0,281.93,4
+"Dallas/Fort Worth, TX","Minneapolis/St. Paul, MN",853,1442.0,243.63,4
+"Austin, TX","Las Vegas, NV",1090,1442.0,204.23,4
+"Austin, TX","Washington, DC (Metropolitan Area)",1342,1367.5,315.73,4
+"Dallas/Fort Worth, TX","Salt Lake City, UT",999,1351.1,244.87,4
+"Charlotte, NC","Dallas/Fort Worth, TX",935,1343.2,279.94,4
+"Austin, TX","Miami, FL (Metropolitan Area)",1105,1241.4,204.28,4
+"Austin, TX","Boston, MA (Metropolitan Area)",1698,1210.7,269.05,4
+"Los Angeles, CA (Metropolitan Area)","San Antonio, TX",1211,1200.7,232.56,4
+"Dallas/Fort Worth, TX","New Orleans, LA",448,1197.9,189.12,4
+"Detroit, MI","Houston, TX",1092,1197.2,214.58,4
+"Austin, TX","Orlando, FL",994,1150.4,214.4,4
+"Atlanta, GA (Metropolitan Area)","Austin, TX",813,1138.5,246.53,4
+"Houston, TX","Seattle, WA",1894,1132.3,293.29,4
+"Houston, TX","Philadelphia, PA",1336,1103.4,249.44,4
+"Austin, TX","Phoenix, AZ",872,1094.5,223.5,4
+"Dallas/Fort Worth, TX","Raleigh/Durham, NC",1061,1066.1,237.87,4
+"Dallas/Fort Worth, TX","St. Louis, MO",550,1064.2,229.16,4
+"Houston, TX","New Orleans, LA",305,1046.7,210.19,4
+"Las Vegas, NV","San Antonio, TX",1069,1044.7,216.44,4
+"Dallas/Fort Worth, TX","Kansas City, MO",461,1040.9,222.74,4
+"Austin, TX","Seattle, WA",1770,1031.4,264.21,4
+"San Antonio, TX","Washington, DC (Metropolitan Area)",1407,1019.6,274.22,4
+"Houston, TX","Nashville, TN",670,980.2,254.58,4
+"Houston, TX","Tampa, FL (Metropolitan Area)",787,977.9,209.97,4
+"Charlotte, NC","Houston, TX",920,960.4,220.75,4
+"Austin, TX","San Diego, CA",1164,949.3,218.13,4
+"Dallas/Fort Worth, TX","San Antonio, TX",247,948.9,238.63,4
+"Dallas/Fort Worth, TX","Portland, OR",1626,927.7,238.45,4
+"New York City, NY (Metropolitan Area)","San Antonio, TX",1624,916.6,299.21,4
+"Dallas/Fort Worth, TX","Indianapolis, IN",761,908.9,228.71,4
+"Houston, TX","San Diego, CA",1313,859.8,307.05,4
+"Denver, CO","San Antonio, TX",794,859.5,203.31,4
+"Austin, TX","Nashville, TN",756,837.7,186.04,4
+"Houston, TX","Minneapolis/St. Paul, MN",1057,811.9,260.96,4
+"Dallas/Fort Worth, TX","El Paso, TX",562,775.3,224.78,4
+"Houston, TX","Salt Lake City, UT",1214,759.8,322.42,4
+"Chicago, IL","San Antonio, TX",1041,737.5,263.08,4
+"Orlando, FL","San Antonio, TX",1041,727.5,218.24,4
+"Dallas/Fort Worth, TX","Sacramento, CA",1442,702.2,298.02,4
+"Houston, TX","Midland/Odessa, TX",441,700.3,290.23,4
+"Cleveland, OH (Metropolitan Area)","Dallas/Fort Worth, TX",1023,696.5,272.9,4
+"Houston, TX","St. Louis, MO",687,681.1,261.04,4
+"Atlanta, GA (Metropolitan Area)","San Antonio, TX",874,680.4,256.91,4
+"Dallas/Fort Worth, TX","Pittsburgh, PA",1067,676.8,277.71,4
+"Houston, TX","Raleigh/Durham, NC",1050,657.0,261.0,4
+"Columbus, OH","Dallas/Fort Worth, TX",926,656.5,291.05,4
+"Cincinnati, OH","Dallas/Fort Worth, TX",812,633.0,262.18,4
+"Houston, TX","Kansas City, MO",666,623.8,263.16,4
+"Dallas/Fort Worth, TX","Jacksonville, FL",917,621.0,277.02,4
+"Phoenix, AZ","San Antonio, TX",843,612.9,238.7,4
+"Austin, TX","Philadelphia, PA",1431,612.2,282.04,4
+"Austin, TX","Dallas/Fort Worth, TX",190,608.4,242.14,4
+"El Paso, TX","Los Angeles, CA (Metropolitan Area)",715,598.1,224.54,4
+"Austin, TX","Tampa, FL (Metropolitan Area)",928,583.6,225.35,4
+"Austin, TX","Minneapolis/St. Paul, MN",1042,572.8,264.18,4
+"Austin, TX","New Orleans, LA",445,551.1,169.13,4
+"Austin, TX","Salt Lake City, UT",1086,546.1,280.5,4
+"Houston, TX","Portland, OR",1844,544.0,265.06,4
+"Austin, TX","Portland, OR",1715,536.8,229.24,4
+"Austin, TX","Detroit, MI",1149,535.4,286.95,4
+"Cleveland, OH (Metropolitan Area)","Houston, TX",1106,534.2,259.05,4
+"Houston, TX","Pittsburgh, PA",1131,525.9,316.02,4
+"Houston, TX","Indianapolis, IN",861,519.5,282.78,4
+"Houston, TX","Oklahoma City, OK",419,518.7,240.12,4
+"San Antonio, TX","Seattle, WA",1774,509.6,248.72,4
+"Dallas/Fort Worth, TX","Memphis, TN",431,505.7,236.98,4
+"El Paso, TX","Las Vegas, NV",584,504.4,181.2,4
+"Albuquerque, NM","Dallas/Fort Worth, TX",580,501.1,236.14,4
+"El Paso, TX","Houston, TX",677,495.9,240.51,4
+"Austin, TX","Raleigh/Durham, NC",1162,488.2,244.59,4
+"Miami, FL (Metropolitan Area)","San Antonio, TX",1145,485.4,231.7,4
+"Dallas/Fort Worth, TX","Omaha, NE",586,463.7,248.36,4
+"Birmingham, AL","Dallas/Fort Worth, TX",597,460.8,268.71,4
+"Dallas/Fort Worth, TX","Milwaukee, WI",853,453.9,277.32,4
+"Dallas/Fort Worth, TX","Louisville, KY",733,451.3,259.74,4
+"Houston, TX","Memphis, TN",484,449.4,221.45,4
+"Houston, TX","Tulsa, OK",453,449.3,241.5,4
+"Cincinnati, OH","Houston, TX",886,448.1,243.31,4
+"San Antonio, TX","San Francisco, CA (Metropolitan Area)",1482,442.2,275.57,4
+"Columbus, OH","Houston, TX",1000,418.0,308.38,4
+"Charleston, SC","Dallas/Fort Worth, TX",987,417.8,267.78,4
+"Houston, TX","Sacramento, CA",1624,412.9,326.86,4
+"Dallas/Fort Worth, TX","Fort Myers, FL",1017,409.7,308.13,4
+"Dallas/Fort Worth, TX","Richmond, VA",1158,409.6,312.91,4
+"Dallas/Fort Worth, TX","Norfolk, VA (Metropolitan Area)",1212,408.2,256.65,4
+"Boston, MA (Metropolitan Area)","San Antonio, TX",1764,408.0,298.62,4
+"Austin, TX","Charlotte, NC",1032,398.2,323.75,4
+"Austin, TX","St. Louis, MO",721,386.8,218.16,4
+"Denver, CO","El Paso, TX",563,384.1,162.58,4
+"Colorado Springs, CO","Dallas/Fort Worth, TX",602,381.3,231.32,4
+"San Antonio, TX","San Diego, CA",1129,381.1,270.12,4
+"Austin, TX","El Paso, TX",528,380.6,234.94,4
+"Austin, TX","Indianapolis, IN",919,372.9,227.45,4
+"Austin, TX","Kansas City, MO",650,369.7,220.5,4
+"Dallas/Fort Worth, TX","Pensacola, FL",604,366.5,218.12,4
+"Dallas/Fort Worth, TX","Hartford, CT",1471,366.1,322.99,4
+"Austin, TX","Sacramento, CA",1481,358.6,246.23,4
+"Dallas/Fort Worth, TX","Panama City, FL",685,352.9,244.92,4
+"Albuquerque, NM","Houston, TX",759,346.2,284.6,4
+"Houston, TX","Jacksonville, FL",816,342.2,283.14,4
+"El Paso, TX","San Antonio, TX",496,341.7,228.8,4
+"Dallas/Fort Worth, TX","West Palm Beach/Palm Beach, FL",1102,340.3,356.14,4
+"Nashville, TN","San Antonio, TX",822,339.2,256.17,4
+"Dallas/Fort Worth, TX","Lubbock, TX",293,334.3,228.7,4
+"Dallas/Fort Worth, TX","Savannah, GA",925,332.5,263.15,4
+"Minneapolis/St. Paul, MN","San Antonio, TX",1097,325.1,284.84,4
+"Charlotte, NC","San Antonio, TX",1095,320.9,277.86,4
+"Dallas/Fort Worth, TX","Reno, NV",1356,320.8,311.87,4
+"Dallas/Fort Worth, TX","Tucson, AZ",824,318.9,265.58,4
+"Dallas/Fort Worth, TX","Grand Rapids, MI",931,315.0,292.32,4
+"Dallas/Fort Worth, TX","Midland/Odessa, TX",319,314.0,253.76,4
+"Buffalo, NY","Dallas/Fort Worth, TX",1212,313.9,274.78,4
+"Detroit, MI","San Antonio, TX",1214,310.1,314.51,4
+"Birmingham, AL","Houston, TX",570,307.0,273.31,4
+"Las Vegas, NV","Mission/McAllen/Edinburg, TX",1210,304.7,142.4,4
+"San Antonio, TX","Tampa, FL (Metropolitan Area)",972,303.6,252.6,4
+"Houston, TX","Milwaukee, WI",1004,300.3,263.35,4
+"Dallas/Fort Worth, TX","Valparaiso, FL",641,294.6,255.75,4
+"El Paso, TX","Phoenix, AZ",347,292.1,215.53,4
+"Dallas/Fort Worth, TX","Knoxville, TN",772,290.3,320.28,4
+"Houston, TX","Norfolk, VA (Metropolitan Area)",1209,284.9,280.21,4
+"Houston, TX","Richmond, VA",1166,284.2,286.04,4
+"Fort Myers, FL","Houston, TX",861,284.0,232.05,4
+"Albuquerque, NM","Austin, TX",619,281.7,228.21,4
+"Chicago, IL","El Paso, TX",1237,273.9,261.52,4
+"Boise, ID","Dallas/Fort Worth, TX",1282,272.8,309.14,4
+"Houston, TX","Omaha, NE",804,271.1,283.58,4
+"Salt Lake City, UT","San Antonio, TX",1087,269.8,331.24,4
+"Houston, TX","Louisville, KY",803,269.4,288.18,4
+"Austin, TX","Columbus, OH",1073,268.9,257.35,4
+"Dallas/Fort Worth, TX","Greenville/Spartanburg, SC",862,267.2,337.38,4
+"Harlingen/San Benito, TX","Houston, TX",295,263.7,159.68,4
+"Houston, TX","Lubbock, TX",474,248.9,232.76,4
+"Dallas/Fort Worth, TX","Fresno, CA",1325,247.6,294.18,4
+"Charleston, SC","Houston, TX",928,244.9,301.28,4
+"San Antonio, TX","St. Louis, MO",786,244.4,264.05,4
+"Austin, TX","Pittsburgh, PA",1210,243.1,261.63,4
+"Houston, TX","Knoxville, TN",782,242.2,266.64,4
+"Dallas/Fort Worth, TX","Little Rock, AR",304,238.2,223.13,4
+"Philadelphia, PA","San Antonio, TX",1496,236.5,306.72,4
+"Austin, TX","Cincinnati, OH",958,235.4,244.1,4
+"El Paso, TX","Washington, DC (Metropolitan Area)",1741,233.2,325.74,4
+"Amarillo, TX","Dallas/Fort Worth, TX",323,230.7,224.66,4
+"Dallas/Fort Worth, TX","Harlingen/San Benito, TX",461,230.3,213.23,4
+"Dallas/Fort Worth, TX","Des Moines, IA",624,229.7,317.49,4
+"Dallas/Fort Worth, TX","Tulsa, OK",237,229.4,239.71,4
+"Dallas/Fort Worth, TX","Spokane, WA",1486,229.1,300.22,4
+"El Paso, TX","Orlando, FL",1516,226.1,268.18,4
+"Austin, TX","Cleveland, OH (Metropolitan Area)",1174,221.8,252.52,4
+"Houston, TX","San Antonio, TX",192,221.8,243.04,4
+"New Orleans, LA","San Antonio, TX",495,217.1,226.27,4
+"El Paso, TX","New York City, NY (Metropolitan Area)",1944,214.7,329.52,4
+"Houston, TX","Little Rock, AR",393,214.2,215.35,4
+"Houston, TX","Panama City, FL",572,211.1,234.88,4
+"Austin, TX","Jacksonville, FL",953,211.1,250.44,4
+"Houston, TX","Savannah, GA",853,210.8,267.04,4
+"Kansas City, MO","San Antonio, TX",706,209.4,251.51,4
+"Houston, TX","Pensacola, FL",489,208.5,218.93,4
+"Dallas/Fort Worth, TX","Palm Springs, CA",1137,203.8,336.05,4
+"Dallas/Fort Worth, TX","Greensboro/High Point, NC",999,198.4,329.51,4
+"Buffalo, NY","Houston, TX",1297,196.6,257.8,4
+"Houston, TX","Reno, NV",1546,194.3,297.68,4
+"Austin, TX","Milwaukee, WI",1032,194.1,243.24,4
+"Austin, TX","Reno, NV",1405,189.3,248.83,4
+"Greenville/Spartanburg, SC","Houston, TX",845,189.1,307.99,4
+"Fayetteville, AR","Houston, TX",461,188.4,256.3,4
+"Dallas/Fort Worth, TX","Fayetteville, AR",280,187.8,353.4,4
+"Hartford, CT","Houston, TX",1518,187.7,295.87,4
+"El Paso, TX","Seattle, WA",1368,187.7,269.34,4
+"Bozeman, MT","Dallas/Fort Worth, TX",1172,187.3,306.36,4
+"Sacramento, CA","San Antonio, TX",1463,186.9,275.26,4
+"Corpus Christi, TX","Dallas/Fort Worth, TX",355,185.4,272.05,4
+"Dallas/Fort Worth, TX","Sarasota/Bradenton, FL",945,184.7,255.81,4
+"Harlingen/San Benito, TX","Minneapolis/St. Paul, MN",1310,184.6,176.49,4
+"Dallas/Fort Worth, TX","Madison, WI",821,184.6,330.17,4
+"Colorado Springs, CO","Houston, TX",829,181.6,270.23,4
+"Des Moines, IA","Houston, TX",825,180.9,246.25,4
+"Raleigh/Durham, NC","San Antonio, TX",1224,178.3,284.11,4
+"Houston, TX","West Palm Beach/Palm Beach, FL",956,177.4,292.82,4
+"Austin, TX","Houston, TX",148,173.2,241.38,4
+"El Paso, TX","San Diego, CA",636,169.7,238.0,4
+"Grand Rapids, MI","Houston, TX",1061,169.6,272.88,4
+"El Paso, TX","San Francisco, CA (Metropolitan Area)",993,166.4,259.64,4
+"Amarillo, TX","Houston, TX",537,162.4,236.25,4
+"Houston, TX","Jackson/Vicksburg, MS",359,162.4,235.49,4
+"Albany, NY","Dallas/Fort Worth, TX",1434,161.9,321.37,4
+"Dallas/Fort Worth, TX","Syracuse, NY",1336,158.3,326.97,4
+"Atlanta, GA (Metropolitan Area)","El Paso, TX",1282,158.0,362.33,4
+"Houston, TX","Tucson, AZ",946,157.3,287.47,4
+"Houston, TX","Mission/McAllen/Edinburg, TX",316,157.2,223.13,4
+"Portland, OR","San Antonio, TX",1714,152.8,295.63,4
+"Houston, TX","Wichita, KS",565,151.2,253.14,4
+"Dallas/Fort Worth, TX","Mission/McAllen/Edinburg, TX",469,151.0,332.44,4
+"Dallas/Fort Worth, TX","Myrtle Beach, SC",1048,149.5,259.56,4
+"Boise, ID","Houston, TX",1501,148.2,279.42,4
+"Austin, TX","Panama City, FL",710,147.8,214.83,4
+"Austin, TX","Charleston, SC",1055,147.1,292.15,4
+"Indianapolis, IN","San Antonio, TX",985,146.2,279.16,4
+"Austin, TX","Memphis, TN",559,144.4,240.33,4
+"Houston, TX","Huntsville, AL",605,143.2,259.72,4
+"Las Vegas, NV","Midland/Odessa, TX",795,141.1,303.97,4
+"Dallas/Fort Worth, TX","Provo, UT",958,136.8,166.02,4
+"Cleveland, OH (Metropolitan Area)","San Antonio, TX",1240,135.2,286.9,4
+"Norfolk, VA (Metropolitan Area)","San Antonio, TX",1382,134.4,288.53,4
+"Austin, TX","Hartford, CT",1607,133.2,312.07,4
+"Austin, TX","Richmond, VA",1271,132.9,304.24,4
+"Dallas/Fort Worth, TX","Eagle, CO",731,132.8,385.02,4
+"Dallas/Fort Worth, TX","Huntsville, AL",603,131.4,440.91,4
+"Columbus, OH","San Antonio, TX",1139,130.0,281.31,4
+"Austin, TX","Grand Rapids, MI",1103,128.9,219.05,4
+"Dallas/Fort Worth, TX","Dayton, OH",861,127.9,373.45,4
+"Dallas/Fort Worth, TX","Jackson/Vicksburg, MS",408,126.8,300.35,4
+"Austin, TX","Tulsa, OK",426,126.6,223.71,4
+"Cedar Rapids/Iowa City, IA","Dallas/Fort Worth, TX",685,126.6,356.0,4
+"Chattanooga, TN","Dallas/Fort Worth, TX",695,126.0,355.34,4
+"Oklahoma City, OK","San Antonio, TX",407,124.9,236.31,4
+"Dallas/Fort Worth, TX","Portland, ME",1622,124.6,327.96,4
+"Denver, CO","Midland/Odessa, TX",563,123.7,295.43,4
+"Pittsburgh, PA","San Antonio, TX",1276,121.6,303.12,4
+"El Paso, TX","Miami, FL (Metropolitan Area)",1633,118.7,329.01,4
+"Baton Rouge, LA","Dallas/Fort Worth, TX",383,117.1,332.61,4
+"Las Vegas, NV","Lubbock, TX",775,116.4,268.38,4
+"Austin, TX","Boise, ID",1375,116.2,278.25,4
+"Bozeman, MT","Houston, TX",1406,114.8,323.05,4
+"Dallas/Fort Worth, TX","Rochester, NY",1265,114.7,285.43,4
+"Albuquerque, NM","San Antonio, TX",609,114.7,259.08,4
+"Austin, TX","Oklahoma City, OK",358,114.7,248.18,4
+"Austin, TX","Knoxville, TN",882,114.3,235.16,4
+"Dallas/Fort Worth, TX","Sioux Falls, SD",740,113.8,307.57,4
+"Austin, TX","Norfolk, VA (Metropolitan Area)",1319,113.7,307.0,4
+"Austin, TX","Harlingen/San Benito, TX",273,112.9,155.27,4
+"Jacksonville, FL","San Antonio, TX",1006,112.7,299.17,4
+"Austin, TX","Omaha, NE",772,111.4,264.38,4
+"Austin, TX","Midland/Odessa, TX",294,111.3,169.37,4
+"Columbia, SC","Dallas/Fort Worth, TX",922,110.3,381.78,4
+"Colorado Springs, CO","San Antonio, TX",732,110.3,226.56,4
+"Dallas/Fort Worth, TX","Santa Barbara, CA",1327,109.5,366.24,4
+"Houston, TX","Spokane, WA",1716,108.9,318.22,4
+"Los Angeles, CA (Metropolitan Area)","Mission/McAllen/Edinburg, TX",1322,108.3,251.36,4
+"Austin, TX","Fort Myers, FL",1001,108.1,297.91,4
+"Dallas/Fort Worth, TX","Springfield, MO",364,107.3,367.85,4
+"Baton Rouge, LA","Houston, TX",255,106.8,273.12,4
+"Houston, TX","Rochester, NY",1346,106.7,267.02,4
+"Austin, TX","Des Moines, IA",813,106.2,197.03,4
+"Albany, NY","Houston, TX",1495,106.2,342.47,4
+"Houston, TX","Springfield, MO",535,105.7,251.04,4
+"Austin, TX","Louisville, KY",876,103.5,284.06,4
+"Houston, TX","Mobile, AL",427,103.3,265.91,4
+"Dallas/Fort Worth, TX","Lexington, KY",785,103.3,441.86,4
+"Austin, TX","Birmingham, AL",682,102.5,285.2,4
+"Dallas/Fort Worth, TX","Wichita, KS",333,102.5,359.85,4
+"Fresno, CA","Houston, TX",1494,102.5,302.95,4
+"Austin, TX","Lubbock, TX",341,102.3,246.4,4
+"Dallas/Fort Worth, TX","Peoria, IL",672,102.0,299.73,4
+"Houston, TX","Syracuse, NY",1410,101.3,289.22,4
+"Dallas/Fort Worth, TX","Fargo, ND",971,99.9,322.84,4
+"Dallas/Fort Worth, TX","Montrose/Delta, CO",733,99.9,281.95,4
+"Dallas/Fort Worth, TX","Wilmington, NC",1106,99.7,354.86,4
+"El Paso, TX","Nashville, TN",1167,99.3,278.25,4
+"Richmond, VA","San Antonio, TX",1335,98.6,304.77,4
+"Dallas/Fort Worth, TX","Fort Wayne, IN",859,98.5,331.7,4
+"Dallas/Fort Worth, TX","Harrisburg, PA",1231,97.9,420.17,4
+"Houston, TX","Palm Springs, CA",1280,97.9,336.53,4
+"Austin, TX","Buffalo, NY",1366,97.6,274.61,4
+"Omaha, NE","San Antonio, TX",824,97.3,267.93,4
+"Dallas/Fort Worth, TX","Durango, CO",674,97.0,341.02,4
+"Austin, TX","Savannah, GA",984,95.5,288.85,4
+"Amarillo, TX","Las Vegas, NV",759,94.2,251.15,4
+"Austin, TX","Mission/McAllen/Edinburg, TX",279,93.3,179.46,4
+"Boston, MA (Metropolitan Area)","El Paso, TX",2067,93.2,338.01,4
+"Austin, TX","Colorado Springs, CO",716,93.1,221.08,4
+"Amarillo, TX","Austin, TX",419,93.1,206.1,4
+"Cincinnati, OH","San Antonio, TX",1024,92.7,300.42,4
+"El Paso, TX","Salt Lake City, UT",693,92.7,240.2,4
+"Dallas/Fort Worth, TX","South Bend, IN",846,92.0,363.36,4
+"Memphis, TN","San Antonio, TX",625,91.6,274.77,4
+"Albany, NY","Austin, TX",1577,91.6,321.92,4
+"Dallas/Fort Worth, TX","Kalispell, MT",1390,91.4,393.67,4
+"Asheville, NC","Dallas/Fort Worth, TX",848,91.4,364.8,4
+"Mission/McAllen/Edinburg, TX","New York City, NY (Metropolitan Area)",1737,91.3,314.65,4
+"Austin, TX","Palm Springs, CA",1132,90.8,294.75,4
+"Houston, TX","Provo, UT",1181,90.7,117.48,4
+"Milwaukee, WI","San Antonio, TX",1095,90.0,276.68,4
+"Houston, TX","Portland, ME",1679,88.9,312.35,4
+"Hartford, CT","San Antonio, TX",1673,88.1,316.84,4
+"Los Angeles, CA (Metropolitan Area)","Midland/Odessa, TX",951,87.7,280.02,4
+"Austin, TX","Spokane, WA",1600,87.7,288.61,4
+"Louisville, KY","San Antonio, TX",942,87.7,278.92,4
+"Midland/Odessa, TX","Orlando, FL",1272,87.1,271.66,4
+"Bakersfield, CA","Dallas/Fort Worth, TX",1271,87.0,295.76,4
+"Charleston, SC","San Antonio, TX",1114,86.6,303.16,4
+"Dallas/Fort Worth, TX","Jackson, WY",1056,86.2,421.99,4
+"Detroit, MI","El Paso, TX",1455,85.8,336.85,4
+"Austin, TX","Bozeman, MT",1299,85.5,283.79,4
+"Austin, TX","Madison, WI",1004,84.7,265.13,4
+"Chicago, IL","Harlingen/San Benito, TX",1219,84.5,218.06,4
+"Denver, CO","Lubbock, TX",456,83.4,221.57,4
+"Dallas/Fort Worth, TX","Eugene, OR",1617,83.2,278.35,4
+"Houston, TX","Madison, WI",987,82.5,291.31,4
+"Birmingham, AL","San Antonio, TX",744,82.4,286.55,4
+"Austin, TX","Tucson, AZ",797,82.3,278.21,4
+"Greensboro/High Point, NC","Houston, TX",995,81.8,255.39,4
+"Aspen, CO","Dallas/Fort Worth, TX",701,81.1,461.03,4
+"Dallas/Fort Worth, TX","Santa Fe, NM",551,79.8,341.68,4
+"Los Angeles, CA (Metropolitan Area)","Lubbock, TX",954,78.5,280.43,4
+"Miami, FL (Metropolitan Area)","Midland/Odessa, TX",1392,78.4,285.35,4
+"Austin, TX","Greenville/Spartanburg, SC",957,78.4,291.89,4
+"Dallas/Fort Worth, TX","Mobile, AL",539,78.1,297.55,4
+"Austin, TX","Fayetteville, AR",462,77.4,275.55,4
+"El Paso, TX","Minneapolis/St. Paul, MN",1147,77.0,286.88,4
+"Harlingen/San Benito, TX","Orlando, FL",1016,76.4,213.27,4
+"Dallas/Fort Worth, TX","Tallahassee, FL",767,75.6,376.31,4
+"Reno, NV","San Antonio, TX",1391,75.3,288.69,4
+"Dallas/Fort Worth, TX","Rapid City, SD",835,75.2,304.11,4
+"Aspen, CO","Houston, TX",933,75.2,443.68,4
+"Denver, CO","Harlingen/San Benito, TX",1023,74.9,193.89,4
+"Dallas/Fort Worth, TX","Oklahoma City, OK",181,74.5,368.49,4
+"Asheville, NC","Austin, TX",950,73.5,233.37,4
+"Dallas/Fort Worth, TX","Paso Robles/San Luis Obispo, CA",1360,72.9,323.03,4
+"San Antonio, TX","Tucson, AZ",763,72.6,276.79,4
+"Lubbock, TX","Phoenix, AZ",588,72.0,269.44,4
+"Dallas/Fort Worth, TX","Missoula, MT",1320,71.7,312.59,4
+"San Antonio, TX","Spokane, WA",1610,69.9,279.21,4
+"Harlingen/San Benito, TX","Las Vegas, NV",1236,69.8,207.56,4
+"Austin, TX","Provo, UT",1051,69.5,102.94,4
+"Lubbock, TX","Orlando, FL",1266,69.4,305.15,4
+"Dallas/Fort Worth, TX","Traverse City, MI",1022,69.4,316.14,4
+"Knoxville, TN","San Antonio, TX",947,69.3,284.71,4
+"Corpus Christi, TX","Houston, TX",201,69.2,248.9,4
+"Boise, ID","San Antonio, TX",1377,69.2,285.46,4
+"Austin, TX","Syracuse, NY",1485,69.1,290.06,4
+"Austin, TX","Rochester, NY",1418,68.7,279.83,4
+"Billings, MT","Dallas/Fort Worth, TX",1081,68.6,321.95,4
+"Austin, TX","Fresno, CA",1348,68.6,265.68,4
+"San Antonio, TX","Tulsa, OK",483,68.5,272.13,4
+"Dallas/Fort Worth, TX","Jefferson City/Columbia, MO",490,68.5,309.39,4
+"El Paso, TX","Philadelphia, PA",1824,67.8,343.38,4
+"El Paso, TX","Sacramento, CA",981,67.2,263.7,4
+"Mission/McAllen/Edinburg, TX","Sanford, FL",1059,66.9,101.19,4
+"El Paso, TX","Tampa, FL (Metropolitan Area)",1452,66.7,283.95,4
+"Appleton, WI","Dallas/Fort Worth, TX",908,66.6,367.81,4
+"Laredo, TX","Las Vegas, NV",1092,66.6,163.62,4
+"Columbia, SC","Houston, TX",883,66.5,302.14,4
+"Austin, TX","West Palm Beach/Palm Beach, FL",1096,66.2,358.48,4
+"Austin, TX","Pensacola, FL",626,65.6,258.42,4
+"Corpus Christi, TX","Denver, CO",930,65.6,237.14,4
+"Austin, TX","Portland, ME",1764,65.4,326.36,4
+"El Paso, TX","Raleigh/Durham, NC",1606,65.4,318.79,4
+"Dallas/Fort Worth, TX","New Haven, CT",1447,65.4,99.16,4
+"Houston, TX","New Haven, CT",1489,65.3,110.6,4
+"Eagle, CO","Houston, TX",955,65.3,428.13,4
+"Harlingen/San Benito, TX","Los Angeles, CA (Metropolitan Area)",1352,65.3,228.46,4
+"Houston, TX","Sarasota/Bradenton, FL",796,65.2,250.04,4
+"Durango, CO","Houston, TX",886,64.2,323.83,4
+"Burlington, VT","Dallas/Fort Worth, TX",1510,64.1,352.39,4
+"Mission/McAllen/Edinburg, TX","Orlando, FL",1052,64.0,267.09,4
+"El Paso, TX","Portland, OR",1288,63.5,285.76,4
+"Houston, TX","Jackson, WY",1286,63.5,410.72,4
+"El Paso, TX","Kansas City, MO",834,63.0,268.23,4
+"Chicago, IL","Mission/McAllen/Edinburg, TX",1238,63.0,295.16,4
+"Augusta, GA","Dallas/Fort Worth, TX",874,62.4,379.28,4
+"Grand Rapids, MI","San Antonio, TX",1168,62.3,290.21,4
+"San Antonio, TX","Savannah, GA",1041,62.3,301.02,4
+"Houston, TX","Valparaiso, FL",528,62.3,234.41,4
+"Houston, TX","Myrtle Beach, SC",1001,62.2,282.45,4
+"Dallas/Fort Worth, TX","Montgomery, AL",622,62.2,348.84,4
+"Cedar Rapids/Iowa City, IA","Houston, TX",867,62.1,266.66,4
+"Austin, TX","Greensboro/High Point, NC",1103,62.0,248.85,4
+"Dallas/Fort Worth, TX","Laredo, TX",396,61.7,318.33,4
+"Dayton, OH","San Antonio, TX",1079,61.7,282.25,4
+"Pensacola, FL","San Antonio, TX",679,61.2,261.11,4
+"Buffalo, NY","San Antonio, TX",1432,61.1,289.27,4
+"Corpus Christi, TX","Las Vegas, NV",1183,60.7,286.28,4
+"Fresno, CA","San Antonio, TX",1325,60.6,284.4,4
+"Dallas/Fort Worth, TX","Steamboat Springs, CO",779,59.4,296.23,4
+"Lubbock, TX","Washington, DC (Metropolitan Area)",1447,59.3,311.73,4
+"Houston, TX","Kalispell, MT",1634,58.8,355.33,4
+"Houston, TX","Lexington, KY",842,58.6,289.28,4
+"Harlingen/San Benito, TX","New York City, NY (Metropolitan Area)",1727,58.3,256.75,4
+"Dallas/Fort Worth, TX","Roanoke, VA",1012,58.2,322.31,4
+"Midland/Odessa, TX","New York City, NY (Metropolitan Area)",1724,58.2,335.75,4
+"Midland/Odessa, TX","Phoenix, AZ",581,58.0,281.05,4
+"Austin, TX","Santa Barbara, CA",1327,57.3,318.4,4
+"Dallas/Fort Worth, TX","Salinas/Monterey, CA",1430,57.2,487.56,4
+"Dallas/Fort Worth, TX","Gainesville, FL",900,57.0,356.65,4
+"Dallas/Fort Worth, TX","Lafayette, LA",351,56.9,353.0,4
+"Dallas/Fort Worth, TX","Quad Cities, IL (Metropolitan Area)",691,56.8,392.15,4
+"Austin, TX","Little Rock, AR",446,56.6,269.53,4
+"Chattanooga, TN","Houston, TX",696,56.4,321.49,4
+"Dallas/Fort Worth, TX","Idaho Falls, ID",1095,56.0,335.49,4
+"Bristol/Johnson City/Kingsport, TN","Dallas/Fort Worth, TX",868,55.6,397.7,4
+"Houston, TX","Wilmington, NC",1068,55.4,276.5,4
+"Lubbock, TX","New York City, NY (Metropolitan Area)",1650,55.0,352.58,4
+"Asheville, NC","Houston, TX",843,55.0,271.56,4
+"Fort Myers, FL","San Antonio, TX",1041,54.9,316.87,4
+"Dallas/Fort Worth, TX","Evansville, IN",642,54.6,342.84,4
+"Little Rock, AR","San Antonio, TX",512,54.3,282.89,4
+"San Antonio, TX","Valparaiso, FL",719,54.1,252.46,4
+"Brownsville, TX","Dallas/Fort Worth, TX",482,53.8,290.94,4
+"Columbia, SC","San Antonio, TX",1064,53.7,304.31,4
+"Gulfport/Biloxi, MS","Houston, TX",377,53.6,248.65,4
+"Bloomington/Normal, IL","Dallas/Fort Worth, TX",690,53.4,353.83,4
+"Dallas/Fort Worth, TX","Key West, FL",1089,53.1,439.21,4
+"Bend/Redmond, OR","Dallas/Fort Worth, TX",1514,52.8,345.37,4
+"Charlotte, NC","El Paso, TX",1482,52.1,336.72,4
+"Dallas/Fort Worth, TX","Gulfport/Biloxi, MS",500,52.0,323.52,4
+"Dallas/Fort Worth, TX","Pasco/Kennewick/Richland, WA",1498,51.9,306.27,4
+"Amarillo, TX","Los Angeles, CA (Metropolitan Area)",956,51.6,291.0,4
+"Dallas/Fort Worth, TX","Grand Junction, CO",772,51.2,330.24,4
+"Houston, TX","Sioux Falls, SD",964,51.0,299.37,4
+"El Paso, TX","St. Louis, MO",1021,50.5,289.65,4
+"El Paso, TX","New Orleans, LA",965,50.4,262.98,4
+"Miami, FL (Metropolitan Area)","Mission/McAllen/Edinburg, TX",1123,50.4,287.95,4
+"Midland/Odessa, TX","New Orleans, LA",722,50.3,259.25,4
+"Greenville/Spartanburg, SC","San Antonio, TX",1020,50.2,317.03,4
+"Dallas/Fort Worth, TX","Medford, OR",1552,50.2,293.31,4
+"El Paso, TX","Indianapolis, IN",1249,50.1,281.38,4
+"Des Moines, IA","San Antonio, TX",870,50.1,289.02,4
+"Mission/McAllen/Edinburg, TX","Washington, DC (Metropolitan Area)",1537,50.0,327.49,4
+"Houston, TX","Montrose/Delta, CO",945,49.9,340.46,4
+"Harlingen/San Benito, TX","Washington, DC (Metropolitan Area)",1507,49.8,246.04,4
+"Houston, TX","Steamboat Springs, CO",1006,49.7,365.27,4
+"Austin, TX","Sarasota/Bradenton, FL",936,49.3,232.18,4
+"Corpus Christi, TX","Washington, DC (Metropolitan Area)",1432,48.9,329.39,4
+"Corpus Christi, TX","Los Angeles, CA (Metropolitan Area)",1312,48.8,334.74,4
+"Bismarck/Mandan, ND","Dallas/Fort Worth, TX",977,48.5,342.68,4
+"Albany, NY","San Antonio, TX",1643,48.4,311.16,4
+"Austin, TX","Myrtle Beach, SC",1125,48.2,283.54,4
+"Madison, WI","San Antonio, TX",1066,48.2,271.08,4
+"Fayetteville, AR","San Antonio, TX",524,48.0,286.12,4
+"Lexington, KY","San Antonio, TX",988,47.9,314.9,4
+"Austin, TX","Harrisburg, PA",1364,47.8,281.6,4
+"Greensboro/High Point, NC","San Antonio, TX",1167,47.7,266.71,4
+"San Antonio, TX","West Palm Beach/Palm Beach, FL",1138,47.6,358.28,4
+"Atlanta, GA (Metropolitan Area)","Mission/McAllen/Edinburg, TX",974,47.4,275.11,4
+"Chicago, IL","Lubbock, TX",951,46.9,291.9,4
+"Dallas/Fort Worth, TX","St. George, UT",976,46.8,304.35,4
+"Harrisburg, PA","Houston, TX",1274,46.7,338.64,4
+"Amarillo, TX","Denver, CO",359,46.1,220.37,4
+"Dallas/Fort Worth, TX","Green Bay, WI",932,46.0,310.08,4
+"Dayton, OH","Houston, TX",945,46.0,279.0,4
+"Midland/Odessa, TX","Washington, DC (Metropolitan Area)",1516,45.8,319.56,4
+"Huntsville, AL","San Antonio, TX",770,45.6,271.18,4
+"Austin, TX","Eugene, OR",1694,45.6,297.15,4
+"Houston, TX","Traverse City, MI",1168,45.6,351.57,4
+"Amarillo, TX","Orlando, FL",1285,44.9,308.25,4
+"Austin, TX","Valparaiso, FL",666,44.8,262.53,4
+"Denver, CO","Mission/McAllen/Edinburg, TX",1014,44.4,266.43,4
+"Houston, TX","South Bend, IN",971,44.4,314.81,4
+"Lubbock, TX","San Antonio, TX",346,44.4,268.72,4
+"Austin, TX","Kalispell, MT",1527,44.3,340.27,4
+"Austin, TX","Columbia, SC",1003,44.1,286.63,4
+"San Antonio, TX","Syracuse, NY",1551,43.8,305.34,4
+"Brownsville, TX","Houston, TX",308,43.6,246.74,4
+"Austin, TX","Cedar Rapids/Iowa City, IA",872,43.6,259.41,4
+"Corpus Christi, TX","New York City, NY (Metropolitan Area)",1651,43.5,357.49,4
+"Austin, TX","Jackson, WY",1171,43.5,380.01,4
+"Houston, TX","Shreveport, LA",211,43.4,262.63,4
+"Harrisburg, PA","San Antonio, TX",1430,43.4,287.19,4
+"Aspen, CO","Austin, TX",812,43.3,429.78,4
+"Austin, TX","Huntsville, AL",706,43.1,272.38,4
+"Corpus Christi, TX","Orlando, FL",989,43.0,287.39,4
+"Rochester, NY","San Antonio, TX",1484,42.9,267.14,4
+"Billings, MT","Houston, TX",1327,42.7,359.36,4
+"Champaign/Urbana, IL","Dallas/Fort Worth, TX",692,42.6,306.26,4
+"Midland/Odessa, TX","Nashville, TN",935,42.5,237.71,4
+"Houston, TX","Santa Barbara, CA",1475,42.5,373.72,4
+"Fargo, ND","Houston, TX",1194,42.4,304.34,4
+"Austin, TX","Lexington, KY",922,42.3,314.58,4
+"Burlington, VT","Houston, TX",1585,42.3,343.25,4
+"Atlanta, GA (Metropolitan Area)","Midland/Odessa, TX",1040,42.2,290.22,4
+"Austin, TX","Wilmington, NC",1189,42.2,286.76,4
+"Austin, TX","Durango, CO",753,41.8,274.06,4
+"Houston, TX","Laredo, TX",301,41.5,251.14,4
+"Amarillo, TX","San Antonio, TX",436,41.4,256.67,4
+"Harlingen/San Benito, TX","Phoenix, AZ",993,41.1,219.21,4
+"Lafayette, LA","Midland/Odessa, TX",617,40.9,364.1,4
+"Lubbock, TX","Miami, FL (Metropolitan Area)",1399,40.7,395.23,4
+"Houston, TX","Roanoke, VA",1028,40.5,331.62,4
+"Panama City, FL","San Antonio, TX",762,40.4,257.16,4
+"Eugene, OR","Houston, TX",1827,40.1,325.95,4
+"Austin, TX","Burlington, VT",1660,40.1,322.72,4
+"Bakersfield, CA","Houston, TX",1440,40.0,333.11,4
+"Fort Wayne, IN","Houston, TX",965,39.9,280.51,4
+"Houston, TX","Rapid City, SD",1082,39.9,310.45,4
+"Bangor, ME","Dallas/Fort Worth, TX",1717,39.8,343.97,4
+"El Paso, TX","Oklahoma City, OK",563,39.8,270.67,4
+"Bozeman, MT","San Antonio, TX",1315,39.5,265.73,4
+"Atlanta, GA (Metropolitan Area)","Lubbock, TX",1001,39.5,313.69,4
+"Chicago, IL","Midland/Odessa, TX",1048,39.4,328.18,4
+"El Paso, TX","Harlingen/San Benito, TX",652,39.3,224.27,4
+"Detroit, MI","Mission/McAllen/Edinburg, TX",1391,39.2,313.11,4
+"El Paso, TX","Huntsville, AL",1150,38.7,344.47,4
+"Houston, TX","Key West, FL",915,38.4,320.36,4
+"Austin, TX","Montrose/Delta, CO",818,38.1,291.35,4
+"Mission/McAllen/Edinburg, TX","Phoenix, AZ",965,37.9,284.56,4
+"Midland/Odessa, TX","Mission/McAllen/Edinburg, TX",464,37.6,195.95,4
+"Charleston/Dunbar, WV","Houston, TX",988,37.4,339.76,4
+"El Paso, TX","Norfolk, VA (Metropolitan Area)",1753,37.2,332.79,4
+"Chicago, IL","Corpus Christi, TX",1119,37.1,312.48,4
+"Portland, ME","San Antonio, TX",1830,37.0,334.7,4
+"Harlingen/San Benito, TX","Midland/Odessa, TX",480,36.9,166.76,4
+"Mission/McAllen/Edinburg, TX","Seattle, WA",1967,36.9,298.33,4
+"Houston, TX","Williston, ND",1361,36.8,464.58,4
+"Midland/Odessa, TX","Tampa, FL (Metropolitan Area)",1209,36.8,258.25,4
+"Houston, TX","Quad Cities, IL (Metropolitan Area)",856,36.7,277.36,4
+"Cedar Rapids/Iowa City, IA","San Antonio, TX",932,36.7,243.96,4
+"Dallas/Fort Worth, TX","Scranton/Wilkes-Barre, PA",1308,36.6,350.27,4
+"El Paso, TX","Pittsburgh, PA",1572,36.4,316.61,4
+"El Paso, TX","Jacksonville, FL",1461,36.0,304.23,4
+"Charlottesville, VA","Dallas/Fort Worth, TX",1106,36.0,313.17,4
+"Austin, TX","Chattanooga, TN",799,35.9,296.97,4
+"San Antonio, TX","Wichita, KS",563,35.8,274.8,4
+"Harlingen/San Benito, TX","Miami, FL (Metropolitan Area)",1087,35.4,227.04,4
+"Austin, TX","Bend/Redmond, OR",1608,35.2,338.16,4
+"Austin, TX","Charlottesville, VA",1226,35.1,310.67,4
+"Lubbock, TX","Nashville, TN",876,34.8,284.09,4
+"Amarillo, TX","Washington, DC (Metropolitan Area)",1403,34.7,324.09,4
+"Austin, TX","Sioux Falls, SD",924,34.5,279.06,4
+"Amarillo, TX","Phoenix, AZ",602,34.4,286.32,4
+"Austin, TX","Jackson/Vicksburg, MS",472,34.4,264.7,4
+"Palm Springs, CA","San Antonio, TX",1101,34.3,324.16,4
+"Augusta, GA","Houston, TX",826,34.3,347.07,4
+"San Antonio, TX","Springfield, MO",607,34.2,282.41,4
+"Mission/McAllen/Edinburg, TX","San Francisco, CA (Metropolitan Area)",1616,33.9,312.41,4
+"Columbus, OH","El Paso, TX",1428,33.9,304.61,4
+"Midland/Odessa, TX","Salt Lake City, UT",817,33.8,315.08,4
+"Austin, TX","Eagle, CO",836,33.8,332.32,4
+"Corpus Christi, TX","New Orleans, LA",465,33.8,262.31,4
+"Amarillo, TX","New York City, NY (Metropolitan Area)",1599,33.6,362.93,4
+"Dallas/Fort Worth, TX","Flagstaff, AZ",853,33.5,319.44,4
+"Austin, TX","Springfield, MO",545,33.5,285.86,4
+"Austin, TX","Wichita, KS",514,33.4,282.51,4
+"Charlottesville, VA","Houston, TX",1128,33.4,305.35,4
+"Jackson/Vicksburg, MS","San Antonio, TX",534,33.3,275.3,4
+"Houston, TX","Medford, OR",1766,33.3,334.35,4
+"Lubbock, TX","Salt Lake City, UT",744,33.0,247.38,4
+"Atlanta, GA (Metropolitan Area)","Harlingen/San Benito, TX",942,32.9,220.05,4
+"Appleton, WI","Houston, TX",1074,32.6,308.98,4
+"San Antonio, TX","Sarasota/Bradenton, FL",979,32.6,258.08,4
+"Austin, TX","Paso Robles/San Luis Obispo, CA",1379,32.4,274.42,4
+"Green Bay, WI","Houston, TX",1096,32.3,336.91,4
+"Charleston/Dunbar, WV","Dallas/Fort Worth, TX",946,32.1,316.65,4
+"San Antonio, TX","Sioux Falls, SD",973,32.1,273.68,4
+"Houston, TX","Peoria, IL",822,32.0,269.01,4
+"Lubbock, TX","Seattle, WA",1430,32.0,338.58,4
+"Houston, TX","Pasco/Kennewick/Richland, WA",1722,31.9,348.41,4
+"Fayetteville, NC","San Antonio, TX",1204,31.9,284.71,4
+"Austin, TX","Roanoke, VA",1128,31.9,289.37,4
+"Boston, MA (Metropolitan Area)","Mission/McAllen/Edinburg, TX",1903,31.8,305.4,4
+"Houston, TX","Tallahassee, FL",658,31.5,349.27,4
+"Midland/Odessa, TX","Pittsburgh, PA",1357,31.3,395.6,4
+"Dallas/Fort Worth, TX","Grand Island, NE",562,31.3,232.1,4
+"Harlingen/San Benito, TX","Kansas City, MO",917,31.3,198.68,4
+"Houston, TX","Lafayette, LA",201,31.2,281.73,4
+"Amarillo, TX","Chicago, IL",879,31.0,310.03,4
+"Myrtle Beach, SC","San Antonio, TX",1185,30.9,290.15,4
+"Harlingen/San Benito, TX","Tampa, FL (Metropolitan Area)",939,30.8,188.02,4
+"Bristol/Johnson City/Kingsport, TN","Houston, TX",881,30.7,310.05,4
+"Harlingen/San Benito, TX","New Orleans, LA",521,30.7,198.85,4
+"Grand Junction, CO","Houston, TX",997,30.6,317.08,4
+"Harlingen/San Benito, TX","Nashville, TN",941,30.3,191.7,4
+"Lubbock, TX","San Francisco, CA (Metropolitan Area)",1186,30.3,321.74,4
+"El Paso, TX","Richmond, VA",1693,30.2,337.8,4
+"Midland/Odessa, TX","San Diego, CA",878,30.2,265.04,4
+"Lubbock, TX","San Diego, CA",892,30.0,281.27,4
+"Cleveland, OH (Metropolitan Area)","El Paso, TX",1519,30.0,318.89,4
+"Mission/McAllen/Edinburg, TX","Nashville, TN",967,29.9,228.5,4
+"Austin, TX","Dayton, OH",1012,29.8,279.04,4
+"Harlingen/San Benito, TX","St. Louis, MO",961,29.8,203.15,4
+"Corpus Christi, TX","San Diego, CA",1224,29.7,305.39,4
+"Corpus Christi, TX","Phoenix, AZ",948,29.7,300.11,4
+"Dallas/Fort Worth, TX","Manhattan/Ft. Riley, KS",431,29.6,309.14,4
+"Lubbock, TX","Tampa, FL (Metropolitan Area)",1209,29.6,285.67,4
+"Austin, TX","Traverse City, MI",1200,29.5,314.09,4
+"Corpus Christi, TX","Nashville, TN",857,29.5,264.61,4
+"El Paso, TX","Tulsa, OK",673,29.4,256.34,4
+"Pasco/Kennewick/Richland, WA","San Antonio, TX",1604,29.2,266.19,4
+"San Antonio, TX","Wilmington, NC",1250,29.1,268.24,4
+"El Paso, TX","Omaha, NE",875,29.1,259.79,4
+"Hobbs, NM","Houston, TX",501,28.9,233.26,4
+"Cincinnati, OH","El Paso, TX",1318,28.9,317.89,4
+"Harlingen/San Benito, TX","Indianapolis, IN",1138,28.8,200.41,4
+"Harlingen/San Benito, TX","San Francisco, CA (Metropolitan Area)",1644,28.7,245.91,4
+"Dallas/Fort Worth, TX","Lake Charles, LA",295,28.7,296.84,4
+"Dallas/Fort Worth, TX","Santa Rosa, CA",1495,28.7,413.8,3
+"Bismarck/Mandan, ND","Houston, TX",1217,28.5,328.86,4
+"Austin, TX","Missoula, MT",1450,28.4,300.97,4
+"Harlingen/San Benito, TX","San Diego, CA",1257,28.2,233.9,4
+"Amarillo, TX","Miami, FL (Metropolitan Area)",1428,28.1,343.78,4
+"Dallas/Fort Worth, TX","Daytona Beach, FL",981,28.1,343.48,4
+"El Paso, TX","Reno, NV",920,28.0,264.15,4
+"Amarillo, TX","Atlanta, GA (Metropolitan Area)",991,28.0,296.53,4
+"Laredo, TX","New York City, NY (Metropolitan Area)",1733,28.0,311.23,4
+"Fargo, ND","San Antonio, TX",1202,28.0,288.99,4
+"Dallas/Fort Worth, TX","Roswell, NM",435,28.0,316.12,4
+"Houston, TX","Missoula, MT",1562,27.8,360.54,4
+"Bangor, ME","Houston, TX",1781,27.8,348.48,4
+"Chicago, IL","Laredo, TX",1190,27.7,293.41,4
+"Austin, TX","South Bend, IN",1015,27.7,291.04,4
+"Eugene, OR","San Antonio, TX",1690,27.7,307.02,4
+"El Paso, TX","Louisville, KY",1247,27.6,303.5,4
+"Austin, TX","Salinas/Monterey, CA",1461,27.4,318.62,4
+"Amarillo, TX","Nashville, TN",846,27.4,282.36,4
+"Houston, TX","Salinas/Monterey, CA",1607,27.3,453.38,4
+"Midland/Odessa, TX","Seattle, WA",1506,27.3,315.1,4
+"El Paso, TX","Mission/McAllen/Edinburg, TX",627,27.2,316.66,4
+"Dallas/Fort Worth, TX","Yuma, AZ",1022,27.2,352.1,4
+"Minneapolis/St. Paul, MN","Mission/McAllen/Edinburg, TX",1320,27.2,270.67,4
+"Houston, TX","Idaho Falls, ID",1332,27.1,355.37,4
+"Augusta, GA","San Antonio, TX",1009,27.1,311.28,4
+"Montgomery, AL","San Antonio, TX",742,27.0,292.81,4
+"Austin, TX","Medford, OR",1629,26.9,289.25,4
+"Corpus Christi, TX","Miami, FL (Metropolitan Area)",1076,26.7,338.45,4
+"El Paso, TX","Milwaukee, WI",1270,26.6,301.3,4
+"Austin, TX","Steamboat Springs, CO",890,26.6,303.27,4
+"Gunnison, CO","Houston, TX",905,26.4,379.53,4
+"Mission/McAllen/Edinburg, TX","San Diego, CA",1226,26.4,291.83,4
+"Asheville, NC","San Antonio, TX",1014,26.4,301.75,4
+"El Paso, TX","Memphis, TN",972,26.3,303.04,4
+"Midland/Odessa, TX","San Francisco, CA (Metropolitan Area)",1209,26.1,315.65,4
+"Midland/Odessa, TX","Tulsa, OK",466,26.1,327.31,4
+"Mission/McAllen/Edinburg, TX","New Orleans, LA",554,25.9,235.81,4
+"Mission/McAllen/Edinburg, TX","Salt Lake City, UT",1279,25.9,281.22,4
+"Austin, TX","Key West, FL",1051,25.8,298.9,4
+"Chattanooga, TN","San Antonio, TX",863,25.8,328.82,4
+"El Paso, TX","Fresno, CA",836,25.4,281.3,4
+"Austin, TX","Fort Wayne, IN",1021,25.4,284.6,4
+"Boston, MA (Metropolitan Area)","Midland/Odessa, TX",1853,25.3,307.45,4
+"Austin, TX","Fargo, ND",1155,25.2,278.81,4
+"Atlanta, GA (Metropolitan Area)","Corpus Christi, TX",876,25.2,288.2,4
+"El Paso, TX","Savannah, GA",1475,25.1,302.81,4
+"Bend/Redmond, OR","Houston, TX",1720,25.1,368.6,4
+"Austin, TX","Baton Rouge, LA",390,25.1,253.68,4
+"Appleton, WI","Austin, TX",1092,25.0,267.44,4
+"Kansas City, MO","Lubbock, TX",554,25.0,272.56,4
+"Midland/Odessa, TX","San Antonio, TX",277,25.0,303.73,4
+"Allentown/Bethlehem/Easton, PA","Dallas/Fort Worth, TX",1307,24.8,344.37,4
+"Baton Rouge, LA","San Antonio, TX",444,24.8,265.32,4
+"Fort Wayne, IN","San Antonio, TX",1086,24.6,272.88,4
+"Killeen, TX","Washington, DC (Metropolitan Area)",1318,24.6,428.36,4
+"Colorado Springs, CO","El Paso, TX",492,24.5,232.97,4
+"Boston, MA (Metropolitan Area)","Lubbock, TX",1774,24.2,355.5,4
+"Brownsville, TX","New York City, NY (Metropolitan Area)",1713,24.0,328.58,4
+"Indianapolis, IN","Mission/McAllen/Edinburg, TX",1161,23.9,259.48,4
+"Austin, TX","Green Bay, WI",1115,23.9,291.4,4
+"Casper, WY","Houston, TX",1083,23.9,379.3,4
+"Gulfport/Biloxi, MS","San Antonio, TX",567,23.7,234.64,4
+"Boise, ID","El Paso, TX",973,23.7,291.49,4
+"Dallas/Fort Worth, TX","Tupelo, MS",486,23.4,129.32,3
+"Dallas/Fort Worth, TX","Gunnison, CO",678,23.3,376.64,2
+"El Paso, TX","Hartford, CT",1977,23.3,340.2,4
+"Durango, CO","San Antonio, TX",750,23.3,274.87,4
+"Augusta, GA","Austin, TX",949,23.3,317.63,4
+"Jackson/Vicksburg, MS","Midland/Odessa, TX",711,23.2,301.34,4
+"Amarillo, TX","Seattle, WA",1357,23.1,336.03,4
+"Evansville, IN","Houston, TX",730,22.7,351.58,4
+"Columbus, MS","Dallas/Fort Worth, TX",491,22.6,230.08,3
+"San Antonio, TX","Santa Barbara, CA",1297,22.6,302.21,4
+"Appleton, WI","San Antonio, TX",1153,22.5,270.31,4
+"Brownsville, TX","Chicago, IL",1233,22.3,283.88,4
+"Austin, TX","Quad Cities, IL (Metropolitan Area)",873,22.1,242.44,4
+"Dallas/Fort Worth, TX","Philipsburg/State College, PA",1193,22.1,345.87,4
+"Corpus Christi, TX","San Francisco, CA (Metropolitan Area)",1594,22.1,361.77,4
+"Lubbock, TX","Minneapolis/St. Paul, MN",900,22.1,313.7,4
+"Houston, TX","Santa Fe, NM",752,22.0,285.63,4
+"Austin, TX","Tallahassee, FL",796,22.0,374.69,4
+"Lubbock, TX","New Orleans, LA",726,22.0,261.47,4
+"Laredo, TX","Orlando, FL",1110,22.0,273.35,4
+"Boston, MA (Metropolitan Area)","Corpus Christi, TX",1795,21.9,385.33,4
+"Roanoke, VA","San Antonio, TX",1193,21.9,309.9,4
+"Abilene, TX","Los Angeles, CA (Metropolitan Area)",1089,21.8,361.04,4
+"Corpus Christi, TX","Seattle, WA",1907,21.8,356.01,4
+"Amarillo, TX","Salt Lake City, UT",679,21.6,269.02,4
+"Corpus Christi, TX","Kansas City, MO",811,21.6,292.83,4
+"Austin, TX","Rapid City, SD",1000,21.5,280.31,4
+"Dallas/Fort Worth, TX","Greenville, MS",353,21.5,96.66,3
+"Birmingham, AL","El Paso, TX",1148,21.5,309.42,4
+"Amarillo, TX","San Diego, CA",905,21.5,276.57,4
+"Amarillo, TX","San Francisco, CA (Metropolitan Area)",1161,21.5,343.05,4
+"Austin, TX","Bakersfield, CA",1293,21.4,274.38,4
+"Rapid City, SD","San Antonio, TX",1032,21.4,280.11,4
+"Austin, TX","Santa Fe, NM",615,21.3,283.36,4
+"Dallas/Fort Worth, TX","Williston, ND",1123,21.2,344.5,4
+"Brownsville, TX","Los Angeles, CA (Metropolitan Area)",1374,21.2,328.29,4
+"Detroit, MI","Harlingen/San Benito, TX",1369,21.2,251.72,4
+"Brownsville, TX","Orlando, FL",1007,21.1,285.71,4
+"Mission/McAllen/Edinburg, TX","Raleigh/Durham, NC",1330,21.0,278.15,4
+"Boston, MA (Metropolitan Area)","Harlingen/San Benito, TX",1874,21.0,273.97,4
+"Charlotte, NC","Mission/McAllen/Edinburg, TX",1200,20.9,324.74,4
+"Charleston, SC","El Paso, TX",1538,20.9,304.28,4
+"Laredo, TX","Los Angeles, CA (Metropolitan Area)",1210,20.8,334.03,4
+"Corpus Christi, TX","Minneapolis/St. Paul, MN",1204,20.6,308.84,4
+"Harlingen/San Benito, TX","Seattle, WA",1985,20.6,270.16,4
+"Dallas/Fort Worth, TX","Minot, ND",1083,20.6,282.1,4
+"Lubbock, TX","St. Louis, MO",729,20.5,267.66,4
+"Burlington, VT","San Antonio, TX",1726,20.4,336.06,4
+"Austin, TX","Billings, MT",1227,20.4,314.82,4
+"Dallas/Fort Worth, TX","Fayetteville, NC",1051,20.4,330.55,4
+"San Antonio, TX","South Bend, IN",1080,20.3,282.54,4
+"Dallas/Fort Worth, TX","Monroe, LA",293,20.3,328.96,4
+"Corpus Christi, TX","El Paso, TX",601,20.2,268.9,4
+"Amarillo, TX","Minneapolis/St. Paul, MN",802,20.2,339.1,4
+"Austin, TX","Pasco/Kennewick/Richland, WA",1600,20.1,344.05,4
+"Houston, TX","Minot, ND",1323,20.1,368.98,4
+"Houston, TX","Meridian, MS",422,20.1,170.74,3
+"Corpus Christi, TX","St. Louis, MO",862,20.1,253.46,4
+"Houston, TX","Paso Robles/San Luis Obispo, CA",1527,20.0,407.62,4
+"Dallas/Fort Worth, TX","Jacksonville/Camp Lejeune, NC",1123,19.8,317.22,4
+"Bakersfield, CA","San Antonio, TX",1266,19.8,292.15,4
+"Austin, TX","Grand Junction, CO",870,19.7,266.52,4
+"Houston, TX","Scranton/Wilkes-Barre, PA",1360,19.7,354.22,4
+"Austin, TX","Gainesville, FL",924,19.7,319.13,4
+"Lubbock, TX","Raleigh/Durham, NC",1316,19.7,306.16,4
+"Amarillo, TX","Kansas City, MO",476,19.7,244.55,4
+"Gainesville, FL","Houston, TX",785,19.7,356.28,4
+"Mission/McAllen/Edinburg, TX","Philadelphia, PA",1627,19.6,335.06,4
+"Salinas/Monterey, CA","San Antonio, TX",1436,19.6,332.91,4
+"Kansas City, MO","Midland/Odessa, TX",659,19.5,273.88,4
+"El Paso, TX","Spokane, WA",1240,19.4,277.9,4
+"San Antonio, TX","Shreveport, LA",341,19.3,246.36,4
+"Austin, TX","Peoria, IL",850,19.3,250.75,4
+"Albuquerque, NM","Harlingen/San Benito, TX",807,19.1,198.02,4
+"Corpus Christi, TX","Tampa, FL (Metropolitan Area)",915,19.1,307.95,4
+"Kalispell, MT","San Antonio, TX",1543,19.0,358.05,4
+"El Paso, TX","Pensacola, FL",1139,18.9,303.7,4
+"Midland/Odessa, TX","Sacramento, CA",1187,18.9,268.28,4
+"Houston, TX","St. George, UT",1168,18.8,295.39,4
+"Mission/McAllen/Edinburg, TX","Tampa, FL (Metropolitan Area)",975,18.8,267.58,4
+"Amarillo, TX","Tampa, FL (Metropolitan Area)",1233,18.7,306.28,4
+"Casper, WY","Dallas/Fort Worth, TX",860,18.7,304.89,4
+"Midland/Odessa, TX","Oklahoma City, OK",356,18.5,349.59,3
+"Houston, TX","Saginaw/Bay City/Midland, MI",1140,18.5,319.26,4
+"Hattiesburg/Laurel, MS","Houston, TX",372,18.4,189.83,3
+"El Paso, TX","Knoxville, TN",1314,18.4,302.34,4
+"Midland/Odessa, TX","Minneapolis/St. Paul, MN",1015,18.4,330.62,4
+"Peoria, IL","San Antonio, TX",913,18.3,286.89,4
+"Columbia, SC","El Paso, TX",1472,18.3,323.89,4
+"Dallas/Fort Worth, TX","Saginaw/Bay City/Midland, MI",1015,18.3,304.79,4
+"Quad Cities, IL (Metropolitan Area)","San Antonio, TX",935,18.2,282.56,4
+"Abilene, TX","Washington, DC (Metropolitan Area)",1370,18.2,378.23,4
+"Columbus, OH","Mission/McAllen/Edinburg, TX",1300,18.1,288.33,4
+"Green Bay, WI","San Antonio, TX",1177,17.9,283.11,4
+"Albuquerque, NM","Corpus Christi, TX",735,17.9,238.95,4
+"Corpus Christi, TX","Oklahoma City, OK",526,17.8,279.55,4
+"Abilene, TX","Las Vegas, NV",920,17.8,396.94,4
+"Grand Rapids, MI","Mission/McAllen/Edinburg, TX",1357,17.7,282.54,4
+"Lubbock, TX","Portland, OR",1374,17.7,333.66,4
+"Dallas/Fort Worth, TX","Great Falls, MT",1255,17.6,337.74,4
+"El Paso, TX","Little Rock, AR",843,17.6,291.57,4
+"Austin, TX","Mobile, AL",564,17.5,287.0,4
+"Laredo, TX","Washington, DC (Metropolitan Area)",1536,17.5,316.84,4
+"Indianapolis, IN","Lubbock, TX",956,17.5,297.46,4
+"Mission/McAllen/Edinburg, TX","Portland, OR",1898,17.4,259.87,4
+"Mobile, AL","San Antonio, TX",617,17.4,277.81,4
+"Fayetteville, NC","Houston, TX",1026,17.4,315.11,4
+"Beaumont/Port Arthur, TX","Dallas/Fort Worth, TX",270,17.3,307.33,4
+"Grand Junction, CO","San Antonio, TX",874,17.3,271.97,4
+"Jackson, WY","San Antonio, TX",1183,17.2,370.16,4
+"Midland/Odessa, TX","Portland, OR",1441,17.2,279.19,4
+"Des Moines, IA","El Paso, TX",972,17.2,280.9,4
+"Corpus Christi, TX","Tulsa, OK",589,17.1,286.32,4
+"Houston, TX","Philipsburg/State College, PA",1248,17.1,373.43,4
+"Austin, TX","Bangor, ME",1863,17.0,321.12,3
+"Harlingen/San Benito, TX","Omaha, NE",1044,16.9,217.98,4
+"Abilene, TX","Phoenix, AZ",720,16.9,388.01,4
+"Lubbock, TX","Sacramento, CA",1156,16.9,304.7,4
+"Corpus Christi, TX","Midland/Odessa, TX",403,16.9,316.45,4
+"El Paso, TX","Greenville/Spartanburg, SC",1410,16.9,350.47,4
+"Austin, TX","Idaho Falls, ID",1213,16.8,345.71,4
+"Corpus Christi, TX","Salt Lake City, UT",1218,16.6,306.39,4
+"El Paso, TX","Grand Rapids, MI",1373,16.6,323.81,4
+"Billings, MT","San Antonio, TX",1248,16.6,321.27,4
+"Dallas/Fort Worth, TX","Melbourne, FL",1031,16.6,365.54,4
+"Charlotte, NC","Lubbock, TX",1194,16.6,336.75,4
+"Abilene, TX","Orlando, FL",1129,16.5,347.86,4
+"San Antonio, TX","Tallahassee, FL",848,16.5,359.44,4
+"Detroit, MI","Lubbock, TX",1165,16.3,333.61,4
+"Lubbock, TX","Philadelphia, PA",1529,16.3,350.76,4
+"Dallas/Fort Worth, TX","Lynchburg, VA",1054,16.2,379.08,4
+"El Paso, TX","Greensboro/High Point, NC",1542,16.1,317.82,4
+"Bakersfield, CA","Midland/Odessa, TX",999,16.0,326.74,4
+"Corpus Christi, TX","Indianapolis, IN",1045,16.0,298.94,4
+"Dallas/Fort Worth, TX","Shreveport, LA",190,16.0,361.77,4
+"Harlingen/San Benito, TX","Oklahoma City, OK",631,15.9,207.22,4
+"Dallas/Fort Worth, TX","Flint, MI",1002,15.9,263.43,4
+"Medford, OR","San Antonio, TX",1620,15.9,305.12,4
+"Kansas City, MO","Mission/McAllen/Edinburg, TX",927,15.8,287.62,4
+"Detroit, MI","Midland/Odessa, TX",1255,15.8,321.73,4
+"Austin, TX","Bristol/Johnson City/Kingsport, TN",982,15.8,315.9,4
+"Austin, TX","Scranton/Wilkes-Barre, PA",1447,15.6,304.32,4
+"El Paso, TX","Valparaiso, FL",1178,15.6,308.06,4
+"Charlottesville, VA","San Antonio, TX",1291,15.5,313.48,4
+"Abilene, TX","Houston, TX",323,15.5,335.76,4
+"Midland/Odessa, TX","St. Louis, MO",815,15.5,268.06,4
+"Little Rock, AR","Midland/Odessa, TX",608,15.4,302.25,4
+"Corpus Christi, TX","Philadelphia, PA",1522,15.3,361.87,4
+"Harlingen/San Benito, TX","Raleigh/Durham, NC",1298,15.2,231.13,4
+"Austin, TX","Fayetteville, NC",1143,15.2,309.52,4
+"Lake Charles, LA","Midland/Odessa, TX",547,15.2,375.76,4
+"Amarillo, TX","Portland, OR",1307,15.2,359.9,4
+"Corpus Christi, TX","Jacksonville, FL",972,15.2,292.32,4
+"Memphis, TN","Mission/McAllen/Edinburg, TX",784,15.1,242.04,4
+"Austin, TX","Charleston/Dunbar, WV",1077,15.1,304.93,4
+"Atlanta, GA (Metropolitan Area)","Killeen, TX",803,15.1,333.27,4
+"Abilene, TX","Denver, CO",584,15.1,344.09,4
+"Columbus, OH","Midland/Odessa, TX",1213,15.0,332.67,4
+"Missoula, MT","San Antonio, TX",1464,15.0,332.82,4
+"Key West, FL","San Antonio, TX",1084,15.0,314.75,4
+"Charleston/Dunbar, WV","San Antonio, TX",1142,15.0,295.66,4
+"El Paso, TX","Fort Myers, FL",1528,15.0,338.16,4
+"Amarillo, TX","New Orleans, LA",758,15.0,287.37,4
+"Great Falls, MT","Houston, TX",1501,14.9,389.29,4
+"Harlingen/San Benito, TX","San Antonio, TX",233,14.9,191.91,4
+"El Paso, TX","Syracuse, NY",1824,14.9,347.21,4
+"Alexandria, LA","Dallas/Fort Worth, TX",285,14.9,343.38,4
+"Dallas/Fort Worth, TX","Wausau/Mosinee/Stevens Point, WI",910,14.8,332.83,4
+"Brownsville, TX","Washington, DC (Metropolitan Area)",1511,14.8,311.25,4
+"Harlingen/San Benito, TX","Milwaukee, WI",1278,14.8,216.24,4
+"Harlingen/San Benito, TX","Salt Lake City, UT",1297,14.7,240.3,4
+"Midland/Odessa, TX","Raleigh/Durham, NC",1369,14.7,301.93,4
+"Duluth, MN","Houston, TX",1198,14.7,387.95,4
+"Montrose/Delta, CO","San Antonio, TX",821,14.7,291.1,4
+"Dallas/Fort Worth, TX","San Angelo, TX",229,14.6,353.29,4
+"Idaho Falls, ID","San Antonio, TX",1222,14.6,332.68,4
+"Dallas/Fort Worth, TX","Garden City, KS",404,14.5,305.57,4
+"Charlotte, NC","Midland/Odessa, TX",1244,14.5,346.43,4
+"Dallas/Fort Worth, TX","Duluth, MN",996,14.5,356.66,4
+"El Paso, TX","West Palm Beach/Palm Beach, FL",1622,14.5,366.71,4
+"Corpus Christi, TX","Pittsburgh, PA",1318,14.5,342.2,4
+"Dallas/Fort Worth, TX","Rochester, MN",799,14.5,297.42,4
+"Allentown/Bethlehem/Easton, PA","Houston, TX",1350,14.5,317.51,3
+"Columbus, OH","Harlingen/San Benito, TX",1274,14.3,240.65,4
+"Jacksonville, FL","Midland/Odessa, TX",1216,14.3,300.19,4
+"Dallas/Fort Worth, TX","Fort Smith, AR",227,14.2,345.31,4
+"Houston, TX","Jacksonville/Camp Lejeune, NC",1093,14.2,326.09,4
+"Austin, TX","St. George, UT",1026,14.1,295.04,4
+"Austin, TX","Gulfport/Biloxi, MS",514,14.1,239.0,4
+"Amarillo, TX","Sacramento, CA",1124,14.1,317.91,4
+"Grand Rapids, MI","Harlingen/San Benito, TX",1337,14.0,236.7,4
+"Brownsville, TX","Miami, FL (Metropolitan Area)",1074,14.0,287.73,4
+"San Antonio, TX","Santa Fe, NM",611,13.9,306.02,4
+"Paso Robles/San Luis Obispo, CA","San Antonio, TX",1351,13.9,326.76,4
+"Midland/Odessa, TX","Philadelphia, PA",1601,13.9,370.81,4
+"Gainesville, FL","San Antonio, TX",974,13.8,333.19,4
+"Amarillo, TX","Boston, MA (Metropolitan Area)",1718,13.7,344.42,3
+"Midland/Odessa, TX","Shreveport, LA",492,13.7,338.33,4
+"Lubbock, TX","Valparaiso, FL",923,13.6,325.38,3
+"Des Moines, IA","Mission/McAllen/Edinburg, TX",1090,13.6,262.36,4
+"Corpus Christi, TX","Detroit, MI",1275,13.6,334.11,4
+"Houston, TX","Montgomery, AL",558,13.5,309.59,3
+"Bend/Redmond, OR","San Antonio, TX",1605,13.5,322.08,4
+"Corpus Christi, TX","Raleigh/Durham, NC",1232,13.4,319.87,4
+"Mission/McAllen/Edinburg, TX","St. Louis, MO",980,13.3,274.43,4
+"Amarillo, TX","St. Louis, MO",671,13.3,280.77,4
+"Cleveland, OH (Metropolitan Area)","Mission/McAllen/Edinburg, TX",1406,13.3,303.21,4
+"Bristol/Johnson City/Kingsport, TN","San Antonio, TX",1046,13.3,314.85,4
+"Killeen, TX","Los Angeles, CA (Metropolitan Area)",1216,13.3,365.13,4
+"Jacksonville/Camp Lejeune, NC","San Antonio, TX",1273,13.3,312.77,4
+"Laredo, TX","Miami, FL (Metropolitan Area)",1196,13.2,331.36,4
+"Amarillo, TX","Charlotte, NC",1172,13.1,340.44,4
+"Harlingen/San Benito, TX","Sacramento, CA",1633,13.1,253.78,4
+"Austin, TX","Montgomery, AL",683,13.0,297.28,4
+"Abilene, TX","Dallas/Fort Worth, TX",158,13.0,335.28,4
+"Abilene, TX","Atlanta, GA (Metropolitan Area)",889,13.0,326.18,4
+"Austin, TX","Daytona Beach, FL",1001,13.0,330.27,4
+"Amarillo, TX","Philadelphia, PA",1482,13.0,355.1,4
+"Evansville, IN","San Antonio, TX",859,13.0,341.51,4
+"El Paso, TX","Laredo, TX",509,13.0,360.39,4
+"Birmingham, AL","Midland/Odessa, TX",906,12.9,313.92,4
+"Daytona Beach, FL","Houston, TX",861,12.9,361.39,4
+"San Antonio, TX","Traverse City, MI",1264,12.9,313.87,3
+"Corpus Christi, TX","Omaha, NE",938,12.9,289.31,4
+"Daytona Beach, FL","San Antonio, TX",1050,12.8,349.96,4
+"Houston, TX","Jefferson City/Columbia, MO",656,12.8,343.71,4
+"Amarillo, TX","Raleigh/Durham, NC",1289,12.8,330.78,4
+"Mission/McAllen/Edinburg, TX","Sacramento, CA",1607,12.8,262.22,4
+"Austin, TX","Lafayette, LA",340,12.7,285.13,4
+"Milwaukee, WI","Mission/McAllen/Edinburg, TX",1295,12.7,269.47,4
+"Corpus Christi, TX","Norfolk, VA (Metropolitan Area)",1391,12.6,348.48,4
+"Buffalo, NY","El Paso, TX",1693,12.6,302.0,3
+"Clovis, NM","Dallas/Fort Worth, TX",364,12.6,141.93,3
+"Columbus, OH","Corpus Christi, TX",1187,12.6,304.44,4
+"Los Angeles, CA (Metropolitan Area)","Tyler, TX",1335,12.6,347.36,4
+"El Paso, TX","Panama City, FL",1222,12.4,301.93,4
+"El Paso, TX","Springfield, MO",829,12.3,279.65,4
+"Dallas/Fort Worth, TX","Kalamazoo, MI",900,12.3,319.47,4
+"Midland/Odessa, TX","Pensacola, FL",894,12.3,320.83,4
+"El Paso, TX","Wichita, KS",648,12.2,269.71,4
+"Fresno, CA","Lubbock, TX",1034,12.2,337.95,4
+"College Station/Bryan, TX","Los Angeles, CA (Metropolitan Area)",1309,12.1,383.31,4
+"Harlingen/San Benito, TX","Tulsa, OK",695,12.1,201.22,4
+"Midland/Odessa, TX","Williston, ND",1129,12.1,481.54,4
+"Corpus Christi, TX","Sacramento, CA",1579,12.0,341.46,4
+"Bismarck/Mandan, ND","San Antonio, TX",1195,12.0,299.71,4
+"Jacksonville, FL","Lubbock, TX",1198,12.0,316.77,4
+"Los Angeles, CA (Metropolitan Area)","Waco, TX",1241,12.0,350.75,4
+"Mission/McAllen/Edinburg, TX","Oklahoma City, OK",636,12.0,261.87,4
+"Harlingen/San Benito, TX","Philadelphia, PA",1598,11.9,284.48,4
+"El Paso, TX","Madison, WI",1215,11.8,301.13,4
+"College Station/Bryan, TX","Washington, DC (Metropolitan Area)",1262,11.7,379.63,4
+"Dayton, OH","El Paso, TX",1358,11.7,308.63,4
+"Atlanta, GA (Metropolitan Area)","Laredo, TX",988,11.7,313.37,4
+"Cincinnati, OH","Mission/McAllen/Edinburg, TX",1186,11.2,291.26,4
+"El Paso, TX","Fayetteville, AR",757,11.2,299.65,4
+"Indianapolis, IN","Midland/Odessa, TX",1039,11.2,287.77,3
+"Memphis, TN","Midland/Odessa, TX",737,11.1,247.0,3
+"Baton Rouge, LA","Midland/Odessa, TX",661,10.8,346.25,4
+"Bangor, ME","San Antonio, TX",1929,10.6,341.42,3
+"Dallas/Fort Worth, TX","Harrison, AR",321,10.6,130.09,3
+"Midland/Odessa, TX","Panama City, FL",977,10.6,249.35,2
+"Dallas/Fort Worth, TX","Fort Leonard Wood, MO",434,10.6,99.85,3
+"Allentown/Bethlehem/Easton, PA","Austin, TX",1441,10.5,301.57,3
+"Austin, TX","Gunnison, CO",781,10.4,368.01,2
+"Austin, TX","Philipsburg/State College, PA",1332,10.3,326.69,3
+"El Paso, TX","Lubbock, TX",294,10.3,284.12,3
+"Brownsville, TX","Denver, CO",1049,10.1,271.89,3
+"Abilene, TX","Nashville, TN",786,10.0,306.98,3
+"Minot, ND","San Antonio, TX",1300,10.0,310.31,3
+"Dallas/Fort Worth, TX","Nantucket, MA",1590,9.9,466.84,2
+"Corpus Christi, TX","Memphis, TN",670,9.8,289.81,3
+"Killeen, TX","New York City, NY (Metropolitan Area)",1509,9.8,362.29,3
+"Dallas/Fort Worth, TX","Sun Valley/Hailey/Ketchum, ID",1186,9.7,392.8,3
+"Amarillo, TX","Indianapolis, IN",900,9.5,301.67,3
+"Dallas/Fort Worth, TX","Lansing, MI",961,9.4,310.85,3
+"Lafayette, LA","San Antonio, TX",392,9.4,270.74,3
+"Corpus Christi, TX","Portland, OR",1844,9.3,365.12,3
+"Atlanta, GA (Metropolitan Area)","Brownsville, TX",944,9.3,266.93,3
+"Mission/McAllen/Edinburg, TX","Pittsburgh, PA",1429,9.1,303.9,3
+"Charlotte, NC","Corpus Christi, TX",1101,9.1,345.73,3
+"El Paso, TX","Killeen, TX",507,9.1,446.86,3
+"Columbus, OH","Lubbock, TX",1134,9.0,320.13,3
+"Laredo, TX","San Diego, CA",1118,8.9,292.07,3
+"Dallas/Fort Worth, TX","New Bern/Morehead/Beaufort, NC",1156,8.9,425.58,3
+"Lubbock, TX","Memphis, TN",683,8.8,280.56,3
+"Albany, NY","El Paso, TX",1932,8.8,318.4,3
+"Charlotte, NC","Harlingen/San Benito, TX",1169,8.8,252.34,3
+"Jacksonville, FL","Mission/McAllen/Edinburg, TX",1049,8.8,267.42,3
+"San Antonio, TX","Williston, ND",1322,8.7,376.11,3
+"El Paso, TX","Fayetteville, NC",1599,8.7,360.14,3
+"Allentown/Bethlehem/Easton, PA","San Antonio, TX",1506,8.7,343.01,3
+"El Paso, TX","Lexington, KY",1305,8.6,332.49,3
+"Mission/McAllen/Edinburg, TX","Tucson, AZ",870,8.6,272.61,3
+"Abilene, TX","Seattle, WA",1577,8.6,361.17,3
+"Harlingen/San Benito, TX","Memphis, TN",760,8.5,203.63,3
+"Corpus Christi, TX","Pensacola, FL",650,8.5,267.94,3
+"Lubbock, TX","Pittsburgh, PA",1278,8.5,314.96,3
+"Aspen, CO","San Antonio, TX",821,8.5,374.53,3
+"Abilene, TX","New York City, NY (Metropolitan Area)",1553,8.4,414.81,3
+"Austin, TX","Bloomington/Normal, IL",863,8.4,317.75,3
+"Laredo, TX","Nashville, TN",955,8.4,245.65,3
+"Austin, TX","Bismarck/Mandan, ND",1155,8.3,274.11,3
+"Corpus Christi, TX","Lubbock, TX",481,8.3,291.43,3
+"Harlingen/San Benito, TX","Pittsburgh, PA",1403,8.2,246.18,3
+"Colorado Springs, CO","Harlingen/San Benito, TX",959,8.1,211.33,3
+"Fort Myers, FL","Mission/McAllen/Edinburg, TX",1022,8.1,265.3,3
+"Albuquerque, NM","Mission/McAllen/Edinburg, TX",788,8.1,261.28,3
+"Fort Smith, AR","Houston, TX",396,8.1,271.27,3
+"Boise, ID","Lubbock, TX",1034,8.0,312.57,3
+"Eagle, CO","San Antonio, TX",846,8.0,350.75,2
+"Mission/McAllen/Edinburg, TX","Tulsa, OK",704,7.9,255.68,3
+"Dallas/Fort Worth, TX","Valdosta, GA",822,7.9,368.13,3
+"Midland/Odessa, TX","Valparaiso, FL",933,7.9,258.17,2
+"Abilene, TX","Miami, FL (Metropolitan Area)",1256,7.6,371.33,3
+"Lubbock, TX","Panama City, FL",967,7.4,277.92,2
+"Fresno, CA","Mission/McAllen/Edinburg, TX",1458,6.8,304.56,2
+"Brownsville, TX","Detroit, MI",1379,6.7,324.08,2
+"Lubbock, TX","Pensacola, FL",885,6.7,268.29,2
+"Austin, TX","Sanford, FL",994,6.6,79.72,2
+"Amarillo, TX","Valparaiso, FL",940,6.4,277.39,2
+"Bozeman, MT","El Paso, TX",997,6.3,263.99,2
+"Knoxville, TN","Midland/Odessa, TX",1078,6.3,314.64,2
+"Laredo, TX","Phoenix, AZ",851,6.2,285.58,2
+"Amarillo, TX","Detroit, MI",1099,6.2,317.54,2
+"Charleston, SC","Lubbock, TX",1259,6.1,296.26,2
+"Houston, TX","Salina, KS",621,6.1,220.85,2
+"El Paso, TX","Eugene, OR",1247,6.0,278.0,2
+"Amarillo, TX","Panama City, FL",983,5.9,254.46,2
+"Harlingen/San Benito, TX","Lubbock, TX",570,5.9,204.35,2
+"Brownsville, TX","Seattle, WA",2011,5.9,359.16,2
+"Cleveland, OH (Metropolitan Area)","Midland/Odessa, TX",1307,5.8,372.4,2
+"College Station/Bryan, TX","Dallas/Fort Worth, TX",164,5.7,337.44,2
+"Detroit, MI","Laredo, TX",1359,5.6,330.21,2
+"Austin, TX","Sun Valley/Hailey/Ketchum, ID",1296,5.6,406.75,2
+"San Antonio, TX","St. George, UT",1011,5.6,286.49,2
+"San Angelo, TX","Washington, DC (Metropolitan Area)",1446,5.6,457.88,2
+"Colorado Springs, CO","Corpus Christi, TX",867,5.6,262.03,2
+"Cleveland, OH (Metropolitan Area)","Lubbock, TX",1225,5.6,306.61,2
+"Amarillo, TX","Omaha, NE",524,5.5,304.81,2
+"San Antonio, TX","Steamboat Springs, CO",902,5.5,291.37,1
+"Lubbock, TX","Tucson, AZ",541,5.5,294.29,2
+"Denver, CO","Laredo, TX",900,5.5,295.56,2
+"El Paso, TX","Palm Springs, CA",606,5.5,294.02,2
+"Lubbock, TX","Spokane, WA",1264,5.5,313.11,2
+"San Antonio, TX","Scranton/Wilkes-Barre, PA",1512,5.4,348.83,2
+"Colorado Springs, CO","Midland/Odessa, TX",494,5.4,259.95,2
+"Austin, TX","Evansville, IN",793,5.4,347.89,2
+"Lubbock, TX","Omaha, NE",619,5.4,288.64,2
+"Cape Girardeau, MO","Dallas/Fort Worth, TX",518,5.4,120.1,1
+"El Paso, TX","Jackson/Vicksburg, MS",956,5.3,298.33,2
+"Bloomington/Normal, IL","Houston, TX",829,5.3,323.72,2
+"Corpus Christi, TX","Wichita, KS",681,5.3,266.98,2
+"Harlingen/San Benito, TX","Jacksonville, FL",1014,5.3,248.64,2
+"Austin, TX","Jacksonville/Camp Lejeune, NC",1212,5.2,281.95,2
+"Houston, TX","Lincoln, NE",753,5.1,354.16,2
+"Dallas/Fort Worth, TX","Hot Springs, AR",252,5.1,125.99,2
+"Great Falls, MT","San Antonio, TX",1417,5.1,327.55,2
+"Dallas/Fort Worth, TX","Martha's Vineyard, MA",1564,4.7,425.5,1
+"Cedar Rapids/Iowa City, IA","Mission/McAllen/Edinburg, TX",1145,4.7,254.5,1
+"Lubbock, TX","Madison, WI",939,3.4,406.27,1
+"Knoxville, TN","Lubbock, TX",1024,3.3,327.95,1
+"Brownsville, TX","Las Vegas, NV",1261,3.2,251.74,1
+"Mission/McAllen/Edinburg, TX","Omaha, NE",1051,3.2,272.35,1
+"Des Moines, IA","Harlingen/San Benito, TX",1079,3.2,221.99,1
+"Saginaw/Bay City/Midland, MI","San Antonio, TX",1250,3.2,244.56,1
+"Harlingen/San Benito, TX","Portland, OR",1918,3.2,245.19,1
+"Austin, TX","Santa Rosa, CA",1541,3.1,379.06,1
+"Amarillo, TX","Corpus Christi, TX",570,3.0,284.35,1
+"Amarillo, TX","Knoxville, TN",998,3.0,295.77,1
+"Austin, TX","Champaign/Urbana, IL",861,3.0,300.12,1
+"Bakersfield, CA","El Paso, TX",772,3.0,251.34,1
+"Mission/McAllen/Edinburg, TX","Norfolk, VA (Metropolitan Area)",1490,3.0,316.9,1
+"Fort Myers, FL","Midland/Odessa, TX",1288,2.9,281.93,1
+"Flint, MI","Houston, TX",1119,2.9,233.31,1
+"Lubbock, TX","Tulsa, OK",379,2.9,295.09,1
+"Austin, TX","Jefferson City/Columbia, MO",671,2.9,350.65,1
+"Houston, TX","Nantucket, MA",1623,2.9,515.62,1
+"Denver, CO","Tyler, TX",732,2.9,310.99,1
+"Louisville, KY","Lubbock, TX",953,2.9,273.79,1
+"Brownsville, TX","Minneapolis/St. Paul, MN",1329,2.8,258.32,1
+"Killeen, TX","Raleigh/Durham, NC",1146,2.8,335.67,1
+"Amarillo, TX","El Paso, TX",358,2.8,269.82,1
+"Little Rock, AR","Lubbock, TX",554,2.8,249.06,1
+"Austin, TX","Saginaw/Bay City/Midland, MI",1185,2.8,269.24,1
+"Amarillo, TX","Boise, ID",965,2.8,330.06,1
+"Cleveland, OH (Metropolitan Area)","Corpus Christi, TX",1292,2.8,300.33,1
+"Lubbock, TX","Milwaukee, WI",989,2.8,276.61,1
+"Louisville, KY","Midland/Odessa, TX",1025,2.8,293.28,1
+"Midland/Odessa, TX","Omaha, NE",734,2.7,287.46,1
+"El Paso, TX","Harrisburg, PA",1747,2.7,353.82,1
+"Killeen, TX","Seattle, WA",1719,2.7,505.62,1
+"Dallas/Fort Worth, TX","Ithaca/Cortland, NY",1302,2.7,286.64,1
+"Casper, WY","San Antonio, TX",1023,2.6,290.52,1
+"Brownsville, TX","Omaha, NE",1064,2.6,244.08,1
+"Brownsville, TX","Phoenix, AZ",1017,2.6,265.01,1
+"Cedar Rapids/Iowa City, IA","El Paso, TX",1067,2.6,231.94,1
+"Houston, TX","Lansing, MI",1083,2.6,220.96,1
+"Los Angeles, CA (Metropolitan Area)","San Angelo, TX",1058,2.6,367.47,1
+"El Paso, TX","Shreveport, LA",736,2.6,274.66,1
+"Melbourne, FL","San Antonio, TX",1085,2.6,308.3,1
+"Grand Rapids, MI","Lubbock, TX",1087,2.6,321.28,1
+"Denver, CO","Waco, TX",706,2.6,248.06,1
+"Bloomington/Normal, IL","San Antonio, TX",928,2.6,318.51,1
+"Midland/Odessa, TX","Milwaukee, WI",1090,2.6,282.81,1
+"Gunnison, CO","San Antonio, TX",787,2.5,361.77,1
+"Chattanooga, TN","El Paso, TX",1241,2.5,325.03,1
+"Eureka/Arcata, CA","Houston, TX",1779,2.5,336.62,1
+"Columbus, GA","Dallas/Fort Worth, TX",705,2.5,399.51,1
+"Houston, TX","Sun Valley/Hailey/Ketchum, ID",1399,2.5,419.46,1
+"Birmingham, AL","Lubbock, TX",868,2.5,309.75,1
+"Abilene, TX","San Diego, CA",1021,2.5,360.96,1
+"Amarillo, TX","Mission/McAllen/Edinburg, TX",656,2.5,261.19,1
+"El Paso, TX","Santa Barbara, CA",801,2.5,258.16,1
+"Houston, TX","Rock Springs, WY",1109,2.5,357.62,1
+"Austin, TX","Flagstaff, AZ",883,2.5,304.64,1
+"Dallas/Fort Worth, TX","Helena, MT",1232,2.5,354.0,1

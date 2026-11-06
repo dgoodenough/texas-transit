@@ -1,0 +1,255 @@
+fips,name,pop_2020,jobs_2022,land_km2,lat,lon,cbsa,cbsa_name,cbsa_kind
+48001,Anderson County,57922,14405,2752.2,31.77531,-95.68394,37300,"Palestine, TX",micro
+48003,Andrews County,18610,7146,3886.9,32.3214,-102.53961,11380,"Andrews, TX",micro
+48005,Angelina County,86395,35793,2066.5,31.31353,-94.71616,31260,"Lufkin, TX",micro
+48007,Aransas County,23830,6405,652.9,28.03069,-97.07249,18580,"Corpus Christi, TX",metro
+48009,Archer County,8560,1276,2339.5,33.71281,-98.60735,48660,"Wichita Falls, TX",metro
+48011,Armstrong County,1848,302,2354.6,35.09221,-101.39212,11100,"Amarillo, TX",metro
+48013,Atascosa County,48981,13740,3158.6,29.04163,-98.57849,41700,"San Antonio-New Braunfels, TX",metro
+48015,Austin County,30167,9533,1674.4,29.85097,-96.21999,26420,"Houston-Pasadena-The Woodlands, TX",metro
+48017,Bailey County,6904,2334,2141.8,34.21873,-102.74409,,,rural
+48019,Bandera County,20851,3484,2048.7,29.70352,-99.03165,41700,"San Antonio-New Braunfels, TX",metro
+48021,Bastrop County,97216,19267,2300.5,30.14259,-97.36666,12420,"Austin-Round Rock-San Marcos, TX",metro
+48023,Baylor County,3465,1395,2246.8,33.59116,-99.26455,,,rural
+48025,Bee County,31047,7370,2279.8,28.39556,-97.73381,13300,"Beeville, TX",micro
+48027,Bell County,370647,113726,2729.4,31.08149,-97.59168,28660,"Killeen-Temple, TX",metro
+48029,Bexar County,2009324,919469,3212.4,29.48468,-98.53294,41700,"San Antonio-New Braunfels, TX",metro
+48031,Blanco County,11374,3547,1837.0,30.17715,-98.39207,,,rural
+48033,Borden County,631,172,2324.4,32.75764,-101.43649,,,rural
+48035,Bosque County,18235,3482,2545.9,31.86212,-97.57097,47380,"Waco, TX",metro
+48037,Bowie County,92893,39007,2292.0,33.43661,-94.20083,45500,"Texarkana, TX-AR",metro
+48039,Brazoria County,372031,115023,3531.0,29.35533,-95.38492,26420,"Houston-Pasadena-The Woodlands, TX",metro
+48041,Brazos County,233849,114605,1518.1,30.62416,-96.32877,17780,"College Station-Bryan, TX",metro
+48043,Brewster County,9546,3496,16015.9,30.22245,-103.6203,,,rural
+48045,Briscoe County,1435,242,2331.0,34.44346,-101.23433,,,rural
+48047,Brooks County,7076,1719,2443.3,27.20871,-98.14483,10860,"Alice, TX",micro
+48049,Brown County,38095,14124,2446.1,31.73162,-98.98927,15220,"Brownwood, TX",micro
+48051,Burleson County,17642,4363,1707.0,30.47562,-96.64463,17780,"College Station-Bryan, TX",metro
+48053,Burnet County,49130,15261,2576.5,30.67218,-98.24165,,,rural
+48055,Caldwell County,45883,8789,1410.4,29.86531,-97.67463,12420,"Austin-Round Rock-San Marcos, TX",metro
+48057,Calhoun County,20106,10418,1313.0,28.58916,-96.62588,38920,"Port Lavaca, TX",micro
+48059,Callahan County,13708,2712,2329.4,32.35178,-99.45296,10180,"Abilene, TX",metro
+48061,Cameron County,421017,142011,2309.5,26.04742,-97.56129,15180,"Brownsville-Harlingen, TX",metro
+48063,Camp County,12464,3983,507.2,32.99017,-94.98503,34420,"Mount Pleasant, TX",micro
+48065,Carson County,5807,5269,2383.4,35.38212,-101.32829,11100,"Amarillo, TX",metro
+48067,Cass County,28454,7388,2426.7,33.08061,-94.2972,,,rural
+48069,Castro County,7371,2032,2316.6,34.52508,-102.27227,,,rural
+48071,Chambers County,46571,20587,1546.4,29.80542,-94.76897,26420,"Houston-Pasadena-The Woodlands, TX",metro
+48073,Cherokee County,50412,14306,2727.1,31.91349,-95.21631,27380,"Jacksonville, TX",micro
+48075,Childress County,6664,1864,1804.0,34.42809,-100.22396,,,rural
+48077,Clay County,10218,1381,2819.9,33.82539,-98.24486,48660,"Wichita Falls, TX",metro
+48079,Cochran County,2547,490,2007.5,33.68939,-102.74105,31180,"Lubbock, TX",metro
+48081,Coke County,3285,492,2361.2,31.90412,-100.41663,,,rural
+48083,Coleman County,7684,1928,3270.9,31.80813,-99.42505,,,rural
+48085,Collin County,1064465,552309,2178.8,33.1129,-96.69063,19100,"Dallas-Fort Worth-Arlington, TX",metro
+48087,Collingsworth County,2652,681,2378.7,34.86182,-100.22175,,,rural
+48089,Colorado County,20557,7722,2487.1,29.66481,-96.53898,,,rural
+48091,Comal County,161501,69254,1449.2,29.76447,-98.2217,41700,"San Antonio-New Braunfels, TX",metro
+48093,Comanche County,13594,4280,2428.8,31.97223,-98.55904,,,rural
+48095,Concho County,3303,679,2547.9,31.29119,-99.85709,,,rural
+48097,Cooke County,41668,13806,2265.8,33.60738,-97.13379,23620,"Gainesville, TX",micro
+48099,Coryell County,83093,15998,2725.3,31.23637,-97.83241,28660,"Killeen-Temple, TX",metro
+48101,Cottle County,1380,212,2332.4,34.02779,-100.30428,,,rural
+48103,Crane County,4675,1380,2033.3,31.4023,-102.35267,,,rural
+48105,Crockett County,3098,794,7270.9,30.70475,-101.21661,,,rural
+48107,Crosby County,5133,920,2331.5,33.66041,-101.35759,31180,"Lubbock, TX",metro
+48109,Culberson County,2188,955,9873.4,31.06422,-104.8195,,,rural
+48111,Dallam County,7115,3688,3893.1,36.105,-102.56884,,,rural
+48113,Dallas County,2613539,1844442,2261.2,32.80982,-96.78762,19100,"Dallas-Fort Worth-Arlington, TX",metro
+48115,Dawson County,12456,4045,2331.8,32.73465,-101.94931,,,rural
+48117,Deaf Smith County,18583,8600,3876.8,34.83562,-102.40281,25820,"Hereford, TX",micro
+48119,Delta County,5230,727,665.2,33.3748,-95.70457,,,rural
+48121,Denton County,906422,302695,2275.3,33.11641,-97.01467,19100,"Dallas-Fort Worth-Arlington, TX",metro
+48123,DeWitt County,19824,6521,2354.2,29.09957,-97.31143,,,rural
+48125,Dickens County,1770,272,2335.5,33.5467,-100.85593,,,rural
+48127,Dimmit County,8615,4693,3441.8,28.52068,-99.827,,,rural
+48129,Donley County,3258,1007,2400.7,34.94393,-100.86235,,,rural
+48131,Duval County,9831,3176,4645.1,27.74253,-98.3911,,,rural
+48133,Eastland County,17725,5568,2399.6,32.35731,-98.84536,,,rural
+48135,Ector County,165171,69035,2325.4,31.86668,-102.38958,36220,"Odessa, TX",metro
+48137,Edwards County,1422,304,5485.3,29.98593,-100.2028,,,rural
+48139,Ellis County,192455,58324,2423.6,32.42903,-96.82804,19100,"Dallas-Fort Worth-Arlington, TX",metro
+48141,El Paso County,865657,340191,2624.3,31.78302,-106.36562,21340,"El Paso, TX",metro
+48143,Erath County,42545,17123,2805.4,32.21206,-98.22515,44500,"Stephenville, TX",micro
+48145,Falls County,16968,2610,1982.6,31.26093,-96.95104,47380,"Waco, TX",metro
+48147,Fannin County,35662,7802,2307.3,33.55693,-96.18126,14300,"Bonham, TX",micro
+48149,Fayette County,24435,8261,2460.3,29.85614,-96.9011,,,rural
+48151,Fisher County,3672,802,2328.3,32.77089,-100.41401,,,rural
+48153,Floyd County,5402,1455,2569.6,34.03981,-101.37447,38380,"Plainview, TX",micro
+48155,Foard County,1095,341,1824.4,33.99161,-99.70523,,,rural
+48157,Fort Bend County,822779,233543,2231.8,29.62021,-95.68133,26420,"Houston-Pasadena-The Woodlands, TX",metro
+48159,Franklin County,10359,4069,736.6,33.12207,-95.22391,,,rural
+48161,Freestone County,19435,4508,2273.3,31.70005,-96.2093,,,rural
+48163,Frio County,18385,6177,2935.8,28.83947,-99.10843,,,rural
+48165,Gaines County,21598,6106,3891.1,32.752,-102.65803,,,rural
+48167,Galveston County,350682,117720,982.3,29.42814,-95.01939,26420,"Houston-Pasadena-The Woodlands, TX",metro
+48169,Garza County,5816,1587,2313.9,33.19754,-101.38056,31180,"Lubbock, TX",metro
+48171,Gillespie County,26725,11772,2740.7,30.27364,-98.90807,23240,"Fredericksburg, TX",micro
+48173,Glasscock County,1116,478,2331.6,31.8426,-101.52525,,,rural
+48175,Goliad County,7012,1243,2206.7,28.71058,-97.36225,47020,"Victoria, TX",metro
+48177,Gonzales County,19653,7059,2762.7,29.47718,-97.50418,,,rural
+48179,Gray County,21227,7135,2398.3,35.53042,-100.93995,37420,"Pampa, TX",micro
+48181,Grayson County,135543,47615,2416.0,33.64486,-96.62661,43300,"Sherman-Denison, TX",metro
+48183,Gregg County,124239,71776,708.1,32.49989,-94.79084,30980,"Longview, TX",metro
+48185,Grimes County,29268,5927,2039.5,30.4393,-96.0073,,,rural
+48187,Guadalupe County,172706,44944,1842.1,29.60199,-98.10736,41700,"San Antonio-New Braunfels, TX",metro
+48189,Hale County,32522,10927,2602.1,34.14352,-101.74238,38380,"Plainview, TX",micro
+48191,Hall County,2825,535,2288.2,34.66474,-100.59253,,,rural
+48193,Hamilton County,8222,2775,2165.0,31.763,-98.09563,,,rural
+48195,Hansford County,5285,2124,2382.3,36.21367,-101.2713,,,rural
+48197,Hardeman County,3549,1193,1800.3,34.28518,-99.70145,,,rural
+48199,Hardin County,56231,10913,2306.6,30.29938,-94.25716,13140,"Beaumont-Port Arthur, TX",metro
+48201,Harris County,4731145,2441590,4421.0,29.81689,-95.42578,26420,"Houston-Pasadena-The Woodlands, TX",metro
+48203,Harrison County,68839,18977,2331.1,32.53433,-94.42729,30980,"Longview, TX",metro
+48205,Hartley County,5382,2771,3786.4,35.9946,-102.50237,,,rural
+48207,Haskell County,5416,1576,2339.1,33.17751,-99.76475,,,rural
+48209,Hays County,241067,79148,1753.0,30.00941,-97.92541,12420,"Austin-Round Rock-San Marcos, TX",metro
+48211,Hemphill County,3382,1415,2347.3,35.89304,-100.36077,,,rural
+48213,Henderson County,82150,19059,2263.1,32.24133,-95.88942,11980,"Athens, TX",micro
+48215,Hidalgo County,870781,280174,4068.8,26.23592,-98.18453,32580,"McAllen-Edinburg-Mission, TX",metro
+48217,Hill County,35874,9629,2483.4,31.99819,-97.17718,,,rural
+48219,Hockley County,21537,8601,2352.7,33.58354,-102.33324,31180,"Lubbock, TX",metro
+48221,Hood County,61598,15513,1089.6,32.43435,-97.76227,24180,"Granbury, TX",micro
+48223,Hopkins County,36787,12947,1987.6,33.12449,-95.58927,44860,"Sulphur Springs, TX",micro
+48225,Houston County,22066,4967,3188.3,31.29788,-95.46627,,,rural
+48227,Howard County,34860,11682,2333.0,32.24141,-101.46307,13700,"Big Spring, TX",micro
+48229,Hudspeth County,3202,939,11837.6,31.36829,-105.54602,21340,"El Paso, TX",metro
+48231,Hunt County,99956,29491,2176.7,33.08206,-96.10444,19100,"Dallas-Fort Worth-Arlington, TX",metro
+48233,Hutchinson County,20617,7580,2298.4,35.67919,-101.44711,14420,"Borger, TX",micro
+48235,Irion County,1513,699,2723.5,31.27041,-100.83469,41660,"San Angelo, TX",metro
+48237,Jack County,8472,2291,2359.4,33.20024,-98.1688,,,rural
+48239,Jackson County,14988,6383,2148.2,28.9592,-96.5944,,,rural
+48241,Jasper County,32980,8574,2431.1,30.73157,-93.99332,,,rural
+48243,Jeff Davis County,1996,1035,5865.2,30.60887,-103.99693,,,rural
+48245,Jefferson County,256526,113434,2270.8,30.01146,-94.06769,13140,"Beaumont-Port Arthur, TX",metro
+48247,Jim Hogg County,4838,940,2942.7,27.30314,-98.68525,,,rural
+48249,Jim Wells County,38891,13634,2240.8,27.75563,-98.06275,10860,"Alice, TX",micro
+48251,Johnson County,179927,51325,1877.2,32.44133,-97.32273,19100,"Dallas-Fort Worth-Arlington, TX",metro
+48253,Jones County,19663,2727,2405.1,32.70655,-99.8052,10180,"Abilene, TX",metro
+48255,Karnes County,14710,5471,1936.7,28.85811,-97.87035,,,rural
+48257,Kaufman County,145310,34699,2022.2,32.67124,-96.35815,19100,"Dallas-Fort Worth-Arlington, TX",metro
+48259,Kendall County,44279,18150,1715.7,29.8314,-98.71759,41700,"San Antonio-New Braunfels, TX",metro
+48261,Kenedy County,350,216,3777.7,27.10412,-97.78891,,,rural
+48263,Kent County,753,158,2337.5,33.25047,-100.62514,,,rural
+48265,Kerr County,52598,18399,2857.6,30.04027,-99.15939,28500,"Kerrville, TX",micro
+48267,Kimble County,4286,1185,3240.0,30.48626,-99.72777,,,rural
+48269,King County,265,39,2359.2,33.64437,-100.29575,,,rural
+48271,Kinney County,3129,529,3523.8,29.30342,-100.41821,,,rural
+48273,Kleberg County,31040,10029,2282.6,27.49143,-97.85698,28780,"Kingsville, TX",micro
+48275,Knox County,3353,904,2203.1,33.45984,-99.704,,,rural
+48277,Lamar County,50088,21489,2350.0,33.67549,-95.53405,37580,"Paris, TX",micro
+48279,Lamb County,13045,3418,2631.9,34.02831,-102.32464,,,rural
+48281,Lampasas County,21627,3744,1845.4,31.09523,-98.11323,28660,"Killeen-Temple, TX",metro
+48283,La Salle County,6664,2825,3850.5,28.35342,-99.24629,,,rural
+48285,Lavaca County,20337,6260,2511.5,29.40709,-97.04379,,,rural
+48287,Lee County,17478,6019,1629.2,30.27483,-96.97148,,,rural
+48289,Leon County,15719,4168,2779.5,31.29128,-96.04823,,,rural
+48291,Liberty County,91628,17774,3000.1,30.15924,-94.92562,26420,"Houston-Pasadena-The Woodlands, TX",metro
+48293,Limestone County,22146,6519,2345.1,31.59043,-96.51911,,,rural
+48295,Lipscomb County,3059,1012,2414.4,36.38664,-100.36324,,,rural
+48297,Live Oak County,11335,3184,2692.8,28.3366,-98.10826,,,rural
+48299,Llano County,21243,4983,2419.2,30.68023,-98.50873,,,rural
+48301,Loving County,64,94,1732.2,31.7779,-103.60898,,,rural
+48303,Lubbock County,310639,153051,2319.6,33.55255,-101.89434,31180,"Lubbock, TX",metro
+48305,Lynn County,5596,1253,2309.9,33.19912,-101.81719,31180,"Lubbock, TX",metro
+48307,McCulloch County,7630,2338,2759.9,31.14803,-99.33884,,,rural
+48309,McLennan County,260579,120657,2684.9,31.53998,-97.17475,47380,"Waco, TX",metro
+48311,McMullen County,600,385,2952.1,28.43871,-98.52304,,,rural
+48313,Madison County,13455,4283,1207.1,30.95583,-95.89965,,,rural
+48315,Marion County,9725,2062,986.5,32.78948,-94.42318,,,rural
+48317,Martin County,5237,1628,2369.7,32.1736,-101.82753,33260,"Midland, TX",metro
+48319,Mason County,3953,1120,2405.7,30.75442,-99.22023,,,rural
+48321,Matagorda County,36255,9909,2830.6,28.91815,-95.99883,13060,"Bay City, TX",micro
+48323,Maverick County,57887,15782,3313.8,28.70641,-100.47818,20580,"Eagle Pass, TX",metro
+48325,Medina County,50748,8732,3432.7,29.31393,-98.95339,41700,"San Antonio-New Braunfels, TX",metro
+48327,Menard County,1962,463,2336.2,30.90109,-99.7767,,,rural
+48329,Midland County,169983,106960,2331.9,32.00316,-102.10654,33260,"Midland, TX",metro
+48331,Milam County,24754,5307,2632.3,30.74426,-97.00858,,,rural
+48333,Mills County,4456,1387,1937.9,31.48398,-98.57838,,,rural
+48335,Mitchell County,8990,1672,2359.7,32.39228,-100.86401,,,rural
+48337,Montague County,19965,4469,2411.0,33.63278,-97.76065,,,rural
+48339,Montgomery County,620443,220765,2699.2,30.22885,-95.46218,26420,"Houston-Pasadena-The Woodlands, TX",metro
+48341,Moore County,21358,11845,2330.2,35.90287,-101.95649,20300,"Dumas, TX",micro
+48343,Morris County,11973,3096,652.6,33.07316,-94.72288,34420,"Mount Pleasant, TX",micro
+48345,Motley County,1063,210,2563.0,34.01358,-100.84293,,,rural
+48347,Nacogdoches County,64653,21225,2451.0,31.62567,-94.64461,34860,"Nacogdoches, TX",micro
+48349,Navarro County,52624,15926,2615.1,32.08132,-96.48598,18620,"Corsicana, TX",micro
+48351,Newton County,12217,710,2418.2,30.68576,-93.75473,,,rural
+48353,Nolan County,14738,5862,2362.1,32.45108,-100.41175,45020,"Sweetwater, TX",micro
+48355,Nueces County,353178,150184,2173.2,27.72858,-97.42836,18580,"Corpus Christi, TX",metro
+48357,Ochiltree County,10015,3629,2376.8,36.38105,-100.81008,,,rural
+48359,Oldham County,1758,727,3886.3,35.29194,-102.40756,11100,"Amarillo, TX",metro
+48361,Orange County,84808,21345,864.5,30.12022,-93.86584,13140,"Beaumont-Port Arthur, TX",metro
+48363,Palo Pinto County,28409,6951,2467.1,32.77931,-98.16394,33420,"Mineral Wells, TX",micro
+48365,Panola County,22491,7846,2101.4,32.16335,-94.33509,,,rural
+48367,Parker County,148222,38683,2340.6,32.78942,-97.72733,19100,"Dallas-Fort Worth-Arlington, TX",metro
+48369,Parmer County,9869,5803,2281.3,34.54066,-102.81557,,,rural
+48371,Pecos County,15193,3936,12338.3,30.89706,-102.79926,,,rural
+48373,Polk County,50123,10986,2737.7,30.73648,-94.93683,,,rural
+48375,Potter County,118525,76656,2352.7,35.22153,-101.83982,11100,"Amarillo, TX",metro
+48377,Presidio County,6131,1650,9985.1,29.83852,-104.24884,,,rural
+48379,Rains County,12164,2132,594.3,32.88566,-95.79507,,,rural
+48381,Randall County,140753,39229,2363.9,35.11979,-101.8914,11100,"Amarillo, TX",metro
+48383,Reagan County,3385,1309,3044.0,31.21433,-101.46634,,,rural
+48385,Real County,2758,739,1810.8,29.72369,-99.82367,,,rural
+48387,Red River County,11587,2665,2703.7,33.59192,-95.07833,37580,"Paris, TX",micro
+48389,Reeves County,14748,5181,6825.5,31.38713,-103.52628,45880,"Town of Pecos, TX",micro
+48391,Refugio County,6741,1870,1995.5,28.29052,-97.24753,,,rural
+48393,Roberts County,827,118,2393.3,35.71628,-100.69555,37420,"Pampa, TX",micro
+48395,Robertson County,16757,4809,2214.8,30.96603,-96.54324,17780,"College Station-Bryan, TX",metro
+48397,Rockwall County,107819,36162,329.5,32.91687,-96.42798,19100,"Dallas-Fort Worth-Arlington, TX",metro
+48399,Runnels County,9900,2837,2722.3,31.79918,-99.99356,,,rural
+48401,Rusk County,52214,11851,2393.7,32.19439,-94.79849,30980,"Longview, TX",metro
+48403,Sabine County,9894,2240,1273.5,31.33902,-93.8494,,,rural
+48405,San Augustine County,7918,1673,1374.4,31.44109,-94.15282,,,rural
+48407,San Jacinto County,27402,2068,1474.3,30.54912,-95.13474,26420,"Houston-Pasadena-The Woodlands, TX",metro
+48409,San Patricio County,68755,20778,1796.0,27.94267,-97.39116,18580,"Corpus Christi, TX",metro
+48411,San Saba County,5730,1309,2940.4,31.18816,-98.76039,,,rural
+48413,Schleicher County,2451,741,3394.5,30.8697,-100.59282,,,rural
+48415,Scurry County,16932,5475,2345.1,32.70411,-100.9091,43660,"Snyder, TX",micro
+48417,Shackelford County,3105,1277,2368.0,32.69099,-99.30623,,,rural
+48419,Shelby County,24022,8379,2060.6,31.8235,-94.18152,,,rural
+48421,Sherman County,2782,985,2390.2,36.33275,-102.00827,,,rural
+48423,Smith County,233479,107574,2386.6,32.32614,-95.30101,46340,"Tyler, TX",metro
+48425,Somervell County,9205,3743,482.7,32.23497,-97.75223,,,rural
+48427,Starr County,65920,12642,3168.0,26.38777,-98.84344,40100,"Rio Grande City-Roma, TX",micro
+48429,Stephens County,9101,2860,2322.5,32.75621,-98.90218,,,rural
+48431,Sterling County,1372,420,2391.7,31.83476,-100.99328,,,rural
+48433,Stonewall County,1245,382,2373.2,33.14454,-100.23247,,,rural
+48435,Sutton County,3372,983,3765.7,30.5633,-100.62767,,,rural
+48437,Swisher County,6971,1952,2305.5,34.5322,-101.77161,,,rural
+48439,Tarrant County,2110640,1038379,2241.1,32.76445,-97.24767,19100,"Dallas-Fort Worth-Arlington, TX",metro
+48441,Taylor County,143208,62583,2371.2,32.41778,-99.76712,10180,"Abilene, TX",metro
+48443,Terrell County,760,67,6107.1,30.16011,-102.3522,,,rural
+48445,Terry County,11831,2937,2302.1,33.1827,-102.27183,,,rural
+48447,Throckmorton County,1440,434,2363.5,33.14136,-99.13959,,,rural
+48449,Titus County,31247,17139,1051.7,33.17586,-94.96655,34420,"Mount Pleasant, TX",micro
+48451,Tom Green County,120003,46916,3942.0,31.45102,-100.46117,41660,"San Angelo, TX",metro
+48453,Travis County,1290188,910307,2574.6,30.31428,-97.7482,12420,"Austin-Round Rock-San Marcos, TX",metro
+48455,Trinity County,13602,2006,1796.9,30.99891,-95.24457,,,rural
+48457,Tyler County,19798,3565,2394.2,30.73868,-94.36778,,,rural
+48459,Upshur County,40892,7993,1509.9,32.69793,-94.92225,30980,"Longview, TX",metro
+48461,Upton County,3308,2456,3215.0,31.18096,-102.12488,,,rural
+48463,Uvalde County,24564,8851,4019.5,29.24332,-99.7578,46620,"Uvalde, TX",micro
+48465,Val Verde County,47586,15554,8144.9,29.38094,-100.89808,19620,"Del Rio, TX",micro
+48467,Van Zandt County,59541,12184,2182.3,32.57751,-95.83772,,,rural
+48469,Victoria County,91319,34140,2284.6,28.82502,-96.99158,47020,"Victoria, TX",metro
+48471,Walker County,76400,27436,2031.1,30.72583,-95.53869,26660,"Huntsville, TX",micro
+48473,Waller County,56794,19896,1329.4,29.99682,-95.95364,26420,"Houston-Pasadena-The Woodlands, TX",metro
+48475,Ward County,11644,5200,2164.2,31.56929,-102.91259,,,rural
+48477,Washington County,35805,15867,1564.9,30.1815,-96.39783,14780,"Brenham, TX",micro
+48479,Webb County,267114,96740,8706.2,27.52298,-99.47555,29700,"Laredo, TX",metro
+48481,Wharton County,41570,14745,2813.1,29.27671,-96.17536,20900,"El Campo, TX",micro
+48483,Wheeler County,4990,2009,2368.6,35.35253,-100.26346,,,rural
+48485,Wichita County,129350,49792,1625.5,33.9209,-98.55252,48660,"Wichita Falls, TX",metro
+48487,Wilbarger County,12887,5461,2514.7,34.14487,-99.29696,46900,"Vernon, TX",micro
+48489,Willacy County,20164,3196,1529.7,26.45238,-97.77744,39700,"Raymondville, TX",micro
+48491,Williamson County,609017,222943,2890.0,30.56099,-97.71698,12420,"Austin-Round Rock-San Marcos, TX",metro
+48493,Wilson County,49753,8156,2081.7,29.23136,-98.14297,41700,"San Antonio-New Braunfels, TX",metro
+48495,Winkler County,7791,3222,2178.9,31.84233,-103.09919,,,rural
+48497,Wise County,68632,20954,2342.4,33.16179,-97.62993,19100,"Dallas-Fort Worth-Arlington, TX",metro
+48499,Wood County,44843,9884,1671.2,32.77605,-95.4001,,,rural
+48501,Yoakum County,7694,2879,2071.3,33.02261,-102.83313,,,rural
+48503,Young County,17867,6575,2368.5,33.16428,-98.62427,,,rural
+48505,Zapata County,13889,1905,2585.9,26.90344,-99.26602,49820,"Zapata, TX",micro
+48507,Zavala County,9670,2283,3360.3,28.74941,-99.81014,,,rural
