@@ -178,12 +178,6 @@ def model_test(ids, buildout=False, log=print):
     sys.path.insert(0, DFW)
     from dfwt import config
     from metro import generate, inputs
-    base_load = config.load
-
-    def with_levers(*a, **k):
-        cfg = base_load(*a, **k)
-        config.merge(cfg, copy.deepcopy(LEVERS))
-        return cfg
     reg = {m["id"]: m for m in json.load(open(os.path.join(ROOT, "urban", "metros.json"), encoding="utf-8"))["metros"]}
     results = json.load(open(MODEL_JSON, encoding="utf-8")) if os.path.exists(MODEL_JSON) else {}
     for mid in ids:
@@ -192,15 +186,12 @@ def model_test(ids, buildout=False, log=print):
         runs = {}
         configs = [("buildout_policies", True, True)] if buildout else [("network", False, False), ("network_policies", True, False)]
         for key, levers, bo in configs:
-            config.load = with_levers if levers else base_load
-            generate.config.load = config.load
             t0 = time.time()
             out = os.path.join(ROOT, "urban", "potential", f"{mid}_{key}")
-            try:
-                r = generate.generate(mid, budget_musd=budget, out=out, log=lambda s: None, buildout=bo)
-            finally:
-                config.load = base_load
-                generate.config.load = base_load
+            # the policies go on top of the constant fitted to today's riders (generate's `policies`):
+            # fitting it with them on would cancel them wherever the constant is fitted on every run (Houston)
+            r = generate.generate(mid, budget_musd=budget, out=out, log=lambda s: None, buildout=bo,
+                                  policies=copy.deepcopy(LEVERS) if levers else None)
             res = r["model"] or {}
             g, ex = res.get("generated") or {}, res.get("existing") or {}
             m = r["m"]
