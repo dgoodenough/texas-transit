@@ -1,0 +1,150 @@
+{
+ "houston": [
+  {
+   "variant": "no policies",
+   "asc": 0.8359,
+   "share": 0.024846863776205198,
+   "trips": 225090.79556305258,
+   "today_trips": 43207.85550230617,
+   "today_boardings": 44730.72984879901
+  },
+  {
+   "variant": "feeder buses every 15 min",
+   "asc": 0.8359,
+   "share": 0.02717059974917402,
+   "trips": 246141.80560380232,
+   "today_trips": 46999.37691472505,
+   "today_boardings": 48409.59490193965
+  },
+  {
+   "variant": "bikes and scooters to stations",
+   "asc": 0.8359,
+   "share": 0.0266279844612346,
+   "trips": 241226.1869588478,
+   "today_trips": 45106.88467369393,
+   "today_boardings": 46629.39491835874
+  },
+  {
+   "variant": "drop-off",
+   "asc": 0.8359,
+   "share": 0.025278659702921147,
+   "trips": 229002.48798189446,
+   "today_trips": 44234.73776153687,
+   "today_boardings": 45754.90596456588
+  },
+  {
+   "variant": "1.6 km walks, straighter streets",
+   "asc": 0.8359,
+   "share": 0.027324827426130547,
+   "trips": 247538.97310215,
+   "today_trips": 45412.96317702578,
+   "today_boardings": 47133.51627034809
+  },
+  {
+   "variant": "no park & ride under 1.6 km",
+   "asc": 0.8359,
+   "share": 0.02478021661261006,
+   "trips": 224487.0307092356,
+   "today_trips": 43199.61123713438,
+   "today_boardings": 44721.95239014814
+  },
+  {
+   "variant": "parking prices",
+   "asc": 0.8359,
+   "share": 0.0290205537593869,
+   "trips": 262900.76656018075,
+   "today_trips": 54399.54167347367,
+   "today_boardings": 56618.12348573457
+  },
+  {
+   "variant": "all policies",
+   "asc": 0.8359,
+   "share": 0.035667637351485156,
+   "trips": 323117.5145327098,
+   "today_trips": 67240.70527129172,
+   "today_boardings": 69438.81160451584
+  },
+  {
+   "variant": "all policies, constant refitted under them",
+   "asc": 0.1328,
+   "share": 0.022056240379975306,
+   "trips": 199810.19491936886,
+   "today_trips": 43226.61545058982,
+   "today_boardings": 44502.62252367738
+  }
+ ],
+ "austin": [
+  {
+   "variant": "no policies",
+   "asc": 0.6619,
+   "share": 0.025188237590047548,
+   "trips": 88815.49218604638,
+   "today_trips": 15953.003462686973,
+   "today_boardings": 15953.003462686973
+  },
+  {
+   "variant": "feeder buses every 15 min",
+   "asc": 0.6619,
+   "share": 0.02937593338983533,
+   "trips": 103581.60125794707,
+   "today_trips": 20596.093127097607,
+   "today_boardings": 20596.09312709761
+  },
+  {
+   "variant": "bikes and scooters to stations",
+   "asc": 0.6619,
+   "share": 0.027563238953357043,
+   "trips": 97189.9135512081,
+   "today_trips": 17859.632111843217,
+   "today_boardings": 17859.632111843213
+  },
+  {
+   "variant": "drop-off",
+   "asc": 0.6619,
+   "share": 0.026102430467407442,
+   "trips": 92039.00038368933,
+   "today_trips": 16609.89121414503,
+   "today_boardings": 16609.891214145027
+  },
+  {
+   "variant": "1.6 km walks, straighter streets",
+   "asc": 0.6619,
+   "share": 0.02794494745442987,
+   "trips": 98535.84449509345,
+   "today_trips": 17545.27126831022,
+   "today_boardings": 17545.271268310218
+  },
+  {
+   "variant": "no park & ride under 1.6 km",
+   "asc": 0.6619,
+   "share": 0.025164488479676866,
+   "trips": 88731.75115736137,
+   "today_trips": 15953.699433283537,
+   "today_boardings": 15953.699433283537
+  },
+  {
+   "variant": "parking prices",
+   "asc": 0.6619,
+   "share": 0.02930162920944657,
+   "trips": 103319.59950696644,
+   "today_trips": 20166.18174578662,
+   "today_boardings": 20166.18174578662
+  },
+  {
+   "variant": "all policies",
+   "asc": 0.6619,
+   "share": 0.040611600713218086,
+   "trips": 143199.35219417023,
+   "today_trips": 29443.980288143357,
+   "today_boardings": 29443.980288143353
+  },
+  {
+   "variant": "all policies, constant refitted under them",
+   "asc": 0.6619,
+   "share": 0.040611600713218086,
+   "trips": 143199.35219417023,
+   "today_trips": 29443.980288143357,
+   "today_boardings": 29443.980288143353
+  }
+ ]
+}

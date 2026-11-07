@@ -106,6 +106,8 @@ high-speed rail versus metro systems is an output, not an input.
    (DFW Transit's generator, `--buildout`) lets Austin and San Antonio grow networks their layout
    can carry: with DFW's policies, 5.2% and 4.2% of commutes on today's land use, against DFW's
    3.2% under the same treatment. The plan uses it for those two metros, at DFW's 75-year rate.
+   Houston reaches 3.75% with its default network once the policies go on top of today's
+   calibration (`study/houston_policies.md`: refitting the constant under them had cancelled them).
 
 ## Reusing DFW Transit's code
 

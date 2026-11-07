@@ -178,12 +178,6 @@ def model_test(ids, buildout=False, log=print):
     sys.path.insert(0, DFW)
     from dfwt import config
     from metro import generate, inputs
-    base_load = config.load
-
-    def with_levers(*a, **k):
-        cfg = base_load(*a, **k)
-        config.merge(cfg, copy.deepcopy(LEVERS))
-        return cfg
     reg = {m["id"]: m for m in json.load(open(os.path.join(ROOT, "urban", "metros.json"), encoding="utf-8"))["metros"]}
     results = json.load(open(MODEL_JSON, encoding="utf-8")) if os.path.exists(MODEL_JSON) else {}
     for mid in ids:
@@ -192,15 +186,12 @@ def model_test(ids, buildout=False, log=print):
         runs = {}
         configs = [("buildout_policies", True, True)] if buildout else [("network", False, False), ("network_policies", True, False)]
         for key, levers, bo in configs:
-            config.load = with_levers if levers else base_load
-            generate.config.load = config.load
             t0 = time.time()
             out = os.path.join(ROOT, "urban", "potential", f"{mid}_{key}")
-            try:
-                r = generate.generate(mid, budget_musd=budget, out=out, log=lambda s: None, buildout=bo)
-            finally:
-                config.load = base_load
-                generate.config.load = base_load
+            # the policies go on top of the constant fitted to today's riders (generate's `policies`):
+            # fitting it with them on would cancel them wherever the constant is fitted on every run (Houston)
+            r = generate.generate(mid, budget_musd=budget, out=out, log=lambda s: None, buildout=bo,
+                                  policies=copy.deepcopy(LEVERS) if levers else None)
             res = r["model"] or {}
             g, ex = res.get("generated") or {}, res.get("existing") or {}
             m = r["m"]
@@ -290,18 +281,21 @@ def write(yard, structs, model):
               "quick sketch model. Austin finds lines for $17B of $53B; DFW itself for $73B of $172B, where DFW "
               "Transit's hand-built plan spends $135B. The hand plan's extra network (an arterial BRT grid, infill "
               "stations, more regional rail) is a big part of how it reaches 7-9% of commutes by 2100.",
-              "- **Houston goes backwards with the policies** (50 lines to 32): with frequent feeder buses and parking "
-              "prices, the sketch credits today's METRORail with more riders, so each new line adds less and more fall "
-              "under the 0.5 cut-off. A selection rule that judges lines with the full model, or a cut-off that eases "
-              "as policies strengthen, would fix it. Until then Houston's figure here understates it.",
+              "- **Houston's earlier drop with the policies was a modelling artefact, now fixed.** Houston is the one metro "
+              "whose ridership constant is fitted on every run, and it was being fitted with the policies already on, "
+              "so today's lines kept today's riders despite them and the policies cancelled out on every line "
+              "(`study/houston_policies.md`: on a fixed network every policy raises Houston's share, 2.48% to 3.57% "
+              "together, unless the constant is refitted under them, which drops it to 2.21%). DFW Transit's "
+              "generator now applies a policy package on top of today's calibration (`generate(policies=...)`), and "
+              "Houston with the policies reaches 3.75% ($72B, 51 lines), 117% of DFW's share.",
               "- **Build-out mode** (`vendor/dfw-transit/metro/generate.json` buildout: smaller activity centers, BRT down "
               "to 2,000 people + jobs per route-km, a 0.25 cut-off) is the last column. It lifts Austin from 3.9% to 5.2% "
               "of commutes ($28B, 17 lines) and San Antonio from 3.2% to 4.2% ($27B, 22 lines). It doesn't help DFW: at "
               "its budget it adds $17B of BRT ($86B against $69B) for the same 230,000 trips without the policies, and "
               "neither mode reaches the hand plan's 315,000 (the downtown subway and through-running regional rail aren't "
-              "corridors a generator draws). El Paso does worse (its few strong corridors split), and Houston, at 2.1%, "
-              "is still below its network without the policies (2.5%): something in Houston's response to the policies "
-              "needs a closer look. So the plan uses build-out in Austin and San Antonio only "
+              "corridors a generator draws). El Paso does worse (its few strong corridors split), and Houston gains "
+              "nothing (3.6% with build-out against 3.75% without, for $9B more). So the plan uses build-out in "
+              "Austin and San Antonio only "
               "(`tools/build_metro_registry.py` BUILDOUT), with DFW's whole 75-year horizon as their budget.", ""]
     L += ["## What it would take", "",
           "- **A bigger network in the big metros.** The generated plans spend 30 years of DFW's rate, and even at 75 "
@@ -316,8 +310,8 @@ def write(yard, structs, model):
           "- **Accept a lower ceiling in the small metros.** Midland, Odessa, Tyler and Victoria have almost nobody at "
           "the densities where DFW's plan reaches double digits; their transit is local buses, and a share near today's "
           "Austin (1%) would be a success.", "",
-          "Done: build-out mode, used in Austin and San Antonio (above). Next steps: (1) Houston's response to the policies "
-          "and a selection judged by the full model rather than the sketch; (2) each metro's own growth and the plan's "
+          "Done: build-out mode, used in Austin and San Antonio, and Houston's policy result (above). Next steps: (1) a "
+          "selection judged by the full model rather than the sketch; (2) each metro's own growth and the plan's "
           "station-area development, since the generator runs on today's land use; (3) the policy package in Austin, "
           "Houston, San Antonio and El Paso, then the timing study (`study/timing.py`) with their bigger networks. "
           "Target for those four: DFW's 2100 share, about 7% of commutes, with the small metros at about 1%.", ""]

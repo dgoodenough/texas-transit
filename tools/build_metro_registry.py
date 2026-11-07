@@ -38,8 +38,8 @@ DFW_MUSD_PER_YEAR, DFW_POP, YEARS = 2300, 7_468_799, 30   # as study/size_texas.
 # Metros the generator runs in build-out mode (vendor/dfw-transit metro/generate.json buildout), with
 # DFW Transit's whole 75-year horizon at its rate per resident: their layout can carry a DFW-sized
 # network and the default generator stops well short of it (study/metro_potential.md). Not Houston
-# (its result with the policies needs a closer look), El Paso (build-out splits its few strong
-# corridors) or the small metros (no corridor dense enough).
+# (its default network already carries more, 3.75% of commutes against 3.6%), El Paso (build-out
+# splits its few strong corridors) or the small metros (no corridor dense enough).
 BUILDOUT, BUILDOUT_YEARS = {"austin", "san-antonio"}, 75
 STATES = {"48": "tx", "05": "ar", "22": "la", "35": "nm", "40": "ok"}
 # Routes NTD files as bus rapid transit (mode RB): only Houston's Silver Line. MetroRapid
