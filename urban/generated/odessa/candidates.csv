@@ -1,4 +1,4 @@
 cand_id,name,kind,centers,mode,km,stops,density_per_route_km,capital_musd,opex_musd_yr,trips_standalone,new_trips,trips_per_musd,peak_hour_load,status,order,mode_reason,reason
-R001,Grant / 14th Street - Eastridge / Billy Hext,road,T01 T02,brt,10.6,8,4009,374,7.7,771,771,1.46,36,chosen,1,"4,009 per route-km >= BRT 3,000 (< metro 7,000)",771 new daily trips for $0.37B capital (1.46 per $M incl. opex)
-R002,Grant / 14th Street - 91st Street / Evans,road,T01 T03,brt,10.7,8,3014,376,7.7,321,309,0.58,17,chosen,2,"3,014 per route-km >= BRT 3,000 (< metro 7,000)",309 new daily trips for $0.38B capital (0.58 per $M incl. opex)
+R001,Grant / 14th Street - Eastridge / Billy Hext,road,T01 T02,brt,10.6,8,4009,374,7.7,730,730,1.38,34,chosen,1,"4,009 per route-km >= BRT 3,000 (< metro 7,000)",730 new daily trips for $0.37B capital (1.38 per $M incl. opex)
+R002,Grant / 14th Street - 91st Street / Evans,road,T01 T03,brt,10.7,8,3014,376,7.7,304,293,0.55,16,chosen,2,"3,014 per route-km >= BRT 3,000 (< metro 7,000)",293 new daily trips for $0.38B capital (0.55 per $M incl. opex)
 R003,Eastridge / Billy Hext - 91st Street / Evans,road,T02 T03,,11.4,0,1880,0,0.0,0,0,0.0,0,no mode,,"too thin: 1,880 people+jobs per route-km < BRT 3,000","too thin: 1,880 people+jobs per route-km < BRT 3,000"

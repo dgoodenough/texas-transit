@@ -5,19 +5,19 @@
  "pop": 2558143.0,
  "jobs": 1138312.0,
  "budget_musd": 59083,
- "capital_musd": 33895.93460234244,
- "opex_new_musd": 591.3170352499012,
- "lines": 27,
+ "capital_musd": 37905.280716039,
+ "opex_new_musd": 571.2891610291106,
+ "lines": 26,
  "by_mode": {
   "brt": {
    "lines": 20,
-   "km": 437.218608748635,
-   "capital_musd": 14856.554110092891
+   "km": 427.46826201757375,
+   "capital_musd": 14540.044525303338
   },
   "metro": {
-   "lines": 5,
-   "km": 85.33641389464313,
-   "capital_musd": 17990.996714858775
+   "lines": 4,
+   "km": 80.7965329813822,
+   "capital_musd": 20277.60659009599
   },
   "commuter": {
    "lines": 2,
@@ -25,16 +25,36 @@
    "capital_musd": 4558.42613846984
   }
  },
- "stations_new": 306,
+ "stations_new": 307,
  "existing_lines": 0,
- "pop_800m": 0.2513674958749374,
+ "pop_800m": 0.2450382953572181,
  "pop_800m_today": 0.0,
  "trips_today": 0.0,
- "trips": 105224.6886513112,
- "boardings": 130208.70828401776,
- "jobs_45": 93292.7195047681,
+ "trips": 113030.78947410094,
+ "boardings": 135875.0650264209,
+ "jobs_45": 95651.42477284138,
  "jobs_45_today": null,
- "asc": 0.7474,
- "asc_note": "set from the registry (asc +0.747; DFW +0.430): DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 1.26% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)",
- "minutes": 1.0448524872461955
+ "asc": 0.778,
+ "asc_note": "set from the registry (asc +0.778; DFW +0.430): DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 1.26% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py); with a policy package on top (growth.tod, growth.capture)",
+ "minutes": 1.179133152961731,
+ "commutes": 810576.9528135251,
+ "share": 0.0366960157147356,
+ "future": {
+  "2050": {
+   "trips": 212445.7512443446,
+   "trips_today_lines": 0.0,
+   "pop": 3994552.420493143,
+   "jobs": 1708249.8262265911,
+   "share": 0.04596001174843392,
+   "share_today_lines": 0.0
+  },
+  "2100": {
+   "trips": 360315.40947351756,
+   "trips_today_lines": 0.0,
+   "pop": 5981120.909898999,
+   "jobs": 2558037.545379916,
+   "share": 0.052054632843376275,
+   "share_today_lines": 0.0
+  }
+ }
 }

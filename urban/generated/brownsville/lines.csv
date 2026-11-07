@@ -1,2 +1,2 @@
 line_id,name,mode,status,color,headway_min,notes
-G01,International / Cleveland - Dennett Road BRT,brt,proposed,#8e24aa,,"generated (R001): 4,856 per route-km >= BRT 3,000 (< metro 7,000); 1,196 new daily trips for $0.39B capital (2.18 per $M incl. opex)"
+G01,International / Cleveland - Dennett Road BRT,brt,proposed,#8e24aa,,"generated (R001): 4,856 per route-km >= BRT 3,000 (< metro 7,000); 1,172 new daily trips for $0.39B capital (2.13 per $M incl. opex)"

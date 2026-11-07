@@ -322,7 +322,7 @@ def summary():
             out += [f"Dallas-Fort Worth under its own plan, for comparison: {yard[2025]['overall']:.1%} of commutes by "
                     f"transit today, {yard[2050]['overall']:.1%} in 2050 and {yard[2100]['overall']:.1%} in 2100 "
                     "(`study/metro_potential.md`).", ""]
-        out += ["| Metro | People 2020 | 2050 | 2100 | Transit share, today's land use | 2050 | 2100 | "
+        out += ["| Metro | People 2020 | 2050 | 2100 | Transit share with the network, today's land use | 2050 | 2100 | "
                 "2100, today's lines alone | Daily trips 2050 | 2100 |", "|---|---|---|---|---|---|---|---|---|---|"]
         for r in fut:
             f50, f00 = r["future"]["2050"], r["future"]["2100"]

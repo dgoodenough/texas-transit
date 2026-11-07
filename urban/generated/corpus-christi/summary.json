@@ -20,11 +20,31 @@
  "pop_800m": 0.11431410861825679,
  "pop_800m_today": 0.0,
  "trips_today": 0.0,
- "trips": 12642.44622279648,
- "boardings": 12642.446222796483,
- "jobs_45": 10254.682650665936,
+ "trips": 11660.585835073443,
+ "boardings": 11660.585835073445,
+ "jobs_45": 9581.273067882548,
  "jobs_45_today": null,
- "asc": 0.6264,
- "asc_note": "set from the registry (asc +0.626; DFW +0.430): DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.99% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)",
- "minutes": 0.014150730768839518
+ "asc": 0.6454,
+ "asc_note": "set from the registry (asc +0.645; DFW +0.430): DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.99% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py); with a policy package on top (growth.tod, growth.capture)",
+ "minutes": 0.016825838883717855,
+ "commutes": 128791.57961140548,
+ "share": 0.023825899402855243,
+ "future": {
+  "2050": {
+   "trips": 16300.680696293923,
+   "trips_today_lines": 0.0,
+   "pop": 491500.9941504317,
+   "jobs": 198603.74748443492,
+   "share": 0.030332050311627095,
+   "share_today_lines": 0.0
+  },
+  "2100": {
+   "trips": 19932.21151030342,
+   "trips_today_lines": 0.0,
+   "pop": 533205.3104582578,
+   "jobs": 215461.20755196866,
+   "share": 0.03418769838457604,
+   "share_today_lines": 0.0
+  }
+ }
 }
