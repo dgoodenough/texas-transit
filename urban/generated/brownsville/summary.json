@@ -5,26 +5,26 @@
  "pop": 421017.0,
  "jobs": 146355.0,
  "budget_musd": 3890,
- "capital_musd": 351.410072150177,
- "opex_new_musd": 7.268152261390915,
+ "capital_musd": 389.907893187341,
+ "opex_new_musd": 7.985904578117722,
  "lines": 1,
  "by_mode": {
   "brt": {
    "lines": 1,
-   "km": 9.851698376493244,
-   "capital_musd": 351.55095129479724
+   "km": 11.128836004645185,
+   "capital_musd": 389.86508013935554
   }
  },
  "stations_new": 8,
  "existing_lines": 0,
- "pop_800m": 0.04038316742554339,
+ "pop_800m": 0.07240562732621247,
  "pop_800m_today": 0.0,
  "trips_today": 0.0,
- "trips": 1451.6519583658046,
- "boardings": 1451.6519583658046,
- "jobs_45": 4211.028452948931,
+ "trips": 1908.787061936303,
+ "boardings": 1908.787061936303,
+ "jobs_45": 5410.145573592516,
  "jobs_45_today": null,
  "asc": 0.2051,
  "asc_note": "set from the registry (asc +0.205; DFW +0.430): DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.43% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)",
- "minutes": 0.03311475912729899
+ "minutes": 0.042511971791585286
 }

@@ -1,14 +1,14 @@
 station_id,name,lat,lon
 N0001,Barron / Alexandria,30.564228,-96.282603
-N0002,Barron / Highway 6,30.572315,-96.273593
-N0003,Highway 6 / Rock Prairie,30.584291,-96.283476
-N0004,Earl Rudder / Sebesta,30.597867,-96.289632
-N0005,Harvey Mitchell / Texas,30.602123,-96.299569
-N0006,Texas / Brentwood,30.609998,-96.312347
-N0007,Texas / George Bush,30.617524,-96.321990
-N0008,Texas / Lincoln,30.625109,-96.331568
-N0009,Texas / Broadmoor,30.635568,-96.343960
-N0010,Broadmoor / Carter Creek,30.648790,-96.343224
+N0002,Highway 6 / Barron,30.572022,-96.274217
+N0003,Highway 6 / Rock Prairie,30.583175,-96.284594
+N0004,Texas / Deacon,30.594892,-96.294048
+N0005,Texas / Krenek Tap,30.604865,-96.306152
+N0006,Texas / Harvey,30.614617,-96.318497
+N0007,Texas / New Main,30.621849,-96.327842
+N0008,Texas Avenue,30.631920,-96.339833
+N0009,Texas / Sulphur Springs,30.642051,-96.351759
+N0010,Briarcrest / Villa Maria,30.650629,-96.343043
 N0011,Villa Maria Road,30.609168,-96.407460
 N0012,Villa Maria / Traditions,30.616673,-96.398793
 N0013,Villa Maria / Harvey Mitchell,30.626341,-96.387242
