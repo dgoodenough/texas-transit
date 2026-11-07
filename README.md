@@ -100,6 +100,9 @@ high-speed rail versus metro systems is an output, not an input.
    10-15 years later, $18B less in present value. The site (`docs/index.html`, data from
    `tools/build_site.py`) shows both scenarios by year, with a zoomable map of every metro's
    network (`tools/build_metro_maps.py`: full alignments, stations and the main roads).
+   Generated BRT follows streets lined with people and jobs, not highways (DFW Transit's street
+   profile, `study/brt_streets.md`): 2% of BRT km on highways or their frontage roads, down from
+   13%, and 2.57M people + jobs within 400 m of a BRT line, up from 2.33M.
 7. **Toward DFW's transit share in the other metros** (`study/metro_potential.py`,
    `study/metro_potential.md`): a first look at how much of DFW's share each metro's layout
    allows, and what the generator, DFW's spending and DFW's policies get there. Build-out mode

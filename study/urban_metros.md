@@ -21,37 +21,37 @@ Trips are daily transit trips from the model with every line open on today's lan
 
 | Metro | People (TX) | Budget | Capital | Lines | Metro / streetcar / BRT / regional rail km | Within 800 m of a station | Trips a day (today) | New trips per $B | Constant |
 |---|---|---|---|---|---|---|---|---|---|
-| Houston-Pasadena-The Woodlands | 7.15M | $66.1B | $60.8B | 49 | 117 / 0 / 825 / 250 | 23% (2%) | 219,231 (43,208) | 2,896 | +0.84 |
-| San Antonio-New Braunfels | 2.56M | $59.1B | $21.9B | 23 | 30 / 0 / 383 / 90 | 20% (0%) | 83,867 (0) | 3,836 | +0.75 |
-| Austin-Round Rock-San Marcos | 2.28M | $52.7B | $27.9B | 17 | 52 / 0 / 287 / 76 | 21% (1%) | 120,626 (15,953) | 3,754 | +0.66 |
-| McAllen-Edinburg-Mission | 0.87M | $8.0B | $2.0B | 2 | 0 / 0 / 59 / 0 | 12% (0%) | 6,575 (0) | 3,343 | -0.09 |
-| El Paso | 0.87M | $8.0B | $3.3B | 5 | 0 / 0 / 111 / 0 | 19% (0%) | 22,261 (0) | 6,747 | +0.50 |
+| Houston-Pasadena-The Woodlands | 7.15M | $66.1B | $61.3B | 41 | 172 / 0 / 698 / 156 | 22% (2%) | 220,618 (43,208) | 2,894 | +0.84 |
+| San Antonio-New Braunfels | 2.56M | $59.1B | $33.9B | 27 | 85 / 0 / 437 / 90 | 25% (0%) | 105,225 (0) | 3,104 | +0.75 |
+| Austin-Round Rock-San Marcos | 2.28M | $52.7B | $32.6B | 20 | 78 / 0 / 319 / 53 | 23% (1%) | 131,808 (15,953) | 3,553 | +0.66 |
+| McAllen-Edinburg-Mission | 0.87M | $8.0B | $2.0B | 2 | 0 / 0 / 24 / 24 | 8% (0%) | 7,673 (0) | 3,747 | -0.09 |
+| El Paso | 0.87M | $8.0B | $2.8B | 5 | 0 / 0 / 88 / 0 | 19% (0%) | 20,283 (0) | 7,236 | +0.50 |
 | Killeen-Temple | 0.48M | $4.4B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | +0.01 |
-| Corpus Christi | 0.45M | $4.1B | $1.9B | 2 | 0 / 0 / 63 / 0 | 12% (0%) | 14,433 (0) | 7,725 | +0.63 |
-| Brownsville-Harlingen | 0.42M | $3.9B | $0.4B | 1 | 0 / 0 / 10 / 0 | 3% (0%) | 1,287 (0) | 3,585 | +0.21 |
-| Beaumont-Port Arthur | 0.40M | $3.7B | $0.3B | 1 | 0 / 0 / 8 / 0 | 4% (0%) | 543 (0) | 1,910 | +0.06 |
-| Lubbock | 0.35M | $3.2B | $0.6B | 1 | 0 / 0 / 18 / 0 | 13% (0%) | 7,636 (0) | 12,180 | +0.32 |
-| Waco | 0.30M | $2.7B | $0.4B | 1 | 0 / 0 / 13 / 0 | 7% (0%) | 2,082 (0) | 4,713 | +0.09 |
+| Corpus Christi | 0.45M | $4.1B | $1.1B | 1 | 0 / 0 / 34 / 0 | 11% (0%) | 12,642 (0) | 11,140 | +0.63 |
+| Brownsville-Harlingen | 0.42M | $3.9B | $0.4B | 1 | 0 / 0 / 11 / 0 | 7% (0%) | 1,909 (0) | 4,895 | +0.21 |
+| Beaumont-Port Arthur | 0.40M | $3.7B | $0.3B | 1 | 0 / 0 / 8 / 0 | 3% (0%) | 463 (0) | 1,560 | +0.06 |
+| Lubbock | 0.35M | $3.2B | $0.6B | 1 | 0 / 0 / 18 / 0 | 13% (0%) | 7,782 (0) | 12,319 | +0.32 |
+| Waco | 0.30M | $2.7B | $0.5B | 1 | 0 / 0 / 14 / 0 | 9% (0%) | 2,372 (0) | 4,853 | +0.09 |
 | Longview | 0.29M | $2.6B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | -0.43 |
-| Amarillo | 0.27M | $2.5B | $0.5B | 1 | 0 / 0 / 13 / 0 | 10% (0%) | 3,417 (0) | 7,526 | +0.32 |
-| College Station-Bryan | 0.27M | $2.5B | $0.5B | 1 | 0 / 0 / 15 / 0 | 7% (0%) | 8,729 (0) | 17,683 | +0.85 |
-| Laredo | 0.27M | $2.5B | $0.4B | 1 | 0 / 0 / 12 / 0 | 12% (0%) | 3,141 (0) | 7,582 | +0.47 |
+| Amarillo | 0.27M | $2.5B | $0.4B | 1 | 0 / 0 / 13 / 0 | 11% (0%) | 4,581 (0) | 10,349 | +0.32 |
+| College Station-Bryan | 0.27M | $2.5B | $1.1B | 2 | 0 / 0 / 31 / 0 | 24% (0%) | 11,551 (0) | 10,936 | +0.85 |
+| Laredo | 0.27M | $2.5B | $0.4B | 1 | 0 / 0 / 13 / 0 | 13% (0%) | 3,134 (0) | 7,343 | +0.47 |
 | Tyler | 0.23M | $2.2B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | -0.15 |
 | Abilene | 0.18M | $1.6B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | +0.06 |
 | Midland | 0.18M | $1.6B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | -0.08 |
-| Odessa | 0.17M | $1.5B | $0.4B | 1 | 0 / 0 / 11 / 0 | 9% (0%) | 1,114 (0) | 2,978 | -0.16 |
-| Wichita Falls | 0.15M | $1.4B | $0.4B | 1 | 0 / 0 / 10 / 0 | 12% (0%) | 1,121 (0) | 3,085 | -0.12 |
+| Odessa | 0.17M | $1.5B | $0.7B | 2 | 0 / 0 / 21 / 0 | 19% (0%) | 2,172 (0) | 2,945 | -0.16 |
+| Wichita Falls | 0.15M | $1.4B | $0.4B | 1 | 0 / 0 / 10 / 0 | 14% (0%) | 1,023 (0) | 2,881 | -0.12 |
 | Sherman-Denison | 0.14M | $1.3B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | +0.21 |
 | San Angelo | 0.12M | $1.1B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | +0.16 |
 | Victoria | 0.10M | $0.9B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | -0.13 |
 | Texarkana | 0.09M | $0.9B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | -0.16 |
 | Eagle Pass | 0.06M | $0.5B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | -0.52 |
 
-**All 25 metros:** 18.6M Texans, $121B of capital against $239B of budget, 107 lines (metro 198 km, streetcar 0 km, brt 1,838 km, regional rail 416 km), 496,063 daily transit trips against 59,161 today, 3,596 new daily trips per $B; $2.1B a year more to operate.
+**All 25 metros:** 18.6M Texans, $139B of capital against $239B of budget, 107 lines (metro 335 km, streetcar 0 km, brt 1,741 km, regional rail 323 km), 533,235 daily transit trips against 59,161 today, 3,420 new daily trips per $B; $2.4B a year more to operate.
 
-**Unspent: $118B of the $239B.** 10 metros get no line at all (Killeen, Longview, Tyler, Abilene, Midland, Sherman, San Angelo, Victoria, Texarkana, Eagle Pass), and most of the other small ones one short BRT line. The generator only drafts lines between activity centers, clusters of at least 20,000 people + jobs at 4,000 per km2 or more, and only gives a corridor a mode when the people + jobs along it reach that mode's density (DFW's calibration, `vendor/dfw-transit/metro/generate.json`). Texas's smaller metros are mostly too spread out for rail or BRT by those tests; their case is for local bus, which this generator doesn't draw. The unspent money goes back to the statewide pot for the timing step.
+**Unspent: $100B of the $239B.** 10 metros get no line at all (Killeen, Longview, Tyler, Abilene, Midland, Sherman, San Angelo, Victoria, Texarkana, Eagle Pass), and most of the other small ones one short BRT line. The generator only drafts lines between activity centers, clusters of at least 20,000 people + jobs at 4,000 per km2 or more, and only gives a corridor a mode when the people + jobs along it reach that mode's density (DFW's calibration, `vendor/dfw-transit/metro/generate.json`). Texas's smaller metros are mostly too spread out for rail or BRT by those tests; their case is for local bus, which this generator doesn't draw. The unspent money goes back to the statewide pot for the timing step.
 
-Metros under 300,000 people (15): $3B for 19,604 new daily trips, 7,714 per $B; the 10 larger ones: 3,508 per $B. The flat per-resident budget is a starting point: the statewide timing step moves money to where it buys the most riders, urban or intercity.
+Metros under 300,000 people (15): $4B for 24,832 new daily trips, 7,081 per $B; the 10 larger ones: 3,325 per $B. The flat per-resident budget is a starting point: the statewide timing step moves money to where it buys the most riders, urban or intercity.
 
 ## Caveats
 

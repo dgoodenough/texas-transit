@@ -5,36 +5,36 @@
  "pop": 2283371.0,
  "jobs": 1303090.0,
  "budget_musd": 52737,
- "capital_musd": 27879.622605892626,
- "opex_new_musd": 395.1013168275312,
- "lines": 17,
+ "capital_musd": 32605.952550622667,
+ "opex_new_musd": 472.9266444421944,
+ "lines": 20,
  "by_mode": {
   "brt": {
-   "lines": 13,
-   "km": 286.549278230248,
-   "capital_musd": 9768.478346907441
+   "lines": 16,
+   "km": 319.00967173388636,
+   "capital_musd": 10886.278827065204
   },
   "metro": {
-   "lines": 2,
-   "km": 51.61879423239227,
-   "capital_musd": 14965.392198421725
+   "lines": 3,
+   "km": 77.85832130906914,
+   "capital_musd": 20148.390794974464
   },
   "commuter": {
-   "lines": 2,
-   "km": 75.74301339106282,
-   "capital_musd": 3792.338850615247
+   "lines": 1,
+   "km": 52.97370370992183,
+   "capital_musd": 2659.7880071886166
   }
  },
- "stations_new": 224,
+ "stations_new": 247,
  "existing_lines": 1,
- "pop_800m": 0.20996675529294187,
+ "pop_800m": 0.22679582074047538,
  "pop_800m_today": 0.014525891762661433,
  "trips_today": 15953.003462686973,
- "trips": 120625.85750332149,
- "boardings": 142682.0313419925,
- "jobs_45": 109665.34723276118,
+ "trips": 131808.45859865908,
+ "boardings": 153374.71199074705,
+ "jobs_45": 111169.93273027553,
  "jobs_45_today": 12834.303510945349,
  "asc": 0.6619,
  "asc_note": "set from the registry (asc +0.662; DFW +0.430): DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 1.06% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)",
- "minutes": 1.1628410736719768
+ "minutes": 0.7861586491266886
 }

@@ -1,6 +1,6 @@
 line_id,name,mode,status,color,headway_min,notes
-G01,Montana Avenue - Nonap / Mark Twain BRT,brt,proposed,#8e24aa,,"generated (R010): 5,763 per route-km >= BRT 3,000 (< metro 7,000); 2,776 new daily trips for $0.39B capital (4.87 per $M incl. opex); extends R015"
-G02,Pellicano / George Dieter - Balboa / Cadiz BRT,brt,proposed,#00897b,,"generated (R012): 6,589 per route-km >= BRT 3,000 (< metro 7,000); 4,668 new daily trips for $1.09B capital (2.96 per $M incl. opex)"
-G03,Pellicano / George Dieter - John Hayes / Pebble Hills BRT,brt,proposed,#6d4c41,,"generated (R014): 6,767 per route-km >= BRT 3,000 (< metro 7,000); 1,043 new daily trips for $0.38B capital (1.92 per $M incl. opex)"
-G04,Mills / Campbell - Prince Edward / Rushing BRT,brt,proposed,#3949ab,,"generated (R006): 4,730 per route-km >= BRT 3,000 (< metro 7,000); 1,220 new daily trips for $0.64B capital (1.33 per $M incl. opex)"
-G05,Pellicano / George Dieter - Prince Edward / Rushing BRT,brt,proposed,#c0ca33,,"generated (R013): 4,450 per route-km >= BRT 3,000 (< metro 7,000); 682 new daily trips for $0.38B capital (1.25 per $M incl. opex); extends R011"
+G01,Pellicano / George Dieter - Nonap / Mark Twain BRT,brt,proposed,#8e24aa,,"generated (R015): 4,231 per route-km >= BRT 3,000 (< metro 7,000); 2,143 new daily trips for $0.33B capital (4.57 per $M incl. opex)"
+G02,Pellicano / George Dieter - Balboa / Cadiz BRT,brt,proposed,#00897b,,"generated (R012): 6,941 per route-km >= BRT 3,000 (< metro 7,000); 5,157 new daily trips for $1.12B capital (3.20 per $M incl. opex)"
+G03,Pellicano / George Dieter - John Hayes / Pebble Hills BRT,brt,proposed,#6d4c41,,"generated (R014): 6,523 per route-km >= BRT 3,000 (< metro 7,000); 1,095 new daily trips for $0.39B capital (2.00 per $M incl. opex)"
+G04,Mills / Campbell - Prince Edward / Rushing BRT,brt,proposed,#3949ab,,"generated (R006): 5,380 per route-km >= BRT 3,000 (< metro 7,000); 1,440 new daily trips for $0.62B capital (1.62 per $M incl. opex)"
+G05,Montana Avenue - Prince Edward / Rushing BRT,brt,proposed,#c0ca33,,"generated (R011): 3,558 per route-km >= BRT 3,000 (< metro 7,000); 962 new daily trips for $0.57B capital (1.18 per $M incl. opex)"

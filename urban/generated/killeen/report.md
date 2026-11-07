@@ -36,7 +36,7 @@ People + jobs per km2 within 1.0 km on a 0.5 km grid; cells of at least 4,000/km
 
 3 road links (Gabriel graph over centers and towns, <= 25 km). Routed: metro profile 3, BRT profile 3. Regional rail routes from downtown and major centers on standard-gauge track: none.
 
-3 candidate lines (shortest center-to-center paths that pass the length, circuity and turn tests), 0 dense enough for a mode: Metro 0, Streetcar 0, BRT 0, Rail 0.
+4 candidate lines (shortest center-to-center paths that pass the length, circuity and turn tests), 0 dense enough for a mode: Metro 0, Streetcar 0, BRT 0, Rail 0.
 
 Mode rule (people + jobs within 800 m per route-km): metro >= 7,000 (6-45 km), streetcar >= 12,000 (<= 8 km), BRT >= 3,000 (BRT over capacity becomes metro); regional rail on existing track with >= 2,000 within 1.6 km per km.
 
@@ -54,7 +54,7 @@ In the order chosen (most new daily trips per $M first; sketch demand, single-li
 | candidate | mode | km | new trips/day | trips per $M | reason |
 |---|---|---|---|---|---|
 
-3 paths had no mode: 3 x too thin.
+4 paths had no mode: 4 x too thin.
 
 All candidates with their scores: `candidates.csv`; centers: `centers.csv`; map: `preview.png`.
 

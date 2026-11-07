@@ -1,10 +1,10 @@
 station_id,name,lat,lon
 N0001,McPherson / Hillside,27.540931,-99.482438
-N0002,Bartlett / Bustamante,27.536576,-99.474256
-N0003,Bartlett / Lyon,27.521972,-99.474179
-N0004,Bartlett / Corpus Christi,27.510993,-99.474201
-N0005,Arkansas / Guatemozin,27.499257,-99.468974
-N0006,Zapata / Napoleon,27.484993,-99.471621
-N0007,Zapata / Palo Blanco,27.471091,-99.476762
-N0008,Zapata Highway,27.456516,-99.477314
-N0009,Sierra Vista / Birch,27.445762,-99.472096
+N0002,Bartlett / Bustamante,27.536201,-99.474277
+N0003,Bartlett / Lyon,27.521096,-99.474180
+N0004,Bartlett / Corpus Christi,27.509741,-99.474204
+N0005,Zapata Highway,27.497511,-99.469132
+N0006,Zapata / Santa Barbara,27.482824,-99.472307
+N0007,Zapata / Palo Blanco,27.468391,-99.477327
+N0008,Zapata / La Pita Mangana,27.453261,-99.477431
+N0009,Sierra Vista / Birch,27.445803,-99.467859

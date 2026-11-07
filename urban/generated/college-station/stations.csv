@@ -1,12 +1,23 @@
 station_id,name,lat,lon
-N0001,John Sharp Parkway,30.602394,-96.406030
-N0002,Health Science Center Parkway,30.596548,-96.396198
-N0003,John Sharp / Raymond Stotzer,30.590834,-96.381630
-N0004,Raymond Stotzer Parkway,30.598499,-96.368976
-N0005,Harvey Mitchell / George Bush,30.594390,-96.357793
-N0006,Harvey Mitchell / Luther,30.586339,-96.344914
-N0007,Dowling / Holleman,30.586843,-96.332914
-N0008,Wellborn Road,30.579471,-96.320349
-N0009,Wellborn / Rock Prairie,30.569679,-96.309040
-N0010,William D Fitch / Eagle,30.559552,-96.298754
-N0011,Barron / Victoria,30.560339,-96.287121
+N0001,Barron / Alexandria,30.564228,-96.282603
+N0002,Highway 6 / Barron,30.572022,-96.274217
+N0003,Highway 6 / Rock Prairie,30.583175,-96.284594
+N0004,Texas / Deacon,30.594892,-96.294048
+N0005,Texas / Krenek Tap,30.604865,-96.306152
+N0006,Texas / Harvey,30.614617,-96.318497
+N0007,Texas / New Main,30.621849,-96.327842
+N0008,Texas Avenue,30.631920,-96.339833
+N0009,Texas / Sulphur Springs,30.642051,-96.351759
+N0010,Briarcrest / Villa Maria,30.650629,-96.343043
+N0011,Villa Maria Road,30.609168,-96.407460
+N0012,Villa Maria / Traditions,30.616673,-96.398793
+N0013,Villa Maria / Harvey Mitchell,30.626341,-96.387242
+N0014,Villa Maria / Willis Vanhook,30.632811,-96.373099
+N0015,Wellborn Road,30.629042,-96.360400
+N0016,Raymond Stotzer / University,30.617918,-96.350315
+N0017,Wellborn / George Bush,30.606704,-96.340394
+N0018,Wellborn / Holleman,30.597324,-96.334706
+N0019,Wellborn / Southwest Parkway,30.588018,-96.328869
+N0020,Wellborn / Deacon,30.577580,-96.317904
+N0021,Wellborn / Rock Prairie,30.567578,-96.306341
+N0022,William D Fitch / Eagle,30.557272,-96.295714

@@ -1,3 +1,2 @@
 line_id,name,mode,status,color,headway_min,notes
-G01,Staples / Saratoga - Wildcat Drive BRT,brt,proposed,#8e24aa,,"generated (R005): 3,367 per route-km >= BRT 3,000 (< metro 7,000); 1,101 new daily trips for $0.51B capital (1.50 per $M incl. opex); extends R001"
-G02,Staples / Saratoga - Violet / Leopard BRT,brt,proposed,#00897b,,"generated (R006): 3,690 per route-km >= BRT 3,000 (< metro 7,000); 555 new daily trips for $0.47B capital (0.82 per $M incl. opex); extends R003"
+G01,Staples / Saratoga - Violet / Leopard BRT,brt,proposed,#8e24aa,,"generated (R006): 3,715 per route-km >= BRT 3,000 (< metro 7,000); 1,622 new daily trips for $0.66B capital (1.71 per $M incl. opex); extends R001"
