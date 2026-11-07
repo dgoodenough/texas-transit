@@ -724,6 +724,9 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
           "2026, 2050 and 2100 (study/urban_metros.md), which open every line from 2026: a line opened late is credited "
           "with station areas that have had decades to develop, so late lines' riders are on the high side. DFW's "
           "numbers are its own model's, on its own growth path.",
+          "- An urban line's riders are its share of its metro's total, by the full model's value of it (the mean of what "
+          "the network loses without it and what it adds alone). Lines that work as a network share the credit, so fewer "
+          "of them reach a ratio of 1 on their own than when the sketch's single-line trips split the total.",
           "- Operating cost is outside the capital budget, as in DFW Transit; the deficits are in the ratio, but no budget pays "
           "them yet.", ""]
     L += scenario_section(runs)
