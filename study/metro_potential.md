@@ -69,9 +69,9 @@ The generator at DFW's per-resident spending over 75 years ($23,096 a resident),
 |---|---|---|---|---|---|---|---|---|---|
 | El Paso | $20B | $9B | 6 | 2.97% | 27,999 | 4.22% | 39,724 | 131% | $3B, 3.32%, 31,290 |
 | Austin-Round Rock-San Marcos | $53B | $17B | 11 | 2.52% | 88,815 | 3.87% | 136,568 | 121% | $28B, 5.20%, 183,409 |
+| Houston-Pasadena-The Woodlands | $165B | $72B | 51 | 2.48% | 225,091 | 3.75% | 339,969 | 117% | $69B, 2.10%, 189,941 |
 | San Antonio-New Braunfels | $59B | $15B | 16 | 2.07% | 63,898 | 3.22% | 99,151 | 100% | $27B, 4.16%, 128,201 |
 | Dallas-Fort Worth | $172B | $73B | 49 | 2.14% | 229,792 | 3.21% | 344,590 | 100% |  |
-| Houston-Pasadena-The Woodlands | $165B | $39B | 32 | 2.48% | 225,091 | 1.84% | 166,497 | 57% | $69B, 2.10%, 189,941 |
 | Midland | $4B | $0B | 0 | 0.00% | 0 | 0.00% | 0 | 0% |  |
 
 Three things stand out:
