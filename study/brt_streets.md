@@ -6,21 +6,21 @@ Before: DFW Transit's hand-plan BRT profile (freeways x1.6, highway-class trunk 
 
 | Metro | BRT km before | On highways before | People + jobs within 400 m per km before | BRT km after | On highways after | Per km after |
 |---|---|---|---|---|---|---|
-| Houston-Pasadena-The Woodlands | 829 | 21% | 1,271 | 797 | 18% | 1,422 |
+| Houston-Pasadena-The Woodlands | 829 | 21% | 1,271 | 783 | 11% | 1,550 |
 | San Antonio-New Braunfels | 385 | 5% | 1,200 | 459 | 6% | 1,323 |
-| Austin-Round Rock-San Marcos | 287 | 8% | 1,197 | 339 | 12% | 1,203 |
+| Austin-Round Rock-San Marcos | 287 | 8% | 1,197 | 319 | 3% | 1,010 |
 | McAllen-Edinburg-Mission | 59 | 0% | 1,316 | 24 | 0% | 2,647 |
 | El Paso | 111 | 3% | 1,276 | 89 | 0% | 1,953 |
 | Corpus Christi | 63 | 19% | 967 | 34 | 0% | 1,489 |
-| Brownsville-Harlingen | 10 | 0% | 1,594 | 10 | 0% | 1,557 |
+| Brownsville-Harlingen | 10 | 0% | 1,594 | 11 | 0% | 1,008 |
 | Beaumont-Port Arthur | 8 | 0% | 522 | 8 | 0% | 497 |
 | Lubbock | 18 | 0% | 2,807 | 18 | 0% | 2,985 |
 | Waco | 13 | 6% | 407 | 14 | 0% | 1,917 |
 | Amarillo | 13 | 0% | 1,014 | 13 | 0% | 2,782 |
-| College Station-Bryan | 15 | 64% | 2,852 | 31 | 6% | 1,196 |
+| College Station-Bryan | 15 | 64% | 2,852 | 31 | 4% | 1,099 |
 | Laredo | 12 | 0% | 2,023 | 13 | 0% | 1,959 |
 | Odessa | 11 | 25% | 794 | 21 | 0% | 1,379 |
 | Wichita Falls | 10 | 0% | 1,996 | 10 | 0% | 1,681 |
 
-**All metros:** 13% of BRT km on highways before, 12% after; people + jobs within 400 m, 2.33M before and 2.68M after.
+**All metros:** 13% of BRT km on highways before, 7% after; people + jobs within 400 m, 2.33M before and 2.67M after.
 
