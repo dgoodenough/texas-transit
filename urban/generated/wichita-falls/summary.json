@@ -26,7 +26,7 @@
  "jobs_45_today": null,
  "asc": -0.1755,
  "asc_note": "set from the registry (asc -0.175; DFW +0.430): DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.22% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py); with a policy package on top (growth.tod, growth.capture)",
- "minutes": 0.007333703835805257,
+ "minutes": 0.00794605811436971,
  "feeder_boardings": 122.06064859209347,
  "feeder_boardings_today": 0.0,
  "feeder_opex_musd": 0.21970916746576824,
