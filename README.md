@@ -63,6 +63,9 @@ high-speed rail versus metro systems is an output, not an input.
    first three form the Triangle's west and south sides: Austin - San Antonio ($14B, about 15M
    trips a year), Houston - Austin ($24B) and Dallas - Austin ($31B): 41M trips a year for $68B.
    Next: operating costs and revenue, then timing under the budget alongside the urban layer.
+   Houston west (`study/hsr_houston_west.md`): one line Houston - Austin - San Antonio beats a wye,
+   the I-10 line and the T-Bone per dollar; splitting trains at a junction halves each branch's
+   frequency and costs more riders than the shorter route wins.
 4. **Urban systems** (`study/urban_metros.py`, `study/urban_metros.md`): a generated rail and BRT
    network for each of the other 25 metros at DFW's rate per resident. $105B of the $172B budget
    buys 93 lines, mostly BRT: about 444,000 daily transit trips against 59,000 today. Houston

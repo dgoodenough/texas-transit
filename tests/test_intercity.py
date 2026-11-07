@@ -50,6 +50,39 @@ class NetworkTests(unittest.TestCase):
         self.assertAlmostEqual(d, ic.km((30.0, -97.0), (30.3, -97.0)) / 2, places=3)
 
 
+class ServicePatternTests(unittest.TestCase):
+    """A wye: trunk H - J, branches J - A and J - S, half the trunk's trains on each branch."""
+
+    def setUp(self):
+        self.p = ic.load_params()
+        self.svc = self.p["hsr"]
+        st = {"H": (29.8, -95.5), "J": (29.8, -96.9), "A": (30.3, -97.7), "S": (29.4, -98.5), "D": (32.8, -96.8)}
+        links = [("H", "J", 150.0), ("J", "A", 90.0), ("J", "S", 180.0), ("D", "A", 330.0)]
+        self.services = [(["H", "J", "A"], 60), (["H", "J", "S"], 60), (["D", "A"], 30)]
+        self.net = ic.RailNetwork(st, links, self.svc, services=self.services)
+        self.plain = ic.RailNetwork(st, links, self.svc)
+
+    def test_without_patterns_every_trip_has_the_one_headway(self):
+        self.assertEqual(self.plain.headway("H", "S"), self.svc["headway_min"])
+        self.assertEqual(self.plain.wait("H", "S"), ic.wait_min(self.svc))
+
+    def test_trunk_adds_the_branches_trains_and_branches_have_their_own(self):
+        self.assertAlmostEqual(self.net.headway("H", "J"), 30)
+        self.assertAlmostEqual(self.net.headway("H", "A"), 60)
+        self.assertAlmostEqual(self.net.headway("J", "S"), 60)
+        self.assertAlmostEqual(self.net.wait("H", "A"), min(30, self.svc["max_wait_min"]))
+
+    def test_a_trip_no_pattern_serves_waits_for_its_least_frequent_link(self):
+        self.assertEqual(self.net.route("D", "H"), ["D", "A", "J", "H"])
+        self.assertAlmostEqual(self.net.headway("D", "H"), 60)
+        self.assertAlmostEqual(self.net.headway("A", "S"), 60)   # a change at J onto the other branch
+
+    def test_less_frequent_branches_lower_rail_odds(self):
+        za = {"at": (29.8, -95.5), "parts": []}
+        zb = {"at": (30.3, -97.7), "parts": []}
+        self.assertLess(self.net.odds(za, zb, "work", self.p), self.plain.odds(za, zb, "work", self.p))
+
+
 class DataTests(unittest.TestCase):
     def test_dallas_houston_air_comes_from_the_ticket_sample(self):
         p = ic.load_params()

@@ -150,26 +150,76 @@ def utility(los, purpose, p):
     return bt * (ivt + p["out_of_vehicle_weight"] * ovt) + bc * cost
 
 
-def wait_min(svc):
+def wait_min(svc, headway_min=None):
     """Waiting for a train: a share of the headway (half for a turn-up-and-go service; less when
-    people plan around a timetable), capped."""
-    return min(svc["headway_min"] * svc.get("wait_share", 0.5), svc["max_wait_min"])
+    people plan around a timetable), capped. `headway_min` overrides the service's own."""
+    h = svc["headway_min"] if headway_min is None else headway_min
+    return min(h * svc.get("wait_share", 0.5), svc["max_wait_min"])
 
 
 # ---------- a rail network: stations, links, the fastest path ----------
 class RailNetwork:
     """Stations {name: (lat, lon)} and links [(a, b, track_km)] run at one average speed with a
     stop at every intermediate station. Each zone uses the station nearest its people on average
-    (people-weighted mean distance from its counties), if that's within `reach_km`."""
+    (people-weighted mean distance from its counties), if that's within `reach_km`.
 
-    def __init__(self, stations, links, svc, reach_km=60):
+    Every trip waits for svc's one headway, unless `services` gives service patterns: [(chain of
+    stations, headway minutes)], e.g. the two branches of a wye. Then a trip between two stations
+    waits for the trains of every pattern calling at both (their frequencies add); a trip no single
+    pattern serves waits for the least frequent link of its fastest route (a link's frequency is
+    that of the patterns running over it; a link no pattern runs takes svc's headway). There is no
+    transfer penalty, as without patterns."""
+
+    def __init__(self, stations, links, svc, reach_km=60, services=None):
         self.stations, self.svc, self.reach_km = stations, svc, reach_km
-        self._cache, self._ends_cache = {}, {}
+        self.services = services
+        self._cache, self._ends_cache, self._wait_cache = {}, {}, {}
         self.adj = defaultdict(list)
         for a, b, track in links:
             t = track / svc["speed_kmh"] * 60
             self.adj[a].append((b, t, track))
             self.adj[b].append((a, t, track))
+        self._link_freq = defaultdict(float)   # trains an hour each way over a link, from the patterns
+        for chain, h in services or ():
+            for a, b in zip(chain, chain[1:]):
+                self._link_freq[tuple(sorted((a, b)))] += 60 / h
+
+    def route(self, a, b):
+        """Stations along the fastest path from a to b (as `path` times it), or None."""
+        best, prev = {a: 0.0}, {a: None}
+        heap = [(0.0, a)]
+        while heap:
+            t, s = heapq.heappop(heap)
+            if s == b:
+                out = [b]
+                while prev[out[-1]] is not None:
+                    out.append(prev[out[-1]])
+                return out[::-1]
+            if t > best[s]:
+                continue
+            for n, dt, _ in self.adj[s]:
+                nt = t + dt + (self.svc["stop_min"] if s != a else 0)
+                if n not in best or nt < best[n]:
+                    best[n], prev[n] = nt, s
+                    heapq.heappush(heap, (nt, n))
+        return None
+
+    def headway(self, a, b):
+        """Minutes between trains from station a to station b (see the class notes)."""
+        if not self.services:
+            return self.svc["headway_min"]
+        direct = sum(60 / h for chain, h in self.services if a in chain and b in chain)
+        if direct > 0:
+            return 60 / direct
+        stops = self.route(a, b) or [a, b]
+        return max(60 / self._link_freq[tuple(sorted(k))] if self._link_freq[tuple(sorted(k))] else
+                   self.svc["headway_min"] for k in zip(stops, stops[1:]))
+
+    def wait(self, a, b):
+        """Minutes waiting for a train from station a to station b."""
+        if (a, b) not in self._wait_cache:
+            self._wait_cache[(a, b)] = wait_min(self.svc, self.headway(a, b) if self.services else None)
+        return self._wait_cache[(a, b)]
 
     def _paths_from(self, a):
         if a not in self._cache:
@@ -206,7 +256,7 @@ class RailNetwork:
         pairs of exp(V_rail - V_car + constant). Car is measured county to county; a county beyond
         reach of a station, or a county pair under `min_km` apart, adds nothing."""
         s = self.svc
-        fixed = s["access_min"] + s["egress_min"] + s["terminal_min"] + wait_min(s)
+        fixed = s["access_min"] + s["egress_min"] + s["terminal_min"]
         border = za.get("border_min", 0) + zb.get("border_min", 0)   # both modes wait at the border
         ea = [e for e in self._ends(za) if e[2]]
         eb = [e for e in self._ends(zb) if e[2]]
@@ -220,7 +270,8 @@ class RailNetwork:
                 if dist < s.get("min_km", p["min_km"]):
                     continue
                 ride, track = paths[sb]
-                los = (ride, fixed + border + (da + db) / local_kmh * 60, s["fare_fixed"] + s["fare_per_km"] * track)
+                los = (ride, fixed + self.wait(sa, sb) + border + (da + db) / local_kmh * 60,
+                       s["fare_fixed"] + s["fare_per_km"] * track)
                 ivt, ovt, cost = car_los(dist, purpose, p)
                 v_car = utility((ivt + border, ovt, cost), purpose, p)
                 acc += wa * wb * math.exp(utility(los, purpose, p) - v_car + s["asc_vs_car"])
@@ -261,7 +312,7 @@ class RailNetwork:
             return None
         ride, track = route
         s = self.svc
-        ovt = (s["access_min"] + s["egress_min"] + s["terminal_min"] + wait_min(s) + (da + db) / local_kmh * 60
+        ovt = (s["access_min"] + s["egress_min"] + s["terminal_min"] + self.wait(sa, sb) + (da + db) / local_kmh * 60
                + za.get("border_min", 0) + zb.get("border_min", 0))
         return ride, ovt, s["fare_fixed"] + s["fare_per_km"] * track
 
