@@ -39,7 +39,7 @@ New trips are on top of today's trains where there are some (Heartland Flyer and
 
 | Route | Conventional, 4 trains a day: trips a year, capital, per $B | High-speed, built alone: trips a year, capital, per $B |
 |---|---|---|
-| Heartland Flyer: Fort Worth - Oklahoma City | 0.19M, $1.3B, 0.15M | 1.9M, $32.3B, 0.06M |
+| Heartland Flyer: Fort Worth - Oklahoma City | 0.19M, $1.3B, 0.15M | 1.9M, $32.2B, 0.06M |
 | I-20: Dallas - Shreveport - Monroe - Jackson | 0.86M, $2.6B, 0.33M | 6.2M, $30.8B, 0.20M |
 | Sunset: Houston - Lake Charles - Lafayette - New Orleans | 0.58M, $2.1B, 0.27M | 6.2M, $56.1B, 0.11M |
 
