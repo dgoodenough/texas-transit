@@ -311,10 +311,11 @@ def write(yard, structs, model):
           "the densities where DFW's plan reaches double digits; their transit is local buses, and a share near today's "
           "Austin (1%) would be a success.", "",
           "Done: build-out mode, used in Austin and San Antonio; Houston's policy result (above); each metro's own "
-          "growth and the plan's station-area development, in 2050 and 2100 (`study/urban_metros.md`). Next steps: "
-          "(1) a selection judged by the full model rather than the sketch; (2) the policy package in Austin, "
-          "Houston, San Antonio and El Paso, then the timing study (`study/timing.py`) with their bigger networks. "
-          "Target for those four: DFW's 2100 share, about 7% of commutes, with the small metros at about 1%.", ""]
+          "growth and the plan's station-area development, in 2050 and 2100; the policy package and DFW's 75-year budget "
+          "in Austin, Houston, San Antonio and El Paso, and the timing study with their bigger networks "
+          "(`study/urban_metros.md`, `study/timing.md`). The target was DFW's 2100 share, about 7% of commutes: Austin "
+          "and San Antonio pass it (8.0% and 7.9%), Houston and El Paso reach 5.8% and 5.9%. Next step: a selection "
+          "judged by the full model rather than the sketch.", ""]
     with open(os.path.join(ROOT, "study", "metro_potential.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(L))
     print("\n".join(L))

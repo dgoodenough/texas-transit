@@ -31,7 +31,10 @@
  "jobs_45_today": null,
  "asc": -0.1372,
  "asc_note": "set from the registry (asc -0.137; DFW +0.430): DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.24% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py); with a policy package on top (growth.tod, growth.capture)",
- "minutes": 0.03166459004084269,
+ "minutes": 0.044757306575775146,
+ "feeder_boardings": 1921.8013656933576,
+ "feeder_boardings_today": 0.0,
+ "feeder_opex_musd": 3.4592424582480437,
  "commutes": 208412.8533938935,
  "share": 0.008731238250614358,
  "future": {
@@ -41,7 +44,8 @@
    "pop": 1149814.2803922733,
    "jobs": 376462.2404761902,
    "share": 0.013273193799946674,
-   "share_today_lines": 0.0
+   "share_today_lines": 0.0,
+   "feeder_opex_musd": 6.784532135375268
   },
   "2100": {
    "trips": 22660.33888576171,
@@ -49,7 +53,8 @@
    "pop": 1454702.0885925284,
    "jobs": 476315.3954731279,
    "share": 0.017581472582790747,
-   "share_today_lines": 0.0
+   "share_today_lines": 0.0,
+   "feeder_opex_musd": 11.877518748507281
   }
  }
 }

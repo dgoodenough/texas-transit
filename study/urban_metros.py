@@ -368,6 +368,15 @@ def summary():
         c0 = sum(r["commutes"] for r in fut)
         sh = lambda y: sum(r["future"][y]["share"] * r["commutes"] * r["future"][y]["jobs"] / r["jobs"] for r in fut) / \
             sum(r["commutes"] * r["future"][y]["jobs"] / r["jobs"] for r in fut)  # noqa: E731
+        fp = [r for r in fut if r["id"] in pol]
+        if fp:
+            out += ["", f"**The {len(fp)} policy metros in 2100:** " + ", ".join(
+                f"{r['name'].split(',')[0].split('-')[0]} {r['future']['2100']['share']:.1%}" for r in fp)
+                + (f" of commutes by transit, against {yard[2100]['overall']:.1%} in DFW under its plan" if yard else "")
+                + ". With the land use alone and 30-year budgets (Austin and San Antonio 75) they reached 2.9-5.6%: "
+                "feeder buses widen every station's reach, priced parking at the densest job centers makes the drive "
+                "downtown cost something, and the generator draws a bigger network for riders who will use it. Their feeder buses "
+                f"cost ${sum(r['future']['2050']['feeder_opex_musd'] for r in fp):,.0f}M a year to run by 2050."]
         out += ["", f"**All {len(fut)} metros:** {trips:,.0f} daily transit trips on today's land use, {t50:,.0f} in 2050 "
                 f"and {t00:,.0f} in 2100; {sum(r['share'] * r['commutes'] for r in fut) / c0:.1%} of commutes by "
                 f"transit, then {sh('2050'):.1%} and {sh('2100'):.1%}.", "",
@@ -387,7 +396,10 @@ def summary():
             "- The first table's trips are on today's land use; the 2050 and 2100 runs add growth on a trend extrapolation "
             "(not an official projection: Austin's counties keep growing fast, to 3.8 times their 2020 population by "
             "2100) and DFW's station-area responses, which assume Texas's other metros zone and build like DFW's plan. "
-            "Non-commute trips are not in either (DFW Transit's non-commute prototype is off).", ""]
+            "Non-commute trips are not in either (DFW Transit's non-commute prototype is off).",
+            "- The policy package is in force from the model's first year in the four policy metros, and its feeder buses "
+            "on top of a constant fitted with today's buses: DFW Transit calls that an upper bound (today's bus-to-rail "
+            "riders count twice). Priced parking needs cities to set it; the revenue isn't counted anywhere.", ""]
     with open(os.path.join(ROOT, "study", "urban_metros.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(out) + "\n")
     flat = [{k: v for k, v in r.items() if k != "by_mode"} | {f"{k}_km": round(r.get("by_mode", {}).get(k, {}).get("km", 0), 1)
