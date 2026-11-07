@@ -1,7 +1,7 @@
 station_a,station_b,walk_min,note
 N0006,N0101,,generated: 462 m walk
-N0024,N0299,,generated: 611 m walk
-N0025,N0299,,generated: 422 m walk
+N0024,N0307,,generated: 611 m walk
+N0025,N0307,,generated: 422 m walk
 N0034,N0369,,generated: 619 m walk
 N0039,N0347,,generated: 519 m walk
 N0042,N0243,,generated: 536 m walk
@@ -17,7 +17,7 @@ N0092,N0229,,generated: 424 m walk
 N0093,N0230,,generated: 504 m walk
 N0093,N0231,,generated: 594 m walk
 N0100,N0190,,generated: 593 m walk
-N0105,N0300,,generated: 548 m walk
+N0105,N0308,,generated: 548 m walk
 N0118,N0326,,generated: 557 m walk
 N0132,N0327,,generated: 493 m walk
 N0133,N0328,,generated: 480 m walk
@@ -29,8 +29,8 @@ N0140,N0160,,generated: 409 m walk
 N0140,N0315,,generated: 554 m walk
 N0141,N0503,,generated: 576 m walk
 N0193,N0347,,generated: 428 m walk
-N0201,N0298,,generated: 550 m walk
-N0201,N0299,,generated: 623 m walk
+N0201,N0306,,generated: 550 m walk
+N0201,N0307,,generated: 623 m walk
 N0221,N0485,,generated: 423 m walk
 N0222,N0357,,generated: 633 m walk
 N0227,N0492,,generated: 581 m walk
@@ -40,8 +40,8 @@ N0269,m2060_50003,,generated: 490 m walk
 N0269,m2060_50005,,generated: 602 m walk
 N0277,N0475,,generated: 597 m walk
 N0279,m2060_25024,,generated: 496 m walk
-N0293,m2060_50013,,generated: 536 m walk
-N0313,N0380,,generated: 443 m walk
+N0299,N0380,,generated: 443 m walk
+N0301,m2060_50013,,generated: 536 m walk
 N0315,N0504,,generated: 570 m walk
 N0317,N0506,,generated: 412 m walk
 N0346,N0546,,generated: 423 m walk

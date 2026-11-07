@@ -37,6 +37,13 @@ import csv  # noqa: E402
 
 from dfwt import config  # noqa: E402
 
+FUTURE = (2050, 2100)   # model years with every line open, the metro's own growth and the land-use package
+# The 2 million plan's station-area land use (DFW Transit scenarios/two_million/config.json growth): stronger
+# development near new stations, today's stations upzoned from 2030, and a fifth of growth steered to station
+# areas. It changes nothing on today's land use (the ramps start after 2025).
+with open(os.path.join(VENDOR, "scenarios", "two_million", "config.json"), encoding="utf-8") as _f:
+    LAND_USE = {"growth": json.load(_f)["growth"]}
+
 FLOOR_SHARE = 0.001
 # NTD 2024 rows (ntd id, mode) that are today's lines in the model, by metro. Checked against
 # each metro's existing/lines.csv (study/urban_metros.md lists the lines).
@@ -155,7 +162,7 @@ def generate(ids=None):
         t0 = time.time()
         out = os.path.join(HOME, "generated", m["id"])
         try:
-            r = gen.generate(m["id"], budget_musd=m["budget_musd"], out=out)
+            r = gen.generate(m["id"], budget_musd=m["budget_musd"], out=out, policies=LAND_USE, future_years=FUTURE)
         except (Exception, SystemExit) as e:   # one metro failing doesn't stop the rest
             print(f"{m['id']}: FAILED {type(e).__name__}: {e}")
             os.makedirs(out, exist_ok=True)
@@ -181,6 +188,16 @@ def generate(ids=None):
              "boardings": g.get("daily_boardings", 0.0), "jobs_45": g.get("access_jobs_45", 0.0),
              "jobs_45_today": ex.get("access_jobs_45", 0.0) if ex else None,
              "asc": r["asc"], "asc_note": r["asc_note"], "minutes": (time.time() - t0) / 60}
+        commutes = float(r["cfg"]["demand"]["total_commutes"]) * r["cfg"]["ridership"]["telework"]
+        s["commutes"], s["share"] = commutes, g.get("transit_commuters", 0.0) / commutes if g else 0.0
+        s["future"] = {}
+        for y, fr in (res.get("future") or {}).items():   # commutes grow with jobs (dfwt evaluate.year_inputs)
+            c = commutes * fr["generated"]["jobs"] / max(float(r["m"].jobs.sum()), 1.0)
+            fe = fr["existing"] or {}
+            s["future"][str(y)] = {"trips": fr["generated"]["daily_trips"], "trips_today_lines": fe.get("daily_trips", 0.0),
+                                   "pop": fr["generated"]["pop"], "jobs": fr["generated"]["jobs"],
+                                   "share": fr["generated"]["transit_commuters"] / c,
+                                   "share_today_lines": fe.get("transit_commuters", 0.0) / c}
         with open(os.path.join(out, "summary.json"), "w", encoding="utf-8") as f:
             json.dump(s, f, indent=1)
         print(f"{m['id']}: {len(chosen)} lines, ${st['capital_musd'] / 1e3:.1f}B, {s['trips']:,.0f} trips a day "
@@ -284,6 +301,44 @@ def summary():
                     f"{st / max(sc / 1e3, 1e-9):,.0f} per $B; the {len(big)} larger ones: {bt / max(bc / 1e3, 1e-9):,.0f} "
                     "per $B. The flat per-resident budget is a starting point: the statewide timing step moves money to "
                     "where it buys the most riders, urban or intercity.", ""]
+    fut = [r for r in ok if r.get("future")]
+    if fut:
+        try:
+            sys.path.insert(0, os.path.join(ROOT, "study"))
+            import metro_potential
+            yard = metro_potential.dfw_yardstick()
+        except Exception as e:   # the DFW reference needs DFW Transit's published layers
+            print("no DFW yardstick:", e)
+            yard = None
+        out += ["## With growth and station-area development, 2050 and 2100", "",
+                "The same networks, every line open, in 2050 and 2100: each metro grows on its own counties' trend "
+                "(`data/zones/county_growth.csv`; the registry's `growth`, jobs keeping pace with people) instead of "
+                "DFW's forecast, and new stations get the 2 million plan's land use: stronger development around them "
+                "(up to +75% people downtown), today's stations upzoned from 2030, and a fifth of the growth that would "
+                "land elsewhere steered into station areas up to Ontario-style density targets (DFW Transit "
+                "`scenarios/two_million/config.json` growth). Share = transit commuters over commuters (after "
+                "telework); commuters grow with jobs.", ""]
+        if yard:
+            out += [f"Dallas-Fort Worth under its own plan, for comparison: {yard[2025]['overall']:.1%} of commutes by "
+                    f"transit today, {yard[2050]['overall']:.1%} in 2050 and {yard[2100]['overall']:.1%} in 2100 "
+                    "(`study/metro_potential.md`).", ""]
+        out += ["| Metro | People 2020 | 2050 | 2100 | Transit share with the network, today's land use | 2050 | 2100 | "
+                "2100, today's lines alone | Daily trips 2050 | 2100 |", "|---|---|---|---|---|---|---|---|---|---|"]
+        for r in fut:
+            f50, f00 = r["future"]["2050"], r["future"]["2100"]
+            out.append(f"| {r['name'].split(',')[0]} | {r['pop'] / 1e6:.2f}M | {f50['pop'] / 1e6:.2f}M | "
+                       f"{f00['pop'] / 1e6:.2f}M | {r['share']:.1%} | {f50['share']:.1%} | {f00['share']:.1%} | "
+                       f"{f00['share_today_lines']:.1%} | {f50['trips']:,.0f} | {f00['trips']:,.0f} |")
+        t50 = sum(r["future"]["2050"]["trips"] for r in fut)
+        t00 = sum(r["future"]["2100"]["trips"] for r in fut)
+        c0 = sum(r["commutes"] for r in fut)
+        sh = lambda y: sum(r["future"][y]["share"] * r["commutes"] * r["future"][y]["jobs"] / r["jobs"] for r in fut) / \
+            sum(r["commutes"] * r["future"][y]["jobs"] / r["jobs"] for r in fut)  # noqa: E731
+        out += ["", f"**All {len(fut)} metros:** {trips:,.0f} daily transit trips on today's land use, {t50:,.0f} in 2050 "
+                f"and {t00:,.0f} in 2100; {sum(r['share'] * r['commutes'] for r in fut) / c0:.1%} of commutes by "
+                f"transit, then {sh('2050'):.1%} and {sh('2100'):.1%}.", "",
+                "Every line is open from 2026 here, so station areas have had their full time to develop by 2050; the "
+                "timing step opens lines over the century and scales each metro's riders along these years.", ""]
     out += ["## Caveats", "",
             "- The model is DFW's commute model with one constant moved per metro. Its time and cost weights, access "
             "and parking assumptions are DFW's; the slope rests on one metro, Houston. The Austin check says the model "
@@ -295,9 +350,10 @@ def summary():
             "- ACS transit shares in college towns (College Station-Bryan, and San Marcos within Austin) include "
             "university shuttles; the constant reads them as a liking for transit in general.",
             "- Commutes to and from Mexico (El Paso, Laredo, McAllen, Brownsville, Eagle Pass) are not in LODES.",
-            "- Trips are commute-model trips on today's land use: no growth, no non-commute trips (DFW Transit's "
-            "non-commute prototype is off), no station-area development. They compare metros with each other, not "
-            "with the intercity layer's longer trips (that needs user benefits; the timing step).", ""]
+            "- The first table's trips are on today's land use; the 2050 and 2100 runs add growth on a trend extrapolation "
+            "(not an official projection: Austin's counties keep growing fast, to 3.8 times their 2020 population by "
+            "2100) and DFW's station-area responses, which assume Texas's other metros zone and build like DFW's plan. "
+            "Non-commute trips are not in either (DFW Transit's non-commute prototype is off).", ""]
     with open(os.path.join(ROOT, "study", "urban_metros.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(out) + "\n")
     flat = [{k: v for k, v in r.items() if k != "by_mode"} | {f"{k}_km": round(r.get("by_mode", {}).get(k, {}).get("km", 0), 1)

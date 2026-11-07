@@ -25,6 +25,18 @@ class GainTests(unittest.TestCase):
 
 
 class ScheduleTests(unittest.TestCase):
+    def test_urban_trajectory_is_relative_to_2050_and_linear_between_runs(self):
+        s = {"trips": 1100, "trips_today": 100,
+             "future": {"2050": {"trips": 2200, "trips_today_lines": 200}, "2100": {"trips": 3300, "trips_today_lines": 300}}}
+        base, traj, year = timing.urban_trajectory(s)
+        self.assertEqual((base, year), (2000, 2050))
+        self.assertAlmostEqual(traj[2050], 1.0)
+        self.assertAlmostEqual(traj[2026], 0.5)
+        self.assertAlmostEqual(traj[2075], 1.25)
+        self.assertAlmostEqual(traj[2100], 1.5)
+        base, traj, year = timing.urban_trajectory({"trips": 1100, "trips_today": 100})   # no future runs: as before
+        self.assertEqual((base, traj, year), (1000, None, 2026))
+
     def test_ratio_counts_operating_deficit_as_cost(self):
         a = project("a", 1000, 100)
         b = project("b", 1000, 100, opex=50, fares=10)

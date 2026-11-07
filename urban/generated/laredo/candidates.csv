@@ -1,2 +1,2 @@
 cand_id,name,kind,centers,mode,km,stops,density_per_route_km,capital_musd,opex_musd_yr,trips_standalone,new_trips,trips_per_musd,peak_hour_load,status,order,mode_reason,reason
-R001,Calton / McPherson - Sierra Vista Boulevard,road,C01 T01,brt,12.6,9,4342,427,9.1,523,523,0.86,22,chosen,1,"4,342 per route-km >= BRT 3,000 (< metro 7,000)",523 new daily trips for $0.43B capital (0.86 per $M incl. opex)
+R001,Calton / McPherson - Sierra Vista Boulevard,road,C01 T01,brt,12.6,9,4342,427,9.1,524,524,0.86,22,chosen,1,"4,342 per route-km >= BRT 3,000 (< metro 7,000)",524 new daily trips for $0.43B capital (0.86 per $M incl. opex)
