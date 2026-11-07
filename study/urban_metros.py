@@ -332,6 +332,33 @@ def summary():
                     f"{st / max(sc / 1e3, 1e-9):,.0f} per $B; the {len(big)} larger ones: {bt / max(bc / 1e3, 1e-9):,.0f} "
                     "per $B. The flat per-resident budget is a starting point: the statewide timing step moves money to "
                     "where it buys the most riders, urban or intercity.", ""]
+    sel = []
+    for r in ok:
+        cp = os.path.join(HOME, "generated", r["id"], "candidates.csv")
+        if not os.path.exists(cp):
+            continue
+        cs = read_csv(cp)
+        kept = [c for c in cs if c["status"] == "chosen"]
+        cut = [c for c in cs if c["status"] == "rejected" and c["reason"].startswith("full model")]
+        if kept and all(c.get("model_trips") for c in kept):
+            sel.append((r, kept, cut))
+    if sel:
+        out += ["## How the lines were chosen", "",
+                "By the full model (DFW Transit `metro/modelselect.py`): the generator's quick sketch, which counts only "
+                "commutes between one line's own stations, draws a wide pool (half its usual floor), and the demand "
+                "model values every line in 2050, with the metro's growth and the land use of the whole pool, as the "
+                "mean of the riders the network loses without it and the riders it adds alone to today's network. "
+                "Lines under 1.0 new daily trips per $M of capital plus 20 years' operating cost go, worst first, in "
+                "rounds (about the weakest tenth of DFW's own 2 million plan scores lower), and the rest open best value "
+                "first.", "",
+                "| Metro | Pool | Kept | Cut by the full model | Best kept, trips per $M | Weakest kept | Highest-value line |",
+                "|---|---|---|---|---|---|---|"]
+        for r, kept, cut in sel:
+            v = sorted(float(c["model_trips_per_musd"]) for c in kept)
+            top = max(kept, key=lambda c: float(c["model_trips_per_musd"]))
+            out.append(f"| {r['name'].split(',')[0]} | {len(kept) + len(cut)} | {len(kept)} | {len(cut)} | {v[-1]:.1f} | "
+                       f"{v[0]:.1f} | {top['name']} ({top['mode']}, {float(top['model_trips']):,.0f} trips) |")
+        out.append("")
     fut = [r for r in ok if r.get("future")]
     if fut:
         try:
