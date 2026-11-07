@@ -38,7 +38,7 @@ People + jobs per km2 within 1.0 km on a 0.5 km grid; cells of at least 4,000/km
 4 road links (Gabriel graph over centers and towns, <= 25 km). Routed: metro profile 4, BRT profile 3. Regional rail routes from downtown and major centers on standard-gauge track: no track route 2.
 Link routes dropped: 1 x no route.
 
-8 candidate lines (shortest center-to-center paths that pass the length, circuity and turn tests), 4 dense enough for a mode: Metro 0, Streetcar 0, BRT 4, Rail 0.
+8 candidate lines (shortest center-to-center paths that pass the length, circuity and turn tests), 3 dense enough for a mode: Metro 0, Streetcar 0, BRT 3, Rail 0.
 
 Mode rule (people + jobs within 800 m per route-km): metro >= 7,000 (6-45 km), streetcar >= 12,000 (<= 8 km), BRT >= 3,000 (BRT over capacity becomes metro); regional rail on existing track with >= 2,000 within 1.6 km per km.
 
@@ -52,15 +52,14 @@ In the order chosen (most new daily trips per $M first; sketch demand, single-li
 
 ## 4. Rejected candidates
 
-3 candidates with a mode were not chosen. The 40 with the highest value:
+2 candidates with a mode were not chosen. The 40 with the highest value:
 
 | candidate | mode | km | new trips/day | trips per $M | reason |
 |---|---|---|---|---|---|
 | R001 Tancahua / Lipan - Staples / Saratoga | brt | 13.9 | 2,747 | 4.05 | extended by R006 |
-| R005 Staples / Saratoga - Wildcat Drive | brt | 28.3 | 673 | 0.49 | below 0.5 new trips per $M when its turn came (0.49) |
-| R003 Tancahua / Lipan - Violet / Leopard | brt | 19.9 | 1 | 0.00 | below 0.5 new trips per $M (upper bound 0.00) |
+| R003 Tancahua / Lipan - Violet / Leopard | brt | 19.9 | 1 | 0.00 | below 0.5 new trips per $M when its turn came (0.00) |
 
-4 paths had no mode: 4 x too thin.
+5 paths had no mode: 4 x too thin; 1 x 3,378 per route-km >= BRT 3,000 (< metro.
 
 All candidates with their scores: `candidates.csv`; centers: `centers.csv`; map: `preview.png`.
 

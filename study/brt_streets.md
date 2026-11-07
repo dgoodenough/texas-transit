@@ -6,8 +6,8 @@ Before: DFW Transit's hand-plan BRT profile (freeways x1.6, highway-class trunk 
 
 | Metro | BRT km before | On highways before | People + jobs within 400 m per km before | BRT km after | On highways after | Per km after |
 |---|---|---|---|---|---|---|
-| Houston-Pasadena-The Woodlands | 829 | 21% | 1,271 | 783 | 11% | 1,550 |
-| San Antonio-New Braunfels | 385 | 5% | 1,200 | 459 | 6% | 1,323 |
+| Houston-Pasadena-The Woodlands | 829 | 21% | 1,271 | 701 | 3% | 1,621 |
+| San Antonio-New Braunfels | 385 | 5% | 1,200 | 438 | 1% | 1,337 |
 | Austin-Round Rock-San Marcos | 287 | 8% | 1,197 | 319 | 3% | 1,010 |
 | McAllen-Edinburg-Mission | 59 | 0% | 1,316 | 24 | 0% | 2,647 |
 | El Paso | 111 | 3% | 1,276 | 89 | 0% | 1,953 |
@@ -22,5 +22,5 @@ Before: DFW Transit's hand-plan BRT profile (freeways x1.6, highway-class trunk 
 | Odessa | 11 | 25% | 794 | 21 | 0% | 1,379 |
 | Wichita Falls | 10 | 0% | 1,996 | 10 | 0% | 1,681 |
 
-**All metros:** 13% of BRT km on highways before, 7% after; people + jobs within 400 m, 2.33M before and 2.67M after.
+**All metros:** 13% of BRT km on highways before, 2% after; people + jobs within 400 m, 2.33M before and 2.57M after.
 
