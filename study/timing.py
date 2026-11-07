@@ -6,8 +6,9 @@ Writes study/timing.md and docs/data/timeline.json (the site's data).
 
 1. Projects.
    - Urban: each line the generator chose in the 25 metros (urban/generated/<id>/candidates.csv),
-     its daily trips the model's metro total (study/urban_metros.md) shared out by the line's own
-     sketch trips. Within a metro, lines open in the generator's order.
+     its daily trips the model's metro total (study/urban_metros.md) shared out by the full model's
+     value of each line (model_trips). Within a metro, lines open in the generator's order, best
+     value per $ first.
    - High-speed rail: the 14 corridors in study/hsr_options.md's order, each counted on top of the
      ones before it (2050 travel).
    - Conventional: the seven corridors at four trains a day (study/interstate_rail.md), Kansas
@@ -191,14 +192,18 @@ def urban_projects():
             continue
         rows = [r for r in csv.DictReader(open(cpath, encoding="utf-8")) if r["status"] == "chosen"]
         rows.sort(key=lambda r: int(r["order"]))
-        sketch = sum(float(r["new_trips"]) for r in rows)
+        # each line's share of the metro's riders: the full model's value of it (model_trips, DFW Transit's
+        # metro/modelselect.py) when the generator chose by the full model, else the sketch's new trips
+        share_of = (lambda r: float(r["model_trips"])) if all(r.get("model_trips") for r in rows) else \
+            (lambda r: float(r["new_trips"]))
+        sketch = sum(share_of(r) for r in rows)
         model, traj, base_year = urban_trajectory(s)
         # the feeder buses the network adds (study/urban_metros.py), in the base year, shared out like the riders
         feeder = ((s.get("future") or {}).get(str(base_year)) or s).get("feeder_opex_musd", 0.0)
         dist = districts(m["id"], [r["cand_id"] for r in rows])
         prev = None
         for r in rows:
-            trips = model * float(r["new_trips"]) / sketch if sketch else 0.0
+            trips = model * share_of(r) / sketch if sketch else 0.0
             dp, dj, dn = dist.get(r["cand_id"], (0.0, 0.0, 0))
             tax_year, bond = land_tax(dp, dj, r["mode"])
             benefit = trips / URBAN_B_PER_DOLLAR * URBAN_DAYS / 1e6
@@ -207,7 +212,7 @@ def urban_projects():
             out.append({"id": pid, "layer": "urban", "metro": m["id"], "metro_name": m["name"].split(",")[0],
                         "name": r["name"], "mode": r["mode"], "km": float(r["km"]),
                         "capital": float(r["capital_musd"]),
-                        "opex": float(r["opex_musd_yr"]) + max(feeder, 0.0) * (float(r["new_trips"]) / sketch if sketch else 0.0),
+                        "opex": float(r["opex_musd_yr"]) + max(feeder, 0.0) * (share_of(r) / sketch if sketch else 0.0),
                         "fares": fares,
                         "benefit": benefit, "trips_day": trips, "trips_year": trips * URBAN_DAYS,
                         "wider": trips * URBAN_WIDER_PER_TRIP * URBAN_DAYS / 1e6,

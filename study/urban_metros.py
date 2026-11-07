@@ -178,7 +178,8 @@ def generate(ids=None):
         t0 = time.time()
         out = os.path.join(HOME, "generated", m["id"])
         try:
-            r = gen.generate(m["id"], budget_musd=m["budget_musd"], out=out, policies=policies(m), future_years=FUTURE)
+            r = gen.generate(m["id"], budget_musd=m["budget_musd"], out=out, policies=policies(m), future_years=FUTURE,
+                             full_model=True)
         except (Exception, SystemExit) as e:   # one metro failing doesn't stop the rest
             print(f"{m['id']}: FAILED {type(e).__name__}: {e}")
             os.makedirs(out, exist_ok=True)
