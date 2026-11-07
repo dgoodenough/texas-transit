@@ -421,7 +421,8 @@ def metros_first(projects, budget):
         ps = [p for p in projects if p.get("metro") == m["id"]]
         if not ps:
             continue
-        stream = {y: (m["budget_musd"] / METRO_YEARS if y < YEARS[0] + METRO_YEARS else 0.0) for y in YEARS}
+        n = len(YEARS) if m.get("buildout") else METRO_YEARS   # build-out metros' budgets cover DFW's whole horizon
+        stream = {y: (m["budget_musd"] / n if y < YEARS[0] + n else 0.0) for y in YEARS}
         b, s_m = schedule(ps, stream, order=ps)   # generator order (the list is already in it)
         built += b
         for y in YEARS:

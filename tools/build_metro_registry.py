@@ -8,6 +8,7 @@ From the 2023 OMB delineation (data/raw/list1_2023.xlsx; every county of each me
 area with a Texas county, so Texarkana includes Miller County, Arkansas) and the 2020 Census
 Gazetteer of places (reference points). Extra keys this repo adds, which DFW Transit ignores:
   texas_pop     2020 population of the metro's Texas counties (the budget is Texas's money)
+  buildout      true for the metros the generator runs in build-out mode (BUILDOUT below)
   budget_musd   capital budget: DFW Transit's rate per resident ($2.3B a year for 7.47M people)
                 x texas_pop x 30 years, the generator's default horizon (as DFW Transit's
                 generated Houston and Eugene)
@@ -34,6 +35,12 @@ RAW = os.path.join(ROOT, "data", "raw")
 GAZ = "https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2020_Gazetteer/2020_Gaz_place_national.zip"
 OUT = os.path.join(ROOT, "urban", "metros.json")
 DFW_MUSD_PER_YEAR, DFW_POP, YEARS = 2300, 7_468_799, 30   # as study/size_texas.py; 30: metro/generate.json
+# Metros the generator runs in build-out mode (vendor/dfw-transit metro/generate.json buildout), with
+# DFW Transit's whole 75-year horizon at its rate per resident: their layout can carry a DFW-sized
+# network and the default generator stops well short of it (study/metro_potential.md). Not Houston
+# (its result with the policies needs a closer look), El Paso (build-out splits its few strong
+# corridors) or the small metros (no corridor dense enough).
+BUILDOUT, BUILDOUT_YEARS = {"austin", "san-antonio"}, 75
 STATES = {"48": "tx", "05": "ar", "22": "la", "35": "nm", "40": "ok"}
 # Routes NTD files as bus rapid transit (mode RB): only Houston's Silver Line. MetroRapid
 # (Austin), Primo (San Antonio) and Brio (El Paso) are filed as plain bus and run mostly in
@@ -105,15 +112,19 @@ def main():
              "county_names": {f: names[f] for f in fs},
              "downtowns": [{"name": f"{city} (city's Census internal point)", "lat": pt[0], "lon": pt[1]}],
              "texas_pop": tx_pop,
-             "budget_musd": round(DFW_MUSD_PER_YEAR * tx_pop / DFW_POP * YEARS)}
+             "budget_musd": round(DFW_MUSD_PER_YEAR * tx_pop / DFW_POP * (BUILDOUT_YEARS if mid in BUILDOUT else YEARS))}
+        if mid in BUILDOUT:
+            e["buildout"] = True
         if mid in BRT:
             e["brt_name_pattern"] = BRT[mid]
         metros.append(e)
     metros.sort(key=lambda e: -e["texas_pop"])
-    old = {}
+    old, keep_top = {}, {}
     if os.path.exists(OUT):
         with open(OUT, encoding="utf-8") as f:
-            old = {m["id"]: m for m in json.load(f)["metros"]}
+            prev = json.load(f)
+        old = {m["id"]: m for m in prev["metros"]}
+        keep_top = {k: v for k, v in prev.items() if k not in ("_doc", "metros")}   # e.g. _calibration
     for e in metros:   # keep the calibration keys study/urban_metros.py wrote
         for k in ("calibration", "ridership_asc"):
             if k in old.get(e["id"], {}):
@@ -123,7 +134,7 @@ def main():
            "by study/urban_metros.py.")
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
-        json.dump({"_doc": doc, "metros": metros}, f, indent=1)
+        json.dump({"_doc": doc, "metros": metros, **keep_top}, f, indent=1)
         f.write("\n")
     for e in metros:
         print(f"{e['id']:16s} {e['cbsa']} {len(e['county_fips']):2d} counties  {e['texas_pop']:>10,}  "

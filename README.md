@@ -99,7 +99,10 @@ high-speed rail versus metro systems is an output, not an input.
    network (`tools/build_metro_maps.py`: full alignments, stations and the main roads).
 7. **Toward DFW's transit share in the other metros** (`study/metro_potential.py`,
    `study/metro_potential.md`): a first look at how much of DFW's share each metro's layout
-   allows, and what the generator, DFW's spending and DFW's policies get there.
+   allows, and what the generator, DFW's spending and DFW's policies get there. Build-out mode
+   (DFW Transit's generator, `--buildout`) lets Austin and San Antonio grow networks their layout
+   can carry: with DFW's policies, 5.2% and 4.2% of commutes on today's land use, against DFW's
+   3.2% under the same treatment. The plan uses it for those two metros, at DFW's 75-year rate.
 
 ## Reusing DFW Transit's code
 
