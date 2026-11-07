@@ -169,7 +169,10 @@ def equivalent(struct, yard, year):
 
 
 # ---------------------------------------------------------------- model test
-def model_test(ids, log=print):
+def model_test(ids, buildout=False, log=print):
+    """The generator in each metro at DFW's 75-year spending per resident: network alone and with the
+    policies, or (buildout) in build-out mode with the policies (vendor/dfw-transit metro/generate.json
+    buildout), added to the earlier runs."""
     os.environ["METRO_HOME"] = os.path.join(ROOT, "urban")
     os.environ.setdefault("OMP_NUM_THREADS", "2")
     sys.path.insert(0, DFW)
@@ -187,13 +190,14 @@ def model_test(ids, log=print):
         pop = DFW_POP if mid == "dfw" else reg[mid]["texas_pop"]
         budget = PER_RESIDENT_75 * pop
         runs = {}
-        for key, levers in (("network", False), ("network_policies", True)):
+        configs = [("buildout_policies", True, True)] if buildout else [("network", False, False), ("network_policies", True, False)]
+        for key, levers, bo in configs:
             config.load = with_levers if levers else base_load
             generate.config.load = config.load
             t0 = time.time()
             out = os.path.join(ROOT, "urban", "potential", f"{mid}_{key}")
             try:
-                r = generate.generate(mid, budget_musd=budget, out=out, log=lambda s: None)
+                r = generate.generate(mid, budget_musd=budget, out=out, log=lambda s: None, buildout=bo)
             finally:
                 config.load = base_load
                 generate.config.load = base_load
@@ -207,7 +211,7 @@ def model_test(ids, log=print):
                          "pop": float(m.pop.sum()), "minutes": (time.time() - t0) / 60}
             log(f"  {mid} {key}: ${runs[key]['capital'] / 1e3:.0f}B, {runs[key]['lines']} lines, "
                 f"{runs[key]['share']:.2%} of commutes, {runs[key]['trips']:,.0f} trips a day ({runs[key]['minutes']:.1f} min)")
-        results[mid] = {"budget": budget, **runs}
+        results[mid] = {**results.get(mid, {}), "budget": budget, **runs}
         with open(MODEL_JSON, "w", encoding="utf-8") as f:
             json.dump(results, f, indent=1)
     return results
@@ -267,14 +271,16 @@ def write(yard, structs, model):
               "itself run the same way. Share = transit commuters over commuters (after telework). No growth and no "
               "station-area development, so all shares are below the plan's published 2100 figures; what matters is "
               "each metro against DFW.", "",
-              "| Metro | Budget | Capital the generator finds lines for | Lines | Network alone: share | Trips a day | With policies: share | Trips a day | Relative to DFW (with policies) |",
-              "|---|---|---|---|---|---|---|---|---|"]
+              "| Metro | Budget | Capital the generator finds lines for | Lines | Network alone: share | Trips a day | With policies: share | Trips a day | Relative to DFW (with policies) | Build-out with policies: capital, share, trips a day |",
+              "|---|---|---|---|---|---|---|---|---|---|"]
         ref = model.get("dfw", {}).get("network_policies", {}).get("share")
         for mid, r in sorted(model.items(), key=lambda kv: -kv[1]["network_policies"]["share"]):
             n, p = r["network"], r["network_policies"]
             name = next((s["name"] for s in structs if s["id"] == mid), mid)
             L.append(f"| {name} | ${r['budget'] / 1e3:.0f}B | ${p['capital'] / 1e3:.0f}B | {p['lines']} | {n['share']:.2%} | {n['trips']:,.0f} | "
-                     f"{p['share']:.2%} | {p['trips']:,.0f} | {p['share'] / ref:.0%} |" if ref else "")
+                     f"{p['share']:.2%} | {p['trips']:,.0f} | {p['share'] / ref:.0%} | "
+                     + (f"${r['buildout_policies']['capital'] / 1e3:.0f}B, {r['buildout_policies']['share']:.2%}, "
+                        f"{r['buildout_policies']['trips']:,.0f} |" if "buildout_policies" in r else " |") if ref else "")
         L += ["", "Three things stand out:", "",
               "- **Per resident, Austin, El Paso and San Antonio match or beat DFW** under the same treatment (121%, 131% "
               "and 100% of DFW's share with the policies). Their layouts can carry DFW-level transit use; Midland gets "
@@ -287,7 +293,16 @@ def write(yard, structs, model):
               "- **Houston goes backwards with the policies** (50 lines to 32): with frequent feeder buses and parking "
               "prices, the sketch credits today's METRORail with more riders, so each new line adds less and more fall "
               "under the 0.5 cut-off. A selection rule that judges lines with the full model, or a cut-off that eases "
-              "as policies strengthen, would fix it. Until then Houston's figure here understates it.", ""]
+              "as policies strengthen, would fix it. Until then Houston's figure here understates it.",
+              "- **Build-out mode** (`vendor/dfw-transit/metro/generate.json` buildout: smaller activity centers, BRT down "
+              "to 2,000 people + jobs per route-km, a 0.25 cut-off) is the last column. It lifts Austin from 3.9% to 5.2% "
+              "of commutes ($28B, 17 lines) and San Antonio from 3.2% to 4.2% ($27B, 22 lines). It doesn't help DFW: at "
+              "its budget it adds $17B of BRT ($86B against $69B) for the same 230,000 trips without the policies, and "
+              "neither mode reaches the hand plan's 315,000 (the downtown subway and through-running regional rail aren't "
+              "corridors a generator draws). El Paso does worse (its few strong corridors split), and Houston, at 2.1%, "
+              "is still below its network without the policies (2.5%): something in Houston's response to the policies "
+              "needs a closer look. So the plan uses build-out in Austin and San Antonio only "
+              "(`tools/build_metro_registry.py` BUILDOUT), with DFW's whole 75-year horizon as their budget.", ""]
     L += ["## What it would take", "",
           "- **A bigger network in the big metros.** The generated plans spend 30 years of DFW's rate, and even at 75 "
           "years the generator stops at a third of the money. Loosening its cut-off and adding what DFW's hand plan has "
@@ -301,8 +316,8 @@ def write(yard, structs, model):
           "- **Accept a lower ceiling in the small metros.** Midland, Odessa, Tyler and Victoria have almost nobody at "
           "the densities where DFW's plan reaches double digits; their transit is local buses, and a share near today's "
           "Austin (1%) would be a success.", "",
-          "Next steps: (1) a generator mode that builds out to the budget in metros whose layout can use it (an arterial "
-          "BRT grid pass and a selection judged by the full model); (2) each metro's own growth and the plan's "
+          "Done: build-out mode, used in Austin and San Antonio (above). Next steps: (1) Houston's response to the policies "
+          "and a selection judged by the full model rather than the sketch; (2) each metro's own growth and the plan's "
           "station-area development, since the generator runs on today's land use; (3) the policy package in Austin, "
           "Houston, San Antonio and El Paso, then the timing study (`study/timing.py`) with their bigger networks. "
           "Target for those four: DFW's 2100 share, about 7% of commutes, with the small metros at about 1%.", ""]
@@ -314,8 +329,9 @@ def write(yard, structs, model):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", nargs="*", help="metro ids for the model test (dfw for DFW itself)")
+    ap.add_argument("--buildout", action="store_true", help="with --model: the build-out run (with policies)")
     a = ap.parse_args()
-    model = model_test(a.model) if a.model else (json.load(open(MODEL_JSON, encoding="utf-8")) if os.path.exists(MODEL_JSON) else {})
+    model = model_test(a.model, a.buildout) if a.model else (json.load(open(MODEL_JSON, encoding="utf-8")) if os.path.exists(MODEL_JSON) else {})
     write(dfw_yardstick(), metro_structure(), model)
 
 

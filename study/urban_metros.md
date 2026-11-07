@@ -22,8 +22,8 @@ Trips are daily transit trips from the model with every line open on today's lan
 | Metro | People (TX) | Budget | Capital | Lines | Metro / streetcar / BRT / regional rail km | Within 800 m of a station | Trips a day (today) | New trips per $B | Constant |
 |---|---|---|---|---|---|---|---|---|---|
 | Houston-Pasadena-The Woodlands | 7.15M | $66.1B | $60.8B | 49 | 117 / 0 / 825 / 250 | 23% (2%) | 219,231 (43,208) | 2,896 | +0.84 |
-| San Antonio-New Braunfels | 2.56M | $23.6B | $14.8B | 16 | 27 / 0 / 311 / 0 | 17% (0%) | 63,898 (0) | 4,315 | +0.75 |
-| Austin-Round Rock-San Marcos | 2.28M | $21.1B | $18.3B | 10 | 45 / 0 / 98 / 76 | 12% (1%) | 88,815 (15,953) | 3,979 | +0.66 |
+| San Antonio-New Braunfels | 2.56M | $59.1B | $21.9B | 23 | 30 / 0 / 383 / 90 | 20% (0%) | 83,867 (0) | 3,836 | +0.75 |
+| Austin-Round Rock-San Marcos | 2.28M | $52.7B | $27.9B | 17 | 52 / 0 / 287 / 76 | 21% (1%) | 120,626 (15,953) | 3,754 | +0.66 |
 | McAllen-Edinburg-Mission | 0.87M | $8.0B | $2.0B | 2 | 0 / 0 / 59 / 0 | 12% (0%) | 6,575 (0) | 3,343 | -0.09 |
 | El Paso | 0.87M | $8.0B | $3.3B | 5 | 0 / 0 / 111 / 0 | 19% (0%) | 22,261 (0) | 6,747 | +0.50 |
 | Killeen-Temple | 0.48M | $4.4B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | +0.01 |
@@ -47,11 +47,11 @@ Trips are daily transit trips from the model with every line open on today's lan
 | Texarkana | 0.09M | $0.9B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | -0.16 |
 | Eagle Pass | 0.06M | $0.5B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | -0.52 |
 
-**All 25 metros:** 18.6M Texans, $105B of capital against $172B of budget, 93 lines (metro 189 km, streetcar 0 km, brt 1,577 km, regional rail 326 km), 444,283 daily transit trips against 59,161 today, 3,673 new daily trips per $B; $1.9B a year more to operate.
+**All 25 metros:** 18.6M Texans, $121B of capital against $239B of budget, 107 lines (metro 198 km, streetcar 0 km, brt 1,838 km, regional rail 416 km), 496,063 daily transit trips against 59,161 today, 3,596 new daily trips per $B; $2.1B a year more to operate.
 
-**Unspent: $67B of the $172B.** 10 metros get no line at all (Killeen, Longview, Tyler, Abilene, Midland, Sherman, San Angelo, Victoria, Texarkana, Eagle Pass), and most of the other small ones one short BRT line. The generator only drafts lines between activity centers, clusters of at least 20,000 people + jobs at 4,000 per km2 or more, and only gives a corridor a mode when the people + jobs along it reach that mode's density (DFW's calibration, `vendor/dfw-transit/metro/generate.json`). Texas's smaller metros are mostly too spread out for rail or BRT by those tests; what they need is more and better local bus, which this generator doesn't draw. The unspent money goes back to the statewide pot for the timing step.
+**Unspent: $118B of the $239B.** 10 metros get no line at all (Killeen, Longview, Tyler, Abilene, Midland, Sherman, San Angelo, Victoria, Texarkana, Eagle Pass), and most of the other small ones one short BRT line. The generator only drafts lines between activity centers, clusters of at least 20,000 people + jobs at 4,000 per km2 or more, and only gives a corridor a mode when the people + jobs along it reach that mode's density (DFW's calibration, `vendor/dfw-transit/metro/generate.json`). Texas's smaller metros are mostly too spread out for rail or BRT by those tests; their case is for local bus, which this generator doesn't draw. The unspent money goes back to the statewide pot for the timing step.
 
-Metros under 300,000 people (15): $3B for 19,604 new daily trips, 7,714 per $B; the 10 larger ones: 3,572 per $B. The flat per-resident budget is a starting point: the statewide timing step moves money to where it buys the most riders, urban or intercity.
+Metros under 300,000 people (15): $3B for 19,604 new daily trips, 7,714 per $B; the 10 larger ones: 3,508 per $B. The flat per-resident budget is a starting point: the statewide timing step moves money to where it buys the most riders, urban or intercity.
 
 ## Caveats
 

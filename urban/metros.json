@@ -88,7 +88,8 @@
     }
    ],
    "texas_pop": 2558143,
-   "budget_musd": 23633,
+   "budget_musd": 59083,
+   "buildout": true,
    "ridership_asc": {
     "asc": 0.7474,
     "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 1.26% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
@@ -126,7 +127,8 @@
     }
    ],
    "texas_pop": 2283371,
-   "budget_musd": 21095,
+   "budget_musd": 52737,
+   "buildout": true,
    "ridership_asc": {
     "asc": 0.6619,
     "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 1.06% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
