@@ -1,6 +1,7 @@
 line_id,name,mode,status,color,headway_min,notes
-G01,Pellicano / George Dieter - Nonap / Mark Twain BRT,brt,proposed,#8e24aa,,"generated (R015): 4,231 per route-km >= BRT 3,000 (< metro 7,000); 2,147 new daily trips for $0.33B capital (4.58 per $M incl. opex)"
-G02,Pellicano / George Dieter - Balboa / Cadiz BRT,brt,proposed,#00897b,,"generated (R012): 6,941 per route-km >= BRT 3,000 (< metro 7,000); 5,172 new daily trips for $1.12B capital (3.21 per $M incl. opex)"
-G03,Pellicano / George Dieter - John Hayes / Pebble Hills BRT,brt,proposed,#6d4c41,,"generated (R014): 6,523 per route-km >= BRT 3,000 (< metro 7,000); 1,102 new daily trips for $0.39B capital (2.01 per $M incl. opex)"
-G04,Mills / Campbell - Prince Edward / Rushing BRT,brt,proposed,#3949ab,,"generated (R006): 5,380 per route-km >= BRT 3,000 (< metro 7,000); 1,449 new daily trips for $0.62B capital (1.63 per $M incl. opex)"
-G05,Montana Avenue - Prince Edward / Rushing BRT,brt,proposed,#c0ca33,,"generated (R011): 3,558 per route-km >= BRT 3,000 (< metro 7,000); 968 new daily trips for $0.57B capital (1.18 per $M incl. opex)"
+G01,Pellicano / George Dieter - Nonap / Mark Twain BRT,brt,proposed,#8e24aa,,"generated (R015): 4,231 per route-km >= BRT 3,000 (< metro 7,000); 2,169 new daily trips for $0.33B capital (4.62 per $M incl. opex)"
+G02,Pellicano / George Dieter - Balboa / Cadiz BRT,brt,proposed,#00897b,,"generated (R012): 6,941 per route-km >= BRT 3,000 (< metro 7,000); 5,560 new daily trips for $1.12B capital (3.45 per $M incl. opex)"
+G03,Pellicano / George Dieter - John Hayes / Pebble Hills BRT,brt,proposed,#6d4c41,,"generated (R014): 6,523 per route-km >= BRT 3,000 (< metro 7,000); 1,195 new daily trips for $0.39B capital (2.18 per $M incl. opex)"
+G04,Mills / Campbell - Prince Edward / Rushing BRT,brt,proposed,#3949ab,,"generated (R006): 5,380 per route-km >= BRT 3,000 (< metro 7,000); 1,552 new daily trips for $0.62B capital (1.74 per $M incl. opex)"
+G05,Montana Avenue - Prince Edward / Rushing BRT,brt,proposed,#c0ca33,,"generated (R011): 3,558 per route-km >= BRT 3,000 (< metro 7,000); 961 new daily trips for $0.57B capital (1.18 per $M incl. opex)"
+G06,Montana Avenue - Balboa / Cadiz Metro,metro,proposed,#d32f2f,,"generated (R007): 7,142 people+jobs per route-km >= metro 7,000; 4,940 new daily trips for $6.36B capital (0.66 per $M incl. opex)"

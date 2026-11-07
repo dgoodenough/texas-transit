@@ -17,9 +17,11 @@ class RegistryTests(unittest.TestCase):
         self.assertEqual(len(self.by), 25)
         self.assertNotIn("19100", {m["cbsa"] for m in self.reg["metros"]})
         for m in self.reg["metros"]:
-            years = 75 if m.get("buildout") else 30   # build-out metros get DFW's whole horizon
+            years = 75 if m.get("buildout") or m.get("policies") else 30   # build-out and policy metros: DFW's whole horizon
             self.assertAlmostEqual(m["budget_musd"], 2300 * m["texas_pop"] / 7_468_799 * years, delta=1)
         self.assertEqual(self.by["texarkana"]["state_fips"], ["05", "48"])   # whole CBSA, Texas budget
+        self.assertEqual({m["id"] for m in self.reg["metros"] if m.get("policies")},
+                         {"houston", "austin", "san-antonio", "el-paso"})
 
     def test_constants_follow_the_houston_slope(self):
         cal = self.reg["_calibration"]

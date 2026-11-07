@@ -43,7 +43,7 @@
     }
    ],
    "texas_pop": 7149642,
-   "budget_musd": 66051,
+   "budget_musd": 165129,
    "growth": {
     "_doc": "County trend (tools/build_growth.py); jobs relative to LODES 2023, growing with people",
     "regional_pop": {
@@ -65,6 +65,7 @@
      "2100": 2.2769
     }
    },
+   "policies": true,
    "brt_name_pattern": "Silver Line|\\bBRT\\b",
    "calibration": {
     "weekday_boardings": 43920,
@@ -132,6 +133,7 @@
     }
    },
    "buildout": true,
+   "policies": true,
    "ridership_asc": {
     "asc": 0.778,
     "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 1.26% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
@@ -192,6 +194,7 @@
     }
    },
    "buildout": true,
+   "policies": true,
    "ridership_asc": {
     "asc": 0.6842,
     "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 1.06% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
@@ -274,7 +277,7 @@
     }
    ],
    "texas_pop": 868859,
-   "budget_musd": 8027,
+   "budget_musd": 20067,
    "growth": {
     "_doc": "County trend (tools/build_growth.py); jobs relative to LODES 2023, growing with people",
     "regional_pop": {
@@ -296,6 +299,7 @@
      "2100": 1.3735
     }
    },
+   "policies": true,
    "ridership_asc": {
     "asc": 0.5052,
     "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.77% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"

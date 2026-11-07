@@ -98,7 +98,8 @@ def metros():
             key = (round(x), round(y))
             cells[key] = cells.get(key, 0) + int(z["pop"]) + float(z["jobs"] or 0)
         out.append({"id": m["id"], "name": m["name"].split(",")[0], "xy": xy(lon0, lat0), "pop": m["texas_pop"],
-                    "budget": m["budget_musd"], "net": lines,
+                    "budget": m["budget_musd"], "budget_years": 75 if m.get("buildout") or m.get("policies") else 30,
+                    "policies": bool(m.get("policies")), "net": lines,
                     "dots": [[a, b, round(v)] for (a, b), v in cells.items() if v >= 2000]})
     return out
 

@@ -9,9 +9,11 @@ area with a Texas county, so Texarkana includes Miller County, Arkansas) and the
 Gazetteer of places (reference points). Extra keys this repo adds, which DFW Transit ignores:
   texas_pop     2020 population of the metro's Texas counties (the budget is Texas's money)
   buildout      true for the metros the generator runs in build-out mode (BUILDOUT below)
+  policies      true for the metros with the 2 million plan's policy package (POLICY_METROS below)
   budget_musd   capital budget: DFW Transit's rate per resident ($2.3B a year for 7.47M people)
                 x texas_pop x 30 years, the generator's default horizon (as DFW Transit's
-                generated Houston and Eugene)
+                generated Houston and Eugene); 75 years, DFW Transit's horizon, for the build-out
+                and policy metros
   growth        the metro's own regional multipliers for the generator (vendor/dfw-transit metro/model.py
                 metro_cfg), replacing DFW's forecast: regional_pop relative to 2020 from its counties'
                 trend (data/zones/county_growth.csv, tools/build_growth.py), regional_jobs the same growth
@@ -45,6 +47,11 @@ DFW_MUSD_PER_YEAR, DFW_POP, YEARS = 2300, 7_468_799, 30   # as study/size_texas.
 # (its default network already carries more, 3.75% of commutes against 3.6%), El Paso (build-out
 # splits its few strong corridors) or the small metros (no corridor dense enough).
 BUILDOUT, BUILDOUT_YEARS = {"austin", "san-antonio"}, 75
+# Metros that get the 2 million plan's policy package (study/urban_metros.py POLICIES: frequent feeders, bikes and
+# drop-off to stations, longer walks, parking prices at the densest job centers) and, like the build-out metros,
+# DFW Transit's whole 75-year horizon as their budget: the four whose layout matches DFW's under the same
+# treatment (study/metro_potential.md). Too few people live near the smaller metros' corridors for either.
+POLICY_METROS = {"houston", "austin", "san-antonio", "el-paso"}
 STATES = {"48": "tx", "05": "ar", "22": "la", "35": "nm", "40": "ok"}
 # Routes NTD files as bus rapid transit (mode RB): only Houston's Silver Line. MetroRapid
 # (Austin), Primo (San Antonio) and Brio (El Paso) are filed as plain bus and run mostly in
@@ -151,10 +158,12 @@ def main():
              "county_names": {f: names[f] for f in fs},
              "downtowns": [{"name": f"{city} (city's Census internal point)", "lat": pt[0], "lon": pt[1]}],
              "texas_pop": tx_pop,
-             "budget_musd": round(DFW_MUSD_PER_YEAR * tx_pop / DFW_POP * (BUILDOUT_YEARS if mid in BUILDOUT else YEARS))}
+             "budget_musd": round(DFW_MUSD_PER_YEAR * tx_pop / DFW_POP * (BUILDOUT_YEARS if mid in BUILDOUT | POLICY_METROS else YEARS))}
         e["growth"] = growth(fs, trend, mid)
         if mid in BUILDOUT:
             e["buildout"] = True
+        if mid in POLICY_METROS:
+            e["policies"] = True
         if mid in BRT:
             e["brt_name_pattern"] = BRT[mid]
         metros.append(e)
