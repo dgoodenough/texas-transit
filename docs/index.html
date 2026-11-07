@@ -200,7 +200,7 @@ a{color:var(--metro)}
     <li>Operating cost is outside the capital budget, as in DFW Transit. By 2100 the lines statewide, DFW included, cost about $6B a year more to run than they take in fares, and no budget pays that yet.</li>
     <li>The model overrates infrequent rail: at its constant it puts about 16,000 riders a day on Austin's Red Line, and NTD counts 1,636. Regional rail and the conventional trains are likely overrated; metro and BRT are where the calibration holds.</li>
     <li>For high-speed rail, the constant against car alone moves the first four corridors between 30M and 74M trips a year.</li>
-    <li>Values grow with Texas's population trend and nothing else: no new land use around stations, no change in driving or flying.</li>
+    <li>Each metro's riders follow its own model runs in 2026, 2050 and 2100: its counties' growth trend, with DFW's 2 million plan's land use around new stations (more homes and jobs near them, a fifth of growth steered there). Those runs open every line from 2026, so late lines are credited with station areas that have had decades to grow. Intercity values grow with Texas's population trend; nothing changes in driving or flying.</li>
   </ul>
   <p class="note">Source and method: <a href="https://github.com/dgoodenough/texas-transit">github.com/dgoodenough/texas-transit</a> (study/timing.md, hsr_options.md, interstate_rail.md, urban_metros.md).</p>
 </section>
@@ -218,6 +218,15 @@ const status = (p, y) => !p || !p.open ? "never" : p.open <= y ? "open" : p.star
 
 Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.json").then(r => r.json())]).then(([M, T]) => {
   const P = {}; T.projects.forEach(p => { P[p.id] = p; });
+  // an urban line's new daily trips in year y: its 2050 value along its metro's trajectory (timeline.json urban_traj)
+  function urbanTrips(p, y) {
+    const tj = (T.urban_traj || {})[p.metro];
+    if (!tj) return p.trips_day;
+    const ks = Object.keys(tj).map(Number).sort((a, b) => a - b);
+    const lo = ks.filter(k => k <= y).pop() ?? ks[0], hi = ks.find(k => k >= y) ?? ks[ks.length - 1];
+    const f = lo === hi ? tj[lo] : tj[lo] + (tj[hi] - tj[lo]) * (y - lo) / (hi - lo);
+    return p.trips_day * f;
+  }
   let Y = {}, YL = T.yearly, scen = "ratio";
   const NOTES = {
     ratio: "Every project in one queue, best ratio first. The Triangle's high-speed lines come early; most metro lines open after 2050.",
@@ -396,7 +405,7 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
     const rows = [["People (2020)", fmt(m.pop)], ["Lines open / planned", `${open.length} / ${ps.length}`],
       ["Metro / BRT / regional rail open", `${km("metro")} / ${km("brt")} / ${km("commuter")} km`],
       ["Capital in open lines", money(open.reduce((a, p) => a + p.capital, 0))],
-      ["New daily transit trips (today's land use)", fmt(open.reduce((a, p) => a + p.trips_day, 0))],
+      [`New daily transit trips, ${y}`, fmt(open.reduce((a, p) => a + urbanTrips(p, y), 0))],
       ["Budget share, 30 years", money(m.budget)]];
     document.getElementById("mstats").innerHTML = rows.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("");
     const next = ps.filter(p => p.open && p.open > y).sort((a, b) => a.open - b.open)[0];
@@ -465,12 +474,12 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
       p.setAttribute("stroke-dasharray", s === "open" ? "1 6" : "1 8");
     });
     const tr = {dfw: r.dfw_trips_day};
-    T.projects.forEach(p => { if (p.layer === "urban" && status(p, y) === "open") tr[p.metro] = (tr[p.metro] || 0) + p.trips_day; });
+    T.projects.forEach(p => { if (p.layer === "urban" && status(p, y) === "open") tr[p.metro] = (tr[p.metro] || 0) + urbanTrips(p, y); });
     const maxT = Math.max(1, ...YL.map(q => q.dfw_trips_day));
     circles.forEach(({m, c, t}) => {
       const v = tr[m.id] || 0;
       c.setAttribute("r", v ? 5 + 40 * Math.sqrt(v / maxT) : 0);
-      t.textContent = `${m.name}: ${fmt(v)} new daily transit trips open by ${y} (today's land use)`;
+      t.textContent = `${m.name}: ${fmt(v)} new daily transit trips in ${y}`;
     });
     cursor.setAttribute("d", `M${sx(y)} ${pt}V${H - pb}`);
     const nx = inter.filter(p => p.open && p.open > y)[0];

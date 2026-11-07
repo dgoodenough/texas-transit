@@ -12,6 +12,10 @@ Gazetteer of places (reference points). Extra keys this repo adds, which DFW Tra
   budget_musd   capital budget: DFW Transit's rate per resident ($2.3B a year for 7.47M people)
                 x texas_pop x 30 years, the generator's default horizon (as DFW Transit's
                 generated Houston and Eugene)
+  growth        the metro's own regional multipliers for the generator (vendor/dfw-transit metro/model.py
+                metro_cfg), replacing DFW's forecast: regional_pop relative to 2020 from its counties'
+                trend (data/zones/county_growth.csv, tools/build_growth.py), regional_jobs the same growth
+                relative to its LODES year (no county jobs forecast: jobs keep pace with people)
 Calibration keys (`calibration`, `ridership_asc`) are added by study/urban_metros.py.
 
 `downtowns` are the principal city's Gazetteer internal point, labelled as such: the generator
@@ -76,7 +80,42 @@ def places():
     return out
 
 
+def county_trend():
+    """{county_fips: {year: population}} from data/zones/county_growth.csv."""
+    out = {}
+    with open(os.path.join(ROOT, "data", "zones", "county_growth.csv"), encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            out[r["county_fips"]] = {int(k[4:]): float(v) for k, v in r.items() if k.startswith("pop_")}
+    return out
+
+
+def interp(table, year):
+    ks = sorted(table)
+    lo = max(k for k in ks if k <= year)
+    hi = min(k for k in ks if k >= year)
+    return table[lo] if lo == hi else table[lo] + (table[hi] - table[lo]) * (year - lo) / (hi - lo)
+
+
+def growth(fips, trend, mid):
+    """The metro's regional multipliers (registry `growth`) from its counties' trend."""
+    tot = collections.Counter()
+    for f in fips:
+        for y, v in trend[f].items():
+            tot[y] += v
+    years = [y for y in sorted(tot) if y >= 2020]
+    meta = os.path.join(ROOT, "urban", "data", "metros", mid, "meta.json")
+    jy = 2023
+    if os.path.exists(meta):
+        with open(meta, encoding="utf-8") as f:
+            jy = (json.load(f).get("sources", {}).get("lodes_wac") or {}).get("year") or jy
+    p20, pj = tot[2020], interp(tot, jy)
+    return {"_doc": f"County trend (tools/build_growth.py); jobs relative to LODES {jy}, growing with people",
+            "regional_pop": {str(y): round(tot[y] / p20, 4) for y in years},
+            "regional_jobs": {str(jy): 1.0, **{str(y): round(tot[y] / pj, 4) for y in years if y > jy}}}
+
+
 def main():
+    trend = county_trend()
     rows = census.read_xlsx_rows(os.path.join(RAW, "list1_2023.xlsx"))
     hi = next(i for i, r in enumerate(rows) if r and "CBSA Code" in r)
     ix = {h: i for i, h in enumerate(rows[hi])}
@@ -113,6 +152,7 @@ def main():
              "downtowns": [{"name": f"{city} (city's Census internal point)", "lat": pt[0], "lon": pt[1]}],
              "texas_pop": tx_pop,
              "budget_musd": round(DFW_MUSD_PER_YEAR * tx_pop / DFW_POP * (BUILDOUT_YEARS if mid in BUILDOUT else YEARS))}
+        e["growth"] = growth(fs, trend, mid)
         if mid in BUILDOUT:
             e["buildout"] = True
         if mid in BRT:

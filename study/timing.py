@@ -19,8 +19,9 @@ Writes study/timing.md and docs/data/timeline.json (the site's data).
      equivalent days a year (dfw-transit config.json); non-commute trips are assumed to gain as much.
    Fares and operating cost (urban fares URBAN_FARE a trip). Benefit-cost ratio over 50 years at
    3% (PV_FACTOR): travellers' gain (plus any operating surplus) over capital plus the operating
-   deficit. Values grow with Texas's population (tools/build_growth.py): intercity from 2050,
-   urban from 2026.
+   deficit. Ratios are on 2050 travel. Intercity values grow with Texas's population from 2050
+   (tools/build_growth.py); urban ones follow each metro's own model runs in 2026, 2050 and 2100
+   (its growth and the 2 million plan's station-area land use; study/urban_metros.py).
 3. Schedule. Dallas-Fort Worth keeps DFW Transit's $2.3B a year (its own plan and timetable); the rest
    of the $9.0B a year goes to the other projects, best ratio first (a project opens no earlier than the
    ones its value depends on), each spending evenly over its construction years and opening at the end, with
@@ -51,6 +52,7 @@ URBAN_B_PER_DOLLAR, URBAN_DAYS, URBAN_FARE = 0.125, 300, 1.25
 PV_FACTOR = (1 - 1.03 ** -50) / 0.03                      # 25.7
 BUILD_YEARS = {"metro": 5, "brt": 2, "commuter": 4, "streetcar": 3, "hsr": 8, "conventional": 3}
 HSR_YEAR = 2050
+URBAN_BASE_YEAR = HSR_YEAR   # urban values at 2050 travel too, when the metro has its 2050 run
 HSR_HEADWAY = 30
 METRO_YEARS = 30          # the metros-first scenario: each metro's budget over this many years from 2025
 SCENARIOS = (("ratio", "Best ratio first"), ("metros_first", "Metros first"))
@@ -155,6 +157,28 @@ def intercity_wider(vkm_day, pkm_day):
 
 
 # ---------------------------------------------------------------- projects
+def urban_trajectory(s):
+    """(new daily trips in the base year, {year: trips / base-year trips}, base year) for one metro's network from
+    its summary.json: the model runs on today's land use (2026) and, with the metro's own growth and the station-area
+    land use, in 2050 and 2100 (study/urban_metros.py), linear between them. New = the network's trips less today's
+    lines' under the same growth. The base year is 2050, as the intercity layer's; without the future runs, 2026
+    and Texas's population growth."""
+    today = max(s.get("trips", 0) - s.get("trips_today", 0), 0)
+    fut = s.get("future") or {}
+    if not fut:
+        return today, None, 2026
+    pts = {2026: today, **{int(y): max(f["trips"] - f["trips_today_lines"], 0) for y, f in fut.items()}}
+    ks = sorted(pts)
+    base = pts[URBAN_BASE_YEAR]
+    traj = {}
+    for y in range(ks[0], ks[-1] + 1):
+        lo = max(k for k in ks if k <= y)
+        hi = min(k for k in ks if k >= y)
+        v = pts[lo] if lo == hi else pts[lo] + (pts[hi] - pts[lo]) * (y - lo) / (hi - lo)
+        traj[y] = v / base if base else 0.0
+    return base, traj, URBAN_BASE_YEAR
+
+
 def urban_projects():
     reg = json.load(open(os.path.join(ROOT, "urban", "metros.json"), encoding="utf-8"))
     out = []
@@ -167,7 +191,7 @@ def urban_projects():
         rows = [r for r in csv.DictReader(open(cpath, encoding="utf-8")) if r["status"] == "chosen"]
         rows.sort(key=lambda r: int(r["order"]))
         sketch = sum(float(r["new_trips"]) for r in rows)
-        model = max(s.get("trips", 0) - s.get("trips_today", 0), 0)
+        model, traj, base_year = urban_trajectory(s)
         dist = districts(m["id"], [r["cand_id"] for r in rows])
         prev = None
         for r in rows:
@@ -185,7 +209,7 @@ def urban_projects():
                         "agglom": benefit * BEN["agglomeration_share"]["urban"],
                         "district_pop": dp, "district_jobs": dj, "new_stations": dn,
                         "land_tax_year": tax_year, "bond": min(bond, float(r["capital_musd"])),
-                        "base_year": 2026, "after": [prev] if prev else [], "build": BUILD_YEARS[r["mode"]]})
+                        "base_year": base_year, "traj": traj, "after": [prev] if prev else [], "build": BUILD_YEARS[r["mode"]]})
             prev = pid
     return out
 
@@ -438,7 +462,8 @@ def yearly(projects, spend, pop, dfw):
     rows = []
     for y in YEARS:
         open_ = [p for p in projects if p.get("open") and p["open"] <= y]
-        f = {p["id"]: pop[y] / pop[p["base_year"]] for p in open_}
+        f = {p["id"]: p["traj"].get(y, 0.0) if p.get("traj") else pop[y] / pop[p["base_year"]]
+             for p in open_}
         d = dfw[y]
         rows.append({"year": y, "spend": spend[y], "dfw_spend": d["spend"],
                      "land_tax": sum(p.get("bond", 0.0) for p in projects if p.get("open") == y) + d["bond"],
@@ -591,8 +616,8 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
     last = rows[-1]
     cap_all = sum(p["capital"] for p in built)
     draw = sum(p["capital"] - p.get("bond", 0) for p in built)
-    L += ["", "Gains and costs a year are at full build (2050 travel for intercity, today's land use for the metros; DFW's "
-          "at 2100). ", "",
+    L += ["", "Gains and costs a year are at full build (2050 travel, with each metro's own growth and station-area land use "
+          "for the metros; DFW's at 2100). ", "",
           f"**By 2100, statewide:** outside DFW {money(cap_all)} built ({money(cap_all - draw)} of it paid by land-tax bonds) of "
           f"{money(avail)} available, {money(avail - draw)} unspent; {last['urban_trips_day'] + last['dfw_trips_day']:,.0f} new "
           f"daily metro transit trips ({last['dfw_trips_day']:,.0f} in DFW), {last['intercity_trips_year'] / 1e6:.0f}M intercity "
@@ -685,8 +710,10 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
           "- Land-tax revenue assumes the uplift arrives with the line and the districts are formed: Texas cities form TIRZs "
           "and PIDs one at a time, and school taxes, the biggest share, can't be captured. Values are 2020 people and jobs "
           "at today's prices, with no growth near the stations (conservative).",
-          "- Values grow with Texas's population trend from the year they were estimated; nothing else changes over time. "
-          "DFW's numbers are its own model's, on its own growth path.",
+          "- Intercity values grow with Texas's population trend from 2050. Urban values follow each metro's model runs in "
+          "2026, 2050 and 2100 (study/urban_metros.md), which open every line from 2026: a line opened late is credited "
+          "with station areas that have had decades to develop, so late lines' riders are on the high side. DFW's "
+          "numbers are its own model's, on its own growth path.",
           "- Operating cost is outside the capital budget, as in DFW Transit; the deficits are in the ratio, but no budget pays "
           "them yet.", ""]
     L += scenario_section(runs)
@@ -705,6 +732,9 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
                     "lines": sum(1 for ln in plan["lines"] if ln["status"] != "existing"), "benefit": y100["benefit"],
                     "wider": y100["wider"], "margin": y100["fares"] - y100["opex"]},
             "projects": [rnd({k: v for k, v in p.items() if k in keep}, 3) for p in projects],
+            # each metro's riders relative to their 2050 level (urban_trajectory), every 5 years: trips_day x this
+            "urban_traj": {p["metro"]: {str(y): round(p["traj"][y], 3) for y in range(2030, 2101, 5)} | {"2026": round(p["traj"][2026], 3)}
+                           for p in projects if p["layer"] == "urban" and p.get("traj")},
             "yearly": [rnd(r, 1) for r in rows],
             "scenarios": {key: {"label": lab,
                                 "when": {p["id"]: [p["start"], p["open"]] for p in runs[key]["projects"] if p.get("open")},
