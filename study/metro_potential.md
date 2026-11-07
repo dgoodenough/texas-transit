@@ -65,14 +65,14 @@ Read across: DFW itself scores 4.0% here against the 7.3% its plan reaches in 21
 
 The generator at DFW's per-resident spending over 75 years ($23,096 a resident), first with the network alone, then with the 2 million plan's policies at their mature settings; DFW itself run the same way. Share = transit commuters over commuters (after telework). No growth and no station-area development, so all shares are below the plan's published 2100 figures; what matters is each metro against DFW.
 
-| Metro | Budget | Capital the generator finds lines for | Lines | Network alone: share | Trips a day | With policies: share | Trips a day | Relative to DFW (with policies) |
-|---|---|---|---|---|---|---|---|---|
-| El Paso | $20B | $9B | 6 | 2.97% | 27,999 | 4.22% | 39,724 | 131% |
-| Austin-Round Rock-San Marcos | $53B | $17B | 11 | 2.52% | 88,815 | 3.87% | 136,568 | 121% |
-| San Antonio-New Braunfels | $59B | $15B | 16 | 2.07% | 63,898 | 3.22% | 99,151 | 100% |
-| Dallas-Fort Worth | $172B | $73B | 49 | 2.14% | 229,792 | 3.21% | 344,590 | 100% |
-| Houston-Pasadena-The Woodlands | $165B | $39B | 32 | 2.48% | 225,091 | 1.84% | 166,497 | 57% |
-| Midland | $4B | $0B | 0 | 0.00% | 0 | 0.00% | 0 | 0% |
+| Metro | Budget | Capital the generator finds lines for | Lines | Network alone: share | Trips a day | With policies: share | Trips a day | Relative to DFW (with policies) | Build-out with policies: capital, share, trips a day |
+|---|---|---|---|---|---|---|---|---|---|
+| El Paso | $20B | $9B | 6 | 2.97% | 27,999 | 4.22% | 39,724 | 131% | $3B, 3.32%, 31,290 |
+| Austin-Round Rock-San Marcos | $53B | $17B | 11 | 2.52% | 88,815 | 3.87% | 136,568 | 121% | $28B, 5.20%, 183,409 |
+| San Antonio-New Braunfels | $59B | $15B | 16 | 2.07% | 63,898 | 3.22% | 99,151 | 100% | $27B, 4.16%, 128,201 |
+| Dallas-Fort Worth | $172B | $73B | 49 | 2.14% | 229,792 | 3.21% | 344,590 | 100% |  |
+| Houston-Pasadena-The Woodlands | $165B | $39B | 32 | 2.48% | 225,091 | 1.84% | 166,497 | 57% |  |
+| Midland | $4B | $0B | 0 | 0.00% | 0 | 0.00% | 0 | 0% |  |
 
 Three things stand out:
 

@@ -169,7 +169,10 @@ def equivalent(struct, yard, year):
 
 
 # ---------------------------------------------------------------- model test
-def model_test(ids, log=print):
+def model_test(ids, buildout=False, log=print):
+    """The generator in each metro at DFW's 75-year spending per resident: network alone and with the
+    policies, or (buildout) in build-out mode with the policies (vendor/dfw-transit metro/generate.json
+    buildout), added to the earlier runs."""
     os.environ["METRO_HOME"] = os.path.join(ROOT, "urban")
     os.environ.setdefault("OMP_NUM_THREADS", "2")
     sys.path.insert(0, DFW)
@@ -187,13 +190,14 @@ def model_test(ids, log=print):
         pop = DFW_POP if mid == "dfw" else reg[mid]["texas_pop"]
         budget = PER_RESIDENT_75 * pop
         runs = {}
-        for key, levers in (("network", False), ("network_policies", True)):
+        configs = [("buildout_policies", True, True)] if buildout else [("network", False, False), ("network_policies", True, False)]
+        for key, levers, bo in configs:
             config.load = with_levers if levers else base_load
             generate.config.load = config.load
             t0 = time.time()
             out = os.path.join(ROOT, "urban", "potential", f"{mid}_{key}")
             try:
-                r = generate.generate(mid, budget_musd=budget, out=out, log=lambda s: None)
+                r = generate.generate(mid, budget_musd=budget, out=out, log=lambda s: None, buildout=bo)
             finally:
                 config.load = base_load
                 generate.config.load = base_load
@@ -207,7 +211,7 @@ def model_test(ids, log=print):
                          "pop": float(m.pop.sum()), "minutes": (time.time() - t0) / 60}
             log(f"  {mid} {key}: ${runs[key]['capital'] / 1e3:.0f}B, {runs[key]['lines']} lines, "
                 f"{runs[key]['share']:.2%} of commutes, {runs[key]['trips']:,.0f} trips a day ({runs[key]['minutes']:.1f} min)")
-        results[mid] = {"budget": budget, **runs}
+        results[mid] = {**results.get(mid, {}), "budget": budget, **runs}
         with open(MODEL_JSON, "w", encoding="utf-8") as f:
             json.dump(results, f, indent=1)
     return results
@@ -267,14 +271,16 @@ def write(yard, structs, model):
               "itself run the same way. Share = transit commuters over commuters (after telework). No growth and no "
               "station-area development, so all shares are below the plan's published 2100 figures; what matters is "
               "each metro against DFW.", "",
-              "| Metro | Budget | Capital the generator finds lines for | Lines | Network alone: share | Trips a day | With policies: share | Trips a day | Relative to DFW (with policies) |",
-              "|---|---|---|---|---|---|---|---|---|"]
+              "| Metro | Budget | Capital the generator finds lines for | Lines | Network alone: share | Trips a day | With policies: share | Trips a day | Relative to DFW (with policies) | Build-out with policies: capital, share, trips a day |",
+              "|---|---|---|---|---|---|---|---|---|---|"]
         ref = model.get("dfw", {}).get("network_policies", {}).get("share")
         for mid, r in sorted(model.items(), key=lambda kv: -kv[1]["network_policies"]["share"]):
             n, p = r["network"], r["network_policies"]
             name = next((s["name"] for s in structs if s["id"] == mid), mid)
             L.append(f"| {name} | ${r['budget'] / 1e3:.0f}B | ${p['capital'] / 1e3:.0f}B | {p['lines']} | {n['share']:.2%} | {n['trips']:,.0f} | "
-                     f"{p['share']:.2%} | {p['trips']:,.0f} | {p['share'] / ref:.0%} |" if ref else "")
+                     f"{p['share']:.2%} | {p['trips']:,.0f} | {p['share'] / ref:.0%} | "
+                     + (f"${r['buildout_policies']['capital'] / 1e3:.0f}B, {r['buildout_policies']['share']:.2%}, "
+                        f"{r['buildout_policies']['trips']:,.0f} |" if "buildout_policies" in r else " |") if ref else "")
         L += ["", "Three things stand out:", "",
               "- **Per resident, Austin, El Paso and San Antonio match or beat DFW** under the same treatment (121%, 131% "
               "and 100% of DFW's share with the policies). Their layouts can carry DFW-level transit use; Midland gets "
@@ -314,8 +320,9 @@ def write(yard, structs, model):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", nargs="*", help="metro ids for the model test (dfw for DFW itself)")
+    ap.add_argument("--buildout", action="store_true", help="with --model: the build-out run (with policies)")
     a = ap.parse_args()
-    model = model_test(a.model) if a.model else (json.load(open(MODEL_JSON, encoding="utf-8")) if os.path.exists(MODEL_JSON) else {})
+    model = model_test(a.model, a.buildout) if a.model else (json.load(open(MODEL_JSON, encoding="utf-8")) if os.path.exists(MODEL_JSON) else {})
     write(dfw_yardstick(), metro_structure(), model)
 
 
