@@ -406,7 +406,8 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
       ["Metro / BRT / regional rail open", `${km("metro")} / ${km("brt")} / ${km("commuter")} km`],
       ["Capital in open lines", money(open.reduce((a, p) => a + p.capital, 0))],
       [`New daily transit trips, ${y}`, fmt(open.reduce((a, p) => a + urbanTrips(p, y), 0))],
-      ["Budget share, 30 years", money(m.budget)]];
+      [`Budget share, ${m.budget_years || 30} years`, money(m.budget)],
+      ["Policy package", m.policies ? "yes: feeders every 15 min, bikes and drop-off to stations, priced parking downtown" : "land use only"]];
     document.getElementById("mstats").innerHTML = rows.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("");
     const next = ps.filter(p => p.open && p.open > y).sort((a, b) => a.open - b.open)[0];
     document.getElementById("mnote").textContent = !ps.length ? "No corridor here reaches the density the generator needs for BRT or rail."

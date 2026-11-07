@@ -17,7 +17,8 @@ Writes study/timing.md and docs/data/timeline.json (the site's data).
    - urban: DFW Transit's commute logit, where transit's share is small, gains one money
      coefficient's worth per new transit trip, 1 / URBAN_B_PER_DOLLAR = $8, on 300 weekday-
      equivalent days a year (dfw-transit config.json); non-commute trips are assumed to gain as much.
-   Fares and operating cost (urban fares URBAN_FARE a trip). Benefit-cost ratio over 50 years at
+   Fares and operating cost (urban fares URBAN_FARE a trip; urban operating cost includes the feeder buses
+   the network adds, at DFW Transit's $ per feeder boarding). Benefit-cost ratio over 50 years at
    3% (PV_FACTOR): travellers' gain (plus any operating surplus) over capital plus the operating
    deficit. Ratios are on 2050 travel. Intercity values grow with Texas's population from 2050
    (tools/build_growth.py); urban ones follow each metro's own model runs in 2026, 2050 and 2100
@@ -192,6 +193,8 @@ def urban_projects():
         rows.sort(key=lambda r: int(r["order"]))
         sketch = sum(float(r["new_trips"]) for r in rows)
         model, traj, base_year = urban_trajectory(s)
+        # the feeder buses the network adds (study/urban_metros.py), in the base year, shared out like the riders
+        feeder = ((s.get("future") or {}).get(str(base_year)) or s).get("feeder_opex_musd", 0.0)
         dist = districts(m["id"], [r["cand_id"] for r in rows])
         prev = None
         for r in rows:
@@ -203,7 +206,9 @@ def urban_projects():
             pid = f"{m['id']}:{r['cand_id']}"
             out.append({"id": pid, "layer": "urban", "metro": m["id"], "metro_name": m["name"].split(",")[0],
                         "name": r["name"], "mode": r["mode"], "km": float(r["km"]),
-                        "capital": float(r["capital_musd"]), "opex": float(r["opex_musd_yr"]), "fares": fares,
+                        "capital": float(r["capital_musd"]),
+                        "opex": float(r["opex_musd_yr"]) + max(feeder, 0.0) * (float(r["new_trips"]) / sketch if sketch else 0.0),
+                        "fares": fares,
                         "benefit": benefit, "trips_day": trips, "trips_year": trips * URBAN_DAYS,
                         "wider": trips * URBAN_WIDER_PER_TRIP * URBAN_DAYS / 1e6,
                         "agglom": benefit * BEN["agglomeration_share"]["urban"],
@@ -445,7 +450,7 @@ def metros_first(projects, budget):
         ps = [p for p in projects if p.get("metro") == m["id"]]
         if not ps:
             continue
-        n = len(YEARS) if m.get("buildout") else METRO_YEARS   # build-out metros' budgets cover DFW's whole horizon
+        n = len(YEARS) if m.get("buildout") or m.get("policies") else METRO_YEARS   # 75-year budgets cover DFW's whole horizon
         stream = {y: (m["budget_musd"] / n if y < YEARS[0] + n else 0.0) for y in YEARS}
         b, s_m = schedule(ps, stream, order=ps)   # generator order (the list is already in it)
         built += b

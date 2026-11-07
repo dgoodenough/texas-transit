@@ -44,6 +44,22 @@ FUTURE = (2050, 2100)   # model years with every line open, the metro's own grow
 with open(os.path.join(VENDOR, "scenarios", "two_million", "config.json"), encoding="utf-8") as _f:
     LAND_USE = {"growth": json.load(_f)["growth"]}
 
+
+def policies(m):
+    """The package a metro's run gets: the land use everywhere, and for the registry's policy metros (`policies`:
+    Houston, Austin, San Antonio, El Paso) the 2 million plan's access and parking policies at their mature
+    settings, in force from the model's first year (study/metro_potential.py LEVERS): feeder buses every 15
+    minutes, bikes and scooters and drop-off to stations, walks up to 1.6 km on straighter paths, no park & ride
+    under 1.6 km, and $5 a day parking where jobs reach 15,000 per km2. The generator applies it on top of the
+    constant fitted to today's riders (vendor/dfw-transit metro/generate.py), and chooses lines with it on."""
+    import copy
+    pk = copy.deepcopy(LAND_USE)
+    if m.get("policies"):
+        sys.path.insert(0, os.path.join(ROOT, "study"))
+        import metro_potential
+        config.merge(pk, copy.deepcopy(metro_potential.LEVERS))
+    return pk
+
 FLOOR_SHARE = 0.001
 # NTD 2024 rows (ntd id, mode) that are today's lines in the model, by metro. Checked against
 # each metro's existing/lines.csv (study/urban_metros.md lists the lines).
@@ -162,7 +178,7 @@ def generate(ids=None):
         t0 = time.time()
         out = os.path.join(HOME, "generated", m["id"])
         try:
-            r = gen.generate(m["id"], budget_musd=m["budget_musd"], out=out, policies=LAND_USE, future_years=FUTURE)
+            r = gen.generate(m["id"], budget_musd=m["budget_musd"], out=out, policies=policies(m), future_years=FUTURE)
         except (Exception, SystemExit) as e:   # one metro failing doesn't stop the rest
             print(f"{m['id']}: FAILED {type(e).__name__}: {e}")
             os.makedirs(out, exist_ok=True)
@@ -188,6 +204,11 @@ def generate(ids=None):
              "boardings": g.get("daily_boardings", 0.0), "jobs_45": g.get("access_jobs_45", 0.0),
              "jobs_45_today": ex.get("access_jobs_45", 0.0) if ex else None,
              "asc": r["asc"], "asc_note": r["asc_note"], "minutes": (time.time() - t0) / 60}
+        oc = r["cfg"]["operating"]
+        feeder_usd = oc.get("feeder_usd_per_boarding", 0.0) * oc["days_per_year"] / 1e6   # $M a year per daily boarding
+        # the feeder grid's operating cost, as DFW Transit counts it ($ per feeder boarding): the network's less today's
+        s["feeder_boardings"], s["feeder_boardings_today"] = g.get("feeder_boardings", 0.0), ex.get("feeder_boardings", 0.0)
+        s["feeder_opex_musd"] = (s["feeder_boardings"] - s["feeder_boardings_today"]) * feeder_usd
         commutes = float(r["cfg"]["demand"]["total_commutes"]) * r["cfg"]["ridership"]["telework"]
         s["commutes"], s["share"] = commutes, g.get("transit_commuters", 0.0) / commutes if g else 0.0
         s["future"] = {}
@@ -197,7 +218,9 @@ def generate(ids=None):
             s["future"][str(y)] = {"trips": fr["generated"]["daily_trips"], "trips_today_lines": fe.get("daily_trips", 0.0),
                                    "pop": fr["generated"]["pop"], "jobs": fr["generated"]["jobs"],
                                    "share": fr["generated"]["transit_commuters"] / c,
-                                   "share_today_lines": fe.get("transit_commuters", 0.0) / c}
+                                   "share_today_lines": fe.get("transit_commuters", 0.0) / c,
+                                   "feeder_opex_musd": (fr["generated"].get("feeder_boardings", 0.0)
+                                                        - fe.get("feeder_boardings", 0.0)) * feeder_usd}
         with open(os.path.join(out, "summary.json"), "w", encoding="utf-8") as f:
             json.dump(s, f, indent=1)
         print(f"{m['id']}: {len(chosen)} lines, ${st['capital_musd'] / 1e3:.1f}B, {s['trips']:,.0f} trips a day "
@@ -227,8 +250,15 @@ def summary():
            "and rail; nothing is hand-drawn. Each metro's `report.md` lists its centers, corridors and every line "
            "chosen or rejected.", "",
            "**Budget.** DFW Transit's rate per resident ($2.3B a year for 7.47M people) times the metro's Texas "
-           "population (2020) over 30 years, the generator's default horizon, in 2025 dollars. Dallas-Fort Worth is "
-           "not here: it has its own plan, DFW Transit.", "",
+           "population (2020) over 30 years, the generator's default horizon, in 2025 dollars; over DFW Transit's whole "
+           "75-year horizon for Houston, Austin, San Antonio and El Paso, whose layouts can carry a DFW-sized network "
+           "(`study/metro_potential.md`). Dallas-Fort Worth is not here: it has its own plan, DFW Transit.", "",
+           "**Policies.** Every metro gets the 2 million plan's station-area land use from 2030. Houston, Austin, San "
+           "Antonio and El Paso also get its access and parking policies, in force from the start: feeder buses every 15 "
+           "minutes, bikes, scooters and drop-off to stations, walks up to 1.6 km on straighter paths, no park & ride "
+           "under 1.6 km, and $5 a day to park where jobs reach 15,000 per km2. The generator chooses their lines with "
+           "the policies on; the ridership constant is still the one fitted to today's riders under today's conditions. "
+           "Austin and San Antonio also run in build-out mode (smaller centers, thinner BRT).", "",
            "**Ridership constant.** The demand model is DFW Transit's commute model. Its constant (how much people "
            "favour transit beyond its times and costs) is fitted per metro where NTD counts today's rail or BRT riders, "
            "and set from the metro's ACS transit share elsewhere:", ""]
@@ -322,13 +352,17 @@ def summary():
             out += [f"Dallas-Fort Worth under its own plan, for comparison: {yard[2025]['overall']:.1%} of commutes by "
                     f"transit today, {yard[2050]['overall']:.1%} in 2050 and {yard[2100]['overall']:.1%} in 2100 "
                     "(`study/metro_potential.md`).", ""]
-        out += ["| Metro | People 2020 | 2050 | 2100 | Transit share with the network, today's land use | 2050 | 2100 | "
-                "2100, today's lines alone | Daily trips 2050 | 2100 |", "|---|---|---|---|---|---|---|---|---|---|"]
+        pol = {m["id"] for m in reg["metros"] if m.get("policies")}
+        out += ["| Metro | Package | People 2020 | 2050 | 2100 | Transit share with the network, today's land use | 2050 | "
+                "2100 | 2100, today's lines alone | Daily trips 2050 | 2100 | Feeder buses added, $M a year (2050) |",
+                "|---|---|---|---|---|---|---|---|---|---|---|---|"]
         for r in fut:
             f50, f00 = r["future"]["2050"], r["future"]["2100"]
-            out.append(f"| {r['name'].split(',')[0]} | {r['pop'] / 1e6:.2f}M | {f50['pop'] / 1e6:.2f}M | "
+            out.append(f"| {r['name'].split(',')[0]} | {'policies + land use' if r['id'] in pol else 'land use'} | "
+                       f"{r['pop'] / 1e6:.2f}M | {f50['pop'] / 1e6:.2f}M | "
                        f"{f00['pop'] / 1e6:.2f}M | {r['share']:.1%} | {f50['share']:.1%} | {f00['share']:.1%} | "
-                       f"{f00['share_today_lines']:.1%} | {f50['trips']:,.0f} | {f00['trips']:,.0f} |")
+                       f"{f00['share_today_lines']:.1%} | {f50['trips']:,.0f} | {f00['trips']:,.0f} | "
+                       f"{f50.get('feeder_opex_musd', 0.0):,.0f} |")
         t50 = sum(r["future"]["2050"]["trips"] for r in fut)
         t00 = sum(r["future"]["2100"]["trips"] for r in fut)
         c0 = sum(r["commutes"] for r in fut)
