@@ -1,4 +1,5 @@
 cand_id,name,kind,centers,mode,km,stops,density_per_route_km,capital_musd,opex_musd_yr,trips_standalone,new_trips,trips_per_musd,peak_hour_load,status,order,mode_reason,reason
-R001,5th Street / Avenue U - Avenue D / Main,road,T01 T05,,15.7,0,2904,0,0.0,0,0,0.0,0,no mode,,"too thin: 2,904 people+jobs per route-km < BRT 3,000","too thin: 2,904 people+jobs per route-km < BRT 3,000"
-R002,Mohawk Drive - 10th Street / Rancier,road,T02 T03,,12.2,0,2412,0,0.0,0,0,0.0,0,no mode,,"too thin: 2,412 people+jobs per route-km < BRT 3,000","too thin: 2,412 people+jobs per route-km < BRT 3,000"
-R003,Mohawk Drive - Highway 190 / Avenue D,road,T02 T04,,13.4,0,1884,0,0.0,0,0,0.0,0,no mode,,"too thin: 1,884 people+jobs per route-km < BRT 3,000","too thin: 1,884 people+jobs per route-km < BRT 3,000"
+R001,5th Street / Avenue U - Avenue D / Main,road,T01 T05,,16.0,0,2473,0,0.0,0,0,0.0,0,no mode,,"too thin: 2,473 people+jobs per route-km < BRT 3,000","too thin: 2,473 people+jobs per route-km < BRT 3,000"
+R002,Mohawk Drive - 10th Street / Rancier,road,T02 T03,,12.2,0,2490,0,0.0,0,0,0.0,0,no mode,,"too thin: 2,490 people+jobs per route-km < BRT 3,000","too thin: 2,490 people+jobs per route-km < BRT 3,000"
+R003,Mohawk Drive - Highway 190 / Avenue D,road,T02 T04,,10.8,0,737,0,0.0,0,0,0.0,0,no mode,,"too thin: 737 people+jobs per route-km < BRT 3,000","too thin: 737 people+jobs per route-km < BRT 3,000"
+R004,10th Street / Rancier - Highway 190 / Avenue D,road,T03 T02 T04,,23.4,0,1644,0,0.0,0,0,0.0,0,no mode,,"too thin: 1,644 people+jobs per route-km < BRT 3,000","too thin: 1,644 people+jobs per route-km < BRT 3,000"

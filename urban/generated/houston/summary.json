@@ -5,36 +5,36 @@
  "pop": 7149642.0,
  "jobs": 3347878.0,
  "budget_musd": 66051,
- "capital_musd": 60790.4717912814,
- "opex_new_musd": 1088.415255489671,
- "lines": 49,
+ "capital_musd": 61782.78289198284,
+ "opex_new_musd": 1102.6291758827876,
+ "lines": 47,
  "by_mode": {
   "brt": {
-   "lines": 39,
-   "km": 825.1690783629681,
-   "capital_musd": 28103.42999429535
+   "lines": 37,
+   "km": 794.3824822810913,
+   "capital_musd": 27051.43459677578
   },
   "metro": {
-   "lines": 5,
-   "km": 116.70781699584377,
-   "capital_musd": 24030.15516639986
+   "lines": 6,
+   "km": 141.58591117317755,
+   "capital_musd": 28553.08835122659
   },
   "commuter": {
-   "lines": 5,
-   "km": 250.14887486404479,
-   "capital_musd": 12728.538913351098
+   "lines": 4,
+   "km": 202.8550305703834,
+   "capital_musd": 10312.315920136338
   }
  },
- "stations_new": 639,
+ "stations_new": 625,
  "existing_lines": 4,
- "pop_800m": 0.22707136944758913,
+ "pop_800m": 0.22691947373029306,
  "pop_800m_today": 0.019600701685482995,
  "trips_today": 43207.85550230617,
- "trips": 219230.85626801732,
- "boardings": 269384.28978999256,
- "jobs_45": 102806.53943959979,
+ "trips": 223344.2348709387,
+ "boardings": 273729.4473856277,
+ "jobs_45": 102129.69065372272,
  "jobs_45_today": 28448.14147084902,
  "asc": 0.8359,
  "asc_note": "calibrated here (asc +0.836; DFW +0.430): today's lines carry 43,920 weekday boardings (NTD 2024 average typical weekday, 60008 LR 42,946 + 60008 RB 974)",
- "minutes": 6.424158382415771
+ "minutes": 6.255731749534607
 }

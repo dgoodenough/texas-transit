@@ -1,2 +1,2 @@
 line_id,name,mode,status,color,headway_min,notes
-G01,Turtle Creek Drive - Stadium / Lewis BRT,brt,proposed,#8e24aa,,"generated (R003): 3,321 per route-km >= BRT 3,000 (< metro 7,000); 373 new daily trips for $0.28B capital (0.94 per $M incl. opex)"
+G01,Turtle Creek Drive - Stadium / Lewis BRT,brt,proposed,#8e24aa,,"generated (R003): 3,253 per route-km >= BRT 3,000 (< metro 7,000); 235 new daily trips for $0.30B capital (0.57 per $M incl. opex)"
