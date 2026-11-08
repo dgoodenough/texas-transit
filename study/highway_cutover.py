@@ -422,7 +422,7 @@ def main():
     A("")
     small = [p for p in P if p["metro"] not in ("houston", "san-antonio", "austin", "el-paso")]
     big = [p for p in P if p["metro"] in ("houston", "san-antonio", "austin", "el-paso")]
-    A(f"Small-metro lines ({len(small)} outside outside the big four, {money(sum(p['capital'] for p in small))}) has a "
+    A(f"Small-metro lines ({len(small)} outside the big four, {money(sum(p['capital'] for p in small))}) have a "
       f"median ratio of {st.median(p['bcr_now'] for p in small):.2f}, against {st.median(p['bcr_now'] for p in big):.2f} "
       "in Houston, San Antonio, Austin and El Paso: the small metros' few lines are their best corridors and cheap; "
       "but their freeways are also less congested, so a widening there would be worth less than the Top 100 segment "

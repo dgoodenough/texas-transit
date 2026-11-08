@@ -145,7 +145,7 @@ Dallas-Fort Worth's own plan (75 lines, valued the same way in `study/timing.py`
 | Lubbock: Avenue L / Avenue K - Memphis / 24th Street (metro) | $2.6B | 7 | 4,277 | 1.4 | 0.13 |
 | Houston-Pasadena-The Woodlands: Old Spanish / Cambridge - Woodforest Boulevard (brt) | $1.1B | 32 | 2,450 | 1.4 | 0.13 |
 
-Small-metro lines (15 outside outside the big four, $10.6B) has a median ratio of 0.45, against 0.33 in Houston, San Antonio, Austin and El Paso: the small metros' few lines are their best corridors and cheap; but their freeways are also less congested, so a widening there would be worth less than the Top 100 segment assumed here, which helps them. Long regional rail (median ratio 0.24) and Houston's later metro and BRT lines are the furthest below.
+Small-metro lines (15 outside the big four, $10.6B) have a median ratio of 0.45, against 0.33 in Houston, San Antonio, Austin and El Paso: the small metros' few lines are their best corridors and cheap; but their freeways are also less congested, so a widening there would be worth less than the Top 100 segment assumed here, which helps them. Long regional rail (median ratio 0.24) and Houston's later metro and BRT lines are the furthest below.
 
 ## What this leaves out
 
