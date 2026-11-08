@@ -1,3 +1,3 @@
 line_id,name,mode,status,color,headway_min,notes
-G01,Jackson / Schunior - 1st Street / Mayberry BRT,brt,proposed,#8e24aa,,"generated (R005): 5,023 per route-km >= BRT 3,000 (< metro 7,000); 2,363 new daily trips for $0.82B capital (2.00 per $M incl. opex)"
-G02,Main / Hackberry - Oklahoma / Republic Rail,commuter,proposed,#4e342e,,"generated (Q009): rail corridor, 6,763 people+jobs within 1.6 km per km >= 2,000; 970 new daily trips for $1.22B capital (0.65 per $M incl. opex)"
+G01,Jackson / Schunior - 1st Street / Mayberry BRT,brt,proposed,#8e24aa,,"generated (R005): 5,023 per route-km >= BRT 3,000 (< metro 7,000); full model: 9,423 new daily trips in 2050 (7.98 per $M incl. opex; 9,347 lost without it, 9,498 alone); sketch: 2,363 new daily trips for $0.82B capital (2.00 per $M incl. opex)"
+G02,Main / Hackberry - Oklahoma / Republic Rail,commuter,proposed,#4e342e,,"generated (Q009): rail corridor, 6,763 people+jobs within 1.6 km per km >= 2,000; full model: 4,098 new daily trips in 2050 (2.73 per $M incl. opex; 4,023 lost without it, 4,174 alone); sketch: 970 new daily trips for $1.22B capital (0.65 per $M incl. opex)"

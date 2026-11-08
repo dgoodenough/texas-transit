@@ -1,3 +1,3 @@
 line_id,name,mode,status,color,headway_min,notes
-G01,Alexandria / Southern Plantation - Briarcrest / Broadmoor BRT,brt,proposed,#8e24aa,,"generated (R003): 3,920 per route-km >= BRT 3,000 (< metro 7,000); 1,179 new daily trips for $0.47B capital (1.76 per $M incl. opex)"
-G02,Villa Maria / John Sharp - Alexandria / Southern Plantation BRT,brt,proposed,#00897b,,"generated (R001): 4,298 per route-km >= BRT 3,000 (< metro 7,000); 533 new daily trips for $0.59B capital (0.63 per $M incl. opex)"
+G01,Villa Maria / John Sharp - Alexandria / Southern Plantation BRT,brt,proposed,#8e24aa,,"generated (R001): 4,298 per route-km >= BRT 3,000 (< metro 7,000); full model: 13,638 new daily trips in 2050 (16.02 per $M incl. opex; 12,514 lost without it, 14,763 alone); sketch: 533 new daily trips for $0.59B capital (0.63 per $M incl. opex)"
+G02,Alexandria / Southern Plantation - Briarcrest / Broadmoor BRT,brt,proposed,#00897b,,"generated (R003): 3,920 per route-km >= BRT 3,000 (< metro 7,000); full model: 6,650 new daily trips in 2050 (9.92 per $M incl. opex; 5,525 lost without it, 7,774 alone); sketch: 1,179 new daily trips for $0.47B capital (1.76 per $M incl. opex)"

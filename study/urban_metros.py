@@ -178,7 +178,8 @@ def generate(ids=None):
         t0 = time.time()
         out = os.path.join(HOME, "generated", m["id"])
         try:
-            r = gen.generate(m["id"], budget_musd=m["budget_musd"], out=out, policies=policies(m), future_years=FUTURE)
+            r = gen.generate(m["id"], budget_musd=m["budget_musd"], out=out, policies=policies(m), future_years=FUTURE,
+                             full_model=True)
         except (Exception, SystemExit) as e:   # one metro failing doesn't stop the rest
             print(f"{m['id']}: FAILED {type(e).__name__}: {e}")
             os.makedirs(out, exist_ok=True)
@@ -331,6 +332,44 @@ def summary():
                     f"{st / max(sc / 1e3, 1e-9):,.0f} per $B; the {len(big)} larger ones: {bt / max(bc / 1e3, 1e-9):,.0f} "
                     "per $B. The flat per-resident budget is a starting point: the statewide timing step moves money to "
                     "where it buys the most riders, urban or intercity.", ""]
+    sel = []
+    for r in ok:
+        cp = os.path.join(HOME, "generated", r["id"], "candidates.csv")
+        if not os.path.exists(cp):
+            continue
+        cs = read_csv(cp)
+        kept = [c for c in cs if c["status"] == "chosen"]
+        cut = [c for c in cs if c["status"] == "rejected" and c["reason"].startswith("full model")]
+        if kept and all(c.get("model_trips") for c in kept):
+            sel.append((r, kept, cut))
+    if sel:
+        out += ["## How the lines were chosen", "",
+                "By the full model (DFW Transit `metro/modelselect.py`): the generator's quick sketch, which counts only "
+                "commutes between one line's own stations, draws a wide pool (half its usual floor), and the demand "
+                "model values every line in 2050, with the metro's growth and the land use of the whole pool, as the "
+                "mean of the riders the network loses without it and the riders it adds alone to today's network. "
+                "Lines under 1.0 new daily trips per $M of capital plus 20 years' operating cost go, worst first, in "
+                "rounds (about the weakest tenth of DFW's own 2 million plan scores lower), and the rest open best value "
+                "first.", "",
+                "| Metro | Pool | Kept | Cut by the full model | Best kept, trips per $M | Weakest kept | Highest-value line |",
+                "|---|---|---|---|---|---|---|"]
+        for r, kept, cut in sel:
+            v = sorted(float(c["model_trips_per_musd"]) for c in kept)
+            top = max(kept, key=lambda c: float(c["model_trips_per_musd"]))
+            out.append(f"| {r['name'].split(',')[0]} | {len(kept) + len(cut)} | {len(kept)} | {len(cut)} | {v[-1]:.1f} | "
+                       f"{v[0]:.1f} | {top['name']} ({top['mode']}, {float(top['model_trips']):,.0f} trips) |")
+        out.append("")
+        if not any(cut for _, _, cut in sel):
+            weakest = min(float(c["model_trips_per_musd"]) for _, kept, _ in sel for c in kept)
+            dup = sum(1 for r, _, _ in sel for c in read_csv(os.path.join(HOME, "generated", r["id"], "candidates.csv"))
+                      if c["status"] == "rejected" and c["reason"].startswith("duplicate"))
+            out += [f"**The full model cuts nothing.** Every line the generator can draw scores at least {weakest:.1f} "
+                    "new daily trips per $M, above the floor and about where DFW's own plan's weaker lines sit: the sketch "
+                    "underrates lines that work as a network (Houston's weakest regional rail line scores 0.08 in the sketch, "
+                    "1.9 in the full model), and dropping its floor adds lines, mostly in Houston (50 lines and $72B to 71 "
+                    "and $121B; 5.8% of commutes by transit in 2100 to 6.8%). What limits the networks now is the "
+                    f"candidates: {dup} more were drawn but run within 400 m of a chosen line for half their length "
+                    "(the generator's duplicate rule), and corridors only join activity centers.", ""]
     fut = [r for r in ok if r.get("future")]
     if fut:
         try:

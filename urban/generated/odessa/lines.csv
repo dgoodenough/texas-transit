@@ -1,3 +1,3 @@
 line_id,name,mode,status,color,headway_min,notes
-G01,Grant / 14th Street - Eastridge / Billy Hext BRT,brt,proposed,#8e24aa,,"generated (R001): 4,009 per route-km >= BRT 3,000 (< metro 7,000); 730 new daily trips for $0.37B capital (1.38 per $M incl. opex)"
-G02,Grant / 14th Street - 91st Street / Evans BRT,brt,proposed,#00897b,,"generated (R002): 3,014 per route-km >= BRT 3,000 (< metro 7,000); 293 new daily trips for $0.38B capital (0.55 per $M incl. opex)"
+G01,Grant / 14th Street - Eastridge / Billy Hext BRT,brt,proposed,#8e24aa,,"generated (R001): 4,009 per route-km >= BRT 3,000 (< metro 7,000); full model: 2,618 new daily trips in 2050 (4.96 per $M incl. opex; 2,357 lost without it, 2,878 alone); sketch: 730 new daily trips for $0.37B capital (1.38 per $M incl. opex)"
+G02,Grant / 14th Street - 91st Street / Evans BRT,brt,proposed,#00897b,,"generated (R002): 3,014 per route-km >= BRT 3,000 (< metro 7,000); full model: 1,613 new daily trips in 2050 (3.04 per $M incl. opex; 1,353 lost without it, 1,874 alone); sketch: 293 new daily trips for $0.38B capital (0.55 per $M incl. opex)"

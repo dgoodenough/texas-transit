@@ -5,8 +5,8 @@
  "pop": 268248.0,
  "jobs": 128204.0,
  "budget_musd": 2478,
- "capital_musd": 1056.1862127962045,
- "opex_new_musd": 22.88498678625158,
+ "capital_musd": 1056.1864191878337,
+ "opex_new_musd": 22.88499063421144,
  "lines": 2,
  "by_mode": {
   "brt": {
@@ -17,39 +17,39 @@
  },
  "stations_new": 22,
  "existing_lines": 0,
- "pop_800m": 0.24417703021084966,
+ "pop_800m": 0.2563635143598461,
  "pop_800m_today": 0.0,
  "trips_today": 0.0,
- "trips": 11420.454360193073,
- "boardings": 11480.793094413366,
- "jobs_45": 11216.961578521048,
+ "trips": 11429.453770561042,
+ "boardings": 11496.816175965701,
+ "jobs_45": 11301.554816511054,
  "jobs_45_today": null,
  "asc": 0.8876,
  "asc_note": "set from the registry (asc +0.888; DFW +0.430): DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 1.54% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py); with a policy package on top (growth.tod, growth.capture)",
- "minutes": 0.009551779429117838,
- "feeder_boardings": 3186.9450615334513,
+ "minutes": 0.016822516918182373,
+ "feeder_boardings": 3187.258735917927,
  "feeder_boardings_today": 0.0,
- "feeder_opex_musd": 5.736501110760212,
+ "feeder_opex_musd": 5.737065724652268,
  "commutes": 91292.37648246279,
- "share": 0.03292041287745347,
+ "share": 0.03294635442895599,
  "future": {
   "2050": {
-   "trips": 20287.843092986583,
+   "trips": 20312.241273243784,
    "trips_today_lines": 0.0,
-   "pop": 397109.1823959723,
-   "jobs": 181305.51259248593,
-   "share": 0.04135312504456532,
+   "pop": 397133.51385587285,
+   "jobs": 181308.07257204765,
+   "share": 0.041402271766140315,
    "share_today_lines": 0.0,
-   "feeder_opex_musd": 11.034072359666483
+   "feeder_opex_musd": 11.04983304267559
   },
   "2100": {
-   "trips": 35998.216909080555,
+   "trips": 36095.4754430803,
    "trips_today_lines": 0.0,
-   "pop": 559011.41526382,
-   "jobs": 255229.57240427798,
-   "share": 0.05212348713294363,
+   "pop": 559045.9877238546,
+   "jobs": 255233.2098787892,
+   "share": 0.05226356742459008,
    "share_today_lines": 0.0,
-   "feeder_opex_musd": 22.260931417504978
+   "feeder_opex_musd": 22.411614189620707
   }
  }
 }

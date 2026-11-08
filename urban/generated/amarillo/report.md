@@ -43,7 +43,7 @@ Mode rule (people + jobs within 800 m per route-km): metro >= 7,000 (6-45 km), s
 
 ## 3. Chosen lines
 
-In the order chosen (most new daily trips per $M first; sketch demand, single-line trips).
+Chosen by the full model (metro/modelselect.py): the sketch drew a pool of 1 lines (floor 0.0 new trips per $M), carrying 6,920 new daily trips in 2050 in the full model; 1 rounds of pruning lines under 1.0 per $M (each line valued by the mean of the trips lost without it and the trips it adds alone) kept 1, carrying 6,920. In order of that value; the table's trips are the sketch's, the full model's are in `candidates.csv` (model_trips).
 
 | # | line | mode | km | stops | density /route-km | capital $B | new trips/day | trips per $M | peak-hour load | why this mode |
 |---|---|---|---|---|---|---|---|---|---|---|

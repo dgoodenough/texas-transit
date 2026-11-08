@@ -44,7 +44,7 @@ Mode rule (people + jobs within 800 m per route-km): metro >= 7,000 (6-45 km), s
 
 ## 3. Chosen lines
 
-In the order chosen (most new daily trips per $M first; sketch demand, single-line trips).
+Chosen by the full model (metro/modelselect.py): the sketch drew a pool of 2 lines (floor 0.0 new trips per $M), carrying 13,521 new daily trips in 2050 in the full model; 1 rounds of pruning lines under 1.0 per $M (each line valued by the mean of the trips lost without it and the trips it adds alone) kept 2, carrying 13,521. In order of that value; the table's trips are the sketch's, the full model's are in `candidates.csv` (model_trips).
 
 | # | line | mode | km | stops | density /route-km | capital $B | new trips/day | trips per $M | peak-hour load | why this mode |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -58,11 +58,11 @@ In the order chosen (most new daily trips per $M first; sketch demand, single-li
 | candidate | mode | km | new trips/day | trips per $M | reason |
 |---|---|---|---|---|---|
 | R007 1st Street / Mayberry - Oklahoma / Republic | brt | 34.2 | 875 | 0.53 | duplicate: 99% of it within 400 m of chosen line Q009 (Main / Hackberry - Oklahoma / Republic) |
-| R003 Main / Hackberry - Oklahoma / Republic | brt | 25.3 | 581 | 0.48 | below 0.5 new trips per $M when its turn came (0.48) |
-| R008 Oklahoma / Republic - Dicker Drive | brt | 28.2 | 587 | 0.43 | below 0.5 new trips per $M (upper bound 0.43) |
-| R006 Jackson / Schunior - Dicker Drive | brt | 27.5 | 319 | 0.24 | below 0.5 new trips per $M (upper bound 0.24) |
-| R001 Main / Hackberry - Jackson / Schunior | brt | 13.8 | 115 | 0.17 | below 0.5 new trips per $M (upper bound 0.17) |
-| R002 Main / Hackberry - 1st Street / Mayberry | brt | 10.0 | 26 | 0.05 | below 0.5 new trips per $M (upper bound 0.05) |
+| R003 Main / Hackberry - Oklahoma / Republic | brt | 25.3 | 581 | 0.48 | duplicate: 98% of it within 400 m of chosen line Q009 (Main / Hackberry - Oklahoma / Republic) |
+| R008 Oklahoma / Republic - Dicker Drive | brt | 28.2 | 563 | 0.41 | duplicate: 69% of it within 400 m of chosen line Q009 (Main / Hackberry - Oklahoma / Republic) |
+| R006 Jackson / Schunior - Dicker Drive | brt | 27.5 | 302 | 0.23 | duplicate: 55% of it within 400 m of chosen line R005 (Jackson / Schunior - 1st Street / Mayberry) |
+| R001 Main / Hackberry - Jackson / Schunior | brt | 13.8 | 115 | 0.17 | duplicate: 100% of it within 400 m of chosen line R005 (Jackson / Schunior - 1st Street / Mayberry) |
+| R002 Main / Hackberry - 1st Street / Mayberry | brt | 10.0 | 26 | 0.05 | duplicate: 100% of it within 400 m of chosen line R005 (Jackson / Schunior - 1st Street / Mayberry) |
 
 1 paths had no mode: 1 x too thin.
 

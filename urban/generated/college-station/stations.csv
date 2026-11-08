@@ -1,23 +1,23 @@
 station_id,name,lat,lon
-N0001,Barron / Alexandria,30.564228,-96.282603
-N0002,Highway 6 / Barron,30.572022,-96.274217
-N0003,Highway 6 / Rock Prairie,30.583175,-96.284594
-N0004,Texas / Deacon,30.594892,-96.294048
-N0005,Texas / Krenek Tap,30.604865,-96.306152
-N0006,Texas / Harvey,30.614617,-96.318497
-N0007,Texas / New Main,30.621849,-96.327842
-N0008,Texas Avenue,30.631920,-96.339833
-N0009,Texas / Sulphur Springs,30.642051,-96.351759
-N0010,Briarcrest / Villa Maria,30.650629,-96.343043
-N0011,Villa Maria Road,30.609168,-96.407460
-N0012,Villa Maria / Traditions,30.616673,-96.398793
-N0013,Villa Maria / Harvey Mitchell,30.626341,-96.387242
-N0014,Villa Maria / Willis Vanhook,30.632811,-96.373099
-N0015,Wellborn Road,30.629042,-96.360400
-N0016,Raymond Stotzer / University,30.617918,-96.350315
-N0017,Wellborn / George Bush,30.606704,-96.340394
-N0018,Wellborn / Holleman,30.597324,-96.334706
-N0019,Wellborn / Southwest Parkway,30.588018,-96.328869
-N0020,Wellborn / Deacon,30.577580,-96.317904
-N0021,Wellborn / Rock Prairie,30.567578,-96.306341
-N0022,William D Fitch / Eagle,30.557272,-96.295714
+N0001,Villa Maria Road,30.609168,-96.407460
+N0002,Villa Maria / Traditions,30.616673,-96.398793
+N0003,Villa Maria / Harvey Mitchell,30.626341,-96.387242
+N0004,Villa Maria / Willis Vanhook,30.632811,-96.373099
+N0005,Wellborn Road,30.629042,-96.360400
+N0006,Raymond Stotzer / University,30.617918,-96.350315
+N0007,Wellborn / George Bush,30.606704,-96.340394
+N0008,Wellborn / Holleman,30.597324,-96.334706
+N0009,Wellborn / Southwest Parkway,30.588018,-96.328869
+N0010,Wellborn / Deacon,30.577580,-96.317904
+N0011,Wellborn / Rock Prairie,30.567578,-96.306341
+N0012,William D Fitch / Eagle,30.557272,-96.295714
+N0013,Barron / Alexandria,30.563001,-96.283982
+N0014,Highway 6 / Barron,30.572022,-96.274217
+N0015,Highway 6 / Rock Prairie,30.583175,-96.284594
+N0016,Texas / Deacon,30.594892,-96.294048
+N0017,Texas / Krenek Tap,30.604865,-96.306152
+N0018,Texas / Harvey,30.614617,-96.318497
+N0019,Texas / New Main,30.621849,-96.327842
+N0020,Texas Avenue,30.631920,-96.339833
+N0021,Texas / Sulphur Springs,30.642051,-96.351759
+N0022,Briarcrest / Villa Maria,30.650629,-96.343043
