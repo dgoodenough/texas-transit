@@ -77,926 +77,1080 @@ N0020,Park Row / Barker Cypress,29.788978,-95.687591
 N0021,Park Row / Greenhouse,29.789938,-95.704646
 N0022,Park Row / Fry,29.790526,-95.721190
 N0023,Park Row / Westgreen,29.790496,-95.738080
-N0024,Barryknoll / Bunker Hill,29.778618,-95.534261
-N0025,Bunker Hill / Katy,29.787542,-95.531313
-N0026,Long Point / Crestdale,29.796123,-95.530037
-N0027,Long Point / Campbell,29.799390,-95.517769
-N0028,Long Point / Bingle,29.803074,-95.501943
-N0029,Long Point / Spenwick,29.802883,-95.489088
-N0030,Long Point / Antoine,29.802850,-95.476227
-N0031,Long Point / Hempstead,29.802923,-95.463358
-N0032,18th Street / Loop West,29.801480,-95.447149
-N0033,Seamist Drive,29.798215,-95.438083
-N0034,11th Street / Seamist,29.789150,-95.435839
-N0035,11th Street,29.789217,-95.423352
-N0036,11th Street / Shepherd,29.790563,-95.406887
-N0037,Yale / 11th Street,29.786671,-95.398907
-N0038,White Oak Drive,29.781553,-95.392340
-N0039,Richmond / Briarpark,29.728698,-95.546549
-N0040,Sam Houston / Richmond,29.725797,-95.556968
-N0041,Sam Houston / Harwin,29.714854,-95.556711
-N0042,Sam Houston / Stroud,29.700252,-95.556745
-N0043,Beechnut / Sam Houston,29.689377,-95.556571
-N0044,Club Creek / Green Fork,29.681692,-95.551653
-N0045,Bissonnet / Sam Houston,29.674889,-95.557471
-N0046,Bissonnet / Wilcrest,29.674059,-95.569142
-N0047,Wilcrest / South Drive,29.665299,-95.568823
-N0048,Wilcrest / Bellfort,29.655351,-95.570929
-N0049,Murphy / Airport,29.643274,-95.565326
-N0050,Greenbriar / Mula,29.633078,-95.565063
-N0051,Greenbriar / Kirkwood,29.632735,-95.576218
-N0052,Dulles / Kirkwood,29.624283,-95.582747
-N0053,Dulles Avenue,29.609908,-95.582508
-N0054,Lexington Boulevard,29.601470,-95.588879
-N0055,Lexington / Williams Trace,29.601555,-95.604859
-N0056,Lexington / SH-6,29.597419,-95.615837
-N0057,Austin / Lexington,29.588931,-95.623062
-N0058,Sweetwater / Town Center,29.586516,-95.632213
-N0059,Southwest Freeway / Taborwood,29.583631,-95.644624
-N0060,Southwest Freeway,29.575081,-95.658132
-N0061,Southwest Freeway / Riverbrook,29.566500,-95.671613
-N0062,Southwest Freeway / Grand,29.562442,-95.687602
-N0063,Crabb River / Sansbury,29.550561,-95.696148
-N0064,Loop South / Southwest Freeway,29.730542,-95.461169
-N0065,Westpark / Chimney Rock,29.724938,-95.473944
-N0066,Fountain View / Renwick,29.724185,-95.483228
-N0067,Southwest Freeway / Westpark,29.722646,-95.492214
-N0068,Southwest Freeway / Hillcroft,29.716769,-95.498548
-N0069,Hillcroft / Windswept,29.724762,-95.501181
-N0070,Richmond / Stoney Brook,29.730937,-95.504026
-N0071,Richmond / Dunvale,29.729214,-95.514378
-N0072,Richmond / Jeanetta,29.728950,-95.525095
-N0073,Richmond / Tanglewilde,29.728351,-95.535719
-N0074,Rodgerdale / Harwin,29.718901,-95.557995
-N0075,Harwin Drive,29.715917,-95.566237
-N0076,Harwin / Boone,29.715392,-95.577170
-N0077,Westheimer / Loop South,29.741177,-95.455798
-N0078,Westheimer / Drexel,29.741649,-95.445304
-N0079,Westheimer / Edloe,29.741575,-95.434797
-N0080,Westheimer / River Oaks,29.742122,-95.425290
-N0081,Westheimer / Hazard,29.742732,-95.406168
-N0082,Westheimer / Graustark,29.743008,-95.396640
-N0083,Montrose / Fairview,29.747853,-95.392083
-N0084,Montrose / Gray,29.756163,-95.392305
-N0085,Allen / Montrose,29.760859,-95.389294
-N0086,Allen / Gillette,29.761166,-95.379665
-N0087,Pierce / La Branch,29.746962,-95.366667
-N0088,Pierce / Emancipation,29.742645,-95.359478
-N0089,Gulf / Sauer,29.738318,-95.352296
-N0090,Hadley / Scott,29.733787,-95.345287
-N0091,Spur 5 / Alvin,29.721502,-95.336246
-N0092,Old Spanish / Wheeler,29.711417,-95.324416
-N0093,Wayside / Gulf,29.714176,-95.315808
-N0094,Gulf / Broad,29.709341,-95.306842
-N0095,Gulf / Loop East,29.697156,-95.289155
-N0096,Gulf Freeway,29.689610,-95.281941
-N0097,Gulf / Dixie,29.682180,-95.274563
-N0098,Monroe / Rockhill,29.666292,-95.263230
-N0099,Monroe / Airport,29.656732,-95.263617
-N0100,Airport / Gulf,29.652064,-95.255837
-N0101,Clearwood / Gulf,29.639126,-95.245537
-N0102,Cypress Station / Hollow Tree,30.022835,-95.438558
-N0103,Cypress Station / Cypress Trace,30.031538,-95.439583
-N0104,North Freeway / Cypress Station,30.034070,-95.429588
-N0105,North Freeway,30.047714,-95.431229
-N0106,Holzwarth / Meadow Edge,30.059770,-95.438243
-N0107,FM 2920 / Spring Cypress,30.071332,-95.446428
-N0108,Holzwarth / Spring Stuebner,30.083973,-95.450818
-N0109,Holzwarth / Mossy Oaks,30.094155,-95.450366
-N0110,Springwoods Village / Lake Plaza,30.102130,-95.441363
-N0111,I-45 / Northgate Crossing,30.113126,-95.437865
-N0112,I-45 / Sawdust,30.125713,-95.443589
-N0113,Grogans Mill / Sawdust,30.129481,-95.457602
-N0114,Grogans Mill / Sawmill,30.137054,-95.465636
-N0115,Millbend / Grogans Mill,30.149220,-95.471923
-N0116,Grogans Mill / Lake Robbins,30.162321,-95.468551
-N0117,Grogans Mill / Hughes Landing,30.172487,-95.465259
-N0118,Grogans Mill / Wellman,30.186247,-95.469194
-N0119,Vision Park / I-45,30.191513,-95.455218
-N0120,I-45 / College Park,30.204834,-95.456425
-N0121,Needham Road,30.208435,-95.443027
-N0122,Gleneagle / Cassowary,30.215010,-95.433718
-N0123,Bob White Drive,29.651438,-95.500518
-N0124,Airport / Fondren,29.644380,-95.504750
-N0125,Airport / McLain,29.642457,-95.516693
-N0126,Airport / Gessner,29.642415,-95.528834
-N0127,Airport / Sam Houston,29.643890,-95.539522
-N0128,Stafford / Mula,29.633011,-95.547300
-N0129,Lexington / Dulles,29.601572,-95.585986
-N0130,Lexington / Edgewater,29.601357,-95.601075
-N0131,Lexington / Town Center,29.599329,-95.612039
-N0132,Lexington / East Mall,29.592171,-95.619415
-N0133,Austin Parkway,29.585747,-95.618124
-N0134,Drexel / Richmond,29.735322,-95.448007
-N0135,Hempstead / Kansas,29.783742,-95.437343
-N0136,Center / Studemont,29.770925,-95.392669
-N0137,Liberty / Cushing,29.787247,-95.316911
-N0138,Wayside / Cheeves,29.853351,-95.287115
-N0139,Lake Houston / Generation,29.906780,-95.232305
-N0140,Madera Run Parkway,29.960098,-95.177333
-N0141,Gessner / Meadowglen,29.732763,-95.539168
-N0142,Gessner / Ella Lee,29.743541,-95.538311
-N0143,Gessner Road,29.753582,-95.541356
-N0144,Gessner / Old Oaks,29.766862,-95.544302
-N0145,Gessner / Barryknoll,29.777739,-95.544381
-N0146,Gessner / Westview,29.788646,-95.544450
-N0147,Gessner / Warwana,29.799640,-95.544735
-N0148,Gessner / Tiger,29.810622,-95.545123
-N0149,Gessner / Kemp Forest,29.825288,-95.545203
-N0150,Durban / Clay,29.833367,-95.552798
-N0151,Sam Houston / Clay,29.832403,-95.563276
-N0152,Sam Houston / Tanner,29.846292,-95.563398
-N0153,Sam Houston / Fisher,29.860176,-95.563489
-N0154,Sam Houston / Northwest Freeway,29.871740,-95.558297
-N0155,Sam Houston / Brookriver,29.881154,-95.548301
-N0156,Sam Houston / Gessner,29.895006,-95.549193
-N0157,West Road / Willowbridge Park,29.903599,-95.557565
-N0158,West Road / Round Up,29.909224,-95.570751
-N0159,Pony Express / Trail Ridge,29.919775,-95.575785
-N0160,34th Street / Mangum,29.819582,-95.457693
-N0161,34th Street / Northwest Freeway,29.819456,-95.470888
-N0162,Hempstead / 34th Street,29.818747,-95.483731
-N0163,Hempstead / Bingle,29.825980,-95.493959
-N0164,Clark / Hempstead,29.836152,-95.506313
-N0165,Hollister / Northwest Freeway,29.851194,-95.504621
-N0166,Hollister / Northcourt,29.861898,-95.505427
-N0167,Little York / Guhn,29.865555,-95.515004
-N0168,Northwest Freeway / by Northwest,29.866345,-95.531665
-N0169,Gessner / Emmott,29.872683,-95.540662
-N0170,Gessner / Philippine,29.887276,-95.540842
-N0171,Gessner / West Road,29.901349,-95.543237
-N0172,Fallbrook / Jones,29.924494,-95.585222
-N0173,FM 1960 / Fallbrook,29.925914,-95.596407
-N0174,FM 1960 / Eldridge,29.920861,-95.606771
-N0175,FM 1960,29.916015,-95.617280
-N0176,Highway 6 / Point Northwest,29.908199,-95.630129
-N0177,Highway 6 / West Road,29.899230,-95.636023
-N0178,Longenbaugh Drive,29.893123,-95.645740
-N0179,Royal Gardens / Park Falls,29.892119,-95.657763
-N0180,Forest Heights / Highland Canyon,29.892522,-95.672140
-N0181,Cali / Cypress Creek,30.019563,-95.440504
-N0182,North Freeway / Bammel Westfield,30.021146,-95.429260
-N0183,FM 1960 / Greenbrook,30.024946,-95.412942
-N0184,FM 1960 / Humble-Westfield,30.025816,-95.396504
-N0185,FM 1960 / Aldine Westfield,30.020327,-95.380924
-N0186,FM 1960 / Birnamwood,30.017388,-95.364346
-N0187,FM 1960 / Farrell,30.014451,-95.347769
-N0188,FM 1960 / Cypresswood,30.011561,-95.331179
-N0189,FM 1960 / Foxwood Forest,30.005805,-95.315633
-N0190,Lee Road,29.995025,-95.308768
-N0191,Will Clayton / Lee,29.984779,-95.302658
-N0192,Kenswick Drive,29.988570,-95.295766
-N0193,Kenswick / FM 1960,30.003297,-95.296812
-N0194,FM 1960 / Townsen,30.004923,-95.281311
-N0195,FM 1960 / Eastex,30.005085,-95.268398
-N0196,Townsen / Houston,30.017589,-95.260359
-N0197,Hamblen / Eastex,30.031680,-95.255654
-N0198,Eastex Freeway,30.045630,-95.249455
-N0199,Northpark Plaza / Royal Crossing,30.059962,-95.244450
-N0200,Northpark / Soaring Woods,30.068379,-95.234427
-N0201,Hillcroft / Westward,29.711311,-95.493587
-N0202,Hillcroft / Sharpview,29.699785,-95.493155
-N0203,Bissonnet / Beechnut,29.691467,-95.499700
-N0204,Bissonnet / Bonhomme,29.683624,-95.515003
-N0205,Bissonnet / Gessner,29.677856,-95.526554
-N0206,Bissonnet / Braeswood,29.676092,-95.539493
-N0207,Bissonnet / Woodfair,29.675204,-95.552788
-N0208,Bissonnet Street,29.674279,-95.564807
-N0209,Bissonnet / Leawood,29.674527,-95.576882
-N0210,Bissonnet / Kirkwood,29.675225,-95.588957
-N0211,Keegan / Bellfort,29.664007,-95.595713
-N0212,Bellfort Avenue,29.661285,-95.609059
-N0213,Bellfort / Belknap,29.662090,-95.622134
-N0214,Bellfort / Burney,29.662256,-95.639566
-N0215,Bellfort Street,29.662852,-95.652601
-N0216,Bellfort / Bissonnet,29.667653,-95.667813
-N0217,Bellfort / Madden,29.664698,-95.684191
-N0218,Bellfort / Westmoor,29.661106,-95.700532
-N0219,Aliana Trace / Abermore,29.656032,-95.707709
-N0220,Aliana Trace Drive,29.641617,-95.703307
-N0221,High Star / Kirkwood,29.711061,-95.583377
-N0222,High Star / Cook,29.710874,-95.595929
-N0223,Dairy Ashford / Alief Clodine,29.714142,-95.604610
-N0224,Dairy Ashford / Westpark,29.725028,-95.604933
-N0225,Richmond / Ashford Park,29.728773,-95.612341
-N0226,Eldridge / Richmond,29.729483,-95.623687
-N0227,Eldridge Parkway,29.740361,-95.623473
-N0228,Eldridge / Briar Forest,29.751055,-95.625159
-N0229,Eldridge / Brimhurst,29.762158,-95.625271
-N0230,Eldridge / Memorial,29.772163,-95.620579
-N0231,Eldridge / Katy,29.782676,-95.617535
-N0232,Richmond / Dairy Ashford,29.729815,-95.607933
-N0233,Dairy Ashford / Ashford Point,29.721385,-95.604780
-N0234,Dairy Ashford / High Star,29.710876,-95.604575
-N0235,Alief Clodine / Houston Center,29.710932,-95.592606
-N0236,High Star Drive,29.711360,-95.580515
-N0237,Wilcrest / High Star,29.709395,-95.571420
-N0238,Boone Road;Lê Văn Hưng,29.699209,-95.571248
-N0239,Beechnut / Wilcrest,29.689042,-95.567325
-N0240,Braeswood / Gessner,29.671258,-95.528909
-N0241,Gessner / Creekbend,29.661951,-95.527966
-N0242,Bellfort / Gessner,29.655537,-95.519848
-N0243,Fondren / Bellfort,29.652584,-95.508323
-N0244,Fondren Road,29.641265,-95.508208
-N0245,Main Street,29.630014,-95.507416
-N0246,Sam Houston / Fondren,29.618272,-95.501934
-N0247,Sam Houston / Rockwell,29.610775,-95.486853
-N0248,Sam Houston / Fuqua,29.603645,-95.471531
-N0249,Sam Houston / Post Oak,29.597124,-95.455924
-N0250,Cypress Creek / Red Oak,30.016521,-95.445056
-N0251,Cypress Creek / Butte Creek,30.011165,-95.456366
-N0252,Cypress Creek / Northgate Forest,30.003201,-95.470990
-N0253,Cypress Creek / T C Jester,29.997076,-95.481848
-N0254,Cypress Creek / Stuebner Airline,29.989033,-95.496416
-N0255,Cypress Creek / Glen Erica,29.981003,-95.510996
-N0256,Cypress Creek / Hollister,29.974975,-95.521928
-N0257,Cypress Creek / Cutten,29.967067,-95.536586
-N0258,Cypress Creek / Mills,29.958330,-95.550411
-N0259,Cypress Creek / Perry,29.947667,-95.562541
-N0260,Perry / Windfern,29.933229,-95.564584
-N0261,Fallbrook Drive,29.924725,-95.574889
-N0262,Eldridge / Fallbrook,29.923647,-95.600792
-N0263,Wortham / Crossroads Park,29.918840,-95.611162
-N0264,FM 1960 / Highway 6,29.914031,-95.621531
-N0265,Highway 6 / Easton Commons,29.904735,-95.632483
-N0266,Highway 6,29.895823,-95.638208
-N0267,Will Clayton / Kenswick,29.984063,-95.299336
-N0268,Will Clayton / McKay,29.983382,-95.287761
-N0269,Will Clayton / Eastex,29.980998,-95.272851
-N0270,Will Clayton / Houston,29.979018,-95.257561
-N0271,Will Clayton / Wilson,29.979053,-95.242033
-N0272,Will Clayton / Atascocita,29.979974,-95.226934
-N0273,Will Clayton / Woodland Hills,29.977967,-95.212309
-N0274,Will Clayton / Timber Forest,29.979192,-95.196953
-N0275,Timber Forest Drive,29.970961,-95.193039
-N0276,Richmond / Wilcrest,29.727827,-95.570276
-N0277,Richmond / Woodland Park,29.728711,-95.582069
-N0278,Richmond / Houston Center,29.730766,-95.593048
-N0279,Dairy Ashford / Ashford Meadow,29.729849,-95.604862
-N0280,Dairy Ashford / Overbrook,29.739365,-95.606004
-N0281,Dairy Ashford / Whittington,29.749742,-95.606177
-N0282,Dairy Ashford Road,29.760124,-95.606300
-N0283,Highway 6 / Park Row,29.796226,-95.644920
-N0284,Highway 6 / Patterson,29.809989,-95.645114
-N0285,Highway 6 / Pine Forest,29.823740,-95.645504
-N0286,Highway 6 / Clay,29.837502,-95.645621
-N0287,Highway 6 / Kieth Harrow,29.847823,-95.645727
-N0288,Kieth Harrow Boulevard,29.849001,-95.656273
-N0289,Queenston / Kieth Harrow,29.852596,-95.668243
-N0290,Queenston / Coventry Park,29.862747,-95.669586
-N0291,Queenston / FM 529,29.876307,-95.668219
-N0292,Queenston / Forest Heights,29.890069,-95.668348
-N0293,Winkler / Main,29.670392,-95.251656
-N0294,Richey / Flagstone Terrace,29.672997,-95.235661
-N0295,Queens / Houston,29.675961,-95.219866
-N0296,Pauline Avenue,29.677511,-95.203156
-N0297,Cherry Brook / Strawberry,29.677064,-95.191097
-N0298,Cherry Brook / Burke,29.677110,-95.178210
-N0299,Preston / Spencer,29.667317,-95.172295
-N0300,Preston / Fairmont,29.652643,-95.171454
-N0301,Fairmont / Mickey Gilley,29.649612,-95.162198
-N0302,Fairmont Parkway,29.649661,-95.149478
-N0303,Fairmont / Space Center,29.649885,-95.136752
-N0304,Fairmont / Red Bluff,29.650276,-95.124036
-N0305,Fairmont / Luella,29.650533,-95.107067
-N0306,Fairmont / Underwood,29.650819,-95.090098
-N0307,Fairmont / Farrington,29.651611,-95.073172
-N0308,Fairmont / Driftwood,29.651455,-95.056223
-N0309,Bay Area / Fairmont,29.648821,-95.046790
-N0310,Studemont / Studewood,29.781602,-95.389473
-N0311,Studemont / Katy,29.774765,-95.390264
-N0312,Studemont / Washington,29.765589,-95.392215
-N0313,Bagby / Elgin,29.744649,-95.383142
-N0314,Elgin / Caroline,29.739835,-95.374042
-N0315,Almeda / Cleburne,29.732252,-95.375518
-N0316,Almeda / Southmore,29.723279,-95.378601
-N0317,Almeda / MacGregor,29.714305,-95.381686
-N0318,Almeda / Holcombe,29.705336,-95.384776
-N0319,Old Spanish / Almeda,29.698234,-95.389858
-N0320,Old Spanish / Kirby,29.692567,-95.414122
-N0321,Main / Murworth,29.686385,-95.420870
-N0322,Main / Buffalo Speedway,29.679183,-95.426576
-N0323,Loop West / Stella Link,29.679505,-95.435867
-N0324,Loop West,29.679466,-95.445935
-N0325,Loop West / Post Oak,29.679228,-95.456000
-N0326,Post Oak / Bellfort,29.672476,-95.461372
-N0327,Bellfort / Chimney Rock,29.660224,-95.475117
-N0328,Chimney Rock Road,29.657185,-95.484342
-N0329,Bellfort / Albury,29.655992,-95.504321
-N0330,Bellfort / Braesridge,29.655745,-95.514253
-N0331,Bellfort / Riceville School,29.656259,-95.534042
-N0332,Bellfort / Chessington,29.652692,-95.553013
-N0333,Southwest Freeway / Dorrance,29.648867,-95.570259
-N0334,Kirkwood / Southwest Freeway,29.635541,-95.580565
-N0335,Dulles / Ludwig,29.616783,-95.582484
-N0336,Dulles / Avenue E,29.597687,-95.581966
-N0337,Austin / Dulles,29.579532,-95.583777
-N0338,Austin / Settlers Way,29.573786,-95.599329
-N0339,Grants Lake Boulevard,29.584603,-95.615280
-N0340,Colonial / Mason,29.793588,-95.752526
-N0341,Colonial / Westside,29.793910,-95.768615
-N0342,Colonial / Grand,29.793024,-95.781057
-N0343,Colonial / Katy Fort Bend,29.793350,-95.797096
-N0344,Katy Fort Bend / 5th Street,29.787920,-95.801874
-N0345,Highway / Katyland,29.785779,-95.811750
-N0346,Highway / Bartlett,29.785807,-95.828639
-N0347,Highway / Cane Island,29.785883,-95.845530
-N0348,Highway / Katy,29.785956,-95.862420
-N0349,Loop South / Uptown Park,29.758171,-95.456033
-N0350,Loop North / Woodway,29.766245,-95.456107
-N0351,Katy / Antoine,29.783465,-95.478026
-N0352,Katy / Chimney Rock,29.783898,-95.488890
-N0353,Bingle / Voss,29.784150,-95.499763
-N0354,Katy / Echo,29.784020,-95.521512
-N0355,Bunker Hill / Gaylord,29.783862,-95.532384
-N0356,Katy / Witte,29.784882,-95.540791
-N0357,Katy / Benignus,29.784635,-95.550929
-N0358,Katy / Town and Country,29.784778,-95.561078
-N0359,Katy / Brittmoore,29.784834,-95.571228
-N0360,Katy / Sherwood Forest,29.784931,-95.581377
-N0361,Katy / Kirkwood,29.784952,-95.591527
-N0362,Katy / Tully,29.785012,-95.601676
-N0363,Bellaire / Rookin,29.705303,-95.497692
-N0364,Bellaire / Larkwood,29.703811,-95.508097
-N0365,Bellaire / Fondren,29.705105,-95.518524
-N0366,Bellaire / Mary Bates,29.704996,-95.529194
-N0367,Bellaire / Corporate,29.704778,-95.550534
-N0368,Sam Houston / Green Fork,29.682117,-95.558625
-N0369,Sam Houston / Kipp Way,29.673214,-95.560333
-N0370,Sam Houston / Southwest Freeway,29.664236,-95.559114
-N0371,Southwest Freeway / Roark,29.656507,-95.562455
-N0372,Almeda / Hepburn,29.690445,-95.388663
-N0373,Buffalo Speedway / Willowbend,29.662667,-95.423542
-N0374,Cavalcade / Elysian,29.799334,-95.347078
-N0375,Hardy / Little York,29.871571,-95.365094
-N0376,Hardy / Benmar,29.943813,-95.383094
-N0377,Hardy Road,30.010690,-95.399818
-N0378,Hardy / Spring School,30.077568,-95.416543
-N0379,Hanna Road,30.144449,-95.433249
-N0380,Trade Center / Needham,30.211333,-95.449913
-N0381,I-45 / Crighton,30.268003,-95.456054
-N0382,1st Street,30.325215,-95.455755
-N0383,Briar Oaks / Post Oak Place,29.749685,-95.448313
-N0384,Benson / Lyons,29.774763,-95.328624
-N0385,Navigation / Canal,29.732281,-95.279324
-N0386,Richey Access,29.716180,-95.216420
-N0387,Deerwood Glen / Highway 225,29.714645,-95.140257
-N0388,La Porte / Miller Cut Off,29.695336,-95.065096
-N0389,Bay Area / SH-146,29.645042,-95.046334
-N0390,Cherry Brook / Pasadena,29.677152,-95.181113
-N0391,Burke / Spencer,29.666786,-95.186702
-N0392,Burke / Vista,29.656323,-95.186103
-N0393,Burke / Fairmont,29.646963,-95.181625
-N0394,Burke Road,29.636454,-95.181399
-N0395,Genoa Red Bluff / Strawberry,29.627256,-95.189350
-N0396,Galveston Road,29.618427,-95.193953
-N0397,Galveston / Scarsdale,29.607658,-95.183624
-N0398,Galveston / Dixie Farm,29.596832,-95.173351
-N0399,Galveston / Clear Lake City,29.585962,-95.163136
-N0400,Galveston / Pineloch,29.575074,-95.152947
-N0401,Galveston / El Dorado,29.564185,-95.142758
-N0402,Galveston / Texas,29.556018,-95.135117
-N0403,Galveston / Bay Area,29.547846,-95.127483
-N0404,Old Galveston / NASA,29.536944,-95.117314
-N0405,Rayford Road,30.127858,-95.426909
-N0406,Rayford / Imperial Oaks,30.124455,-95.414756
-N0407,Rayford / Legends Run,30.120418,-95.398703
-N0408,Grand / Rayford,30.111521,-95.387381
-N0409,Grand / Woodson's Reserve,30.121328,-95.374548
-N0410,Aldine Bender / John F. Kennedy,29.929940,-95.333700
-N0411,Aldine Bender / Vickery,29.930386,-95.317997
-N0412,Lee / Aldine Bender,29.931284,-95.303060
-N0413,Lee / Sam Houston,29.944915,-95.303685
-N0414,Lee / Greens,29.955056,-95.304990
-N0415,Lee / Rankin,29.968420,-95.308156
-N0416,Lee / Kenswick,29.973337,-95.297318
-N0417,Briar Hollow / Post Oak,29.755749,-95.448479
-N0418,12th Street / Hempstead,29.791201,-95.446528
-N0419,Hempstead / Dacoma,29.807354,-95.468725
-N0420,Pinemont / Guhn,29.840049,-95.514214
-N0421,Northwest Freeway / Jones,29.892139,-95.587908
-N0422,Northwest Freeway,29.944027,-95.661800
-N0423,Mason / Northwest Freeway,29.987748,-95.741479
-N0424,Old Spanish / South Freeway,29.700991,-95.375601
-N0425,Scott / Griggs,29.704472,-95.358680
-N0426,Long / Wayside,29.691706,-95.316964
-N0427,Long / Chaffin,29.685114,-95.303274
-N0428,Park Place / Reveille,29.685360,-95.286987
-N0429,Broadway / Dixie,29.682694,-95.277476
-N0430,Broadway / Rockhill,29.668554,-95.277114
-N0431,Rockhill / Gulf,29.666694,-95.268436
-N0432,Winkler / Monroe,29.670294,-95.257786
-N0433,Winkler / Galveston,29.670137,-95.245749
-N0434,Queens / Richey,29.675715,-95.232167
-N0435,Queens / Oaks,29.676017,-95.216059
-N0436,Gaylord Drive,29.781596,-95.526392
-N0437,Blalock / Westview,29.791955,-95.521868
-N0438,Blalock / Neuens,29.802661,-95.524382
-N0439,Blalock / Emnora,29.813761,-95.524617
-N0440,Blalock Road,29.828208,-95.523282
-N0441,Blalock / Wingfoot,29.842928,-95.524228
-N0442,Tidwell / Guhn,29.850832,-95.516377
-N0443,Tidwell / Bingle,29.850515,-95.491209
-N0444,Tidwell Road,29.850161,-95.478622
-N0445,Antoine Drive,29.854847,-95.473229
-N0446,Antoine / Victory,29.865758,-95.472833
-N0447,Antoine / Gulf Bank,29.880277,-95.473753
-N0448,Antoine / Mount Houston,29.893012,-95.479837
-N0449,Antoine / Chippewa,29.903928,-95.480102
-N0450,Antoine / Fallbrook,29.918203,-95.481313
-N0451,Antoine / Sam Houston,29.932628,-95.482378
-N0452,Sam Houston / Greens,29.937044,-95.471422
-N0453,Sam Houston / T C Jester,29.937226,-95.454610
-N0454,Sam Houston / Ella,29.937511,-95.437798
-N0455,Sam Houston / Greens Crossing,29.939061,-95.425494
-N0456,Sam Houston / North Freeway,29.940282,-95.413049
-N0457,Imperial Valley / Esplanade,29.939774,-95.397633
-N0458,Fallbrook / Perry,29.926509,-95.563526
-N0459,Sam Houston / Fallbrook,29.926381,-95.553070
-N0460,Sam Houston / Windfern,29.932770,-95.538216
-N0461,Sam Houston / Tomball,29.937216,-95.522630
-N0462,Sam Houston / Hollister,29.937460,-95.506038
-N0463,Greens / Antoine,29.937650,-95.489444
-N0464,Greens Road,29.937838,-95.476998
-N0465,Sam Houston / Veterans Memorial,29.938042,-95.460402
-N0466,Greens Parkway,29.938281,-95.443807
-N0467,Sam Houston / Hardy,29.939035,-95.386406
-N0468,Aldine Bender / Luthe,29.933333,-95.375079
-N0469,Aldine Bender / Aldine Westfield,29.931527,-95.358459
-N0470,Aldine Bender / Sam Houston,29.930365,-95.341860
-N0471,Sam Houston / Westheimer,29.736634,-95.557088
-N0472,Sam Houston / Briar Forest,29.745652,-95.557695
-N0473,Sam Houston Tollway,29.754720,-95.557834
-N0474,Sam Houston / Memorial,29.763671,-95.558743
-N0475,Sam Houston / Queensbury,29.780836,-95.562707
-N0476,Katy Freeway,29.785086,-95.622831
-N0477,Katy / Addicks-Howell,29.785067,-95.644894
-N0478,Katy / Grisby,29.785152,-95.655926
-N0479,Katy / Park Ten,29.785141,-95.666959
-N0480,Katy / Creek,29.785180,-95.677993
-N0481,Katy / Baker,29.785272,-95.700056
-N0482,Katy / Houghton,29.785316,-95.722119
-N0483,Westgreen Boulevard,29.793039,-95.735158
-N0484,Wheeler / Cullen,29.717432,-95.345942
-N0485,Scott / MacGregor,29.708353,-95.357157
-N0486,Old Spanish / Del Rio,29.701697,-95.370991
-N0487,Almeda / Corder,29.696794,-95.387450
-N0488,Almeda / Holly Hall,29.685864,-95.391200
-N0489,Almeda Road,29.675003,-95.395197
-N0490,Almeda / Reed,29.660630,-95.400866
-N0491,Almeda / Airport,29.646258,-95.406591
-N0492,Almeda / Mowery,29.635476,-95.410877
-N0493,Almeda / Orem,29.621108,-95.416613
-N0494,Almeda / Anderson,29.606733,-95.422327
-N0495,Sam Houston / Almeda,29.597013,-95.432561
-N0496,Sam Houston / Hiram Clarke,29.596819,-95.450049
-N0497,South Freeway / Loop East,29.683104,-95.381515
-N0498,South Freeway / Holmes,29.673770,-95.382152
-N0499,South Freeway,29.655762,-95.387669
-N0500,Mowery Road,29.636924,-95.387368
-N0501,South Freeway / Almeda-Genoa,29.618085,-95.387237
-N0502,South Freeway / Fellows,29.599259,-95.386684
-N0503,Shadow Creek / South Freeway,29.580422,-95.386275
-N0504,Brazoria County Expressway,29.561683,-95.387905
-N0505,Broadway / Miller Ranch,29.556228,-95.373214
-N0506,Woodway / Post Oak,29.762412,-95.462917
-N0507,Loop North / Memorial,29.769599,-95.456490
-N0508,Hempstead / Post Oak,29.797933,-95.455153
-N0509,18th Street / T C Jester,29.801582,-95.429135
-N0510,20th Street,29.803734,-95.417209
-N0511,19th Street,29.803885,-95.404447
-N0512,20th Street / Cavalcade,29.804067,-95.391684
-N0513,Airline / Link,29.806480,-95.381964
-N0514,Carnation / Stokes,29.817495,-95.382968
-N0515,Airline / North Freeway,29.832208,-95.384320
-N0516,Airline / Tidwell,29.846955,-95.384478
-N0517,Airline / Parker,29.861721,-95.384705
-N0518,Little York / Airline,29.870023,-95.381587
-N0519,Little York / Bauman,29.870301,-95.368872
-N0520,Aldine Westfield / Little York,29.871321,-95.352118
-N0521,Aldine Westfield Road,29.885490,-95.355017
-N0522,Aldine Mail Route,29.900252,-95.354995
-N0523,Aldine Westfield / Lauder,29.915015,-95.355494
-N0524,Aldine Westfield / Chrisman,29.929777,-95.356023
-N0525,Fairmont / Strawberry,29.651351,-95.187699
-N0526,Fairmont / Allen-Genoa,29.651523,-95.199407
-N0527,Edgebrook Drive,29.650603,-95.214967
-N0528,Edgebrook / Frey,29.645637,-95.225026
-N0529,Edgebrook / Theta,29.644544,-95.236595
-N0530,Almeda-Genoa / Blackhawk,29.628105,-95.248653
-N0531,Blackhawk / Fuqua,29.613979,-95.250681
-N0532,Sam Houston / Blackhawk,29.601053,-95.249571
-N0533,Monroe / Sam Houston,29.600741,-95.266214
-N0534,Pearland Parkway,29.586418,-95.266992
-N0535,Pearland / Barry Rose,29.573628,-95.263100
-N0536,Pearland / Province Village,29.561239,-95.257269
-N0537,Broadway / Walnut,29.558772,-95.270514
-N0538,Grants Lake / SH-6,29.593200,-95.611347
-N0539,SH-6 / Settlers Way,29.589148,-95.597116
-N0540,Riverstone / Cross Lakes,29.572788,-95.571682
-N0541,Highway 6 / Murphy,29.564968,-95.563963
-N0542,Oilfield / Lake Olympia,29.554000,-95.554343
-N0543,Highway 6 / Sienna Ranch,29.542074,-95.546443
-N0544,Sienna / Trammel Fresno,29.536531,-95.535115
-N0545,Sienna Parkway,29.523323,-95.532420
-N0546,Sienna / McKeever,29.510603,-95.526328
-N0547,Sienna / Scanlan Trace,29.498384,-95.519061
-N0548,Scanlan Trace / Waters Lake,29.487101,-95.522467
-N0549,Barker Cypress / Westgate Park,29.886193,-95.683403
-N0550,Barker Cypress Road,29.875297,-95.683296
-N0551,Barker Cypress / Little York,29.864401,-95.683267
-N0552,Barker Cypress / Kieth Harrow,29.849872,-95.683199
-N0553,Barker Cypress / Oak Hampton,29.835348,-95.683258
-N0554,Barker Cypress / Morton,29.821463,-95.686703
-N0555,Barker Cypress / Groschke,29.806982,-95.687163
-N0556,Saums / Park View,29.800343,-95.697316
-N0557,Saums / Westlake,29.800385,-95.714042
-N0558,Saums / Prospect Glen,29.801092,-95.730678
-N0559,Vanderwilt Lane,29.792818,-95.738765
-N0560,Gaylord / Memorial City,29.778568,-95.537976
-N0561,Gessner / Katy,29.783181,-95.543876
-N0562,Gessner / Long Point,29.793782,-95.544626
-N0563,Gessner / Shadow Wood,29.804424,-95.545050
-N0564,Gessner / Emnora,29.815083,-95.545161
-N0565,Clay Road,29.831884,-95.580790
-N0566,Clay / Eldridge,29.831864,-95.597519
-N0567,Eldridge / Tanner,29.841734,-95.605052
-N0568,Eldridge / Little York,29.856159,-95.607060
-N0569,Little York Road,29.862914,-95.616872
-N0570,Little York / Huffmeister,29.864486,-95.628926
-N0571,Little York / Highway 6,29.867570,-95.640264
-N0572,Little York / Yorktown Crossing,29.866823,-95.656869
-N0573,Little York / Queenston,29.865122,-95.668875
-N0574,Jones Road,29.940361,-95.584820
-N0575,Jones / Cypress North Houston,29.954406,-95.585010
-N0576,Jones / Grant,29.968372,-95.584723
-N0577,Jones / Cypresswood,29.982001,-95.585127
-N0578,Jones / Louetta,29.994779,-95.587564
-N0579,Tomball / Rodgers,30.003133,-95.583888
-N0580,Spring Cypress Road,30.014754,-95.582848
-N0581,Spring Cypress / Old Louetta,30.022866,-95.570698
-N0582,Spring Cypress / Champion Forest,30.030689,-95.557113
-N0583,Spring Cypress / Eastloch,30.040824,-95.546175
-N0584,Spring Cypress / Creekfield,30.047625,-95.532472
-N0585,Post Oak Road,29.601576,-95.464373
-N0586,Post Oak / Grapevine,29.620053,-95.464991
-N0587,Post Oak / Allum,29.638298,-95.463536
-N0588,Post Oak / Gasmer,29.647545,-95.463596
-N0589,Main / Holmes,29.654665,-95.444048
-N0590,Main / Bellfort,29.670252,-95.433557
-N0591,Old Spanish / Yellowstone,29.700137,-95.380467
-N0592,South Freeway / MacGregor,29.713325,-95.378982
-N0593,Wheeler / Saint Emanuel,29.729205,-95.373001
-N0594,Elgin / Hamilton,29.736850,-95.369159
-N0595,Gray / Chenevert,29.743882,-95.365201
-N0596,Hardy / Rothwell,29.770011,-95.349736
-N0597,East Freeway / Eastex,29.769726,-95.340359
-N0598,Eastex / Liberty,29.786674,-95.339660
-N0599,Eastex / Neches,29.803659,-95.339282
-N0600,Eastex / Bennington,29.819710,-95.335038
-N0601,Crosstimbers / Hirsch,29.829831,-95.325942
-N0602,Crosstimbers / Weaver,29.830618,-95.306923
-N0603,Homestead Road,29.844086,-95.302156
-N0604,Homestead / Bretshire,29.860773,-95.300603
-N0605,18th Street,29.801523,-95.438088
-N0606,20th Street / Shepherd,29.803840,-95.407400
-N0607,Yale / 19th Street,29.801916,-95.399195
-N0608,Heights / 11th Street,29.792797,-95.399035
-N0609,Yale / 6th Street,29.783678,-95.398857
-N0610,Washington / Harvard,29.768186,-95.392048
-N0611,East Freeway / Market,29.774190,-95.321051
-N0612,East Freeway / Lathrop,29.774300,-95.301048
-N0613,East Freeway / Wayside,29.777597,-95.291826
-N0614,East Freeway / Gellhorn,29.776790,-95.271954
-N0615,East Freeway / Oates,29.773658,-95.252269
-N0616,East Freeway / Holland,29.772888,-95.232361
-N0617,East Freeway / Sheffield,29.770631,-95.212746
-N0618,East Freeway / Normandy,29.771357,-95.202779
-N0619,East Freeway / Haden,29.770437,-95.182814
-N0620,East Freeway,29.770796,-95.162806
-N0621,East Freeway / Dell Dale,29.773213,-95.143165
-N0622,Dell Dale Street,29.778724,-95.138662
-N0623,Woodforest / Dell Dale,29.788708,-95.148640
-N0624,Cavalcade Street,29.802057,-95.347714
-N0625,Wayside Drive,29.800465,-95.288629
-N0626,Market / Holland,29.767425,-95.234750
-N0627,East Freeway / Sam Houston,29.778237,-95.147033
-N0628,East Freeway / Monmouth,29.807111,-95.083435
-N0629,Wade Road,29.804807,-95.018008
-N0630,San Jacinto / Decker,29.748782,-95.005577
-N0631,Westheimer / Mid,29.741662,-95.448180
-N0632,Bellaire / Newcastle,29.708436,-95.447479
-N0633,Bellfort / Loop West,29.675212,-95.446772
-N0634,Hillcroft Avenue,29.635708,-95.495499
-N0635,Main / Sam Houston,29.624730,-95.523790
-N0636,Main / Brand,29.626990,-95.580549
-N0637,US Highway 90A,29.611379,-95.654764
-N0638,US Highway 90A / Pitts,29.597216,-95.730607
-N0639,Old Richmond / Alamo,29.562456,-95.795744
-N0640,Navigation / Franklin,29.757693,-95.349367
-N0641,34th Street / Oak Forest,29.819617,-95.438971
-N0642,Pinemont / Bolivia,29.840785,-95.467494
-N0643,West Road,29.906817,-95.504867
-N0644,Cutten / Richardson,29.972832,-95.542275
-N0645,Old Louetta Road,30.005820,-95.561029
-N0646,Holderrieth Road,30.071783,-95.598560
-N0647,Durban / Shadowdale,29.836675,-95.553337
-N0648,Clay / Westway Park,29.832065,-95.560159
-N0649,Clay / Brittmoore,29.831911,-95.572172
-N0650,Clay / Brittmoore Park,29.831646,-95.588186
-N0651,Clay / Tanner,29.833441,-95.603875
-N0652,Eldridge / Patterson,29.821677,-95.609135
-N0653,Patterson Road,29.810197,-95.617552
-N0654,Eldridge / Dairy Ashford,29.796291,-95.617447
-N0655,Eldridge / Park Row,29.786066,-95.617723
-N0656,Memorial / Perthshire,29.774227,-95.619520
-N0657,Westheimer / Rolk,29.735849,-95.630242
-N0658,Westheimer / Barker Oaks,29.735619,-95.646375
-N0659,Westheimer / Richmond,29.727952,-95.659112
-N0660,Westheimer Road,29.719658,-95.672115
-N0661,Westheimer / Barker Cypress,29.711364,-95.685118
-N0662,FM 1093 / Westmoor,29.706770,-95.699825
-N0663,FM 1093 / Harlem,29.705443,-95.715890
-N0664,FM 1093,29.704141,-95.731956
-N0665,Aldine Bender / Chrisman,29.931348,-95.354082
-N0666,Luthe Road,29.933223,-95.370442
-N0667,Hardy Toll Road,29.939114,-95.381495
-N0668,Imperial Valley / Greens,29.950686,-95.399396
-N0669,Imperial Valley / Regional Park,29.961619,-95.401431
-N0670,Imperial Valley Drive,29.974822,-95.406278
-N0671,Imperial Valley / Airtex,29.984801,-95.410399
-N0672,Imperial Valley / Richey,29.995259,-95.407707
-N0673,Imperial Valley / Vista,30.005915,-95.410255
-N0674,Imperial Valley / Bend,30.015329,-95.416889
-N0675,FM 1960 / Cypress Creek,30.023179,-95.422873
-N0676,Cypress Creek / Ella,30.014422,-95.450443
-N0677,Cypress Creek Parkway,30.006881,-95.464248
-N0678,Cypress Creek / Terrace Oaks,30.001192,-95.474574
-N0679,T C Jester / Chapel Bend,30.004241,-95.485422
-N0680,T C Jester / Ivy Falls,30.012405,-95.492947
-N0681,T C Jester Boulevard,30.025346,-95.499180
-N0682,T C Jester / Winding Ridge,30.037273,-95.507391
-N0683,T C Jester / Spring Cypress,30.048226,-95.516544
-N0684,Queenston / West Road,29.904325,-95.669841
-N0685,Tuckerton / Queenston,29.917706,-95.667935
-N0686,Tuckerton / Telge,29.917788,-95.651605
-N0687,Tuckerton / Point Park,29.917227,-95.635705
-N0688,Huffmeister / Northwest Freeway,29.922741,-95.628597
-N0689,Huffmeister / Fleur de Lis,29.936908,-95.628878
-N0690,Huffmeister Road,29.947535,-95.629097
-N0691,Huffmeister / Whispering Valley,29.961394,-95.631275
-N0692,Kluge / Huffmeister,29.971785,-95.637004
-N0693,Kluge Road,29.981893,-95.625560
-N0694,Malcomson / Eldridge,29.990070,-95.613318
-N0695,Louetta / Malcomson,29.996567,-95.600065
-N0696,Katy Hockley Cut Off / Clay,29.838152,-95.806831
-N0697,Katy Hockley Cut Off / De Petris,29.823707,-95.806806
-N0698,Katy Hockley Cut Off / Town Park,29.809272,-95.806296
-N0699,Katy Fort Bend / Morrison,29.796086,-95.801928
-N0700,Colonial / Park West Green,29.791314,-95.792329
-N0701,Colonial / Ravello,29.792905,-95.763867
-N0702,Mason / Provincial,29.779643,-95.751892
-N0703,Mason / Cimarron,29.769290,-95.751772
-N0704,Mason / Chesterwick,29.755486,-95.751632
-N0705,Mason / Northmoor,29.745131,-95.751501
-N0706,Mason / Westheimer,29.732432,-95.755824
-N0707,Mason / Fry,29.720197,-95.751174
-N0708,Mason Road,29.708979,-95.743688
-N0709,Lexington / Sweetwater,29.585395,-95.627820
-N0710,Southwest Freeway / First Colony,29.588962,-95.636215
-N0711,Southwest Freeway / University,29.580528,-95.649608
-N0712,Southwest Freeway / Telfair,29.572039,-95.662955
-N0713,Southwest Freeway / Summit Creek,29.564615,-95.676962
-N0714,Crabb River / Grand,29.559232,-95.691383
-N0715,Crabb River / FM 2759,29.546233,-95.698335
-N0716,FM 762,29.538297,-95.708165
-N0717,FM 762 / Benton,29.540384,-95.724385
-N0718,FM 762 / Minonite,29.542904,-95.740491
-N0719,FM 762 / Del Webb,29.552743,-95.751953
-N0720,Avenue I / B F Terry,29.559307,-95.761742
-N0721,Avenue I / Lane,29.558011,-95.777789
-N0722,Avenue I / Avenue H,29.557407,-95.794137
-N0723,Northwest Freeway / Langfield,29.845436,-95.498597
-N0724,Northwest Freeway / Bingle,29.839891,-95.490565
-N0725,Northwest Freeway / 43rd Street,29.833322,-95.483562
-N0726,Northwest Freeway / Antoine,29.826992,-95.476306
-N0727,Mangum / Northwest Freeway,29.811878,-95.458979
-N0728,Northwest Freeway / Dacoma,29.805577,-95.454436
-N0729,Louetta / Eldridge,29.996397,-95.610919
-N0730,Louetta / Grant,29.992590,-95.626465
-N0731,Louetta / Spring Cypress,29.993844,-95.642608
-N0732,Louetta / Telge,29.999172,-95.657212
-N0733,Louetta / Huffmeister,29.994957,-95.672944
-N0734,Huffmeister / Skinner,29.995809,-95.689645
-N0735,Huffmeister / Cypress Church,29.997086,-95.706316
-N0736,Louetta / Mueschke,29.992116,-95.716243
-N0737,Cypresswood / Louetta,29.986654,-95.724466
-N0738,Cypresswood / Mason,29.992797,-95.739192
-N0739,Cypresswood / Fairfield Falls,29.995792,-95.751151
-N0740,Fairfield Park / Aspen Falls,30.005291,-95.751879
-N0741,Harlem / Bellfort,29.662510,-95.714891
-N0742,Harlem / Grand Vista Springs,29.676349,-95.715119
-N0743,Grand Mission / Harlem,29.690116,-95.716094
-N0744,Grand Mission / FM 1093,29.703280,-95.719742
-N0745,Fort Bend Westpark Tollway,29.702648,-95.750330
-N0746,FM 1093 / Fort Bend Westpark,29.701355,-95.766804
-N0747,FM 1093 / Canal,29.700566,-95.779153
-N0748,FM 1093 / Katy Gaston,29.698895,-95.795574
-N0749,FM 1093 / Spring Green,29.697978,-95.812078
-N0750,Fry / Water Plant,29.706251,-95.821769
-N0751,Fry / Pine Hills,29.706006,-95.838117
-N0752,FM 1463 / Flewellen Oaks,29.713851,-95.846103
-N0753,FM 1463,29.728089,-95.846220
-N0754,Cinco Trace / Westridge Creek,29.741102,-95.843923
-N0755,Spring Green Boulevard,29.749491,-95.840841
-N0756,Spring Green / Morgan,29.763562,-95.841932
-N0757,FM 1463 / Katy,29.775797,-95.834343
-N0758,NASA / Gulf,29.528872,-95.130219
-N0759,NASA Bypass / Grissom,29.524055,-95.145426
-N0760,Bay Area / Blackhawk,29.522300,-95.162021
-N0761,Parkwood Avenue,29.518918,-95.177846
-N0762,Winding Way / Friendswood,29.514814,-95.189519
-N0763,Friendswood Drive,29.526721,-95.197700
-N0764,Friendswood / Edgewood,29.536656,-95.209879
-N0765,Broadway Street,29.543786,-95.224402
-N0766,Broadway / Dixie Farm,29.547757,-95.239893
-N0767,Broadway / Country Club,29.552594,-95.255385
-N0768,Broadway / Main,29.563685,-95.281675
-N0769,Broadway / McLean,29.560327,-95.297251
-N0770,Broadway / Hatfield,29.559566,-95.309663
-N0771,Broadway / Roy,29.559328,-95.326383
-N0772,Broadway / Cullen,29.559178,-95.343116
-N0773,Broadway / Hooks,29.558875,-95.359859
-N0774,Miller Ranch / County Road 94,29.558487,-95.373268
-N0775,FM 529 / Hudson Oaks,29.879046,-95.672188
-N0776,FM 529 / Barker Cypress,29.879936,-95.684407
-N0777,FM 529 / Greenhouse,29.879840,-95.700945
-N0778,FM 529,29.879744,-95.717485
-N0779,FM 529 / Marvida Terrace,29.879670,-95.729890
-N0780,FM 529 / Mason,29.877478,-95.745639
-N0781,FM 529 / Elyson Exchange,29.875241,-95.761364
-N0782,FM 529 / Peek,29.875122,-95.777904
-N0783,FM 529 / Elyson Village,29.875025,-95.794445
-N0784,Katy Hockley Cut Off / FM 529,29.871638,-95.807164
-N0785,Beckendorff Road,29.857285,-95.807064
-N0786,Stockdick School Road,29.842935,-95.806874
-N0787,Bellaire Boulevard;Đại Lộ Sàigòn,29.703887,-95.580249
-N0788,Kirkwood Road;Nguyễn Khoa Nam,29.700782,-95.587735
-N0789,Beechnut / Kirkwood,29.691239,-95.587554
-N0790,Kirkwood Road,29.681696,-95.587374
-N0791,Kirkwood / Brookledge,29.663294,-95.586233
-N0792,Bellfort / Kirkwood,29.657446,-95.587316
-N0793,Bellfort / Dairy Ashford,29.660486,-95.597733
-N0794,Broadway / Galveston,29.709681,-95.278587
-N0795,Galveston / Brookglen,29.679759,-95.250657
-N0796,Avenue N / Texas,29.652084,-95.224795
-N0797,Galveston / Gulf,29.594491,-95.170830
-N0798,Hill / Deats,29.470689,-95.055133
-N0799,Galveston / 25th Avenue,29.404438,-94.993460
-N0800,Highway 3,29.346722,-94.939817
-N0801,Gulf / Blume,29.294715,-94.880565
-N0802,Rosenberg Avenue-25th / Santa Fe,29.306824,-94.800207
-N0803,Hirsch / Waco,29.769857,-95.328583
-N0804,Spur 5 / Wheeler,29.717434,-95.333170
-N0805,Mykawa / Dixie,29.677000,-95.321227
-N0806,Mykawa Road,29.636519,-95.309050
-N0807,Main / Veterans,29.555514,-95.284863
-N0808,Cornett / Herring,29.486627,-95.264238
-N0809,Old Galveston / Shirley,29.422793,-95.236970
-N0810,SH-6,29.409538,-95.198311
-N0811,Jackson / Highway 6,29.382993,-95.121009
-N0812,Ambassador / Post Oak 812 / Schiro,29.356444,-95.043710
-N0813,Highway 6 / Gulf,29.331765,-94.966486
-N0814,Texas / 9th Street,29.380093,-94.908728
-N0815,34th Street / T C Jester,29.817276,-95.442983
-N0816,34th Street / Ella,29.817352,-95.425952
-N0817,Shepherd / 34th Street,29.818858,-95.410537
-N0818,Shepherd / Thornton,29.833637,-95.410829
-N0819,Shepherd / Montgomery,29.848393,-95.411437
-N0820,Shepherd / Dillard,29.863086,-95.412666
-N0821,Little York / North Freeway,29.869921,-95.402976
-N0822,Airline Drive,29.870089,-95.385947
-N0823,Aldine Bender / Interwood South,29.930145,-95.337627
-N0824,Aldine Bender / Heathrow Forest,29.930323,-95.321635
-N0825,Aldine Bender / Eastex,29.930583,-95.305622
-N0826,Eastex / Old Humble,29.918732,-95.301910
-N0827,Homestead / Hamill,29.904848,-95.301847
-N0828,Homestead / Mount Houston,29.891065,-95.301062
-N0829,Homestead / Hopper,29.877171,-95.300714
-N0830,Homestead / Langley,29.863272,-95.300631
-N0831,Alief Clodine / Belle Park,29.715999,-95.580996
-N0832,Alief Clodine / Eldridge,29.712356,-95.623913
-N0833,Westgreen / Cranfield,29.781949,-95.735854
-N0834,Westgreen / Park Royale,29.767164,-95.734975
-N0835,Westgreen / Highland Knolls,29.756074,-95.734350
-N0836,Westgreen / Fry,29.746500,-95.730064
-N0837,Fry Road,29.734060,-95.736746
-N0838,Fry / Westheimer,29.723355,-95.747926
-N0839,Fry / Rainwood Park,29.714555,-95.761355
-N0840,Fry / Seven Meadows,29.715548,-95.777617
-N0841,Fry / Cinco Crossing,29.716967,-95.791807
-N0842,Fry / Katy Gaston,29.711092,-95.806572
-N0843,Katy / Memorial City,29.783956,-95.535674
-N0844,Sam Houston / Haddington,29.800850,-95.563673
-N0845,Sam Houston / Emnora,29.816629,-95.563807
-N0846,Sam Houston / Kempwood,29.824518,-95.563864
-N0847,Old Spanish / Tierwester,29.702017,-95.365473
-N0848,Yellowstone / Tierwester,29.694844,-95.365715
-N0849,Cullen / Yellowstone,29.688647,-95.353926
-N0850,Cullen Boulevard,29.674561,-95.355862
-N0851,Cullen / Reed,29.660180,-95.355563
-N0852,Cullen / Airport,29.645875,-95.356171
-N0853,Cullen / Orem,29.631497,-95.355765
-N0854,Cullen / Almeda-Genoa,29.617118,-95.355457
-N0855,Cullen / Sam Houston,29.602857,-95.354602
-N0856,Cullen / Fellows,29.588739,-95.352116
-N0857,Cullen / Hughes Ranch,29.574462,-95.350844
-N0858,Hughes Ranch Road,29.570519,-95.362831
-N0859,Miller Ranch / Hughes Ranch,29.565801,-95.373493
-N0860,Alabama / Scott,29.721431,-95.347215
-N0861,Elgin / Spur 5,29.726311,-95.340898
-N0862,Ernestine / Leeland,29.732485,-95.335218
-N0863,Lockwood / Navigation,29.752926,-95.322673
-N0864,Lockwood / Clinton,29.765984,-95.315518
-N0865,Lockwood Drive,29.780681,-95.315991
-N0866,Wallisville / Kress,29.787478,-95.306730
-N0867,Wallisville / Wayside,29.787953,-95.289805
-N0868,Wallisville / McCarty,29.790156,-95.277341
-N0869,Wallisville / Gellhorn,29.792180,-95.260587
-N0870,Wallisville / Oates,29.794891,-95.243972
-N0871,Wallisville Road,29.799378,-95.228003
-N0872,Wallisville / Lake Houston,29.805366,-95.212605
-N0873,Wallisville / Purple Sage,29.805983,-95.196219
-N0874,Wallisville / Evanston,29.806141,-95.179363
-N0875,Sam Houston / Wallisville,29.807251,-95.163913
-N0876,Sam Houston / Woodforest,29.792656,-95.162455
-N0877,Woodforest / Alderson,29.788667,-95.151912
-N0878,White Oak / Watson,29.780714,-95.378950
-N0879,Quitman / West Street,29.783454,-95.347858
-N0880,Liberty / Russell,29.784908,-95.331591
-N0881,Liberty / Wipprecht,29.787601,-95.319875
-N0882,Liberty / Majestic,29.792726,-95.304598
-N0883,Homestead / Loop East,29.805749,-95.302020
-N0884,Homestead / Kelley,29.820175,-95.302017
-N0885,Homestead / Ley,29.834601,-95.302146
-N0886,Tidwell / Homestead,29.848539,-95.301550
-N0887,Tidwell / Wayside,29.849029,-95.284397
-N0888,Tidwell / Mesa,29.850050,-95.267159
-N0889,Tidwell / Green River,29.850881,-95.249886
-N0890,Tidwell / John Ralston,29.850359,-95.232653
-N0891,Tidwell / C E King,29.850171,-95.215511
-N0892,C E King Parkway,29.863477,-95.209701
-N0893,Scott / Holmes,29.679632,-95.367077
-N0894,Arcadia Bay Drive,29.570572,-95.436417
-N0895,FM 521,29.507755,-95.461466
-N0896,Scanlan Trace / McKeever,29.499237,-95.527616
-N0897,Soaring Woods Drive,30.068615,-95.231567
-N0898,Hidden Pines / Woodridge,30.068994,-95.218826
-N0899,Northpark / Woodbridge,30.068863,-95.201838
-N0900,Northpark / Lake Houston,30.067899,-95.189196
-N0901,Lake Houston / Rustic Woods,30.054005,-95.186079
-N0902,Lake Houston Parkway,30.041471,-95.177689
-N0903,Lake Houston / Kings River,30.027512,-95.176628
-N0904,Lake Houston / Upper Lake,30.013385,-95.180374
-N0905,Upper Lake / Timber Forest,30.007061,-95.190376
-N0906,Timber Forest / Humble–Huffman,29.995002,-95.193176
-N0907,Timber Forest / Atascocita,29.984249,-95.190829
-N0908,Timber Forest / Madera Run,29.960015,-95.193312
-N0909,Greens / Balmoral Bend,29.949535,-95.199542
-N0910,Greens / Woodland Hills,29.948642,-95.210716
-N0911,Sam Houston / Lockwood,29.936079,-95.211681
-N0912,Lockwood / Lake Houston,29.922213,-95.211528
-N0913,Lockwood / Generation,29.908335,-95.211391
-N0914,Lockwood Road,29.894459,-95.211158
-N0915,C E King / Garrett,29.882843,-95.208477
-N0916,C E King / Stonefield Manor,29.868967,-95.208380
-N0917,Sam Houston / Greenspoint,29.940430,-95.409616
-N0918,North Freeway / Kuykendahl,29.955100,-95.418430
-N0919,North Freeway / Rushcreek,29.964363,-95.418981
-N0920,North Freeway / Airtex,29.982614,-95.422927
-N0921,North Freeway / Pennbright,29.991790,-95.424563
-N0922,Cypress Station Drive,30.010106,-95.428083
-N0923,Cypress Creek / Cypress Station,30.018510,-95.437921
-N0924,Sam Houston / Crosby,29.821862,-95.167602
-N0925,Crosby / Errington,29.833779,-95.177786
-N0926,Beaumont / Uvalde,29.846044,-95.187092
-N0927,Tidwell / Van Hut,29.853020,-95.196575
-N0928,Fondren / Braesridge,29.648407,-95.508280
-N0929,Fondren / Gregory,29.637423,-95.508156
-N0930,Fondren / Orem,29.626510,-95.507263
-N0931,Sam Houston / Hillcroft,29.616676,-95.498921
-N0932,Rockwell / Chimney Rock,29.609582,-95.484169
-N0933,Hiram Clarke Road,29.596223,-95.441913
-N0934,Almeda / White,29.596800,-95.425771
-N0935,Sam Houston / Hooper,29.596278,-95.409651
-N0936,Kirby / Spectrum,29.590292,-95.400520
-N0937,Kirby / Shadow Creek,29.576476,-95.398976
-N0938,Discovery Bay / Business Center,29.570234,-95.392438
-N0939,Hughes Ranch / Country Place,29.570572,-95.380311
-N0940,Miller Ranch / Silverlake,29.562435,-95.373389
-N0941,Broadway / Southwyck,29.558509,-95.364311
-N0942,Broadway / Fite,29.558937,-95.351754
-N0943,Broadway / Manvel,29.559291,-95.334945
-N0944,Broadway / Suburban Garden,29.559449,-95.318182
-N0945,Broadway / Woody,29.559629,-95.301415
-N0946,Main / Walnut,29.563697,-95.285917
+N0024,Old Spanish / Almeda,29.698196,-95.390656
+N0025,Old Spanish / Main,29.691472,-95.416516
+N0026,Main / Westridge,29.682470,-95.423963
+N0027,Main Street,29.673373,-95.431299
+N0028,Bellfort / Stella Link,29.673217,-95.443686
+N0029,Bellfort / Post Oak,29.671028,-95.460233
+N0030,Bellfort / Chimney Rock,29.661916,-95.473165
+N0031,Bellfort / Hillcroft,29.657134,-95.488586
+N0032,Bob White Drive,29.653364,-95.501149
+N0033,Airport / Bob White,29.644410,-95.502744
+N0034,Airport / McLain,29.643160,-95.515195
+N0035,Airport / Gessner,29.641902,-95.527563
+N0036,Airport / Sam Houston,29.644555,-95.538728
+N0037,Stafford / Mula,29.633362,-95.546746
+N0038,Mula / Murphy,29.632613,-95.563541
+N0039,Greenbriar / Kirkwood,29.632735,-95.576218
+N0040,Dulles / Kirkwood,29.625121,-95.582760
+N0041,Dulles / Ludwig,29.611586,-95.582522
+N0042,Lexington / Dulles,29.601572,-95.585986
+N0043,Lexington Boulevard,29.601357,-95.601075
+N0044,Lexington / Williams Trace,29.599329,-95.612039
+N0045,Lexington / East Mall,29.592171,-95.619415
+N0046,Austin Parkway,29.585747,-95.618124
+N0047,Richmond / Briarpark,29.728698,-95.546549
+N0048,Sam Houston / Richmond,29.725797,-95.556968
+N0049,Sam Houston / Harwin,29.714854,-95.556711
+N0050,Sam Houston / Stroud,29.700252,-95.556745
+N0051,Beechnut / Sam Houston,29.689377,-95.556571
+N0052,Club Creek / Green Fork,29.681692,-95.551653
+N0053,Bissonnet / Sam Houston,29.674889,-95.557471
+N0054,Bissonnet / Wilcrest,29.674059,-95.569142
+N0055,Wilcrest / South Drive,29.665299,-95.568823
+N0056,Wilcrest / Bellfort,29.655351,-95.570929
+N0057,Murphy / Airport,29.643274,-95.565326
+N0058,Lexington / Settlers Way,29.601470,-95.588879
+N0059,Williams Trace Boulevard,29.601555,-95.604859
+N0060,Lexington / SH-6,29.597419,-95.615837
+N0061,Austin / Lexington,29.588931,-95.623062
+N0062,Sweetwater / Town Center,29.586516,-95.632213
+N0063,Southwest Freeway / Taborwood,29.583631,-95.644624
+N0064,Southwest Freeway,29.575081,-95.658132
+N0065,Southwest Freeway / Riverbrook,29.566500,-95.671613
+N0066,Southwest Freeway / Grand,29.562442,-95.687602
+N0067,Crabb River / Sansbury,29.550561,-95.696148
+N0068,Beechnut Street,29.689760,-95.559619
+N0069,Beechnut / Wilcrest,29.691099,-95.571079
+N0070,Bellaire Boulevard;Đại Lộ Sàigòn,29.703304,-95.571310
+N0071,High Star Drive,29.711360,-95.580515
+N0072,High Star / Cook,29.710926,-95.592869
+N0073,Dairy Ashford / High Star,29.711333,-95.604578
+N0074,Dairy Ashford / Westpark,29.722071,-95.604790
+N0075,Richmond / Dairy Ashford,29.729779,-95.608986
+N0076,Richmond / Synott,29.728117,-95.620944
+N0077,Eldridge Parkway,29.740515,-95.623475
+N0078,Eldridge / Briar Forest,29.751055,-95.625159
+N0079,Eldridge / Brimhurst,29.762158,-95.625271
+N0080,Eldridge / Memorial,29.772163,-95.620579
+N0081,Eldridge / Katy,29.782676,-95.617535
+N0082,Colonial / Mason,29.793588,-95.752526
+N0083,Colonial / Westside,29.793910,-95.768615
+N0084,Colonial / Grand,29.793024,-95.781057
+N0085,Colonial / Katy Fort Bend,29.793350,-95.797096
+N0086,Katy Fort Bend / 5th Street,29.787920,-95.801874
+N0087,Highway / Katyland,29.785779,-95.811750
+N0088,Highway / Bartlett,29.785807,-95.828639
+N0089,Highway / Cane Island,29.785883,-95.845530
+N0090,Highway / Katy,29.785956,-95.862420
+N0091,34th Street / Mangum,29.819582,-95.457693
+N0092,34th Street / Northwest Freeway,29.819456,-95.470888
+N0093,Hempstead / 34th Street,29.818747,-95.483731
+N0094,Hempstead / Bingle,29.825980,-95.493959
+N0095,Clark / Hempstead,29.836152,-95.506313
+N0096,Hollister / Northwest Freeway,29.851194,-95.504621
+N0097,Hollister / Northcourt,29.861898,-95.505427
+N0098,Little York / Guhn,29.865555,-95.515004
+N0099,Northwest Freeway / by Northwest,29.866345,-95.531665
+N0100,Gessner / Emmott,29.872683,-95.540662
+N0101,Gessner / Philippine,29.887276,-95.540842
+N0102,Gessner / West Road,29.901349,-95.543237
+N0103,West Road / Willowbridge Park,29.903726,-95.558147
+N0104,West Road / Rio Grande,29.908742,-95.572175
+N0105,Pony Express / Rio Grande,29.921592,-95.576086
+N0106,Fallbrook / Jones,29.924494,-95.585222
+N0107,FM 1960 / Fallbrook,29.925914,-95.596407
+N0108,FM 1960 / Eldridge,29.920861,-95.606771
+N0109,FM 1960,29.916015,-95.617280
+N0110,Highway 6 / Point Northwest,29.908199,-95.630129
+N0111,Highway 6 / West Road,29.899230,-95.636023
+N0112,Longenbaugh Drive,29.893123,-95.645740
+N0113,Royal Gardens / Park Falls,29.892119,-95.657763
+N0114,Forest Heights / Highland Canyon,29.892522,-95.672140
+N0115,Barryknoll / Bunker Hill,29.778618,-95.534261
+N0116,Bunker Hill / Katy,29.787542,-95.531313
+N0117,Long Point / Crestdale,29.796123,-95.530037
+N0118,Long Point / Campbell,29.799390,-95.517769
+N0119,Long Point / Bingle,29.803074,-95.501943
+N0120,Long Point / Spenwick,29.802883,-95.489088
+N0121,Long Point / Antoine,29.802850,-95.476227
+N0122,Long Point / Hempstead,29.802923,-95.463358
+N0123,18th Street / Loop West,29.801480,-95.447149
+N0124,Seamist Drive,29.798215,-95.438083
+N0125,11th Street / Seamist,29.789150,-95.435839
+N0126,11th Street,29.789217,-95.423352
+N0127,11th Street / Shepherd,29.790563,-95.406887
+N0128,Yale / 11th Street,29.786671,-95.398907
+N0129,White Oak Drive,29.781553,-95.392340
+N0130,Gessner / Meadowglen,29.732763,-95.539168
+N0131,Gessner / Ella Lee,29.743541,-95.538311
+N0132,Gessner Road,29.753582,-95.541356
+N0133,Gessner / Old Oaks,29.766862,-95.544302
+N0134,Gessner / Barryknoll,29.777739,-95.544381
+N0135,Gessner / Westview,29.788646,-95.544450
+N0136,Gessner / Warwana,29.799640,-95.544735
+N0137,Gessner / Tiger,29.810622,-95.545123
+N0138,Gessner / Kemp Forest,29.825288,-95.545203
+N0139,Durban / Clay,29.833367,-95.552798
+N0140,Sam Houston / Clay,29.832403,-95.563276
+N0141,Sam Houston / Tanner,29.846292,-95.563398
+N0142,Sam Houston / Fisher,29.860176,-95.563489
+N0143,Sam Houston / Northwest Freeway,29.871740,-95.558297
+N0144,Sam Houston / Brookriver,29.881154,-95.548301
+N0145,Sam Houston / Gessner,29.895006,-95.549193
+N0146,Briar Oaks / Post Oak Place,29.749685,-95.448313
+N0147,Hempstead / Kansas,29.783742,-95.437343
+N0148,Center / Studemont,29.770925,-95.392669
+N0149,Jensen Drive,29.798082,-95.344268
+N0150,Hirsch / Langley,29.865804,-95.316891
+N0151,Aldine Bender / Old Humble,29.927386,-95.292265
+N0152,Bender / Burdom,29.989451,-95.269316
+N0153,Kingwood / Royal Forest,30.051647,-95.247034
+N0154,Richmond / Eldridge,29.728700,-95.623557
+N0155,Wilcrest / High Star,29.709395,-95.571420
+N0156,Boone Road;Lê Văn Hưng,29.699209,-95.571248
+N0157,Wilcrest Drive,29.689042,-95.567325
+N0158,Bissonnet / Centre,29.675247,-95.550204
+N0159,Bissonnet / Braeswood,29.675888,-95.538693
+N0160,Braeswood / Gessner,29.671258,-95.528909
+N0161,Gessner / Creekbend,29.661951,-95.527966
+N0162,Bellfort Avenue,29.655537,-95.519848
+N0163,Fondren / Bellfort,29.652584,-95.508323
+N0164,Fondren / Airport,29.641265,-95.508208
+N0165,Fondren Road,29.630014,-95.507416
+N0166,Sam Houston / Fondren,29.618272,-95.501934
+N0167,Sam Houston / Rockwell,29.610775,-95.486853
+N0168,Sam Houston / Fuqua,29.603645,-95.471531
+N0169,Sam Houston / Post Oak,29.597124,-95.455924
+N0170,Drexel / Richmond,29.735322,-95.448007
+N0171,Liberty / Cushing,29.787247,-95.316911
+N0172,Wayside / Cheeves,29.853351,-95.287115
+N0173,Lake Houston / Generation,29.906780,-95.232305
+N0174,Madera Run Parkway,29.960098,-95.177333
+N0175,Westheimer / Loop South,29.741177,-95.455798
+N0176,Westheimer / Drexel,29.741649,-95.445304
+N0177,Westheimer / Edloe,29.741575,-95.434797
+N0178,Westheimer / River Oaks,29.742122,-95.425290
+N0179,Westheimer / Hazard,29.742732,-95.406168
+N0180,Westheimer / Graustark,29.743008,-95.396640
+N0181,Montrose / Fairview,29.747853,-95.392083
+N0182,Montrose / Gray,29.756163,-95.392305
+N0183,Allen / Montrose,29.760859,-95.389294
+N0184,Allen / Gillette,29.761166,-95.379665
+N0185,Pierce / La Branch,29.746962,-95.366667
+N0186,Pierce / Emancipation,29.742645,-95.359478
+N0187,Gulf / Sauer,29.738318,-95.352296
+N0188,Hadley / Scott,29.733787,-95.345287
+N0189,Spur 5 / Alvin,29.721502,-95.336246
+N0190,Old Spanish / Wheeler,29.711417,-95.324416
+N0191,Wayside / Gulf,29.714176,-95.315808
+N0192,Gulf / Broad,29.709341,-95.306842
+N0193,Gulf / Loop East,29.697156,-95.289155
+N0194,Gulf Freeway,29.689610,-95.281941
+N0195,Gulf / Dixie,29.682180,-95.274563
+N0196,Monroe / Rockhill,29.666292,-95.263230
+N0197,Monroe / Airport,29.656732,-95.263617
+N0198,Airport / Gulf,29.652064,-95.255837
+N0199,Clearwood / Gulf,29.639126,-95.245537
+N0200,Cypress Station / Hollow Tree,30.022835,-95.438558
+N0201,Cypress Station / Cypress Trace,30.031538,-95.439583
+N0202,North Freeway / Cypress Station,30.034070,-95.429588
+N0203,North Freeway,30.047714,-95.431229
+N0204,Holzwarth / Meadow Edge,30.059770,-95.438243
+N0205,FM 2920 / Spring Cypress,30.071332,-95.446428
+N0206,Holzwarth / Spring Stuebner,30.083973,-95.450818
+N0207,Holzwarth / Mossy Oaks,30.094155,-95.450366
+N0208,Springwoods Village / Lake Plaza,30.102130,-95.441363
+N0209,I-45 / Northgate Crossing,30.113126,-95.437865
+N0210,I-45 / Sawdust,30.125713,-95.443589
+N0211,Grogans Mill / Sawdust,30.129481,-95.457602
+N0212,Grogans Mill / Sawmill,30.137054,-95.465636
+N0213,Millbend / Grogans Mill,30.149220,-95.471923
+N0214,Grogans Mill / Lake Robbins,30.162321,-95.468551
+N0215,Grogans Mill / Hughes Landing,30.172487,-95.465259
+N0216,Grogans Mill / Wellman,30.186247,-95.469194
+N0217,Vision Park / I-45,30.191513,-95.455218
+N0218,I-45 / College Park,30.204834,-95.456425
+N0219,Needham Road,30.208435,-95.443027
+N0220,Gleneagle / Cassowary,30.215010,-95.433718
+N0221,Hillcroft / Westward,29.711311,-95.493587
+N0222,Hillcroft / Sharpview,29.699785,-95.493155
+N0223,Bissonnet / Beechnut,29.691467,-95.499700
+N0224,Bissonnet / Bonhomme,29.683624,-95.515003
+N0225,Bissonnet / Gessner,29.677856,-95.526554
+N0226,Bissonnet Street,29.674279,-95.564807
+N0227,Bissonnet / Leawood,29.674527,-95.576882
+N0228,Bissonnet / Kirkwood,29.675225,-95.588957
+N0229,Keegan / Bellfort,29.664007,-95.595713
+N0230,Barrington Place Drive,29.661285,-95.609059
+N0231,Bellfort / Belknap,29.662090,-95.622134
+N0232,Bellfort / Burney,29.662256,-95.639566
+N0233,Bellfort Street,29.662852,-95.652601
+N0234,Bellfort / Bissonnet,29.667653,-95.667813
+N0235,Bellfort / Madden,29.664698,-95.684191
+N0236,Bellfort / Westmoor,29.661106,-95.700532
+N0237,Aliana Trace / Abermore,29.656032,-95.707709
+N0238,Aliana Trace Drive,29.641617,-95.703307
+N0239,Mangum / Northwest Freeway,29.812615,-95.459098
+N0240,Directors Row / Governors,29.805304,-95.454147
+N0241,Loop North / 12th Street,29.791927,-95.451030
+N0242,Loop North / Old Katy,29.783700,-95.451920
+N0243,Loop North / Woodway,29.768011,-95.455892
+N0244,Westpark / Chimney Rock,29.724766,-95.476074
+N0245,Westpark / Rampart,29.723811,-95.487485
+N0246,Southwest Freeway / Harwin,29.718580,-95.496524
+N0247,Bellaire / Rookin,29.705306,-95.497264
+N0248,Bellaire / Larkwood,29.703874,-95.507730
+N0249,Bellaire / Fondren,29.705109,-95.518203
+N0250,Bellaire / Mary Bates,29.704999,-95.528926
+N0251,Bellaire / Corporate,29.704782,-95.550373
+N0252,Sam Houston / Green Fork,29.682117,-95.558625
+N0253,Sam Houston / Kipp Way,29.673169,-95.560332
+N0254,Sam Houston / Southwest Freeway,29.664150,-95.559079
+N0255,Southwest Freeway / Roark,29.656416,-95.562571
+N0256,Southwest Freeway / Murphy,29.649804,-95.569789
+N0257,Kirkwood / Southwest Freeway,29.635541,-95.580565
+N0258,Ludwig / Brand,29.616783,-95.582484
+N0259,Dulles Avenue,29.597687,-95.581966
+N0260,Austin / Dulles,29.579532,-95.583777
+N0261,Austin / Settlers Way,29.573786,-95.599329
+N0262,Grants Lake Boulevard,29.584603,-95.615280
+N0263,Sam Houston / Hiram Clarke,29.596201,-95.442313
+N0264,Almeda / White,29.596791,-95.426707
+N0265,Sam Houston / Riley,29.596137,-95.411113
+N0266,Kirby / Spectrum,29.592033,-95.400532
+N0267,Kirby / Shadow Creek,29.578634,-95.399437
+N0268,Discovery Bay / Kirby,29.570043,-95.395372
+N0269,Hughes Ranch / Country Place,29.570494,-95.383654
+N0270,Miller Ranch / Hughes Ranch,29.565801,-95.373493
+N0271,Cypress Creek / Red Oak,30.016521,-95.445056
+N0272,Cypress Creek / Butte Creek,30.011165,-95.456366
+N0273,Cypress Creek / Northgate Forest,30.003201,-95.470990
+N0274,Cypress Creek / T C Jester,29.997076,-95.481848
+N0275,Cypress Creek / Stuebner Airline,29.989033,-95.496416
+N0276,Cypress Creek / Glen Erica,29.981003,-95.510996
+N0277,Cypress Creek / Hollister,29.974975,-95.521928
+N0278,Cypress Creek / Cutten,29.967067,-95.536586
+N0279,Cypress Creek / Mills,29.958330,-95.550411
+N0280,Cypress Creek / Perry,29.947667,-95.562541
+N0281,Perry / Windfern,29.933229,-95.564584
+N0282,Fallbrook Drive,29.924725,-95.574889
+N0283,Eldridge / Fallbrook,29.923647,-95.600792
+N0284,Wortham / Crossroads Park,29.918840,-95.611162
+N0285,FM 1960 / Highway 6,29.914031,-95.621531
+N0286,Highway 6 / Easton Commons,29.904735,-95.632483
+N0287,Highway 6,29.895823,-95.638208
+N0288,Cali / Cypress Creek,30.019563,-95.440504
+N0289,North Freeway / Bammel Westfield,30.021146,-95.429260
+N0290,FM 1960 / Greenbrook,30.024946,-95.412942
+N0291,FM 1960 / Humble-Westfield,30.025816,-95.396504
+N0292,FM 1960 / Aldine Westfield,30.020327,-95.380924
+N0293,FM 1960 / Birnamwood,30.017388,-95.364346
+N0294,FM 1960 / Farrell,30.014451,-95.347769
+N0295,FM 1960 / Cypresswood,30.011561,-95.331179
+N0296,FM 1960 / Foxwood Forest,30.005805,-95.315633
+N0297,Lee Road,29.995025,-95.308768
+N0298,Will Clayton / Lee,29.984779,-95.302658
+N0299,Will Clayton / Kenswick,29.983363,-95.290852
+N0300,Will Clayton / Eastex,29.981826,-95.275308
+N0301,Will Clayton / Houston,29.979088,-95.259763
+N0302,Will Clayton / Wilson,29.979163,-95.243793
+N0303,Will Clayton / Atascocita,29.979647,-95.228204
+N0304,Will Clayton / Woodland Hills,29.977954,-95.213193
+N0305,Will Clayton / Timber Forest,29.979112,-95.197385
+N0306,Timber Forest Drive,29.970961,-95.193039
+N0307,Richmond / Wilcrest,29.727827,-95.570276
+N0308,Richmond / Woodland Park,29.728711,-95.582069
+N0309,Richmond / Houston Center,29.730766,-95.593048
+N0310,Dairy Ashford / Ashford Meadow,29.729849,-95.604862
+N0311,Dairy Ashford / Overbrook,29.739365,-95.606004
+N0312,Dairy Ashford / Whittington,29.749742,-95.606177
+N0313,Dairy Ashford Road,29.760124,-95.606300
+N0314,Highway 6 / Park Row,29.796226,-95.644920
+N0315,Highway 6 / Patterson,29.809989,-95.645114
+N0316,Highway 6 / Pine Forest,29.823740,-95.645504
+N0317,Highway 6 / Clay,29.837502,-95.645621
+N0318,Highway 6 / Kieth Harrow,29.847823,-95.645727
+N0319,Kieth Harrow Boulevard,29.849001,-95.656273
+N0320,Queenston / Kieth Harrow,29.852596,-95.668243
+N0321,Queenston / Coventry Park,29.862747,-95.669586
+N0322,Queenston / FM 529,29.876307,-95.668219
+N0323,Queenston / Forest Heights,29.890069,-95.668348
+N0324,Loop South / Southwest Freeway,29.730542,-95.461169
+N0325,Fountain View / Renwick,29.724185,-95.483228
+N0326,Southwest Freeway / Westpark,29.722646,-95.492214
+N0327,Southwest Freeway / Hillcroft,29.716769,-95.498548
+N0328,Hillcroft / Windswept,29.724762,-95.501181
+N0329,Richmond / Stoney Brook,29.730937,-95.504026
+N0330,Richmond / Dunvale,29.729214,-95.514378
+N0331,Richmond / Jeanetta,29.728950,-95.525095
+N0332,Richmond / Tanglewilde,29.728351,-95.535719
+N0333,Rodgerdale / Harwin,29.718901,-95.557995
+N0334,Harwin Drive,29.715917,-95.566237
+N0335,Harwin / Boone,29.715392,-95.577170
+N0336,Studemont / Studewood,29.781602,-95.389473
+N0337,Studemont / Katy,29.774765,-95.390264
+N0338,Studemont / Washington,29.765589,-95.392215
+N0339,Bagby / Elgin,29.744649,-95.383142
+N0340,Elgin / Caroline,29.739835,-95.374042
+N0341,Almeda / Cleburne,29.732252,-95.375518
+N0342,Almeda / Southmore,29.723279,-95.378601
+N0343,Almeda / MacGregor,29.714305,-95.381686
+N0344,Almeda / Holcombe,29.705336,-95.384776
+N0345,Old Spanish / Kirby,29.692567,-95.414122
+N0346,Main / Murworth,29.686385,-95.420870
+N0347,Main / Buffalo Speedway,29.679183,-95.426576
+N0348,Loop West / Stella Link,29.679505,-95.435867
+N0349,Loop West,29.679466,-95.445935
+N0350,Loop West / Post Oak,29.679228,-95.456000
+N0351,Chimney Rock Road,29.660224,-95.475117
+N0352,Bellfort / Gasmer,29.657185,-95.484342
+N0353,Bellfort / Albury,29.655992,-95.504321
+N0354,Bellfort / Braesridge,29.655745,-95.514253
+N0355,Bellfort / Riceville School,29.656259,-95.534042
+N0356,Bellfort / Chessington,29.652692,-95.553013
+N0357,Mangum / Dacoma,29.804741,-95.458705
+N0358,Hempstead / Southerland,29.828784,-95.497900
+N0359,Cypress Creek / Windfern,29.937351,-95.584784
+N0360,Jones / Cypress North Houston,29.952587,-95.584971
+N0361,Jones / Grant,29.964014,-95.585227
+N0362,Jones / Cypresswood,29.975272,-95.583756
+N0363,Jones Road,29.988925,-95.587711
+N0364,Louetta / Jones,29.996722,-95.596109
+N0365,Main / Willowbend,29.665153,-95.437559
+N0366,Main / Hiram Clarke,29.653059,-95.449425
+N0367,Post Oak / Allum,29.643846,-95.463641
+N0368,Post Oak / Orem,29.626838,-95.465120
+N0369,Post Oak / Fuqua,29.609574,-95.464850
+N0370,Eldridge / Westheimer,29.731767,-95.623688
+N0371,Eldridge / Westpark,29.722888,-95.623381
+N0372,Eldridge / Ashford Point,29.713987,-95.623959
+N0373,Alief Clodine / Dairy Ashford,29.714207,-95.605282
+N0374,Alief Clodine / Cook,29.714833,-95.595028
+N0375,Boone Road,29.703929,-95.575873
+N0376,Rodgerdale Road,29.704213,-95.564706
+N0377,US-59,29.661669,-95.557715
+N0378,Sam Houston / Bellfort,29.654043,-95.550074
+N0379,Bellfort / Gessner,29.655758,-95.527381
+N0380,Hillcroft Avenue,29.657079,-95.494099
+N0381,Bellfort / Willowbend,29.666713,-95.468037
+N0382,Old Spanish / Yellowstone,29.700167,-95.379649
+N0383,Scott / Old Spanish,29.702635,-95.359282
+N0384,Edloe / Alabama,29.735677,-95.433435
+N0385,Westheimer / Timmons,29.741667,-95.438157
+N0386,Westheimer / Mid,29.741559,-95.449457
+N0387,Loop South / Uptown Park,29.758171,-95.456033
+N0388,Katy / Antoine,29.783465,-95.478026
+N0389,Katy / Chimney Rock,29.783898,-95.488890
+N0390,Bingle / Voss,29.784150,-95.499763
+N0391,Katy / Echo,29.784020,-95.521512
+N0392,Bunker Hill / Gaylord,29.783862,-95.532384
+N0393,Katy / Witte,29.784882,-95.540791
+N0394,Katy / Benignus,29.784635,-95.550930
+N0395,Katy / Town and Country,29.784778,-95.561078
+N0396,Katy / Brittmoore,29.784834,-95.571228
+N0397,Katy / Sherwood Forest,29.784931,-95.581378
+N0398,Katy / Kirkwood,29.784952,-95.591528
+N0399,Katy / Tully,29.785012,-95.601677
+N0400,Katy Freeway,29.785086,-95.622831
+N0401,Katy / Addicks-Howell,29.785067,-95.644894
+N0402,Katy / Grisby,29.785152,-95.655926
+N0403,Katy / Park Ten,29.785141,-95.666959
+N0404,Katy / Creek,29.785180,-95.677993
+N0405,Katy / Baker,29.785272,-95.700056
+N0406,Katy / Houghton,29.785316,-95.722119
+N0407,Westgreen Boulevard,29.793039,-95.735158
+N0408,Jones / Cypress Creek,29.935008,-95.584815
+N0409,Cypress North Houston Road,29.948681,-95.584933
+N0410,Jones / Mills,29.958938,-95.585093
+N0411,Grant Road,29.969082,-95.584476
+N0412,Cypresswood Drive,29.982249,-95.585445
+N0413,Compaq Center West / Louetta,29.994779,-95.587564
+N0414,Tomball / Rodgers,30.003770,-95.585469
+N0415,Tomball / Spring Cypress,30.016497,-95.593339
+N0416,Tomball Parkway,30.029329,-95.600993
+N0417,Tomball / Canyon Gate Pointe,30.042033,-95.608860
+N0418,Tomball / Boudreaux Estates,30.054609,-95.616824
+N0419,Tomball / Holderrieth,30.067361,-95.624234
+N0420,SH-249 / Alice,30.080433,-95.629862
+N0421,Medical Complex Drive,30.084682,-95.619172
+N0422,Almeda / Hepburn,29.690445,-95.388663
+N0423,Buffalo Speedway / Willowbend,29.662667,-95.423542
+N0424,Cavalcade / Elysian,29.799334,-95.347078
+N0425,Hardy / Little York,29.871571,-95.365094
+N0426,Hardy / Benmar,29.943813,-95.383094
+N0427,Hardy Road,30.010690,-95.399818
+N0428,Hardy / Spring School,30.077568,-95.416543
+N0429,Hanna Road,30.144449,-95.433249
+N0430,Trade Center / Needham,30.211333,-95.449913
+N0431,I-45 / Crighton,30.268003,-95.456054
+N0432,1st Street,30.325215,-95.455755
+N0433,Benson / Lyons,29.774763,-95.328624
+N0434,Navigation / Canal,29.732281,-95.279324
+N0435,Richey Access,29.716180,-95.216420
+N0436,Deerwood Glen / Highway 225,29.714645,-95.140257
+N0437,La Porte / Miller Cut Off,29.695336,-95.065096
+N0438,Bay Area / Fairmont,29.645042,-95.046334
+N0439,Kenswick Drive,29.988570,-95.295766
+N0440,Kenswick / FM 1960,30.003297,-95.296812
+N0441,FM 1960 / Townsen,30.004923,-95.281311
+N0442,FM 1960 / Eastex,30.005085,-95.268398
+N0443,Townsen / Houston,30.017589,-95.260359
+N0444,Hamblen / Eastex,30.031680,-95.255654
+N0445,Eastex Freeway,30.045630,-95.249455
+N0446,Northpark Plaza / Royal Crossing,30.059962,-95.244450
+N0447,Northpark / Soaring Woods,30.068379,-95.234427
+N0448,Rayford Road,30.127858,-95.426909
+N0449,Rayford / Imperial Oaks,30.124455,-95.414756
+N0450,Rayford / Legends Run,30.120418,-95.398703
+N0451,Grand / Rayford,30.111521,-95.387381
+N0452,Grand / Woodson's Reserve,30.121328,-95.374548
+N0453,Hillcroft / Braeswood,29.674672,-95.493663
+N0454,Hillcroft / Beechnut,29.683712,-95.492943
+N0455,Northwest Freeway / Antoine,29.826993,-95.476306
+N0456,Northwest Freeway / 43rd Street,29.833322,-95.483563
+N0457,Northwest Freeway / Bingle,29.839892,-95.490566
+N0458,Northwest Freeway / Langfield,29.845437,-95.498598
+N0459,Northwest Freeway / Guhn,29.853332,-95.514084
+N0460,Northwest Freeway,29.858542,-95.522867
+N0461,Northwest Freeway / Gessner,29.867175,-95.541744
+N0462,Hempstead / Little York,29.871291,-95.551297
+N0463,Sam Houston / Philippine,29.886659,-95.549371
+N0464,Sam Houston / West Road,29.904161,-95.553537
+N0465,Sam Houston / Fallbrook,29.922088,-95.556294
+N0466,Fallbrook / Perry,29.926508,-95.563490
+N0467,Winkler / Main,29.670392,-95.251656
+N0468,Richey / Flagstone Terrace,29.672997,-95.235661
+N0469,Queens / Houston,29.675961,-95.219866
+N0470,Pauline Avenue,29.677511,-95.203156
+N0471,Cherry Brook / Strawberry,29.677064,-95.191097
+N0472,Cherry Brook / Burke,29.677110,-95.178210
+N0473,Preston / Spencer,29.667317,-95.172295
+N0474,Preston / Fairmont,29.652643,-95.171454
+N0475,Fairmont / Mickey Gilley,29.649612,-95.162198
+N0476,Fairmont Parkway,29.649661,-95.149478
+N0477,Fairmont / Space Center,29.649885,-95.136752
+N0478,Fairmont / Red Bluff,29.650276,-95.124036
+N0479,Fairmont / Luella,29.650533,-95.107067
+N0480,Fairmont / Underwood,29.650819,-95.090098
+N0481,Fairmont / Farrington,29.651611,-95.073172
+N0482,Fairmont / Driftwood,29.651455,-95.056223
+N0483,Bay Area / Driftwood,29.648821,-95.046790
+N0484,Sam Houston / Northchase,29.939893,-95.399219
+N0485,Sam Houston / Greenspoint,29.941009,-95.409699
+N0486,North Freeway / Goodson,29.924637,-95.412317
+N0487,North Freeway / West Road,29.915432,-95.412717
+N0488,North Freeway / Mount Houston,29.897006,-95.412383
+N0489,North Freeway / Gulf Bank,29.887793,-95.412193
+N0490,Shepherd / Little York,29.869431,-95.412598
+N0491,Shepherd / Northew,29.851033,-95.412098
+N0492,Shepherd / Thornton,29.832691,-95.410821
+N0493,34th Street / Shepherd,29.817420,-95.414212
+N0494,34th Street / Oak Forest,29.817291,-95.435446
+N0495,Hillcroft / Bissonnet,29.692812,-95.493085
+N0496,Hillcroft / Willowbend,29.665691,-95.492356
+N0497,Briar Hollow / Post Oak,29.755749,-95.448479
+N0498,12th Street / Hempstead,29.791201,-95.446528
+N0499,Hempstead / Dacoma,29.807354,-95.468725
+N0500,Pinemont / Guhn,29.840049,-95.514214
+N0501,Northwest Freeway / Jones,29.892139,-95.587908
+N0502,US-290,29.944027,-95.661800
+N0503,Mason / Northwest Freeway,29.987748,-95.741479
+N0504,Old Spanish / South Freeway,29.700991,-95.375601
+N0505,Long / Wayside,29.691706,-95.316964
+N0506,Long / Chaffin,29.685114,-95.303274
+N0507,Park Place / Reveille,29.685360,-95.286987
+N0508,Broadway / Dixie,29.682694,-95.277476
+N0509,Broadway / Rockhill,29.668554,-95.277114
+N0510,Rockhill / Gulf,29.666694,-95.268436
+N0511,Winkler / Monroe,29.670294,-95.257786
+N0512,Winkler / Galveston,29.670137,-95.245749
+N0513,Queens / Richey,29.675715,-95.232167
+N0514,Queens / Oaks,29.676017,-95.216059
+N0515,Cherry Brook / Pasadena,29.677152,-95.181113
+N0516,Barker Cypress / Westgate Park,29.886193,-95.683403
+N0517,Barker Cypress Road,29.875297,-95.683296
+N0518,Barker Cypress / Little York,29.864401,-95.683267
+N0519,Barker Cypress / Kieth Harrow,29.849872,-95.683199
+N0520,Barker Cypress / Oak Hampton,29.835348,-95.683258
+N0521,Barker Cypress / Morton,29.821463,-95.686703
+N0522,Barker Cypress / Groschke,29.806982,-95.687163
+N0523,Saums / Park View,29.800343,-95.697316
+N0524,Saums / Westlake,29.800385,-95.714042
+N0525,Saums / Prospect Glen,29.801092,-95.730678
+N0526,Vanderwilt Lane,29.792818,-95.738765
+N0527,Dulles / Brand,29.622641,-95.582740
+N0528,Avenue E / Brand,29.608632,-95.582478
+N0529,Southwest Freeway / Telfair,29.573759,-95.660244
+N0530,Southwest Freeway / Summit Creek,29.565202,-95.674830
+N0531,Crabb River / Grand,29.560033,-95.690759
+N0532,Crabb River / FM 2759,29.546233,-95.698335
+N0533,FM 762,29.538297,-95.708165
+N0534,FM 762 / Benton,29.540384,-95.724385
+N0535,FM 762 / Minonite,29.542904,-95.740491
+N0536,FM 762 / Del Webb,29.552743,-95.751953
+N0537,Avenue I / B F Terry,29.559307,-95.761742
+N0538,Avenue I / Lane,29.558011,-95.777789
+N0539,Avenue I / Avenue H,29.557407,-95.794137
+N0540,18th Street,29.801602,-95.439223
+N0541,18th Street / T C Jester,29.801576,-95.428555
+N0542,20th Street,29.803727,-95.418721
+N0543,20th Street / Shepherd,29.803832,-95.408050
+N0544,Yale / 19th Street,29.802339,-95.399203
+N0545,Heights / 11th Street,29.793079,-95.399038
+N0546,Yale / 6th Street,29.783819,-95.398859
+N0547,Washington / Harvard,29.768186,-95.392048
+N0548,East Freeway / Providence,29.770014,-95.349542
+N0549,East Freeway / Meadow,29.768614,-95.339833
+N0550,East Freeway / Market,29.774190,-95.321051
+N0551,East Freeway / Lathrop,29.774300,-95.301048
+N0552,East Freeway / Wayside,29.777597,-95.291826
+N0553,East Freeway / Gellhorn,29.776790,-95.271954
+N0554,East Freeway / Oates,29.773658,-95.252269
+N0555,East Freeway / Holland,29.772888,-95.232361
+N0556,East Freeway / Sheffield,29.770631,-95.212746
+N0557,East Freeway / Normandy,29.771357,-95.202779
+N0558,East Freeway / Haden,29.770437,-95.182814
+N0559,East Freeway,29.770796,-95.162806
+N0560,East Freeway / Dell Dale,29.773213,-95.143165
+N0561,Dell Dale Street,29.778724,-95.138662
+N0562,Woodforest / Dell Dale,29.788708,-95.148640
+N0563,Gaylord Drive,29.781596,-95.526392
+N0564,Blalock / Westview,29.791955,-95.521868
+N0565,Blalock / Neuens,29.802661,-95.524382
+N0566,Blalock / Emnora,29.813761,-95.524617
+N0567,Blalock Road,29.828208,-95.523282
+N0568,Blalock / Wingfoot,29.842928,-95.524228
+N0569,Tidwell / Guhn,29.850832,-95.516377
+N0570,Tidwell / Bingle,29.850515,-95.491209
+N0571,Tidwell Road,29.850161,-95.478622
+N0572,Antoine Drive,29.854847,-95.473229
+N0573,Antoine / Victory,29.865758,-95.472833
+N0574,Antoine / Gulf Bank,29.880277,-95.473753
+N0575,Antoine / Mount Houston,29.893012,-95.479837
+N0576,Antoine / Chippewa,29.903928,-95.480102
+N0577,Antoine / Fallbrook,29.918203,-95.481313
+N0578,Antoine / Sam Houston,29.932628,-95.482378
+N0579,Sam Houston / Greens,29.937044,-95.471422
+N0580,Sam Houston / T C Jester,29.937226,-95.454610
+N0581,Sam Houston / Ella,29.937511,-95.437798
+N0582,Sam Houston / Greens Crossing,29.939061,-95.425494
+N0583,Sam Houston / North Freeway,29.940282,-95.413049
+N0584,Gaylord / Memorial City,29.778568,-95.537976
+N0585,Gessner / Katy,29.783181,-95.543876
+N0586,Gessner / Long Point,29.793782,-95.544626
+N0587,Gessner / Shadow Wood,29.804424,-95.545050
+N0588,Gessner / Emnora,29.815083,-95.545161
+N0589,Clay Road,29.831884,-95.580790
+N0590,Clay / Eldridge,29.831864,-95.597519
+N0591,Eldridge / Tanner,29.841734,-95.605052
+N0592,Eldridge / Little York,29.856159,-95.607060
+N0593,Little York Road,29.862914,-95.616872
+N0594,Little York / Huffmeister,29.864486,-95.628926
+N0595,Little York / Highway 6,29.867570,-95.640264
+N0596,Little York / Yorktown Crossing,29.866823,-95.656869
+N0597,Little York / Queenston,29.865122,-95.668875
+N0598,Durban / Shadowdale,29.836675,-95.553337
+N0599,Sam Houston / Equity,29.841350,-95.563438
+N0600,Sam Houston / Brittmoore,29.856201,-95.563491
+N0601,Sam Houston / Senate,29.870538,-95.561434
+N0602,Spring Cypress Road,30.014754,-95.582848
+N0603,Spring Cypress / Old Louetta,30.022866,-95.570698
+N0604,Spring Cypress / Champion Forest,30.030689,-95.557113
+N0605,Spring Cypress / Eastloch,30.040824,-95.546175
+N0606,Spring Cypress / Creekfield,30.047625,-95.532472
+N0607,Fallbrook / Legacy Park,29.926381,-95.553070
+N0608,Sam Houston / Windfern,29.932770,-95.538216
+N0609,Sam Houston / Tomball,29.937216,-95.522630
+N0610,Sam Houston / Hollister,29.937460,-95.506038
+N0611,Greens / Antoine,29.937650,-95.489444
+N0612,Greens Road,29.937838,-95.476998
+N0613,Sam Houston / Veterans Memorial,29.938042,-95.460402
+N0614,Greens Parkway,29.938281,-95.443807
+N0615,Sam Houston / Hardy,29.939048,-95.385558
+N0616,Aldine Bender / Luthe,29.933388,-95.373101
+N0617,Aldine Bender / Aldine Westfield,29.931355,-95.355366
+N0618,Aldine Bender / John F. Kennedy,29.930145,-95.337627
+N0619,Aldine Bender / Heathrow Forest,29.930323,-95.321635
+N0620,Aldine Bender / Lee,29.930583,-95.305622
+N0621,Eastex / Old Humble,29.918732,-95.301910
+N0622,Homestead / Hamill,29.904848,-95.301847
+N0623,Homestead / Mount Houston,29.891065,-95.301062
+N0624,Homestead / Hopper,29.877171,-95.300714
+N0625,Homestead / Langley,29.863272,-95.300631
+N0626,Woodway / Post Oak,29.762412,-95.462917
+N0627,Hempstead / Post Oak,29.797933,-95.455153
+N0628,19th Street,29.803885,-95.404447
+N0629,20th Street / Cavalcade,29.804067,-95.391684
+N0630,Airline / Link,29.806480,-95.381964
+N0631,Carnation / Stokes,29.817495,-95.382968
+N0632,Airline / North Freeway,29.832208,-95.384320
+N0633,Airline / Tidwell,29.846955,-95.384478
+N0634,Airline / Parker,29.861721,-95.384705
+N0635,Little York / Airline,29.870023,-95.381587
+N0636,Little York / Bauman,29.870301,-95.368872
+N0637,Aldine Westfield / Little York,29.871321,-95.352118
+N0638,Aldine Westfield Road,29.885490,-95.355017
+N0639,Aldine Mail Route,29.900252,-95.354995
+N0640,Aldine Westfield / Lauder,29.915015,-95.355494
+N0641,Aldine Bender / Interwood South,29.930312,-95.341051
+N0642,Wheeler / Cullen,29.717432,-95.345942
+N0643,Scott / MacGregor,29.708353,-95.357157
+N0644,Old Spanish / Del Rio,29.701697,-95.370991
+N0645,Almeda / Corder,29.696794,-95.387450
+N0646,Almeda / Holly Hall,29.685864,-95.391200
+N0647,Almeda Road,29.675003,-95.395197
+N0648,Almeda / Reed,29.660630,-95.400866
+N0649,Almeda / Airport,29.646258,-95.406591
+N0650,Almeda / Mowery,29.635476,-95.410877
+N0651,Almeda / Orem,29.621108,-95.416613
+N0652,Almeda / Anderson,29.606733,-95.422327
+N0653,Sam Houston / Almeda,29.597013,-95.432561
+N0654,Hiram Clarke Road,29.596819,-95.450049
+N0655,Burke / Spencer,29.666759,-95.186701
+N0656,Burke / Vista,29.656276,-95.186102
+N0657,Fairmont / Watters,29.646898,-95.181608
+N0658,Burke Road,29.636367,-95.181396
+N0659,Genoa Red Bluff / Strawberry,29.627214,-95.189472
+N0660,Galveston Road,29.618316,-95.193854
+N0661,Galveston / Scarsdale,29.607529,-95.183501
+N0662,Galveston / Dixie Farm,29.596682,-95.173211
+N0663,Galveston / Clear Lake City,29.585792,-95.162974
+N0664,Galveston / Pineloch,29.574881,-95.152768
+N0665,Galveston / El Dorado,29.563972,-95.142560
+N0666,Galveston / Texas,29.555789,-95.134905
+N0667,Galveston / Bay Area,29.547602,-95.127256
+N0668,Old Galveston / NASA,29.536641,-95.117135
+N0669,Old Galveston Road,29.524955,-95.106204
+N0670,SH-3,29.511689,-95.099275
+N0671,SH-3 / Dickinson,29.500086,-95.088234
+N0672,SH-3 / League City,29.488388,-95.077296
+N0673,FM 646 / SH-3,29.477351,-95.074141
+N0674,FM 646 / Walker,29.467883,-95.087596
+N0675,FM 646 / Cross Colony,29.456128,-95.095882
+N0676,FM 646 / Bay Creek,29.445056,-95.093990
+N0677,South Freeway / Loop East,29.683104,-95.381515
+N0678,South Freeway / Holmes,29.673770,-95.382152
+N0679,South Freeway,29.655762,-95.387669
+N0680,Mowery Road,29.636924,-95.387368
+N0681,South Freeway / Almeda-Genoa,29.618085,-95.387237
+N0682,South Freeway / Fellows,29.599259,-95.386684
+N0683,Shadow Creek / South Freeway,29.580422,-95.386275
+N0684,Brazoria County Expressway,29.561683,-95.387905
+N0685,Broadway / Miller Ranch,29.556228,-95.373214
+N0686,Cavalcade Street,29.802057,-95.347714
+N0687,Wayside Drive,29.800465,-95.288629
+N0688,Market / Holland,29.767425,-95.234750
+N0689,East Freeway / Sam Houston,29.778237,-95.147033
+N0690,East Freeway / Monmouth,29.807111,-95.083435
+N0691,Wade Road,29.804807,-95.018008
+N0692,San Jacinto / Decker,29.748782,-95.005577
+N0693,Fairmont / Strawberry,29.651351,-95.187699
+N0694,Fairmont / Allen-Genoa,29.651523,-95.199407
+N0695,Edgebrook Drive,29.650603,-95.214967
+N0696,Edgebrook / Frey,29.645637,-95.225026
+N0697,Edgebrook / Theta,29.644544,-95.236595
+N0698,Almeda-Genoa / Blackhawk,29.628105,-95.248653
+N0699,Blackhawk / Fuqua,29.613979,-95.250681
+N0700,Sam Houston / Blackhawk,29.601053,-95.249571
+N0701,Monroe / Sam Houston,29.600741,-95.266214
+N0702,Pearland Parkway,29.586418,-95.266992
+N0703,Pearland / Barry Rose,29.573628,-95.263100
+N0704,Pearland / Province Village,29.561239,-95.257269
+N0705,Broadway / Walnut,29.558772,-95.270514
+N0706,Blalock / Hempstead,29.847567,-95.524304
+N0707,Blalock / Clay,29.833878,-95.523899
+N0708,Clay / Windfern,29.832415,-95.538071
+N0709,Eldridge / Patterson,29.825463,-95.605708
+N0710,Patterson Road,29.814251,-95.616026
+N0711,Eldridge / Park Row,29.800215,-95.617482
+N0712,Eldridge / Dairy Ashford,29.786066,-95.617723
+N0713,Memorial / Perthshire,29.774227,-95.619520
+N0714,Westheimer / Rolk,29.735849,-95.630242
+N0715,Westheimer / Barker Oaks,29.735619,-95.646375
+N0716,Westheimer / Richmond,29.727952,-95.659112
+N0717,Westheimer Road,29.719658,-95.672115
+N0718,Westheimer / Barker Cypress,29.711364,-95.685118
+N0719,FM 1093 / Westmoor,29.706770,-95.699825
+N0720,FM 1093 / Harlem,29.705443,-95.715890
+N0721,FM 1093,29.704141,-95.731956
+N0722,Bellfort / Highway 6,29.662984,-95.648969
+N0723,Bellfort / Old Richmond,29.667864,-95.662798
+N0724,Bellfort / Clodine,29.667458,-95.678720
+N0725,Bellfort / Binion,29.661239,-95.692536
+N0726,Bellfort / Aliana Trace,29.661049,-95.704553
+N0727,Airport / Aliana Trace,29.650484,-95.705378
+N0728,Harlem / Harvest Garden,29.640964,-95.714190
+N0729,Harlem / Harvest Home,29.626814,-95.714125
+N0730,Harlem Road,29.612578,-95.713704
+N0731,US Highway 90A / Harlem,29.598752,-95.714136
+N0732,US Highway 90A / Pitts,29.597022,-95.730425
+N0733,US Highway 90A,29.591971,-95.745229
+N0734,Jackson / 2nd Street,29.583621,-95.758216
+N0735,Jackson / Collins,29.576598,-95.772118
+N0736,Avenue H / Herndon,29.565493,-95.782183
+N0737,John F. Kennedy Boulevard,29.929940,-95.333700
+N0738,Aldine Bender / Vickery,29.930428,-95.315735
+N0739,Lee / Eastex,29.935208,-95.303229
+N0740,Lee / Greens,29.950801,-95.303994
+N0741,Lee / Rankin,29.962266,-95.306715
+N0742,Lee / Kenswick,29.972816,-95.302166
+N0743,Will Clayton / McKay,29.983473,-95.296999
+N0744,Kenswick / Humble Westfield,29.992697,-95.296642
+N0745,FM 1960 / Deerbrook Park,30.004888,-95.294866
+N0746,Eastex / Eastway Village,30.008938,-95.265707
+N0747,Eastex / US-59,30.021419,-95.260207
+N0748,Hamblen / Sorters McLellan,30.034439,-95.254354
+N0749,Almeda-Genoa Road,29.615704,-95.387244
+N0750,South Freeway / Mowery,29.633948,-95.387314
+N0751,South Freeway / Reed,29.652191,-95.387640
+N0752,South Freeway / Bellfort,29.669641,-95.382627
+N0753,South Freeway / Holly Hall,29.687415,-95.379479
+N0754,South Freeway / Yellowstone,29.696267,-95.377040
+N0755,Ardmore / Dixie,29.704726,-95.375300
+N0756,Wheeler / Saint Emanuel,29.728899,-95.373181
+N0757,Elgin / Hamilton,29.736676,-95.369330
+N0758,Webster / Hamilton,29.743818,-95.365092
+N0759,Eastex / Liberty,29.786674,-95.339660
+N0760,Eastex / Neches,29.803659,-95.339282
+N0761,Eastex / Bennington,29.819710,-95.335038
+N0762,Crosstimbers / Hirsch,29.829831,-95.325942
+N0763,Crosstimbers / Weaver,29.830618,-95.306923
+N0764,Homestead Road,29.844086,-95.302156
+N0765,Homestead / Bretshire,29.860773,-95.300603
+N0766,Westpark Tollway,29.716061,-95.563335
+N0767,Harwin / Wilcrest,29.715323,-95.573343
+N0768,Boone / High Star,29.709482,-95.578402
+N0769,Belle Park Drive;Hồ Ngọc Cẩn,29.703843,-95.584064
+N0770,Kirkwood Road;Nguyễn Khoa Nam,29.697885,-95.587678
+N0771,Kirkwood / Beechnut,29.688757,-95.587495
+N0772,Kirkwood Road,29.670611,-95.588128
+N0773,Kirkwood / Brookledge,29.662252,-95.585457
+N0774,Bellfort / Kirkwood,29.657698,-95.588224
+N0775,Bellfort / Dairy Ashford,29.660521,-95.598208
+N0776,Imperial Valley / Bammel,30.017927,-95.418931
+N0777,Imperial Valley Drive,30.006032,-95.410349
+N0778,Imperial Valley / Richey,29.995936,-95.407686
+N0779,Imperial Valley / Century Plaza,29.986003,-95.410627
+N0780,Remington Valley Drive,29.973846,-95.404544
+N0781,Imperial Valley / Rankin,29.964029,-95.402038
+N0782,Imperial Valley / Greens,29.950173,-95.399215
+N0783,Imperial Valley / Benmar,29.940454,-95.396642
+N0784,Luthe Road,29.933223,-95.370442
+N0785,Hardy Toll Road,29.939114,-95.381495
+N0786,Imperial Valley / Regional Park,29.961619,-95.401431
+N0787,Imperial Valley / Bend,30.015329,-95.416889
+N0788,FM 1960 / Cypress Creek,30.023179,-95.422873
+N0789,Cypress Creek / Ella,30.014422,-95.450443
+N0790,Cypress Creek Parkway,30.006881,-95.464248
+N0791,Cypress Creek / Terrace Oaks,30.001192,-95.474574
+N0792,T C Jester / Chapel Bend,30.004241,-95.485422
+N0793,T C Jester / Ivy Falls,30.012405,-95.492947
+N0794,T C Jester Boulevard,30.025346,-95.499180
+N0795,T C Jester / Winding Ridge,30.037273,-95.507391
+N0796,T C Jester / Spring Cypress,30.048226,-95.516544
+N0797,Navigation / Franklin,29.757693,-95.349367
+N0798,Oak Forest Drive,29.819617,-95.438971
+N0799,Pinemont / Bolivia,29.840785,-95.467494
+N0800,West Road,29.906817,-95.504867
+N0801,Cutten / Richardson,29.972832,-95.542275
+N0802,Old Louetta Road,30.005820,-95.561029
+N0803,Holderrieth Road,30.071783,-95.598560
+N0804,Grants Lake / SH-6,29.593200,-95.611347
+N0805,SH-6 / Settlers Way,29.589148,-95.597116
+N0806,Riverstone / Cross Lakes,29.572788,-95.571682
+N0807,Highway 6 / Murphy,29.564968,-95.563963
+N0808,Oilfield / Lake Olympia,29.554000,-95.554343
+N0809,Highway 6 / Sienna Ranch,29.542074,-95.546443
+N0810,Sienna / Trammel Fresno,29.536531,-95.535115
+N0811,Sienna Parkway,29.523323,-95.532420
+N0812,Sienna / McKeever,29.510603,-95.526328
+N0813,Sienna / Scanlan Trace,29.498384,-95.519061
+N0814,Scanlan Trace / Waters Lake,29.487101,-95.522467
+N0815,Bellaire / Newcastle,29.708436,-95.447479
+N0816,Bellfort / Loop West,29.675212,-95.446772
+N0817,Main / Hillcroft,29.635708,-95.495499
+N0818,Main / Sam Houston,29.624730,-95.523790
+N0819,Main / Brand,29.626990,-95.580549
+N0820,US Highway 90A / Texas 6,29.611379,-95.654764
+N0821,Old Richmond / Alamo,29.562456,-95.795744
+N0822,Forest Heights / Barker Cypress,29.890580,-95.683053
+N0823,Queenston / West Road,29.903630,-95.669829
+N0824,Queenston / Tuckerton,29.917558,-95.668493
+N0825,Tuckerton / Telge,29.917784,-95.652253
+N0826,Tuckerton / Point Park,29.917174,-95.636275
+N0827,Huffmeister / Northwest Freeway,29.922294,-95.628581
+N0828,Huffmeister / Fleur de Lis,29.936528,-95.628863
+N0829,Huffmeister Road,29.947204,-95.629090
+N0830,Huffmeister / Whispering Valley,29.961138,-95.631199
+N0831,Kluge / Huffmeister,29.971643,-95.637164
+N0832,Kluge Road,29.981799,-95.625667
+N0833,Malcomson / Eldridge,29.990022,-95.613371
+N0834,Louetta / Malcomson,29.996567,-95.600065
+N0835,FM 529 / Hudson Oaks,29.879046,-95.672188
+N0836,FM 529 / Barker Cypress,29.879936,-95.684407
+N0837,FM 529 / Greenhouse,29.879840,-95.700945
+N0838,FM 529,29.879744,-95.717485
+N0839,FM 529 / Marvida Terrace,29.879670,-95.729890
+N0840,FM 529 / Mason,29.877478,-95.745639
+N0841,FM 529 / Elyson Exchange,29.875241,-95.761364
+N0842,FM 529 / Peek,29.875122,-95.777904
+N0843,FM 529 / Elyson Village,29.875025,-95.794445
+N0844,Katy Hockley Cut Off / FM 529,29.871638,-95.807164
+N0845,Beckendorff Road,29.857285,-95.807064
+N0846,Stockdick School Road,29.842935,-95.806874
+N0847,NASA / Gulf,29.528872,-95.130219
+N0848,NASA Bypass / Grissom,29.524055,-95.145426
+N0849,Bay Area / Blackhawk,29.522300,-95.162021
+N0850,Parkwood Avenue,29.518918,-95.177846
+N0851,Winding Way / Friendswood,29.514814,-95.189519
+N0852,Friendswood Drive,29.526721,-95.197700
+N0853,Friendswood / Edgewood,29.536656,-95.209879
+N0854,Broadway Street,29.543786,-95.224402
+N0855,Broadway / Dixie Farm,29.547757,-95.239893
+N0856,Broadway / Country Club,29.552594,-95.255385
+N0857,Broadway / Main,29.563685,-95.281675
+N0858,Broadway / McLean,29.560327,-95.297251
+N0859,Broadway / Hatfield,29.559566,-95.309663
+N0860,Broadway / Roy,29.559328,-95.326383
+N0861,Broadway / Cullen,29.559178,-95.343116
+N0862,Broadway / Hooks,29.558875,-95.359859
+N0863,Miller Ranch / County Road 94,29.558487,-95.373268
+N0864,Jones / Windfern,29.940565,-95.584817
+N0865,Louetta / Eldridge,29.996397,-95.610919
+N0866,Louetta / Grant,29.992590,-95.626465
+N0867,Louetta / Spring Cypress,29.993844,-95.642608
+N0868,Louetta / Telge,29.999172,-95.657212
+N0869,Louetta / Huffmeister,29.994957,-95.672944
+N0870,Huffmeister / Skinner,29.995809,-95.689645
+N0871,Huffmeister / Cypress Church,29.997086,-95.706316
+N0872,Louetta / Mueschke,29.992116,-95.716243
+N0873,Cypresswood / Louetta,29.986654,-95.724466
+N0874,Cypresswood / Mason,29.992797,-95.739192
+N0875,Cypresswood / Fairfield Falls,29.995792,-95.751151
+N0876,Fairfield Park / Aspen Falls,30.005291,-95.751879
+N0877,Katy Hockley Cut Off / Clay,29.838152,-95.806831
+N0878,Katy Hockley Cut Off / De Petris,29.823707,-95.806806
+N0879,Katy Hockley Cut Off / Town Park,29.809272,-95.806296
+N0880,Katy Fort Bend / Morrison,29.796086,-95.801928
+N0881,Colonial / Park West Green,29.791314,-95.792329
+N0882,Colonial / Ravello,29.792905,-95.763867
+N0883,Mason / Provincial,29.779643,-95.751892
+N0884,Mason / Cimarron,29.769290,-95.751772
+N0885,Mason / Chesterwick,29.755486,-95.751632
+N0886,Mason / Northmoor,29.745131,-95.751501
+N0887,Mason / Westheimer,29.732432,-95.755824
+N0888,Mason / Fry,29.720197,-95.751174
+N0889,Mason Road,29.708979,-95.743688
+N0890,Harlem / Bellfort,29.662510,-95.714891
+N0891,Harlem / Grand Vista Springs,29.676349,-95.715119
+N0892,Grand Mission / Harlem,29.690116,-95.716094
+N0893,Grand Mission / FM 1093,29.703280,-95.719742
+N0894,Fort Bend Westpark Tollway,29.702648,-95.750330
+N0895,FM 1093 / Fort Bend Westpark,29.701355,-95.766804
+N0896,FM 1093 / Canal,29.700566,-95.779153
+N0897,FM 1093 / Katy Gaston,29.698895,-95.795574
+N0898,FM 1093 / Spring Green,29.697978,-95.812078
+N0899,Fry / Water Plant,29.706251,-95.821769
+N0900,Fry / Pine Hills,29.706006,-95.838117
+N0901,FM 1463 / Flewellen Oaks,29.713851,-95.846103
+N0902,FM 1463,29.728089,-95.846220
+N0903,Cinco Trace / Westridge Creek,29.741102,-95.843923
+N0904,Spring Green Boulevard,29.749491,-95.840841
+N0905,Spring Green / Morgan,29.763562,-95.841932
+N0906,FM 1463 / Katy,29.775797,-95.834343
+N0907,Cherry Brook / Preston,29.677052,-95.174135
+N0908,Preston Road,29.663947,-95.172120
+N0909,Fairmont / Burke,29.649581,-95.171208
+N0910,Fairmont / Sam Houston,29.649669,-95.158616
+N0911,Space Center Boulevard,29.649734,-95.146030
+N0912,Fairmont / Center,29.649932,-95.133438
+N0913,Red Bluff / Luella,29.650374,-95.116659
+N0914,Fairmont / Genoa Red Bluff,29.650651,-95.099869
+N0915,Fairmont / Malone,29.651422,-95.083122
+N0916,Fairmont / Bay Park,29.651737,-95.066333
+N0917,Bay Area / SH-146,29.635613,-95.047020
+N0918,Bay Area / Shore Acres,29.620919,-95.044122
+N0919,Port / Bay Area,29.608242,-95.047043
+N0920,Port / SH-146,29.603808,-95.032086
+N0921,Bayport / Red Bluff,29.589777,-95.028473
+N0922,Repsdorph / Bayport,29.575902,-95.028588
+N0923,Repsdorph Drive,29.567999,-95.039774
+N0924,Pauline / Lafferty,29.677680,-95.196423
+N0925,Pauline / Queens,29.677330,-95.208500
+N0926,Queens / Allen-Genoa,29.675873,-95.224174
+N0927,Richey / Forest Oaks,29.670997,-95.237951
+N0928,Monroe Road,29.641776,-95.264870
+N0929,Monroe / Almeda-Genoa,29.627740,-95.266736
+N0930,Monroe / Fuqua,29.613362,-95.266695
+N0931,McHard / Main,29.582222,-95.283536
+N0932,Mykawa Road,29.576416,-95.294856
+N0933,Broadway / Mykawa,29.562050,-95.294734
+N0934,Southwest Freeway / Newcastle,29.730282,-95.447893
+N0935,Beechnut / Braeswood,29.691959,-95.447081
+N0936,Holmes Road,29.672091,-95.392207
+N0937,Griggs / Telephone,29.704100,-95.312861
+N0938,Galveston / Brookglen,29.679759,-95.250657
+N0939,Avenue N / Texas,29.652070,-95.224782
+N0940,Medical Center / Galveston,29.543453,-95.123067
+N0941,Hirsch / Waco,29.769857,-95.328583
+N0942,Spur 5 / Wheeler,29.717434,-95.333170
+N0943,Mykawa / Dixie,29.677000,-95.321227
+N0944,Mykawa / Airport,29.636519,-95.309050
+N0945,Main / Veterans,29.555514,-95.284863
+N0946,Cornett / Herring,29.486627,-95.264238
+N0947,Old Galveston / Shirley,29.422793,-95.236970
+N0948,SH-6,29.409538,-95.198311
+N0949,Jackson / Highway 6,29.382993,-95.121009
+N0950,Ambassador / Post Oak 950 / Schiro,29.356444,-95.043710
+N0951,Highway 6 / Gulf,29.331765,-94.966486
+N0952,Texas / 9th Street,29.380093,-94.908728
+N0953,34th Street / T C Jester,29.817276,-95.442983
+N0954,34th Street / Ella,29.817352,-95.425952
+N0955,Shepherd / 38th Street,29.818858,-95.410537
+N0956,Shepherd / Montgomery,29.848393,-95.411437
+N0957,Shepherd / Dillard,29.863086,-95.412666
+N0958,Little York / North Freeway,29.869921,-95.402976
+N0959,Airline Drive,29.870089,-95.385947
+N0960,Broadway / Galveston,29.709681,-95.278587
+N0961,Galveston / Gulf,29.594491,-95.170830
+N0962,Hill / Deats,29.470689,-95.055133
+N0963,Galveston / 25th Avenue,29.404438,-94.993460
+N0964,Highway 3,29.346722,-94.939817
+N0965,Gulf / Blume,29.294715,-94.880565
+N0966,Rosenberg Avenue-25th / Santa Fe,29.306824,-94.800207
+N0967,Westgreen / Cranfield,29.781949,-95.735854
+N0968,Westgreen / Park Royale,29.767164,-95.734975
+N0969,Westgreen / Highland Knolls,29.756074,-95.734350
+N0970,Westgreen / Fry,29.746500,-95.730064
+N0971,Fry Road,29.734060,-95.736746
+N0972,Fry / Westheimer,29.723355,-95.747926
+N0973,Fry / Rainwood Park,29.714555,-95.761355
+N0974,Fry / Seven Meadows,29.715548,-95.777617
+N0975,Fry / Cinco Crossing,29.716967,-95.791807
+N0976,Fry / Katy Gaston,29.711092,-95.806572
+N0977,South Freeway / MacGregor,29.713690,-95.379037
+N0978,Eastex / Loop East,29.805935,-95.337885
+N0979,Bennington Street,29.823160,-95.335014
+N0980,Crosstimbers / Lockwood,29.831139,-95.321375
+N0981,Homestead / Ley,29.832236,-95.302105
+N0982,Homestead / Tidwell,29.849890,-95.301516
+N0983,Tidwell / Wayside,29.849667,-95.281982
+N0984,Tidwell / Mesa,29.850081,-95.259880
+N0985,Tidwell / John Ralston,29.850998,-95.237854
+N0986,Tidwell / C E King,29.850051,-95.216096
+N0987,C E King Parkway,29.866970,-95.208717
+N0988,Alabama / Scott,29.721431,-95.347215
+N0989,Elgin / Spur 5,29.726311,-95.340898
+N0990,Ernestine / Leeland,29.732485,-95.335218
+N0991,Lockwood / Navigation,29.752926,-95.322673
+N0992,Lockwood / Clinton,29.765984,-95.315518
+N0993,Lockwood Drive,29.780681,-95.315991
+N0994,Wallisville / Kress,29.787478,-95.306730
+N0995,Wallisville / Wayside,29.787953,-95.289805
+N0996,Wallisville / McCarty,29.790156,-95.277341
+N0997,Wallisville / Gellhorn,29.792180,-95.260587
+N0998,Wallisville / Oates,29.794891,-95.243972
+N0999,Wallisville Road,29.799378,-95.228003
+N1000,Wallisville / Lake Houston,29.805366,-95.212605
+N1001,Wallisville / Purple Sage,29.805983,-95.196219
+N1002,Wallisville / Evanston,29.806141,-95.179363
+N1003,Sam Houston / Wallisville,29.807251,-95.163913
+N1004,Sam Houston / Woodforest,29.792656,-95.162455
+N1005,Woodforest / Alderson,29.788667,-95.151912
+N1006,Old Spanish / Tierwester,29.702017,-95.365473
+N1007,Yellowstone / Tierwester,29.694844,-95.365715
+N1008,Cullen / Yellowstone,29.688647,-95.353926
+N1009,Cullen Boulevard,29.674561,-95.355862
+N1010,Cullen / Reed,29.660180,-95.355563
+N1011,Cullen / Airport,29.645875,-95.356171
+N1012,Cullen / Orem,29.631497,-95.355765
+N1013,Cullen / Almeda-Genoa,29.617118,-95.355457
+N1014,Cullen / Sam Houston,29.602857,-95.354602
+N1015,Cullen / Fellows,29.588739,-95.352116
+N1016,Cullen / Hughes Ranch,29.574462,-95.350844
+N1017,Hughes Ranch Road,29.570519,-95.362831
+N1018,Hopper Road,29.880026,-95.300741
+N1019,Homestead / Winfield,29.898838,-95.301021
+N1020,Vickery Drive,29.930526,-95.309912
+N1021,John F. Kennedy / World Houston,29.948179,-95.331825
+N1022,John F. Kennedy / Greens,29.965447,-95.336210
+N1023,John F. Kennedy / Will Clayton,29.981713,-95.342094
+N1024,Will Clayton / Terminal,29.985539,-95.323335
+N1025,White Oak / Watson,29.780714,-95.378950
+N1026,Quitman / West Street,29.783454,-95.347858
+N1027,Liberty / Russell,29.784908,-95.331591
+N1028,Liberty / Wipprecht,29.787601,-95.319875
+N1029,Liberty / Majestic,29.792726,-95.304598
+N1030,Homestead / Loop East,29.805749,-95.302020
+N1031,Homestead / Kelley,29.820175,-95.302017
+N1032,Homestead / Weaver,29.834601,-95.302146
+N1033,Mesa Drive,29.850050,-95.267159
+N1034,Tidwell / Green River,29.850881,-95.249886
+N1035,Tidwell / Ley,29.850359,-95.232653
+N1036,C E King / Stonefield Manor,29.863477,-95.209701
+N1037,Scott / Holmes,29.679632,-95.367077
+N1038,Arcadia Bay Drive,29.570572,-95.436417
+N1039,FM 521,29.507755,-95.461466
+N1040,Scanlan Trace / McKeever,29.499237,-95.527616
+N1041,North Freeway / Kuykendahl,29.955100,-95.418430
+N1042,North Freeway / Rushcreek,29.964363,-95.418981
+N1043,North Freeway / Airtex,29.982614,-95.422927
+N1044,North Freeway / Pennbright,29.991790,-95.424563
+N1045,Cypress Station Drive,30.010106,-95.428083
+N1046,Cypress Creek / Cypress Station,30.018510,-95.437921
+N1047,Soaring Woods Drive,30.068615,-95.231567
+N1048,Hidden Pines / Woodridge,30.068994,-95.218826
+N1049,Northpark / Woodbridge,30.068863,-95.201838
+N1050,Northpark / Lake Houston,30.067899,-95.189196
+N1051,Lake Houston / Rustic Woods,30.054005,-95.186079
+N1052,Lake Houston Parkway,30.041471,-95.177689
+N1053,Lake Houston / Kings River,30.027512,-95.176628
+N1054,Lake Houston / Upper Lake,30.013385,-95.180374
+N1055,Upper Lake / Timber Forest,30.007061,-95.190376
+N1056,Timber Forest / Humble–Huffman,29.995002,-95.193176
+N1057,Timber Forest / Atascocita,29.984249,-95.190829
+N1058,Timber Forest / Madera Run,29.960015,-95.193312
+N1059,Greens / Balmoral Bend,29.949535,-95.199542
+N1060,Greens / Woodland Hills,29.948642,-95.210716
+N1061,Sam Houston / Lockwood,29.936079,-95.211681
+N1062,Lockwood / Lake Houston,29.922213,-95.211528
+N1063,Lockwood / Generation,29.908335,-95.211391
+N1064,Lockwood Road,29.894459,-95.211158
+N1065,C E King / Garrett,29.882843,-95.208477
+N1066,Fondren / Braesridge,29.648407,-95.508280
+N1067,Fondren / Gregory,29.637423,-95.508156
+N1068,Fondren / Orem,29.626510,-95.507263
+N1069,Sam Houston / Hillcroft,29.616676,-95.498921
+N1070,Rockwell / Chimney Rock,29.609582,-95.484169
+N1071,Discovery Bay / Business Center,29.570234,-95.392438
+N1072,Hughes Ranch / Smith Ranch,29.570572,-95.380311
+N1073,Miller Ranch / Silverlake,29.562435,-95.373389
+N1074,Broadway / Southwyck,29.558509,-95.364311
+N1075,Broadway / Fite,29.558937,-95.351754
+N1076,Broadway / Manvel,29.559291,-95.334945
+N1077,Broadway / Suburban Garden,29.559449,-95.318182
+N1078,Broadway / Woody,29.559629,-95.301415
+N1079,Main / Walnut,29.563697,-95.285917
+N1080,Queenston / Houston National,29.932803,-95.667581
+N1081,Queenston Boulevard,29.943411,-95.669090
+N1082,Barker Cypress / Queenston,29.950279,-95.674902
+N1083,Barker Cypress / Jarvis,29.964111,-95.673345
+N1084,Barker Cypress / Spring Cypress,29.977843,-95.671241
+N1085,Barker Cypress / Huffmeister,29.987249,-95.676756
+N1086,Skinner Road,29.995148,-95.685704
+N1087,Huffmeister / Cypress Rose Hill,29.997085,-95.702269
+N1088,Sam Houston / Black Rock,29.819762,-95.166361
+N1089,Sam Houston / Crosby,29.831294,-95.175429
+N1090,Beaumont / Uvalde,29.842271,-95.185369
+N1091,Tidwell / Sam Houston,29.853181,-95.190891
+N1092,Tidwell / Van Hut,29.851424,-95.206792
+N1093,Stonefield Manor Drive,29.857390,-95.212774
+N1094,Garrett Road,29.877778,-95.208395
+N1095,Lockwood / C E King,29.889600,-95.211111
+N1096,Generation Parkway,29.903681,-95.211343
+N1097,Lockwood / Woodson Park,29.917765,-95.211499
+N1098,Lockwood / Woodland Hills,29.931842,-95.211582
+N1099,Woodland Hills / Balmoral Hills,29.945864,-95.212080
+N1100,Timber Forest / Greens,29.956389,-95.193343

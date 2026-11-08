@@ -55,7 +55,7 @@ Chosen by the full model (metro/modelselect.py): the sketch drew a pool of 2 lin
 
 | candidate | mode | km | new trips/day | trips per $M | reason |
 |---|---|---|---|---|---|
-| R002 Villa Maria / John Sharp - Briarcrest / Broadmoor | brt | 8.1 | 228 | 0.57 | duplicate: 90% of it within 400 m of chosen line R001 (Villa Maria / John Sharp - Alexandria / Southern Plantation) |
+| R002 Villa Maria / John Sharp - Briarcrest / Broadmoor | brt | 8.1 | 228 | 0.57 | duplicate: 90% of it within 400 m of chosen line R001 (Villa Maria / John Sharp - Alexandria / Southern Plantation), 0.8 km of its own |
 
 0 paths had no mode: .
 
