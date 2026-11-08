@@ -316,7 +316,8 @@ def write(yard, structs, model):
           "(`study/urban_metros.md`, `study/timing.md`). The target was DFW's 2100 share, about 7% of commutes: Austin "
           "and San Antonio pass it (8.0% and 7.9%), Houston and El Paso reach 5.8% and 5.9%. Then the selection by the "
           "full model (`study/urban_metros.md`, How the lines were chosen): it cuts nothing, the generator's candidates "
-          "are the limit, and dropping the sketch's floor takes Houston to 6.8%.", ""]
+          "are the limit, and dropping the sketch's floor takes Houston to 6.8%. Then branches off shared trunks (the "
+          "duplicate rule loosened): Houston 7.7%, San Antonio 9.0%, Austin 10.3%, El Paso 6.5%.", ""]
     with open(os.path.join(ROOT, "study", "metro_potential.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(L))
     print("\n".join(L))

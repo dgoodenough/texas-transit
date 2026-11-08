@@ -363,13 +363,18 @@ def summary():
             weakest = min(float(c["model_trips_per_musd"]) for _, kept, _ in sel for c in kept)
             dup = sum(1 for r, _, _ in sel for c in read_csv(os.path.join(HOME, "generated", r["id"], "candidates.csv"))
                       if c["status"] == "rejected" and c["reason"].startswith("duplicate"))
+            brn = sum(1 for _, kept, _ in sel for c in kept if "a branch" in c["reason"])
             out += [f"**The full model cuts nothing.** Every line the generator can draw scores at least {weakest:.1f} "
                     "new daily trips per $M, above the floor and about where DFW's own plan's weaker lines sit: the sketch "
                     "underrates lines that work as a network (Houston's weakest regional rail line scores 0.08 in the sketch, "
                     "1.9 in the full model), and dropping its floor adds lines, mostly in Houston (50 lines and $72B to 71 "
-                    "and $121B; 5.8% of commutes by transit in 2100 to 6.8%). What limits the networks now is the "
-                    f"candidates: {dup} more were drawn but run within 400 m of a chosen line for half their length "
-                    "(the generator's duplicate rule), and corridors only join activity centers.", ""]
+                    "and $121B; 5.8% of commutes by transit in 2100 to 6.8%) with the sketch's floor dropped.", "",
+                    f"**Branches.** A candidate that runs within 400 m of chosen lines for more than half its length is a "
+                    "duplicate unless it has at least 5 km of route of its own: then it's a branch off a shared trunk, "
+                    "charged only for the track it doesn't share with lines of its mode (the network splits shared track's "
+                    f"cost among the lines on it). {brn} lines are branches; {dup} candidates are still duplicates "
+                    "(parallel copies or near-copies of chosen lines). A metro branch along a BRT trunk is a different "
+                    "mode on the same street, so it pays its own way: in effect an upgrade of that stretch.", ""]
     fut = [r for r in ok if r.get("future")]
     if fut:
         try:

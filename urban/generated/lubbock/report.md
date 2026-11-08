@@ -56,7 +56,7 @@ Chosen by the full model (metro/modelselect.py): the sketch drew a pool of 2 lin
 
 | candidate | mode | km | new trips/day | trips per $M | reason |
 |---|---|---|---|---|---|
-| R003 Memphis / 24th Street - Frankford / 114th Street | brt | 11.7 | 120 | 0.21 | duplicate: 100% of it within 400 m of chosen line R002 (Avenue L / Avenue K - Frankford / 114th Street) |
+| R003 Memphis / 24th Street - Frankford / 114th Street | brt | 11.7 | 120 | 0.21 | duplicate: 100% of it within 400 m of chosen line R002 (Avenue L / Avenue K - Frankford / 114th Street), 0.0 km of its own |
 
 0 paths had no mode: .
 

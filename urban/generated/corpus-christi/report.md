@@ -59,7 +59,7 @@ Chosen by the full model (metro/modelselect.py): the sketch drew a pool of 1 lin
 | candidate | mode | km | new trips/day | trips per $M | reason |
 |---|---|---|---|---|---|
 | R001 Tancahua / Lipan - Staples / Saratoga | brt | 13.9 | 2,767 | 4.08 | extended by R006 |
-| R003 Tancahua / Lipan - Violet / Leopard | brt | 19.9 | 2 | 0.00 | duplicate: 100% of it within 400 m of chosen line R006 (Staples / Saratoga - Violet / Leopard) |
+| R003 Tancahua / Lipan - Violet / Leopard | brt | 19.9 | 2 | 0.00 | duplicate: 100% of it within 400 m of chosen line R006 (Staples / Saratoga - Violet / Leopard), 0.0 km of its own |
 
 5 paths had no mode: 4 x too thin; 1 x 3,378 per route-km >= BRT 3,000 (< metro.
 
