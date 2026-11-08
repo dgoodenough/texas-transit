@@ -176,7 +176,8 @@ Promise.all([fetch("data/state.json").then(r => r.json()), fetch("data/timeline.
     const name = (T.projects.find(p => p.metro === m.id) || {}).metro_name || (m.id === "dfw" ? "Dallas-Fort Worth" :
       m.id.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase()));
     names[m.id] = name;
-    return L.tooltip({permanent: true, direction: "center", className: "mlabel", interactive: false}).setLatLng([m.lat, m.lon]).setContent(name);
+    const short = m.id === "dfw" ? "Dallas-Fort Worth" : name.split("-")[0];
+    return L.tooltip({permanent: true, direction: "center", className: "mlabel", interactive: false, offset: [0, -14]}).setLatLng([m.lat, m.lon]).setContent(short);
   });
   const jump = document.getElementById("jump");
   Object.entries(names).sort((a, b) => a[1].localeCompare(b[1])).forEach(([id, n]) => {
