@@ -71,16 +71,14 @@ def main():
         pts = []
         for a, b in zip(sts, sts[1:]):
             pa, pb = list(hsr.STATIONS[a][:2]), list(hsr.STATIONS[b][:2])
-            mid = al["waypoints"].get(cid, {}).get(f"{a}|{b}")
-            if mid is None and f"{b}|{a}" in al["waypoints"].get(cid, {}):
-                mid = al["waypoints"][cid][f"{b}|{a}"][::-1]
+            mid = hsr._alignments().get((a, b))
             seg = [pa] + (mid or []) + [pb]
             pts += seg if not pts else seg[1:]
         for s in sts:
             la, lo, kind = hsr.STATIONS[s]
             stations.setdefault(s, {"name": s, "lat": la, "lon": lo, "hsr": [], "conv": [], "kind": kind})["hsr"].append(cid)
         out_hsr.append({"id": f"hsr:{cid}", "name": name, "stations": sts, "pts": rnd(pts),
-                        "km_map": round(sum(km(a, b) for a, b in zip(pts, pts[1:]))), "km_model": round(sum(k for _, _, k in hsr.links(sts))),
+                        "km_map": round(sum(km(a, b) for a, b in zip(pts, pts[1:]))), "km_model": round(sum(k for _, _, k in hsr.links(sts))), "standard": hsr.standard_of(cid),
                         "source": al["source"].get(cid, "drawn along the highway it is named for")})
     out_cv = []
     for cid, (name, sts, *_rest) in cv.CORRIDORS.items():

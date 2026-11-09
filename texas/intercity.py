@@ -207,8 +207,8 @@ class RailNetwork:
         self.services = services
         self._cache, self._ends_cache, self._wait_cache = {}, {}, {}
         self.adj = defaultdict(list)
-        for a, b, track in links:
-            t = track / svc["speed_kmh"] * 60
+        for a, b, track, *speed in links:   # a link may carry its own average speed (km/h)
+            t = track / (speed[0] if speed else svc["speed_kmh"]) * 60
             self.adj[a].append((b, t, track))
             self.adj[b].append((a, t, track))
         self._link_freq = defaultdict(float)   # trains an hour each way over a link, from the patterns
