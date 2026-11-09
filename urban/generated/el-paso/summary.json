@@ -6,7 +6,7 @@
  "jobs": 348186.0,
  "budget_musd": 20067,
  "capital_musd": 8334.407251593644,
- "opex_new_musd": 173.34280143821857,
+ "opex_new_musd": 177.4559429806123,
  "lines": 6,
  "by_mode": {
   "metro": {
@@ -25,36 +25,36 @@
  "pop_800m": 0.18662291580106782,
  "pop_800m_today": 0.0,
  "trips_today": 0.0,
- "trips": 49487.77436392478,
- "boardings": 56790.77629725547,
- "jobs_45": 38425.56884502334,
+ "trips": 49758.497811991656,
+ "boardings": 57069.97340869285,
+ "jobs_45": 38525.19215366409,
  "jobs_45_today": null,
  "asc": 0.5052,
  "asc_note": "set from the registry (asc +0.505; DFW +0.430): DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.77% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py); with a policy package on top (growth.tod, growth.capture, access.feeder, access.micromobility, access.kiss_ride, access.walk_max_m, access.walk_circuity, access.pnr_min_km, access.pnr_suburban, ridership.parking_policy)",
- "minutes": 0.7070559899012248,
- "feeder_boardings": 17782.0259046143,
+ "minutes": 0.6348019282023112,
+ "feeder_boardings": 17867.78592058649,
  "feeder_boardings_today": 0.0,
- "feeder_opex_musd": 32.00764662830574,
+ "feeder_opex_musd": 32.162014657055686,
  "commutes": 247938.65556396666,
- "share": 0.05252548654504755,
+ "share": 0.05281282783310579,
  "future": {
   "2050": {
-   "trips": 73622.63322621351,
+   "trips": 73993.90715561157,
    "trips_today_lines": 0.0,
    "pop": 1048661.7476317156,
    "jobs": 417269.9862110382,
-   "share": 0.06520451447226504,
+   "share": 0.06553333640163322,
    "share_today_lines": 0.0,
-   "feeder_opex_musd": 46.68518876678911
+   "feeder_opex_musd": 46.89308265237367
   },
   "2100": {
-   "trips": 101632.51260393829,
+   "trips": 102096.74194218285,
    "trips_today_lines": 0.0,
    "pop": 1226040.9969581035,
    "jobs": 487935.3998454506,
-   "share": 0.07697572737022974,
+   "share": 0.07732733130151533,
    "share_today_lines": 0.0,
-   "feeder_opex_musd": 69.8284274348046
+   "feeder_opex_musd": 70.1664522836119
   }
  }
 }
