@@ -322,7 +322,8 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
           `Built as Texas builds today, with no money of their own, ${off.branches} of ${n} branch corridors open by 2100. `
           + (on.branches === n ? `With a delivery office that learns, an eighth of a cent of sales tax, the busier lines' surplus, a 10% federal match and the neighbours paying half their track, all ${n} open by ${Math.max(...yrs)}`
                                 : `With every lever, ${on.branches} of ${n} open by 2100`)
-          + `, and the metros ${dm >= 0 ? "give up nothing: they carry " + fmt(dm) + " more new trips a day in 2100, because the branches no longer draw on their budget"
+          + `, and the metros ${dm > 0 ? "give up nothing: they carry " + fmt(dm) + " more new trips a day in 2100, because the branches no longer draw on their budget"
+                                       : dm === 0 ? "give up nothing: every metro line is built by 2100 either way"
                                        : "carry " + fmt(-dm) + " fewer new trips a day in 2100"}.`;
       }
     }

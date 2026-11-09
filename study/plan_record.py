@@ -71,7 +71,9 @@ def record(T):
           + (f"all {len(conn)} open by {max(yrs)}" if on["branches"] == len(conn) else f"{on['branches']} of {len(conn)} open by 2100")
           + f", for {money(on['branches_texas'])} of Texas's money, and the metros "
           + (f"give up nothing: {dm:,.0f} more new daily trips in 2100 than without the levers, because the branches no "
-             "longer draw on the statewide budget." if dm >= 0 else f"carry {-dm:,.0f} fewer new daily trips in 2100.")
+             "longer draw on the statewide budget." if dm > 0 else
+             "give up nothing: every metro line is built by 2100 either way." if dm == 0 else
+             f"carry {-dm:,.0f} fewer new daily trips in 2100.")
           + " (`timeline.json` levers, the whole-map schedule for each setting.)", ""]
 
     def row(lab, f):

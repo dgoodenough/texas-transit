@@ -9,15 +9,15 @@
  "opex_new_musd": 42.81640853000098,
  "lines": 2,
  "by_mode": {
-  "commuter": {
-   "lines": 1,
-   "km": 23.72046768814102,
-   "capital_musd": 1215.4210459663457
-  },
   "brt": {
    "lines": 1,
    "km": 24.261967953640955,
    "capital_musd": 823.8590386092278
+  },
+  "commuter": {
+   "lines": 1,
+   "km": 23.72046768814102,
+   "capital_musd": 1215.4210459663457
   }
  },
  "stations_new": 22,
@@ -31,7 +31,7 @@
  "jobs_45_today": null,
  "asc": -0.1372,
  "asc_note": "set from the registry (asc -0.137; DFW +0.430): DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.24% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py); with a policy package on top (growth.tod, growth.capture)",
- "minutes": 0.13859699964523314,
+ "minutes": 0.16795430580774942,
  "feeder_boardings": 2480.7388751432914,
  "feeder_boardings_today": 0.0,
  "feeder_opex_musd": 4.465329975257925,
