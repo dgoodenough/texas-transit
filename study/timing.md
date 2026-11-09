@@ -433,18 +433,18 @@ The cabinet's plan (`study/hsr_buildout.md`): high-speed rail at central unit co
 | Dallas - Tyler - Longview - Shreveport | S1 | $18.9B | $16.1B | 0.82 | 2043 | 2055 | 8.5M |
 | Fort Worth - Dallas | S1 | $6.4B | $5.7B | 0.85 | 2046 | 2051 | 2.4M |
 | San Antonio - Laredo * | S3 | $9.3B | $8.3B | 0.36 | 2046 | not by 2100 | 2.5M |
-| Big Country: Fort Worth - Weatherford - Abilene * | S3 | $8.9B | $8.1B | 0.27 | 2050 | not by 2100 | 1.3M |
 | Gulf Coast: Houston - Beaumont - Lake Charles - Lafayette - Baton Rouge - New Orleans | S1 | $32.6B | $18.3B | 0.64 | 2051 | 2081 | 7.3M |
-| Panhandle: Abilene - Lubbock - Amarillo * | S4 | $11.5B | $10.3B | 0.49 | 2056 | not by 2100 | 3.3M (upgrade: past 3M a year) |
+| Big Country: Fort Worth - Weatherford - Abilene * | S3 | $8.9B | $8.1B | 0.28 | 2057 | not by 2100 | 1.3M |
 | Houston - Victoria - Corpus Christi | S1 | $17.3B | $15.6B | 0.54 | 2060 | 2095 | 4.5M |
-| Rio Grande Valley: Corpus Christi - Kingsville - Harlingen - Brownsville * | S3 | $8.1B | $7.3B | 1.23 | 2060 | 2098 | 3.4M (upgrade: past 3M a year) |
-| McAllen: Harlingen - McAllen * | S3 | $2.5B | $2.2B | 0.31 | 2060 | not by 2100 | 1.0M |
 | US 290: Houston - Brenham - Austin | S1 | $14.9B | $13.4B | 0.50 | 2062 | 2091 | 4.5M |
-| West Texas: Abilene - Midland - Odessa - El Paso * | S4 | $18.5B | $16.7B | 0.40 | 2066 | not by 2100 | 3.5M (upgrade: past 3M a year) |
+| Panhandle: Abilene - Lubbock - Amarillo * | S4 | $11.5B | $10.3B | 0.52 | 2068 | not by 2100 | 3.3M (upgrade: past 3M a year) |
+| West Texas: Abilene - Midland - Odessa - El Paso * | S4 | $18.5B | $16.7B | 0.40 | 2068 | not by 2100 | 3.5M (upgrade: past 3M a year) |
+| Rio Grande Valley: Corpus Christi - Kingsville - Harlingen - Brownsville * | S3 | $8.1B | $7.3B | 1.31 | 2071 | 2098 | 3.4M (upgrade: past 3M a year) |
+| McAllen: Harlingen - McAllen * | S3 | $2.5B | $2.2B | 0.34 | 2082 | not by 2100 | 1.0M |
 
 \* the Connectivity Program.
 
-**The program:** the Rail Fund raises $109.4B by 2100; with the other high-speed lines' surplus and less the branches' deficits, $171.3B is available to it. It builds 7 of 7 branch corridors ($63.8B of Texas's money), every one by 2100. Ratios are well below 1 for most of them: the program is a choice to connect the state, not an investment.
+**The program:** the Rail Fund raises $109.4B by 2100; with the other high-speed lines' surplus and less the branches' deficits, $178.4B is available to it. It builds 7 of 7 branch corridors ($63.8B of Texas's money), every one by 2100. Ratios are well below 1 for most of them: the program is a choice to connect the state, not an investment.
 
 **What it takes to open every branch by 2100** (the smallest Rail Fund that does, everything else as above):
 
@@ -453,9 +453,9 @@ The cabinet's plan (`study/hsr_buildout.md`): high-speed rail at central unit co
 | central costs, with learning (the whole map) | $1M | 0.00 cents |
 | central, a P90 overrun | $103M | 0.01 cents |
 | high costs, no learning (business as usual) | $23M | 0.00 cents |
-| high, no learning, a P90 overrun | $335M | 0.04 cents |
-| central costs, with learning (the whole map), no surplus pledged | $765M | 0.10 cents |
-| high, no learning, a P90 overrun, no surplus pledged | $1.2B | 0.16 cents |
+| high, no learning, a P90 overrun | $321M | 0.04 cents |
+| central costs, with learning (the whole map), no surplus pledged | $755M | 0.10 cents |
+| high, no learning, a P90 overrun, no surplus pledged | $1.2B | 0.15 cents |
 
 The central package proposes 1/8 cent ($980M a year). With the other high-speed lines' operating surplus pledged, the branches need little new tax: the surplus (fares over operating cost on the Triangle and the Gulf) pays for most of them, so the Rail Fund is insurance against overruns and fares that don't cover costs. Without the surplus, the rows marked so are what the tax alone has to raise.
 

@@ -84,6 +84,7 @@ select{width:100%;font:13px var(--body);padding:5px;background:var(--surface);co
   <h2>Intercity</h2>
   <label class="t"><input type="checkbox" data-layer="hsr" checked><span class="sw" style="border-color:var(--hsr)"></span>High-speed rail</label>
   <label class="t"><input type="checkbox" data-layer="hsr_unfunded" checked><span class="sw d" style="border-color:var(--hsr-later)"></span>High-speed corridors not reached by 2100</label>
+  <p class="m" id="stdnote" hidden style="margin:2px 0 6px 26px;font-size:12px">Whole map: a thinner red line is a lighter standard (250 km/h single track with passing loops, or 200 km/h single track first); tap a line for its standard and cost.</p>
   <label class="t"><input type="checkbox" data-layer="conv" checked><span class="sw" style="border-color:var(--conv);border-top-width:3px"></span>Conventional trains (today's track)</label>
   <label class="t"><input type="checkbox" data-layer="stations" checked><span class="dot"></span>Intercity stations</label>
 
@@ -158,6 +159,8 @@ document.querySelectorAll("#base button").forEach(x => x.addEventListener("click
 
 Promise.all([fetch("data/state.json").then(r => r.json()), fetch("data/timeline.json").then(r => r.json())]).then(([S, T]) => {
   const P = {}; T.projects.forEach(p => { P[p.id] = p; });
+  const WP = {}; (T.whole_map_projects || []).forEach(p => { WP[p.id] = p; });
+  const STD = {S1: "320 km/h double track", S2: "250 km/h double track", S3: "250 km/h single track with passing loops", S4: "200 km/h single track (higher-speed first)"};
   document.getElementById("hsrnote").textContent = "Drawn alignments run 7-10% shorter than the model's track (straight line between stations × 1.12): " +
     S.hsr.map(h => `${h.id.slice(4)} ${h.km_map} vs ${h.km_model} km`).join(", ") + ".";
   const feats = [];   // {kind, mode, metro, id, status, dfwYear, layer, len}
@@ -216,7 +219,8 @@ Promise.all([fetch("data/state.json").then(r => r.json()), fetch("data/timeline.
     feats.forEach(f => {
       const st = state(f), vis = visible(f, st);
       if (!vis) { if (map.hasLayer(f.line)) map.removeLayer(f.line); return; }
-      const w = WEIGHT[f.mode] || 2;
+      let w = WEIGHT[f.mode] || 2;
+      if (f.kind === "hsr" && scen === "whole_map" && WP[f.id] && ["S3", "S4"].includes(WP[f.id].standard)) w = 3;   // lighter standard
       let style;
       if (st === "open") style = {color: color(f), weight: f.status === "existing" ? w * 0.75 : w, opacity: 0.95, dashArray: null};
       else if (st === "building") style = {color: color(f), weight: w, opacity: 0.9, dashArray: "6 5"};
@@ -261,6 +265,7 @@ Promise.all([fetch("data/state.json").then(r => r.json()), fetch("data/timeline.
     if (f.kind === "hsr") {
       h = `<b>${f.h.name}</b><br><span class="m">High-speed rail · ${stTxt}</span><br>${f.h.stations.join(" · ")}<br>`
         + (p.capital ? `${money(p.capital)} · ${((p.trips_year || 0) / 1e6).toFixed(1)}M trips a year · ratio ${p.bcr.toFixed(2)}<br>` : "")
+        + (scen === "whole_map" && WP[f.id] ? `<span class="m">Whole map: ${STD[WP[f.id].standard] || ""}, ${money(WP[f.id].capital)}, Texas pays ${money(WP[f.id].capital - (WP[f.id].outside || 0))}${WP[f.id].connectivity ? " (Connectivity Program)" : ""}</span><br>` : "")
         + `<span class="m">Drawn ${f.h.km_map} km (${f.h.source}); modelled ${f.h.km_model} km</span>`;
     } else if (f.kind === "conv") {
       h = `<b>${f.c.name}</b><br><span class="m">Conventional trains · ${stTxt}</span><br>${f.c.stations.join(" · ")}<br>`
@@ -290,6 +295,7 @@ Promise.all([fetch("data/state.json").then(r => r.json()), fetch("data/timeline.
   document.querySelectorAll("#scen button").forEach(b => b.addEventListener("click", () => {
     scen = b.dataset.key;
     document.querySelectorAll("#scen button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    document.getElementById("stdnote").hidden = scen !== "whole_map";
     draw();
   }));
   document.querySelectorAll("[data-layer],[data-mode]").forEach(i => i.addEventListener("change", () => { on[i.dataset.layer || i.dataset.mode] = i.checked; draw(); }));

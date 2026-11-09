@@ -66,6 +66,13 @@ svg{display:block;width:100%;height:auto}
 .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
 .legend span{display:inline-flex;align-items:center;gap:6px}
 .sw{width:18px;height:0;border-top:4px solid;display:inline-block}
+.levers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 20px}
+.levers > div{display:flex;flex-direction:column;gap:6px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--rule);padding:12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.card h3{font-family:var(--display);font-size:19px;margin:0;line-height:1.1}
+.card .opens{font-family:var(--display);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.card .never{color:var(--muted)}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chips button{font-size:13px;padding:4px 10px;border-radius:999px;border:1px solid var(--rule);background:var(--surface);color:var(--ink)}
 .chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
@@ -159,6 +166,22 @@ a{color:var(--metro)}
   </div>
 </section>
 
+<section aria-labelledby="wit-h">
+  <h2 id="wit-h">What it takes to build the whole map</h2>
+  <p>In one statewide queue, best ratio first, the branches (Oklahoma City, Laredo, the Valley, Abilene, Lubbock and Amarillo, El Paso) come last or not at all, and all but the Valley fail a benefit-cost test on their own; the cabinet's plan (<a href="https://github.com/dgoodenough/texas-transit/blob/main/study/hsr_buildout.md">study/hsr_buildout.md</a>) builds them anyway, as a choice to connect the state, from money of their own. Switch the levers to see what each one buys.</p>
+  <p class="lede" id="wit-lede"></p>
+  <div class="levers" id="levers">
+    <div><span class="eyebrow">High-speed costs</span><div class="chips" data-lever="costs"><button type="button" data-v="high">As built today</button><button type="button" data-v="central">A delivery office that learns</button></div></div>
+    <div><span class="eyebrow">Rail Fund (1/8 cent of sales tax)</span><div class="chips" data-lever="rail_fund"><button type="button" data-v="0">No</button><button type="button" data-v="1">Yes</button></div></div>
+    <div><span class="eyebrow">Triangle surplus pledged to the branches</span><div class="chips" data-lever="surplus"><button type="button" data-v="0">No</button><button type="button" data-v="1">Yes</button></div></div>
+    <div><span class="eyebrow">Federal match (10%)</span><div class="chips" data-lever="federal"><button type="button" data-v="0">No</button><button type="button" data-v="1">Yes</button></div></div>
+    <div><span class="eyebrow">Oklahoma and Louisiana pay half their track</span><div class="chips" data-lever="partners"><button type="button" data-v="0">No</button><button type="button" data-v="1">Yes</button></div></div>
+  </div>
+  <div class="figs" id="wit-figs"></div>
+  <div class="cards" id="wit-cards"></div>
+  <p class="note">Cards: each branch in the whole map (its design standard, its cost and what Texas pays after the federal and partner shares, its ratio with the P10–P90 range for cost overruns and ridership misses), and when it opens under each plan. "Not by 2100" means the money runs out first. The lever results are the whole-map schedule rerun for each setting; with neither the Rail Fund nor the surplus there is no program, and the branches wait in the statewide queue.</p>
+</section>
+
 <section aria-labelledby="urb-h">
   <h2 id="urb-h">Inside the metros</h2>
   <p>Each network is drawn by DFW Transit's generator from Census population and jobs, commute flows and real roads and rail, at DFW's rate per resident; DFW's is its own hand-built plan. Lines open in order as the budget allows. Pick a metro, then zoom in to follow each alignment street by street (stations appear as you zoom in); hover or tap a line or station for its name and opening year.</p>
@@ -231,9 +254,21 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
     return p.trips_day * f;
   }
   let Y = {}, YL = T.yearly, scen = "ratio";
+  // the Connectivity Program's corridors in the whole map, in the order they open (timeline.json)
+  // a corridor's short name: its own name if it has one ("Panhandle: ..."), else its far end
+  const label = n => n.includes(":") ? n.split(":")[0] : n.split(" - ").pop();
+  const WPN = {}; (T.whole_map_projects || []).forEach(p => { WPN[p.id] = label(p.name); });
+  function wholeMapYears() {
+    const w = ((T.scenarios.whole_map || {}).when) || {};
+    const ids = (T.connectivity || []).filter(id => w[id]).sort((a, b) => w[a][1] - w[b][1]);
+    const miss = (T.connectivity || []).filter(id => !w[id]);
+    if (!ids.length) return "No branch opens by 2100";
+    return (miss.length ? `${ids.length} of ${T.connectivity.length} corridors open by 2100` : `Every corridor opens by ${w[ids[ids.length - 1]][1]}`)
+      + ": " + ids.map(id => `${WPN[id] || id} ${w[id][1]}`).join(", ");
+  }
   const NOTES = {
     ratio: "Every project in one queue, best ratio first. The Triangle's high-speed lines come early (Austin–San Antonio and Texas Central 2033); under a third of the metro lines open by 2050; Laredo, Lubbock, Amarillo and El Paso are never reached.",
-    whole_map: "The cabinet's plan (study/hsr_buildout.md): high-speed rail built the way a permanent delivery office would, cheaper over time, thin legs to lighter standards, a federal match and Oklahoma and Louisiana paying for their track. The branches have their own ring-fenced money (an eighth of a cent of sales tax plus the busier lines' operating surplus), so they never take a metro line's place. Every corridor opens by 2066: Oklahoma City 2039, Laredo 2046, Abilene 2050, Lubbock and Amarillo 2056, the Valley 2060, El Paso 2066.",
+    whole_map: "The cabinet's plan (study/hsr_buildout.md): high-speed rail built the way a permanent delivery office would, cheaper over time, thin legs to lighter standards, a federal match and Oklahoma and Louisiana paying for their track. The branches have their own ring-fenced money (an eighth of a cent of sales tax plus the busier lines' operating surplus), so they never take a metro line's place, and a branch starts only once the line it hangs off has run three years. " + wholeMapYears() + ".",
     metros_first: `Each metro gets its own stream, its share of the budget at DFW's rate spread over ${T.metro_years} years from 2025, and builds its lines in order. Intercity rail takes the rest. The metros finish decades sooner; the high-speed lines open 10-15 years later.`};
   function useScenario(key) {
     scen = key;
@@ -244,6 +279,60 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
     document.getElementById("scen-note").textContent = NOTES[key];
   }
   useScenario("ratio");
+  // ---- what it takes (timeline.json levers: the whole-map schedule for each lever setting)
+  if (T.levers) {
+    const L = {costs: "central", rail_fund: "1", surplus: "1", federal: "1", partners: "1"};
+    const WP = {}; (T.whole_map_projects || []).forEach(p => { WP[p.id] = p; });
+    const short = id => WP[id] ? label(WP[id].name) : id;
+    const stops = id => WP[id] ? WP[id].name.replace(/^.*?: /, "") : "";
+    const STD = {S1: "320 km/h", S2: "250 km/h double track", S3: "250 km/h single track, passing loops", S4: "200 km/h single track first"};
+    function renderLevers() {
+      document.querySelectorAll("#levers .chips").forEach(c => c.querySelectorAll("button").forEach(b =>
+        b.setAttribute("aria-pressed", String(b.dataset.v === L[c.dataset.lever]))));
+      const r = T.levers[T.lever_names.map(k => L[k]).join("|")];
+      if (!r) return;
+      const opened = T.connectivity.filter(id => r.opens[id]);
+      const last = Math.max(0, ...opened.map(id => r.opens[id]));
+      document.getElementById("wit-figs").innerHTML = [
+        [`${r.branches} of ${T.connectivity.length}`, "branch corridors open by 2100"],
+        [opened.length === T.connectivity.length ? String(last) : "—", "the last one opens"],
+        [money(r.hsr_texas), "high-speed capital Texas pays"],
+        [money(r.branches_texas), "of it for the branches"],
+        [(r.intercity_2100 / 1e6).toFixed(0) + "M", "intercity rail trips a year, 2100"],
+        [fmt(r.metro_2100), "new daily metro trips, 2100"]].map(f =>
+        `<div class="fig"><span class="n">${f[0]}</span><span class="l">${f[1]}</span></div>`).join("");
+      document.getElementById("wit-cards").innerHTML = T.connectivity.map(id => {
+        const p = WP[id] || {}, y = r.opens[id];
+        const sc = k => ((T.scenarios[k] || {}).when || {})[id];
+        const o = k => sc(k) ? sc(k)[1] : "not by 2100";
+        return `<div class="card"><h3>${short(id)}</h3><span class="note">${stops(id)}</span>
+          <span class="opens ${y ? "" : "never"}">${y || "not by 2100"}</span>
+          <span class="note">${STD[p.standard] || ""} · ${money(p.capital || 0)}, Texas pays ${money((p.capital || 0) - (p.outside || 0))}</span>
+          <span class="note">Ratio ${p.bcr != null ? p.bcr.toFixed(2) : "—"}${p.bcr_p10 != null ? ` (P10–P90 ${p.bcr_p10.toFixed(2)}–${p.bcr_p90.toFixed(2)})` : ""}</span>
+          <span class="note">Opens: best ratio first ${o("ratio")} · metros first ${o("metros_first")} · whole map ${o("whole_map")}</span></div>`;
+      }).join("");
+    }
+    {   // the one-sentence answer: business as usual against every lever, and what the metros give up
+      const off = T.levers[T.lever_names.map((k, i) => i === 0 ? "high" : "0").join("|")];
+      const on = T.levers[T.lever_names.map((k, i) => i === 0 ? "central" : "1").join("|")];
+      if (off && on) {
+        const n = T.connectivity.length, yrs = T.connectivity.map(id => on.opens[id]).filter(Boolean);
+        const dm = on.metro_2100 - off.metro_2100;
+        document.getElementById("wit-lede").textContent =
+          `Built as Texas builds today, with no money of their own, ${off.branches} of ${n} branch corridors open by 2100. `
+          + (on.branches === n ? `With a delivery office that learns, an eighth of a cent of sales tax, the busier lines' surplus, a 10% federal match and the neighbours paying half their track, all ${n} open by ${Math.max(...yrs)}`
+                                : `With every lever, ${on.branches} of ${n} open by 2100`)
+          + `, and the metros ${dm >= 0 ? "give up nothing: they carry " + fmt(dm) + " more new trips a day in 2100, because the branches no longer draw on their budget"
+                                       : "carry " + fmt(-dm) + " fewer new trips a day in 2100"}.`;
+      }
+    }
+    document.querySelectorAll("#levers .chips button").forEach(b => b.addEventListener("click", () => {
+      L[b.parentElement.dataset.lever] = b.dataset.v; renderLevers();
+    }));
+    renderLevers();
+  } else {
+    document.querySelector('[aria-labelledby="wit-h"]').hidden = true;
+  }
   const yIn = document.getElementById("year");
 
   // ---------- statewide map ----------
