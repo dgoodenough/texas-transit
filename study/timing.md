@@ -326,6 +326,27 @@ Within about 400 m is a walk between platforms: all five are, with DFW's station
 - An urban line's riders are its share of its metro's total, by the full model's value of it (the mean of what the network loses without it and what it adds alone). Lines that work as a network share the credit, so fewer of them reach a ratio of 1 on their own than when the sketch's single-line trips split the total.
 - Operating cost is outside the capital budget, as in DFW Transit; the deficits are in the ratio, but no budget pays them yet.
 
+## Is best ratio first good enough?
+
+A local search over the build order (4,000 tries, swapping projects or moving one earlier, keeping a change only if the present value of net benefits 2025-2100 rises; same budget, same values, trunks before branches) raises that value from $173.2B to $174.8B, **+0.9%**. Best ratio first ranks each project by its own ratio; the search also weighs when the money is free and how long each project takes to build. Biggest moves:
+
+| Project | Opens: best ratio first | Optimized |
+|---|---|---|
+| Houston-Pasadena-The Woodlands: Studewood / White Oak - Austin / Grants Lake (metro) | 2071 | 2090 |
+| Odessa: Grant / 14th Street - 91st Street / Evans (brt) | 2057 | 2074 |
+| Austin-Round Rock-San Marcos: McNeil / Deep Wood - Simond / Aldrich (brt) | 2042 | 2027 |
+| Houston-Pasadena-The Woodlands: Ambassador / Post Oak - Park Row / Vanderwilt (brt) | 2041 | 2027 |
+| Houston-Pasadena-The Woodlands: Edloe / Richmond - Eagle Springs / Timber Forest (regional rail) | 2062 | 2076 |
+| Austin-Round Rock-San Marcos: Wood Hollow / Greystone - Hunters Chase / Research (brt) | 2041 | 2027 |
+| Austin-Round Rock-San Marcos: US-290 - Clawson / Southridge (brt) | 2041 | 2027 |
+| El Paso: John Hayes / Pebble Hills - Nonap / Mark Twain (brt) | 2083 | 2069 |
+| Gulf Coast: Houston - Beaumont - Lake Charles - Lafayette - Baton Rouge - New Orleans | 2081 | 2067 |
+| Houston-Pasadena-The Woodlands: Seamist / 18th Street - Louetta Road (brt) | 2071 | 2084 |
+| Austin-Round Rock-San Marcos: US-290 - Robert S Light Boulevard (brt) | 2083 | 2070 |
+| San Antonio-New Braunfels: Blanco / Sir Winston - Cliffbrier / Gallery Ridge (metro) | 2070 | 2082 |
+
+The gain is small: best ratio first stays the plan's rule, and the search is a check on it.
+
 ## Scenario: metros first
 
 Each of the 25 metros gets its own stream, its 30-year budget from step 4 (DFW's rate per resident) spread over 30 years from 2025, and builds its lines in the generator's order as that stream allows. Intercity rail takes what's left of the statewide budget after DFW, including whatever the metros can't spend, best ratio first. Values, costs, land-tax bonds and the budget are the same as above.
@@ -424,5 +445,18 @@ The cabinet's plan (`study/hsr_buildout.md`): high-speed rail at central unit co
 \* the Connectivity Program.
 
 **The program:** the Rail Fund raises $109.4B by 2100; with the other high-speed lines' surplus and less the branches' deficits, $171.3B is available to it. It builds 7 of 7 branch corridors ($63.8B of Texas's money), every one by 2100. Ratios are well below 1 for most of them: the program is a choice to connect the state, not an investment.
+
+**What it takes to open every branch by 2100** (the smallest Rail Fund that does, everything else as above):
+
+| Cost case | Rail Fund needed a year | In sales tax |
+|---|---|---|
+| central costs, with learning (the whole map) | $1M | 0.00 cents |
+| central, a P90 overrun | $103M | 0.01 cents |
+| high costs, no learning (business as usual) | $23M | 0.00 cents |
+| high, no learning, a P90 overrun | $335M | 0.04 cents |
+| central costs, with learning (the whole map), no surplus pledged | $765M | 0.10 cents |
+| high, no learning, a P90 overrun, no surplus pledged | $1.2B | 0.16 cents |
+
+The central package proposes 1/8 cent ($980M a year). With the other high-speed lines' operating surplus pledged, the branches need little new tax: the surplus (fares over operating cost on the Triangle and the Gulf) pays for most of them, so the Rail Fund is insurance against overruns and fares that don't cover costs. Without the surplus, the rows marked so are what the tax alone has to raise.
 
 Statewide by 2100: 5,036,621 new daily metro trips and 100M intercity rail trips a year, against 89M in best ratio first.

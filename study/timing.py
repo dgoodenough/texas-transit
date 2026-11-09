@@ -720,6 +720,8 @@ def main():
             r["net"] = r["benefit"] + r["wider"] + r["fares"] - r["opex"]
             r["net_users"] = r["benefit"] + r["fares"] - r["opex"]
         runs[key] = {"projects": ps, "built": built, "rows": rows}
+    print("optimizing the order ...")
+    runs["optimized"] = optimize_order(projects, budget, pop, dfw)
     print("what it takes ...")
     runs["takes"] = what_it_takes(runs, budget, pop)
     risk(runs["ratio"]["projects"])
@@ -728,6 +730,58 @@ def main():
 
 
 P90_COST = math.exp(1.2816 * 0.26)   # a P90 cost overrun at RISK_SIGMA["cost"]
+OPT_ITERS, OPT_SEED = 4000, 7
+
+
+def pv_net(projects, spend, pop, dfw):
+    """Present value in 2025 at 3% of the yearly net benefits (travellers' gain, wider benefits, fares less
+    operating cost) of everything open, 2025-2100: what a schedule buys with the same budget."""
+    rows = yearly(projects, spend, pop, dfw)
+    return sum((r["benefit"] + r["wider"] + r["fares"] - r["opex"]) / 1.03 ** (r["year"] - YEARS[0]) for r in rows)
+
+
+def optimize_order(projects, budget, pop, dfw, iters=OPT_ITERS, seed=OPT_SEED, log=print):
+    """Local search over the build order (study/hsr_buildout.md, Phase 2, the mathematician's scheduling
+    task): start from best ratio first and try swapping two projects or moving one earlier, keeping a
+    change when the present value of net benefits rises. The budget, the dependencies (a project whose
+    trunk hasn't opened is skipped) and each project's values are the plan's. Returns (order, the
+    greedy value, the optimized value)."""
+    import random
+    rnd = random.Random(seed)
+    ps = copy.deepcopy(projects)
+    for p in ps:
+        ratio(p)
+    by = {p["id"]: p for p in ps}
+
+    def prio(p):
+        r = p["bcr"]
+        for d in p["after"]:
+            if d in by:
+                r = min(r, prio(by[d]))
+        return r
+    order = [p["id"] for p in sorted(ps, key=lambda p: -prio(p))]
+
+    def value(o):
+        _, spend = schedule(ps, budget, order=[by[i] for i in o])
+        return pv_net(ps, spend, pop, dfw)
+    best = base = value(order)
+    n = len(order)
+    for it in range(iters):
+        o = list(order)
+        i = rnd.randrange(n)
+        j = max(0, min(n - 1, i + rnd.randint(-25, 25)))
+        if i == j:
+            continue
+        if rnd.random() < 0.5:
+            o[i], o[j] = o[j], o[i]
+        else:
+            o.insert(min(i, j), o.pop(max(i, j)))
+        v = value(o)
+        if v > best + 1e-6:
+            best, order = v, o
+    if log:
+        log(f"  optimized order: PV net benefits {base / 1000:,.1f}B -> {best / 1000:,.1f}B")
+    return order, base, best
 
 
 def program_cost_ratio(case, learning):
@@ -787,7 +841,39 @@ def what_it_takes(runs, budget, pop):
              ("central, a P90 overrun", {p: P90_COST for p in finance.CONNECTIVITY}),
              ("high costs, no learning (business as usual)", program_cost_ratio("high", False)),
              ("high, no learning, a P90 overrun", {k: v * P90_COST for k, v in program_cost_ratio("high", False).items()})]
-    return [(lab, min_rail_fund(ps, budget, pop, m)) for lab, m in cases]
+    out = [(lab, min_rail_fund(ps, budget, pop, m)) for lab, m in cases]
+    finance.TRIANGLE_SURPLUS = False   # if the other lines' operating surplus isn't pledged (or doesn't appear)
+    try:
+        for lab, m in (cases[0], cases[3]):
+            out.append((lab + ", no surplus pledged", min_rail_fund(ps, budget, pop, m)))
+    finally:
+        finance.TRIANGLE_SURPLUS = True
+    return out
+
+
+def optimizer_section(runs, budget, pop, dfw):
+    """Best ratio first against an optimized order: how much the greedy rule leaves on the table."""
+    if not runs.get("optimized"):
+        return []
+    order, base, best = runs["optimized"]
+    ps = copy.deepcopy(runs["ratio"]["projects"])
+    by = {p["id"]: p for p in ps}
+    greedy = {p["id"]: p.get("open") for p in runs["ratio"]["projects"]}
+    schedule(ps, budget, order=[by[i] for i in order])
+    moved = [((greedy[p["id"]] or 2101) - (p.get("open") or 2101), p) for p in ps
+             if (greedy[p["id"]] or 2101) != (p.get("open") or 2101)]
+    L = ["## Is best ratio first good enough?", "",
+         f"A local search over the build order ({OPT_ITERS:,} tries, swapping projects or moving one earlier, keeping a "
+         "change only if the present value of net benefits 2025-2100 rises; same budget, same values, trunks before "
+         f"branches) raises that value from {money(base)} to {money(best)}, **{(best / base - 1):+.1%}**. Best ratio "
+         "first ranks each project by its own ratio; the search also weighs when the money is free and how long each "
+         "project takes to build. Biggest moves:", "",
+         "| Project | Opens: best ratio first | Optimized |", "|---|---|---|"]
+    for d, p in sorted(moved, key=lambda x: -abs(x[0]))[:12]:
+        L.append(f"| {label(p)} | {greedy[p['id']] or 'not by 2100'} | {p.get('open') or 'not by 2100'} |")
+    L += ["", ("The gain is small: best ratio first stays the plan's rule, and the search is a check on it." if best / base - 1 < 0.03
+               else "The gain is large enough that the plan should consider scheduling by the optimized order."), ""]
+    return L
 
 
 def whole_map_section(runs, pop):
@@ -833,7 +919,11 @@ def whole_map_section(runs, pop):
         for lab, v in runs["takes"]:
             L.append(f"| {lab} | {money(v) if v is not None else 'not reachable'} | "
                      + (f"{v / cent:.2f} cents" if v is not None else "a trunk it needs isn't built") + " |")
-        L += ["", f"The central package proposes 1/8 cent ({money(finance.RAIL_FUND['musd_per_year'])} a year).", ""]
+        L += ["", f"The central package proposes 1/8 cent ({money(finance.RAIL_FUND['musd_per_year'])} a year). With the other "
+              "high-speed lines' operating surplus pledged, the branches need little new tax: the surplus (fares over "
+              "operating cost on the Triangle and the Gulf) pays for most of them, so the Rail Fund is insurance against "
+              "overruns and fares that don't cover costs. Without the surplus, the rows marked so are what the tax "
+              "alone has to raise.", ""]
     L += [f"Statewide by 2100: {w['rows'][-1]['urban_trips_day'] + w['rows'][-1]['dfw_trips_day']:,.0f} new daily metro "
           f"trips and {w['rows'][-1]['intercity_trips_year'] / 1e6:.0f}M intercity rail trips a year, against "
           f"{a['rows'][-1]['intercity_trips_year'] / 1e6:.0f}M in best ratio first.", ""]
@@ -1088,6 +1178,7 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
           "of them reach a ratio of 1 on their own than when the sketch's single-line trips split the total.",
           "- Operating cost is outside the capital budget, as in DFW Transit; the deficits are in the ratio, but no budget pays "
           "them yet.", ""]
+    L += optimizer_section(runs, budget, pop, dfw)
     L += scenario_section(runs)
     L += whole_map_section(runs, pop)
     with open(os.path.join(ROOT, "study", "timing.md"), "w", encoding="utf-8") as f:

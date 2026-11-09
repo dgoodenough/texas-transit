@@ -91,9 +91,10 @@ high-speed rail versus metro systems is an output, not an input.
    Tax Increment Reinvestment Zone plus a Public Improvement District, borrowed against when a line
    opens) pays about 6% of the urban lines' capital. Projects go best ratio first and the budget
    is spent whether or not a ratio reaches 1. By 2100 (current figures in `study/timing.md`): 9 of
-   14 high-speed corridors (10 since the Phase 1 model fixes), 129 of 168 metro lines, 5 of 7
-   conventional routes and DFW's plan; about 4.8M new daily metro transit trips (1.7M in DFW) and
-   85M intercity rail trips a year.
+   16 high-speed corridors (the network redrawn in Phase 2), 123 of 168 metro lines and DFW's
+   plan; about 4.8M new daily metro transit trips (1.7M in DFW) and 89M intercity rail trips a year.
+   A third scenario, **the whole map**, builds every high-speed corridor by 2066 with cheaper
+   delivery and a ring-fenced Connectivity Program (`study/hsr_buildout.md`).
    The high-speed stations meet DFW's network on foot: Dallas beside Union Station, Fort Worth at
    Fort Worth Central. A second scenario, **metros first**, gives each metro its own budget stream
    and builds the metros decades sooner. The site (`docs/`, published with GitHub Pages) has the
