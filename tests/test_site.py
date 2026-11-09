@@ -35,3 +35,34 @@ class AlignmentTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class LeverTests(unittest.TestCase):
+    """Phase 4: the "what it takes" panel reads a precomputed grid that must agree with the scenarios."""
+
+    def setUp(self):
+        p = os.path.join(ROOT, "docs", "data", "timeline.json")
+        if not os.path.exists(p):
+            self.skipTest("docs/data/timeline.json not built")
+        self.T = json.load(open(p, encoding="utf-8"))
+
+    def test_every_lever_on_is_the_whole_map(self):
+        T = self.T
+        on = T["levers"]["|".join("central" if k == "costs" else "1" for k in T["lever_names"])]
+        when = T["scenarios"]["whole_map"]["when"]
+        for pid in T["connectivity"]:
+            self.assertEqual(on["opens"].get(pid), (when.get(pid) or [None, None])[1], pid)
+
+    def test_a_branch_waits_for_its_trunk(self):
+        T = self.T
+        when = T["scenarios"]["whole_map"]["when"]
+        P = {p["id"]: p for p in T["whole_map_projects"]}
+        for pid in T["connectivity"]:
+            if pid not in when:
+                continue
+            for d in P[pid].get("after", []):
+                if d in when:
+                    self.assertGreaterEqual(when[pid][0], when[d][1] + 3, (pid, d))
+
+    def test_the_grid_covers_every_combination(self):
+        self.assertEqual(len(self.T["levers"]), 2 ** (len(self.T["lever_names"]) - 1) * 2)

@@ -64,6 +64,7 @@ SCENARIOS = (("ratio", "Best ratio first"), ("metros_first", "Metros first"), ("
 WHOLE_MAP_HSR = {"case": "central", "learning": True, "drawn": True,
                  "standards": {"OKC": "S2", "LRD": "S3", "VALLEY": "S3", "MFE": "S3", "BIGC": "S3", "PANH": "S4", "WEST": "S4"}}
 UPGRADE_TRIPS = 3e6   # a leg built below full standard earns an upgrade at this many trips a year
+GATE_YEARS = 3        # a Connectivity Program branch starts only after its trunk has run this long (study/hsr_buildout.md)
 
 
 def texas_pop():
@@ -513,6 +514,8 @@ def schedule(projects, budget, spend=None, order=None):
         # a project's value assumes the ones before it are there: it may be built alongside them, but
         # opens no earlier than they do
         first = max([YEARS[0]] + [max(d["start"], d["open"] - p["build"]) for d in deps])
+        if p.get("gate_years"):   # the Auditor's gate: a branch starts only after its trunk has run this long
+            first = max([first] + [d["open"] + p["gate_years"] for d in deps])
         # land-tax bonds pay part of an urban line; federal and partner-state money part of a high-speed one
         per = (p["capital"] - p.get("bond", 0.0) - p.get("outside", 0.0)) / p["build"]
         for y in range(first, YEARS[-1] - p["build"] + 1):   # opens by the last year
@@ -647,6 +650,8 @@ def whole_map_projects(base_projects, log=print):
         q["outside"] = q["capital"] * (finance.FEDERAL_SHARE + finance.PARTNER_SHARE * finance.corridor_out_of_state(cid))
         q["standard"] = WHOLE_MAP_HSR["standards"].get(cid, "S1")
         q["connectivity"] = q["id"] in finance.CONNECTIVITY
+        if q["connectivity"]:
+            q["gate_years"] = GATE_YEARS
     rest = [copy.deepcopy(p) for p in base_projects if p["layer"] != "hsr"]
     return rest + hs
 
@@ -724,7 +729,10 @@ def main():
     runs["optimized"] = optimize_order(projects, budget, pop, dfw)
     print("what it takes ...")
     runs["takes"] = what_it_takes(runs, budget, pop)
+    print("levers ...")
+    runs["levers"] = lever_grid(runs, budget, pop, dfw)
     risk(runs["ratio"]["projects"])
+    risk(runs["whole_map"]["projects"])
     runs["asc"] = asc_sensitivity(runs["ratio"]["projects"])
     write(runs, pop, dfw, plan, budget, dfw_tax_year)
 
@@ -874,6 +882,73 @@ def optimizer_section(runs, budget, pop, dfw):
     L += ["", ("The gain is small: best ratio first stays the plan's rule, and the search is a check on it." if best / base - 1 < 0.03
                else "The gain is large enough that the plan should consider scheduling by the optimized order."), ""]
     return L
+
+
+LEVERS = (("costs", ("high", "central")), ("rail_fund", (0, 1)), ("surplus", (0, 1)), ("federal", (0, 1)), ("partners", (0, 1)))
+
+
+def hsr_cost_ratio(case, learning):
+    """{high-speed project id: its capital under `case`/`learning` over its capital under WHOLE_MAP_HSR},
+    each corridor costed with the ones it hangs off built (as program_cost_ratio, for every corridor)."""
+    out = {}
+    saved = dict(hsr.SETTINGS)
+    try:
+        for cid in hsr.CORRIDORS:
+            deps = hsr.REQUIRES.get(cid, [])
+            hsr.SETTINGS.clear()
+            hsr.SETTINGS.update(WHOLE_MAP_HSR)
+            base = hsr.capital_musd([cid], built=deps)
+            hsr.SETTINGS.update({"case": case, "learning": learning})
+            out[f"hsr:{cid}"] = hsr.capital_musd([cid], built=deps) / base
+    finally:
+        hsr.SETTINGS.clear()
+        hsr.SETTINGS.update(saved)
+    return out
+
+
+def lever_grid(runs, budget, pop, dfw):
+    """The site's "what it takes" panel (Phase 4): the whole-map schedule for every combination of
+    LEVERS (high-speed costs: business as usual or central with learning; the Rail Fund; the surplus
+    pledge; the federal match; the partner states' share), each project valued from the year it opens
+    in the whole map. With neither the Rail Fund nor the surplus there is no program, and the branches
+    compete in the statewide queue as in best ratio first. {key "costs|rf|surplus|fed|partners":
+    {opens: {id: year or None}, hsr_texas: $M, branches: n, intercity_2100, metro_2100}}."""
+    import itertools
+    base = runs["whole_map"]["projects"]
+    high = hsr_cost_ratio("high", False)
+    saved = (dict(finance.RAIL_FUND), finance.TRIANGLE_SURPLUS, finance.FEDERAL_SHARE, finance.PARTNER_SHARE)
+    out = {}
+    try:
+        for combo in itertools.product(*(v for _, v in LEVERS)):
+            costs, rf, sur, fed, par = combo
+            ps = copy.deepcopy(base)
+            finance.RAIL_FUND["musd_per_year"] = saved[0]["musd_per_year"] if rf else 0.0
+            finance.TRIANGLE_SURPLUS = bool(sur)
+            for p in ps:
+                if p["layer"] != "hsr":
+                    continue
+                cid = p["id"].split(":")[1]
+                if costs == "high":
+                    p["capital"] *= high.get(p["id"], 1.0)
+                p["outside"] = p["capital"] * ((saved[2] if fed else 0.0)
+                                               + (saved[3] if par else 0.0) * finance.corridor_out_of_state(cid))
+                if not rf and not sur:
+                    p["connectivity"] = False
+            settle(ps, lambda q: whole_map(q, budget, pop))   # as the scenario: valued from the year each opens
+            ps_open = [p for p in ps if p.get("open")]
+            rows = yearly(ps, {y: 0.0 for y in YEARS}, pop, dfw)   # flows only: spending isn't reported here
+            out["|".join(map(str, combo))] = {
+                "opens": {p["id"]: p.get("open") for p in ps if p["layer"] == "hsr"},
+                "hsr_texas": round(sum(p["capital"] - p.get("outside", 0.0) for p in ps_open if p["layer"] == "hsr")),
+                "branches": sum(1 for p in ps if p["id"] in finance.CONNECTIVITY and p.get("open")),
+                "branches_texas": round(sum(p["capital"] - p.get("outside", 0.0) for p in ps_open if p["id"] in finance.CONNECTIVITY)),
+                "intercity_2100": round(rows[-1]["intercity_trips_year"]),
+                "metro_2100": round(rows[-1]["urban_trips_day"] + rows[-1]["dfw_trips_day"])}
+    finally:
+        finance.RAIL_FUND.clear()
+        finance.RAIL_FUND.update(saved[0])
+        finance.TRIANGLE_SURPLUS, finance.FEDERAL_SHARE, finance.PARTNER_SHARE = saved[1], saved[2], saved[3]
+    return out
 
 
 def whole_map_section(runs, pop):
@@ -1201,6 +1276,11 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
             "urban_traj": {p["metro"]: {str(y): round(p["traj"][y], 3) for y in range(2030, 2101, 5)} | {"2026": round(p["traj"][2026], 3)}
                            for p in projects if p["layer"] == "urban" and p.get("traj")},
             "yearly": [rnd(r, 1) for r in rows],
+            "levers": runs.get("levers"),
+            "lever_names": [k for k, _ in LEVERS],
+            "connectivity": finance.CONNECTIVITY,
+            "whole_map_projects": [rnd({k: v for k, v in p.items() if k in keep + ("standard", "outside", "connectivity")}, 3)
+                                   for p in runs["whole_map"]["projects"] if p["layer"] == "hsr"],
             "scenarios": {key: {"label": lab,
                                 "when": {p["id"]: [p["start"], p["open"]] for p in runs[key]["projects"] if p.get("open")},
                                 "yearly": [rnd(r, 1) for r in runs[key]["rows"]]}
