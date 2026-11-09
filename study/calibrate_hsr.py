@@ -212,7 +212,7 @@ def write(rows, central, sl, p):
     lo = min(min(r["asc"]) for r in longs)
     hi = max(max(r["asc"]) for r in longs)
     L += ["", f"**Central constant: {central:+.2f}** at {REF_KM} km and beyond (Brightline's central fit), **range {lo:+.2f} "
-          f"to {hi:+.2f}**. Before: {p['_previous_asc']:+.2f}, an assumption.", "",
+          f"to {hi:+.2f}**. Before Phase 1: -0.50 at every distance, an assumption.", "",
           f"**Shorter trips: {sl[1]:.2f} less per unit of ln(distance) below {REF_KM} km** (range {sl[0]:.2f}-{sl[2]:.2f}). "
           "The same trains between New York and Philadelphia, 146 km and a train every 20 minutes, carry 3-6% of trips: a "
           "constant fitted on the long trips would give them several times that. Rail's pull falls off on short trips, "
