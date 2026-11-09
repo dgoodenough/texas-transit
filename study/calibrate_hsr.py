@@ -28,6 +28,7 @@ both to texas/intercity.json (asc_vs_car, asc_range). Writes study/calibrate_hsr
 """
 import collections
 import csv
+import functools
 import io
 import json
 import math
@@ -40,6 +41,7 @@ sys.path.insert(0, ROOT)
 from texas import intercity as ic  # noqa: E402
 
 NHTS = os.path.join(ROOT, "data", "raw", "nhts", "2022_Passenger_OD_Annual.zip")
+REF_KM = 300   # about the long comparables' distance: below it rail's pull falls with ln(distance)
 COMPARABLES = [
     # name, zone-id prefixes (a, b), stations (lat, lon) a, b, track km, run minutes, headway, fare,
     # target: ("market", low, central, high) = rail share of air + rail; ("riders", ...) = rail trips a year
@@ -52,6 +54,12 @@ COMPARABLES = [
      "sa": (40.7506, -73.9935), "sb": (42.3523, -71.0552),   # Penn Station, South Station
      # 372 km; Acela about 3h45, Regional about 4h15, about 19 trains a day each way
      "track_km": 372, "run_min": 240, "headway": 57, "fare": 100, "target": ("market", 0.52, 0.53, 0.54)},
+    {"name": "New York - Philadelphia", "a": "35620_", "b": "37980_",
+     "sa": (40.7506, -73.9935), "sb": (39.9557, -75.1820),   # Penn Station, 30th Street
+     # 146 km; Amtrak about 1h15, a train every 20 minutes, fares about $70. Rail's share of all trips:
+     # Amtrak's own about 3% (about 3M a year of NHTS's 100M), up to NHTS's 5.9% (which counts NJ Transit
+     # and SEPTA connections); a short pair, for how rail's pull falls with distance
+     "track_km": 146, "run_min": 75, "headway": 20, "fare": 70, "target": ("share", 0.03, 0.045, 0.059), "short": True},
     {"name": "Miami - Orlando (Brightline)", "a": "33100_", "b": "36740_",
      "sa": (25.7781, -80.1955), "sb": (28.4312, -81.3081),   # MiamiCentral, Orlando airport
      # 378 km; about 3h30, 16 round trips a day; long-distance fares about $80-90 on average
@@ -60,6 +68,7 @@ COMPARABLES = [
 ]
 
 
+@functools.lru_cache(maxsize=None)
 def nhts_pair(prefix_a, prefix_b):
     """Daily car, air and NHTS-rail person-trips (both directions) and work share between two
     metros given as zone-id prefixes (the NextGen zones split metros by state)."""
@@ -76,6 +85,7 @@ def nhts_pair(prefix_a, prefix_b):
             "work_share": acc["purpose_work"] / acc["annual_total_trips"]}
 
 
+@functools.lru_cache(maxsize=None)
 def metro_zone(prefix):
     """A zone dict (as texas/intercity.load_zones) merging every state part of a metro."""
     parts = []
@@ -120,57 +130,96 @@ def fit(target_share, base, za, zb, net, p):
     return (lo + hi) / 2
 
 
-def comparable(c, p):
+def comparable(c, p, slope=0.0, which=(0, 1, 2)):
     d = nhts_pair(c["a"], c["b"])
     za, zb = metro_zone(c["a"]), metro_zone(c["b"])
     svc = dict(p["hsr"])
     svc["speed_kmh"] = c["track_km"] / (c["run_min"] / 60)   # the service's own end-to-end time
     svc["headway_min"] = c["headway"]
     svc["fare_fixed"], svc["fare_per_km"] = c["fare"], 0.0
+    svc["asc_per_ln_km"], svc["asc_ref_km"] = slope, REF_KM   # the fit is of the constant at REF_KM and beyond
     net = ic.RailNetwork({"A": c["sa"], "B": c["sb"]}, [("A", "B", c["track_km"])], svc, reach_km=80)
     kind, *vals = c["target"]
+    vals = [vals[i] for i in which]
     res = {"name": c["name"], "car": d["car"], "air": d["air"], "rail_nhts": d["rail_nhts"], "work_share": d["work_share"],
            "asc": []}
     for v in vals:
-        if kind == "market":   # rail rebuilt from air x the market share; shares without rail by inversion
+        if kind == "share":    # rail's share of all trips; shares without rail by inversion
+            rail = v * (d["car"] + d["air"]) / (1 - v)
+            tot = d["car"] + d["air"] + rail
+            s_car0, s_air0 = shares_without_rail(d["car"] / tot, max(d["air"], 1e-6) / tot, rail / tot,
+                                                 p["nest_public_scale"])
+            target = rail / tot
+            res["rail"] = rail if v == vals[len(vals) // 2] else res.get("rail")
+        elif kind == "market":   # rail rebuilt from air x the market share; shares without rail by inversion
             rail = d["air"] * v / (1 - v)
             tot = d["car"] + d["air"] + rail
             s_car0, s_air0 = shares_without_rail(d["car"] / tot, d["air"] / tot, rail / tot, p["nest_public_scale"])
             target = rail / tot
-            res["rail"] = rail if v == vals[1] else res.get("rail")
+            res["rail"] = rail if v == vals[len(vals) // 2] else res.get("rail")
         else:                  # a forecast from 2022's car and air: rail's riders (with induced trips) / the market
             tot = d["car"] + d["air"]
             s_car0, s_air0 = d["car"] / tot, d["air"] / tot
             target = v / 365 / (1 + svc["induced_share"]) / tot
-            res["rail"] = v / 365 if v == vals[1] else res.get("rail")
+            res["rail"] = v / 365 if v == vals[len(vals) // 2] else res.get("rail")
         base = {"s_car0": s_car0, "s_air0": s_air0, "work_share": d["work_share"]}
         res["asc"].append(fit(target, base, za, zb, net, p))
     car_min = ic.car_los(ic.km(za["at"], zb["at"]), "work", p)[0]
     res["car_hours"] = car_min / 60
+    res["km"] = ic.km(za["at"], zb["at"])
     return res
 
 
-def write(rows, central, p):
+def solve_slope(p, long_end, short_end):
+    """The slope (fall in the constant per unit of ln(distance) below REF_KM) at which New York -
+    Philadelphia and the long Northeast pairs need the same constant: their targets at index
+    long_end and short_end (0 low, 1 central, 2 high)."""
+    longs = [c for c in COMPARABLES if c["name"].startswith("New York") and not c.get("short")]
+    short = next(c for c in COMPARABLES if c.get("short"))
+
+    def gap(sl):
+        lv = sum(comparable(c, p, sl, (long_end,))["asc"][0] for c in longs) / len(longs)
+        return lv - comparable(short, p, sl, (short_end,))["asc"][0]
+    lo, hi = 0.0, 8.0
+    for _ in range(14):
+        mid = (lo + hi) / 2
+        if gap(mid) > 0:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
+
+
+def write(rows, central, sl, p):
     L = ["# Calibrating high-speed rail's constant", "",
          "Generated by `python study/calibrate_hsr.py`. The constant against car (`texas/intercity.json` "
          "hsr.asc_vs_car) is how much travellers like a train beyond its time, cost and frequency. It was an assumption "
          "(-0.5); the plan's ratios turn on it (`study/cabinet/audit.md`). Here it is fitted, inside the model's own "
          "structure, to American markets with fast trains today, with the same national NHTS 2022 data the Texas "
          "model uses for car and air, after the Phase 1 fixes (station access counted once; roads 1.1 times the "
-         "straight line).", "",
-         "| Market | Car trips a day (NHTS 2022) | Air | Rail (target) | Target | Constant: low | central | high |",
-         "|---|---|---|---|---|---|---|---|"]
+         "straight line). Constants are at 300 km and beyond: shorter trips get less (the slope, below), fitted together.", "",
+         "| Market | km | Car trips a day (NHTS 2022) | Air | Rail (target) | Target | Constant: low | central | high |",
+         "|---|---|---|---|---|---|---|---|---|"]
     for r in rows:
         c = next(x for x in COMPARABLES if x["name"] == r["name"])
         kind, lo, mid, hi = c["target"]
         tgt = (f"{lo:.0%}-{hi:.0%} of air + rail (Amtrak)" if kind == "market"
+               else f"{lo:.1%}-{hi:.1%} of all trips (Amtrak to NHTS)" if kind == "share"
                else f"{lo / 1e6:.1f}-{hi / 1e6:.1f}M riders a year (Brightline 2024)")
-        L.append(f"| {r['name']} | {r['car']:,.0f} | {r['air']:,.0f} | {r['rail']:,.0f} | {tgt} | "
+        L.append(f"| {r['name']} | {r['km']:.0f} | {r['car']:,.0f} | {r['air']:,.0f} | {r['rail']:,.0f} | {tgt} | "
                  f"{min(r['asc']):+.2f} | {r['asc'][1]:+.2f} | {max(r['asc']):+.2f} |")
-    lo = min(min(r["asc"]) for r in rows)
-    hi = max(max(r["asc"]) for r in rows)
-    L += ["", f"**Central constant: {central:+.2f}** (Brightline's central fit), **range {lo:+.2f} to {hi:+.2f}**. "
-          f"Before: {p['_previous_asc']:+.2f}, an assumption.", "",
+    longs = [r for r in rows if not r.get("short")]
+    lo = min(min(r["asc"]) for r in longs)
+    hi = max(max(r["asc"]) for r in longs)
+    L += ["", f"**Central constant: {central:+.2f}** at {REF_KM} km and beyond (Brightline's central fit), **range {lo:+.2f} "
+          f"to {hi:+.2f}**. Before: {p['_previous_asc']:+.2f}, an assumption.", "",
+          f"**Shorter trips: {sl[1]:.2f} less per unit of ln(distance) below {REF_KM} km** (range {sl[0]:.2f}-{sl[2]:.2f}). "
+          "The same trains between New York and Philadelphia, 146 km and a train every 20 minutes, carry 3-6% of trips: a "
+          "constant fitted on the long trips would give them several times that. Rail's pull falls off on short trips, "
+          "where getting to and from stations weighs more against a short drive than the model's county centroids see "
+          f"(people spread across big counties). At this slope an Austin-San Antonio trip (117 km) gets "
+          f"{central - sl[1] * math.log(REF_KM / 117):+.2f} and Houston-Austin (250 km) {central - sl[1] * math.log(REF_KM / 250):+.2f} "
+          "(`texas/intercity.py` asc_at).", "",
           "Each market says something different, which is why the plan carries a range, not a point:", "",
           "- **The Northeast** is a ceiling: rail habits a century old, downtowns where driving and parking are hard, "
           "and car-free households the model's car utility can't see (the pivot keeps each pair's car and air split, "
@@ -179,11 +228,14 @@ def write(rows, central, p):
           "year, still ramping up, and a private operator's fares.",
           "- **Texas** is car-dependent like Florida, so the central value is Brightline's, though Texas's lines "
           "would be faster and serve downtowns. The range runs to the Northeast's high; the plan reports ratios at "
-          "both ends (`study/timing.md`).", "",
+          "both ends (`study/timing.md`).",
+          "- **The slope** rests on one short pair, in a market with commuter rail alongside (NJ Transit, SEPTA), so it is "
+          "the least certain number here; its range is carried with the constant's.", "",
           "Caveats: Amtrak's market shares are its own (2010-2014), on its own definitions; the NHTS's car and air "
-          "counts are modelled from location data; Brightline's 2024 riders are reported by half-year and month, so the "
-          "year is an estimate; the fit holds the rest of the model (time and cost weights, the nest) at its "
-          "assumptions.", "",
+          "counts are modelled from location data, and its rail counts are unreliable on long pairs (it gives Chicago - "
+          "New York 20% rail), so they are used only for New York - Philadelphia's upper end; Brightline's 2024 riders "
+          "are reported by half-year and month, so the year is an estimate; the fit holds the rest of the model (time and "
+          "cost weights, the nest) at its assumptions.", "",
           "Sources: [Amtrak air-rail shares (CNBC)](https://www.cnbc.com/id/48690841); "
           "[Amtrak 65%/52% (Progressive Railroading)](https://progressiverailroading.com/amtrak/news.aspx?id=24740); "
           "[Brightline first-half 2024 (Yahoo/WFTV)](https://www.yahoo.com/news/brightline-record-orlando-miami-ridership-172634417.html); "
@@ -193,28 +245,45 @@ def write(rows, central, p):
     print("\n".join(L))
 
 
+def save(central, lo, hi, sl):
+    """Write the fit into texas/intercity.json's hsr block, keeping the file's layout."""
+    import re
+    with open(ic.PARAMS, encoding="utf-8") as f:
+        text = f.read()
+    start = text.index('"hsr": {')
+    end = text.index('"conventional": {')
+    block = text[start:end]
+    block = re.sub(r'\n    "asc_range": \[[^\]]*\],', "", block)
+    block = re.sub(r'\n    "asc_per_ln_km": [^,]*,', "", block)
+    block = re.sub(r'\n    "asc_ref_km": [^,]*,', "", block)
+    block = re.sub(r'\n    "asc_slope_range": \[[^\]]*\],', "", block)
+    block = re.sub(r'"asc_vs_car": [^,]*,',
+                   f'"asc_vs_car": {round(central, 3)},\n    "asc_range": [{round(lo, 3)}, {round(hi, 3)}],\n'
+                   f'    "asc_per_ln_km": {round(sl[1], 3)},\n    "asc_ref_km": {REF_KM},\n'
+                   f'    "asc_slope_range": [{round(sl[0], 3)}, {round(sl[2], 3)}],', block, count=1)
+    with open(ic.PARAMS, "w", encoding="utf-8") as f:
+        f.write(text[:start] + block + text[end:])
+    print(f"saved asc_vs_car {central:+.3f} (range {lo:+.3f} to {hi:+.3f}), slope {sl[1]:.3f} below {REF_KM} km")
+
+
 def main():
     p = ic.load_params()
-    rows = [comparable(c, p) for c in COMPARABLES]
+    # the slope: central targets for the central value; the low long end against the short pair's high share
+    # (the gentlest fall) and the high long end against its low share (the steepest)
+    sl = (solve_slope(p, 0, 2), solve_slope(p, 1, 1), solve_slope(p, 2, 0))
+    print(f"slope {sl}")
+    rows = [comparable(c, p, sl[1]) for c in COMPARABLES]
+    for r in rows:
+        r["short"] = next(c for c in COMPARABLES if c["name"] == r["name"]).get("short", False)
     central = next(r["asc"][1] for r in rows if "Brightline" in r["name"])
     p["_previous_asc"] = p["hsr"]["asc_vs_car"]
     for r in rows:
-        print(f"{r['name']}: car {r['car']:,.0f}/day, air {r['air']:,.0f}, NHTS rail {r['rail_nhts']:,.0f}, "
+        print(f"{r['name']}: {r['km']:.0f} km, car {r['car']:,.0f}/day, air {r['air']:,.0f}, NHTS rail {r['rail_nhts']:,.0f}, "
               f"car {r['car_hours']:.1f} h; asc {[round(a, 3) for a in r['asc']]}")
-    write(rows, central, p)
+    write(rows, central, sl, p)
     if "--save" in sys.argv:
-        lo = min(min(r["asc"]) for r in rows)
-        hi = max(max(r["asc"]) for r in rows)
-        path = ic.PARAMS
-        with open(path, encoding="utf-8") as f:
-            text = f.read()
-        q = json.loads(text)
-        old = q["hsr"]["asc_vs_car"]
-        text = text.replace(f'"asc_vs_car": {json.dumps(old)},\n    "speed_kmh": 260',
-                            f'"asc_vs_car": {round(central, 3)},\n    "asc_range": [{round(lo, 3)}, {round(hi, 3)}],\n    "speed_kmh": 260', 1)
-        with open(path, "w", encoding="utf-8") as f:
-            f.write(text)
-        print(f"saved asc_vs_car {central:+.3f} (range {lo:+.3f} to {hi:+.3f}) to {os.path.relpath(path, ROOT)}")
+        longs = [r for r in rows if not r["short"]]
+        save(central, min(min(r["asc"]) for r in longs), max(max(r["asc"]) for r in longs), sl)
 
 
 if __name__ == "__main__":

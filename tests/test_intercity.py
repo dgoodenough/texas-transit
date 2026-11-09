@@ -173,3 +173,13 @@ class PhaseOneSettingsTests(unittest.TestCase):
         self.assertEqual(split.transfer("A", "C"), p["hsr"]["transfer_min"])
         za, zc = {"at": st["A"], "parts": []}, {"at": st["C"], "parts": []}
         self.assertLess(split.odds(za, zc, "work", p), through.odds(za, zc, "work", p))
+
+
+class DistanceConstantTests(unittest.TestCase):
+    def test_constant_falls_below_the_reference_distance_only(self):
+        svc = {"asc_vs_car": 0.4, "asc_per_ln_km": 3.0, "asc_ref_km": 300}
+        self.assertEqual(ic.asc_at(svc, 300), 0.4)
+        self.assertEqual(ic.asc_at(svc, 600), 0.4)
+        import math
+        self.assertAlmostEqual(ic.asc_at(svc, 150), 0.4 - 3.0 * math.log(2))
+        self.assertEqual(ic.asc_at({"asc_vs_car": -1.5}, 100), -1.5)   # no slope: one constant

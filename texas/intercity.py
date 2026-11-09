@@ -177,6 +177,18 @@ def wait_min(svc, headway_min=None):
     return min(h * svc.get("wait_share", 0.5), svc["max_wait_min"])
 
 
+def asc_at(svc, dist):
+    """The service's constant against car for a trip of `dist` km: asc_vs_car, less
+    asc_per_ln_km x ln(asc_ref_km / dist) below asc_ref_km (rail's pull falls off on shorter trips,
+    where its access counts for more against the drive than the model's county centroids see;
+    fitted by study/calibrate_hsr.py). Without asc_per_ln_km, one constant at every distance."""
+    slope = svc.get("asc_per_ln_km", 0.0)
+    ref = svc.get("asc_ref_km", 0.0)
+    if not slope or dist >= ref:
+        return svc["asc_vs_car"]
+    return svc["asc_vs_car"] - slope * math.log(ref / dist)
+
+
 # ---------- a rail network: stations, links, the fastest path ----------
 class RailNetwork:
     """Stations {name: (lat, lon)} and links [(a, b, track_km)] run at one average speed with a
@@ -301,7 +313,7 @@ class RailNetwork:
                        s["fare_fixed"] + s["fare_per_km"] * track)
                 ivt, ovt, cost = car_los(dist, purpose, p)
                 v_car = utility((ivt + border, ovt, cost), purpose, p)
-                acc += wa * wb * math.exp(utility(los, purpose, p) - v_car + s["asc_vs_car"])
+                acc += wa * wb * math.exp(utility(los, purpose, p) - v_car + asc_at(s, dist))
         return acc
 
     def station_for(self, zone):
