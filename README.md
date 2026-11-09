@@ -89,17 +89,19 @@ high-speed rail versus metro systems is an output, not an input.
    and air passenger-km out of the sky, and agglomeration), plus fares minus operating cost, over
    capital plus the operating deficit, across 50 years at 3%. Land tax near new urban stations (a
    Tax Increment Reinvestment Zone plus a Public Improvement District, borrowed against when a line
-   opens) pays about an eighth of the urban lines' capital. Projects go best ratio first and the
-   budget is spent whether or not a ratio reaches 1. By 2100: 13 high-speed corridors, 91 of 93
-   metro lines, all seven conventional routes and DFW's plan; about 2.5M new daily metro transit
-   trips (1.7M in DFW), 111M intercity rail trips a year and about 180 fewer flights a day. Six
-   projects pay for themselves (two on travellers' gain alone). The high-speed stations meet DFW's
-   network on foot: Dallas beside Union Station, Fort Worth at Fort Worth Central, Denton at its
-   transit center. A second scenario, **metros first**, gives each metro its own 30-year stream:
-   500,000 new daily trips outside DFW by 2050 instead of 166,000, the Triangle's high-speed lines
-   10-15 years later, $18B less in present value. The site (`docs/index.html`, data from
-   `tools/build_site.py`) shows both scenarios by year, with a zoomable map of every metro's
-   network (`tools/build_metro_maps.py`: full alignments, stations and the main roads).
+   opens) pays about 6% of the urban lines' capital. Projects go best ratio first and the budget
+   is spent whether or not a ratio reaches 1. By 2100 (current figures in `study/timing.md`): 9 of
+   14 high-speed corridors, 149 of 168 metro lines, 4 of 7 conventional routes and DFW's plan;
+   about 5.0M new daily metro transit trips (1.7M in DFW) and 100M intercity rail trips a year.
+   The high-speed stations meet DFW's network on foot: Dallas beside Union Station, Fort Worth at
+   Fort Worth Central. A second scenario, **metros first**, gives each metro its own budget stream
+   and builds the metros decades sooner. The site (`docs/`, published with GitHub Pages) has the
+   overview (`docs/index.html`, data from `tools/build_site.py`, metro maps from
+   `tools/build_metro_maps.py`) and a **statewide map** (`docs/map.html`, data from
+   `tools/build_state_map.py`): every line from high-speed rail to streetcars, toggles by mode,
+   region and status, a year slider and both scenarios. High-speed lines are drawn along Texas
+   Central's corridor and NCTCOG's I-30 alignment where proposals exist, along the named highways
+   elsewhere (`texas/hsr_alignments.json`; the model's track km are unchanged).
    Generated BRT follows streets lined with people and jobs, not highways (DFW Transit's street
    profile, `study/brt_streets.md`): 2% of BRT km on highways or their frontage roads, down from
    13%, and 2.57M people + jobs within 400 m of a BRT line, up from 2.33M.
@@ -111,6 +113,18 @@ high-speed rail versus metro systems is an output, not an input.
    3.2% under the same treatment. The plan uses it for those two metros, at DFW's 75-year rate.
    Houston reaches 3.75% with its default network once the policies go on top of today's
    calibration (`study/houston_policies.md`: refitting the constant under them had cancelled them).
+   Then, in `study/urban_metros.md`: each metro's own growth and the 2 million plan's station-area
+   land use (2050, 2100); the policy package and DFW's 75-year budget in Houston, Austin, San
+   Antonio and El Paso; lines chosen by the full demand model rather than the sketch; and branches
+   off shared trunks. In 2100 Houston reaches 7.7% of commutes by transit, San Antonio 9.0%,
+   Austin 10.3% and El Paso 6.5%, against DFW's 7.3% under its own plan.
+
+## The site
+
+`docs/` is the website, served by GitHub Pages (Settings, Pages: deploy from the `main` branch,
+`/docs` folder): `index.html` (the plan by year) and `map.html` (the statewide map). Rebuild its
+data after a model run with `python study/timing.py`, `python tools/build_site.py`,
+`python tools/build_metro_maps.py` and `python tools/build_state_map.py`.
 
 ## Reusing DFW Transit's code
 

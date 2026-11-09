@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Texas Transit Map</title>
+<meta name="description" content="The statewide transit plan on one map: high-speed rail, conventional trains, and every metro's rail, BRT and streetcar lines, year by year to 2100.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+:root{
+  --bg:#f3f4f1; --surface:#fbfbf9; --ink:#1d2421; --muted:#5d6762; --rule:#d5d9d3;
+  --hsr:#b3261e; --hsr-later:#e2a59e; --conv:#8a5a12; --metro:#1f5fbf; --brt:#0f8a6c; --rail:#7a3fa0; --street:#c26a00;
+  --later:#9aa39d; --focus:#1f5fbf;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141917; --surface:#1b211f; --ink:#e6ebe8; --muted:#9ba6a0; --rule:#2e3633;
+  --hsr:#ff6b5e; --hsr-later:#7a3a34; --conv:#e0a64a; --metro:#6aa3ff; --brt:#3cc79f; --rail:#c08be3; --street:#f0a040;
+  --later:#66706b; --focus:#6aa3ff; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141917; --surface:#1b211f; --ink:#e6ebe8; --muted:#9ba6a0; --rule:#2e3633;
+  --hsr:#ff6b5e; --hsr-later:#7a3a34; --conv:#e0a64a; --metro:#6aa3ff; --brt:#3cc79f; --rail:#c08be3; --street:#f0a040;
+  --later:#66706b; --focus:#6aa3ff; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1.45 var(--body)}
+#app{display:flex;height:100%;height:100dvh}
+#panel{width:330px;flex:none;overflow-y:auto;background:var(--surface);border-right:1px solid var(--rule);padding:14px 16px 24px}
+#map{flex:1;min-width:0;background:var(--bg)}
+h1{font:700 26px/1.05 var(--display);margin:0 0 2px;letter-spacing:.01em}
+.sub{color:var(--muted);margin:0 0 10px;font-size:13px}
+.nav{display:flex;gap:12px;font-size:13px;margin-bottom:12px}
+a{color:var(--focus)}
+h2{font:600 15px/1.2 var(--display);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:16px 0 6px;border-top:1px solid var(--rule);padding-top:12px}
+.year{display:flex;align-items:baseline;gap:10px}
+.year output{font:700 34px/1 var(--display)}
+input[type=range]{width:100%;accent-color:var(--focus)}
+.seg{display:flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden;margin:6px 0}
+.seg button{flex:1;border:0;background:transparent;color:var(--ink);font:600 12px var(--body);padding:6px 4px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--surface)}
+label.t{display:flex;align-items:center;gap:8px;padding:3px 0;cursor:pointer;user-select:none}
+label.t input{margin:0;accent-color:var(--focus)}
+.sw{width:22px;height:0;border-top:4px solid;flex:none;border-radius:2px}
+.sw.d{border-top-style:dashed;border-top-width:3px}
+.dot{width:10px;height:10px;border-radius:50%;flex:none;border:2px solid var(--ink);background:var(--surface)}
+.small{font-size:12px;color:var(--muted)}
+dl{display:grid;grid-template-columns:1fr auto;gap:2px 10px;margin:6px 0 0;font-size:13px}
+dt{color:var(--muted)} dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+select{width:100%;font:13px var(--body);padding:5px;background:var(--surface);color:var(--ink);border:1px solid var(--rule);border-radius:6px}
+.row{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0}
+.row button{font:600 12px var(--body);border:1px solid var(--rule);background:transparent;color:var(--ink);border-radius:6px;padding:4px 8px;cursor:pointer}
+#toggle{display:none}
+.pop b{font-weight:700} .pop .m{color:#5d6762}
+.leaflet-container{font:13px var(--body)}
+.leaflet-tooltip.mlabel{background:transparent;border:0;box-shadow:none;padding:0;font:600 13px var(--display);letter-spacing:.02em;color:var(--ink);text-shadow:0 0 3px var(--bg),0 0 3px var(--bg),0 0 2px var(--bg)}
+.leaflet-tooltip.mlabel:before{display:none}
+@media (max-width:760px){
+  #app{flex-direction:column}
+  #panel{width:auto;max-height:46vh;border-right:0;border-bottom:1px solid var(--rule);padding:10px 16px 16px}
+  #panel.closed{max-height:none;overflow:hidden}
+  #panel.closed .body{display:none}
+  #toggle{display:inline-block;float:right;font:600 12px var(--body);border:1px solid var(--rule);background:transparent;color:var(--ink);border-radius:6px;padding:4px 8px}
+  h1{font-size:22px}
+}
+.leaflet-pane,.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile-container,.leaflet-pane > svg,.leaflet-pane > canvas,.leaflet-zoom-box,.leaflet-image-layer,.leaflet-layer {position: absolute;left: 0;top: 0;}.leaflet-container {overflow: hidden;}.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow {-webkit-user-select: none;-moz-user-select: none;user-select: none;-webkit-user-drag: none;}.leaflet-tile::selection {background: transparent;}.leaflet-safari .leaflet-tile {image-rendering: -webkit-optimize-contrast;}.leaflet-safari .leaflet-tile-container {width: 1600px;height: 1600px;-webkit-transform-origin: 0 0;}.leaflet-marker-icon,.leaflet-marker-shadow {display: block;}.leaflet-container .leaflet-overlay-pane svg {max-width: none !important;max-height: none !important;}.leaflet-container .leaflet-marker-pane img,.leaflet-container .leaflet-shadow-pane img,.leaflet-container .leaflet-tile-pane img,.leaflet-container img.leaflet-image-layer,.leaflet-container .leaflet-tile {max-width: none !important;max-height: none !important;width: auto;padding: 0;}.leaflet-container img.leaflet-tile {mix-blend-mode: plus-lighter;}.leaflet-container.leaflet-touch-zoom {-ms-touch-action: pan-x pan-y;touch-action: pan-x pan-y;}.leaflet-container.leaflet-touch-drag {-ms-touch-action: pinch-zoom;touch-action: none;touch-action: pinch-zoom;}.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {-ms-touch-action: none;touch-action: none;}.leaflet-container {-webkit-tap-highlight-color: transparent;}.leaflet-container a {-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);}.leaflet-tile {filter: inherit;visibility: hidden;}.leaflet-tile-loaded {visibility: inherit;}.leaflet-zoom-box {width: 0;height: 0;-moz-box-sizing: border-box;box-sizing: border-box;z-index: 800;}.leaflet-overlay-pane svg {-moz-user-select: none;}.leaflet-pane         { z-index: 400; }.leaflet-tile-pane    { z-index: 200; }.leaflet-overlay-pane { z-index: 400; }.leaflet-shadow-pane  { z-index: 500; }.leaflet-marker-pane  { z-index: 600; }.leaflet-tooltip-pane   { z-index: 650; }.leaflet-popup-pane   { z-index: 700; }.leaflet-map-pane canvas { z-index: 100; }.leaflet-map-pane svg    { z-index: 200; }.leaflet-vml-shape {width: 1px;height: 1px;}.lvml {behavior: url(#default#VML);display: inline-block;position: absolute;}.leaflet-control {position: relative;z-index: 800;pointer-events: visiblePainted;pointer-events: auto;}.leaflet-top,.leaflet-bottom {position: absolute;z-index: 1000;pointer-events: none;}.leaflet-top {top: 0;}.leaflet-right {right: 0;}.leaflet-bottom {bottom: 0;}.leaflet-left {left: 0;}.leaflet-control {float: left;clear: both;}.leaflet-right .leaflet-control {float: right;}.leaflet-top .leaflet-control {margin-top: 10px;}.leaflet-bottom .leaflet-control {margin-bottom: 10px;}.leaflet-left .leaflet-control {margin-left: 10px;}.leaflet-right .leaflet-control {margin-right: 10px;}.leaflet-fade-anim .leaflet-popup {opacity: 0;-webkit-transition: opacity 0.2s linear;-moz-transition: opacity 0.2s linear;transition: opacity 0.2s linear;}.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {opacity: 1;}.leaflet-zoom-animated {-webkit-transform-origin: 0 0;-ms-transform-origin: 0 0;transform-origin: 0 0;}svg.leaflet-zoom-animated {will-change: transform;}.leaflet-zoom-anim .leaflet-zoom-animated {-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);-moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);transition:         transform 0.25s cubic-bezier(0,0,0.25,1);}.leaflet-zoom-anim .leaflet-tile,.leaflet-pan-anim .leaflet-tile {-webkit-transition: none;-moz-transition: none;transition: none;}.leaflet-zoom-anim .leaflet-zoom-hide {visibility: hidden;}.leaflet-interactive {cursor: pointer;}.leaflet-grab {cursor: -webkit-grab;cursor:    -moz-grab;cursor:         grab;}.leaflet-crosshair,.leaflet-crosshair .leaflet-interactive {cursor: crosshair;}.leaflet-popup-pane,.leaflet-control {cursor: auto;}.leaflet-dragging .leaflet-grab,.leaflet-dragging .leaflet-grab .leaflet-interactive,.leaflet-dragging .leaflet-marker-draggable {cursor: move;cursor: -webkit-grabbing;cursor:    -moz-grabbing;cursor:         grabbing;}.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-image-layer,.leaflet-pane > svg path,.leaflet-tile-container {pointer-events: none;}.leaflet-marker-icon.leaflet-interactive,.leaflet-image-layer.leaflet-interactive,.leaflet-pane > svg path.leaflet-interactive,svg.leaflet-image-layer.leaflet-interactive path {pointer-events: visiblePainted;pointer-events: auto;}.leaflet-container {background: #ddd;outline-offset: 1px;}.leaflet-container a {color: #0078A8;}.leaflet-zoom-box {border: 2px dotted #38f;background: rgba(255,255,255,0.5);}.leaflet-container {font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;font-size: 12px;font-size: 0.75rem;line-height: 1.5;}.leaflet-bar {box-shadow: 0 1px 5px rgba(0,0,0,0.65);border-radius: 4px;}.leaflet-bar a {background-color: #fff;border-bottom: 1px solid #ccc;width: 26px;height: 26px;line-height: 26px;display: block;text-align: center;text-decoration: none;color: black;}.leaflet-bar a,.leaflet-control-layers-toggle {background-position: 50% 50%;background-repeat: no-repeat;display: block;}.leaflet-bar a:hover,.leaflet-bar a:focus {background-color: #f4f4f4;}.leaflet-bar a:first-child {border-top-left-radius: 4px;border-top-right-radius: 4px;}.leaflet-bar a:last-child {border-bottom-left-radius: 4px;border-bottom-right-radius: 4px;border-bottom: none;}.leaflet-bar a.leaflet-disabled {cursor: default;background-color: #f4f4f4;color: #bbb;}.leaflet-touch .leaflet-bar a {width: 30px;height: 30px;line-height: 30px;}.leaflet-touch .leaflet-bar a:first-child {border-top-left-radius: 2px;border-top-right-radius: 2px;}.leaflet-touch .leaflet-bar a:last-child {border-bottom-left-radius: 2px;border-bottom-right-radius: 2px;}.leaflet-control-zoom-in,.leaflet-control-zoom-out {font: bold 18px 'Lucida Console', Monaco, monospace;text-indent: 1px;}.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {font-size: 22px;}.leaflet-control-layers {box-shadow: 0 1px 5px rgba(0,0,0,0.4);background: #fff;border-radius: 5px;}.leaflet-control-layers-toggle {background-image: url(images/layers.png);width: 36px;height: 36px;}.leaflet-retina .leaflet-control-layers-toggle {background-image: url(images/layers-2x.png);background-size: 26px 26px;}.leaflet-touch .leaflet-control-layers-toggle {width: 44px;height: 44px;}.leaflet-control-layers .leaflet-control-layers-list,.leaflet-control-layers-expanded .leaflet-control-layers-toggle {display: none;}.leaflet-control-layers-expanded .leaflet-control-layers-list {display: block;position: relative;}.leaflet-control-layers-expanded {padding: 6px 10px 6px 6px;color: #333;background: #fff;}.leaflet-control-layers-scrollbar {overflow-y: scroll;overflow-x: hidden;padding-right: 5px;}.leaflet-control-layers-selector {margin-top: 2px;position: relative;top: 1px;}.leaflet-control-layers label {display: block;font-size: 13px;font-size: 1.08333em;}.leaflet-control-layers-separator {height: 0;border-top: 1px solid #ddd;margin: 5px -10px 5px -6px;}.leaflet-default-icon-path {background-image: url(images/marker-icon.png);}.leaflet-container .leaflet-control-attribution {background: #fff;background: rgba(255, 255, 255, 0.8);margin: 0;}.leaflet-control-attribution,.leaflet-control-scale-line {padding: 0 5px;color: #333;line-height: 1.4;}.leaflet-control-attribution a {text-decoration: none;}.leaflet-control-attribution a:hover,.leaflet-control-attribution a:focus {text-decoration: underline;}.leaflet-attribution-flag {display: inline !important;vertical-align: baseline !important;width: 1em;height: 0.6669em;}.leaflet-left .leaflet-control-scale {margin-left: 5px;}.leaflet-bottom .leaflet-control-scale {margin-bottom: 5px;}.leaflet-control-scale-line {border: 2px solid #777;border-top: none;line-height: 1.1;padding: 2px 5px 1px;white-space: nowrap;-moz-box-sizing: border-box;box-sizing: border-box;background: rgba(255, 255, 255, 0.8);text-shadow: 1px 1px #fff;}.leaflet-control-scale-line:not(:first-child) {border-top: 2px solid #777;border-bottom: none;margin-top: -2px;}.leaflet-control-scale-line:not(:first-child):not(:last-child) {border-bottom: 2px solid #777;}.leaflet-touch .leaflet-control-attribution,.leaflet-touch .leaflet-control-layers,.leaflet-touch .leaflet-bar {box-shadow: none;}.leaflet-touch .leaflet-control-layers,.leaflet-touch .leaflet-bar {border: 2px solid rgba(0,0,0,0.2);background-clip: padding-box;}.leaflet-popup {position: absolute;text-align: center;margin-bottom: 20px;}.leaflet-popup-content-wrapper {padding: 1px;text-align: left;border-radius: 12px;}.leaflet-popup-content {margin: 13px 24px 13px 20px;line-height: 1.3;font-size: 13px;font-size: 1.08333em;min-height: 1px;}.leaflet-popup-content p {margin: 17px 0;margin: 1.3em 0;}.leaflet-popup-tip-container {width: 40px;height: 20px;position: absolute;left: 50%;margin-top: -1px;margin-left: -20px;overflow: hidden;pointer-events: none;}.leaflet-popup-tip {width: 17px;height: 17px;padding: 1px;margin: -10px auto 0;pointer-events: auto;-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);transform: rotate(45deg);}.leaflet-popup-content-wrapper,.leaflet-popup-tip {background: white;color: #333;box-shadow: 0 3px 14px rgba(0,0,0,0.4);}.leaflet-container a.leaflet-popup-close-button {position: absolute;top: 0;right: 0;border: none;text-align: center;width: 24px;height: 24px;font: 16px/24px Tahoma, Verdana, sans-serif;color: #757575;text-decoration: none;background: transparent;}.leaflet-container a.leaflet-popup-close-button:hover,.leaflet-container a.leaflet-popup-close-button:focus {color: #585858;}.leaflet-popup-scrolled {overflow: auto;}.leaflet-oldie .leaflet-popup-content-wrapper {-ms-zoom: 1;}.leaflet-oldie .leaflet-popup-tip {width: 24px;margin: 0 auto;-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);}.leaflet-oldie .leaflet-control-zoom,.leaflet-oldie .leaflet-control-layers,.leaflet-oldie .leaflet-popup-content-wrapper,.leaflet-oldie .leaflet-popup-tip {border: 1px solid #999;}.leaflet-div-icon {background: #fff;border: 1px solid #666;}.leaflet-tooltip {position: absolute;padding: 6px;background-color: #fff;border: 1px solid #fff;border-radius: 3px;color: #222;white-space: nowrap;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;pointer-events: none;box-shadow: 0 1px 3px rgba(0,0,0,0.4);}.leaflet-tooltip.leaflet-interactive {cursor: pointer;pointer-events: auto;}.leaflet-tooltip-top:before,.leaflet-tooltip-bottom:before,.leaflet-tooltip-left:before,.leaflet-tooltip-right:before {position: absolute;pointer-events: none;border: 6px solid transparent;background: transparent;content: "";}.leaflet-tooltip-bottom {margin-top: 6px;}.leaflet-tooltip-top {margin-top: -6px;}.leaflet-tooltip-bottom:before,.leaflet-tooltip-top:before {left: 50%;margin-left: -6px;}.leaflet-tooltip-top:before {bottom: 0;margin-bottom: -12px;border-top-color: #fff;}.leaflet-tooltip-bottom:before {top: 0;margin-top: -12px;margin-left: -6px;border-bottom-color: #fff;}.leaflet-tooltip-left {margin-left: -6px;}.leaflet-tooltip-right {margin-left: 6px;}.leaflet-tooltip-left:before,.leaflet-tooltip-right:before {top: 50%;margin-top: -6px;}.leaflet-tooltip-left:before {right: 0;margin-right: -12px;border-left-color: #fff;}.leaflet-tooltip-right:before {left: 0;margin-left: -12px;border-right-color: #fff;}@media print {.leaflet-control {-webkit-print-color-adjust: exact;print-color-adjust: exact;}}
+</style>
+</head>
+<body>
+<div id="app">
+<aside id="panel">
+  <button id="toggle" type="button" aria-expanded="true">Hide controls</button>
+  <h1>Texas Transit Map</h1>
+  <p class="sub">The statewide plan at DFW Transit's spending rate, every line drawn, year by year.</p>
+  <div class="body">
+  <div class="nav"><a href="index.html">← The plan</a><a href="https://github.com/dgoodenough/texas-transit">Source</a><a href="https://dgoodenough.github.io/dfw-transit/map.html">DFW Transit's map</a></div>
+
+  <div class="year"><output id="yout">2100</output><span class="small" id="ynote">every funded line open</span></div>
+  <input id="year" type="range" min="2025" max="2100" step="1" value="2100" aria-label="Year">
+  <div class="row"><button data-y="2025">Today</button><button data-y="2040">2040</button><button data-y="2050">2050</button><button data-y="2075">2075</button><button data-y="2100">2100</button><button id="play" type="button">▶ Play</button></div>
+  <div class="seg" id="scen" role="group" aria-label="Scenario"><button data-key="ratio" aria-pressed="true">Best ratio first</button><button data-key="metros_first" aria-pressed="false">Metros first</button></div>
+  <label class="t"><input type="checkbox" id="later" checked> Show what's built later (faint)</label>
+
+  <h2>Intercity</h2>
+  <label class="t"><input type="checkbox" data-layer="hsr" checked><span class="sw" style="border-color:var(--hsr)"></span>High-speed rail</label>
+  <label class="t"><input type="checkbox" data-layer="hsr_unfunded" checked><span class="sw d" style="border-color:var(--hsr-later)"></span>High-speed corridors not reached by 2100</label>
+  <label class="t"><input type="checkbox" data-layer="conv" checked><span class="sw" style="border-color:var(--conv);border-top-width:3px"></span>Conventional trains (today's track)</label>
+  <label class="t"><input type="checkbox" data-layer="stations" checked><span class="dot"></span>Intercity stations</label>
+
+  <h2>In the metros</h2>
+  <label class="t"><input type="checkbox" data-mode="metro" checked><span class="sw" style="border-color:var(--metro)"></span>Metro / light rail</label>
+  <label class="t"><input type="checkbox" data-mode="brt" checked><span class="sw" style="border-color:var(--brt);border-top-width:3px"></span>Bus rapid transit</label>
+  <label class="t"><input type="checkbox" data-mode="commuter" checked><span class="sw" style="border-color:var(--rail);border-top-width:3px"></span>Regional / commuter rail</label>
+  <label class="t"><input type="checkbox" data-mode="streetcar" checked><span class="sw" style="border-color:var(--street);border-top-width:3px"></span>Streetcar</label>
+  <label class="t"><input type="checkbox" data-layer="existing" checked>Today's lines</label>
+  <label class="t"><input type="checkbox" data-layer="proposed" checked>New lines</label>
+  <label class="t"><input type="checkbox" data-layer="dfw" checked>Dallas-Fort Worth (DFW Transit's plan)</label>
+  <label class="t"><input type="checkbox" data-layer="others" checked>The other 24 metros</label>
+  <label class="t"><input type="checkbox" data-layer="labels" checked>Metro names</label>
+  <select id="jump" aria-label="Zoom to a metro"><option value="">Zoom to…</option><option value="state">The whole state</option></select>
+
+  <h2>In <span id="yname">2100</span></h2>
+  <dl id="stats"></dl>
+
+  <h2>Map</h2>
+  <div class="seg" id="base" role="group" aria-label="Basemap"><button data-b="light">Light</button><button data-b="streets">Streets</button><button data-b="dark">Dark</button><button data-b="none">None</button></div>
+  <p class="small">High-speed lines follow Texas Central's corridor (Dallas–Houston) and NCTCOG's I-30 alignment (Dallas–Fort Worth); the others are drawn along the highways they're named for. Conventional trains run on today's freight track, drawn station to station. Metro lines are the generator's routed corridors. Solid: open in the year shown; dashed: being built; faint: later.</p>
+  <p class="small" id="hsrnote"></p>
+  </div>
+</aside>
+<div id="map" role="region" aria-label="Map of the statewide plan"></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const fmt = n => Math.round(n).toLocaleString("en-US");
+const money = m => m >= 1000 ? "$" + (m / 1000).toFixed(1) + "B" : "$" + fmt(m) + "M";
+const MODE_VAR = {metro: "--metro", brt: "--brt", commuter: "--rail", streetcar: "--street"};
+const MODE_NAME = {metro: "Metro / light rail", brt: "Bus rapid transit", commuter: "Regional rail", streetcar: "Streetcar"};
+const WEIGHT = {hsr: 4.5, conv: 3, metro: 3, commuter: 2.6, brt: 2.2, streetcar: 2};
+const DFW_BUILD = {metro: 5, brt: 2, commuter: 4, streetcar: 3};   // DFW Transit's construction years by mode
+const km = (a, b) => Math.hypot((a[0] - b[0]) * 110.57, (a[1] - b[1]) * 111.32 * Math.cos((a[0] + b[0]) / 2 * Math.PI / 180));
+const len = pts => pts.reduce((s, p, i) => i ? s + km(pts[i - 1], p) : 0, 0);
+
+const panel = document.getElementById("panel");
+document.getElementById("toggle").addEventListener("click", e => {
+  const closed = panel.classList.toggle("closed");
+  e.target.textContent = closed ? "Show controls" : "Hide controls";
+  e.target.setAttribute("aria-expanded", String(!closed));
+  setTimeout(() => map.invalidateSize(), 50);
+});
+
+const map = L.map("map", {preferCanvas: true, zoomSnap: 0.5, minZoom: 5, maxZoom: 17}).setView([31.0, -99.0], 6);
+const renderer = L.canvas({tolerance: 6});
+const OSM = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+const BASES = {
+  light: () => L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {attribution: OSM + ' &copy; <a href="https://carto.com/attributions">CARTO</a>', subdomains: "abcd", maxZoom: 19}),
+  streets: () => L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {attribution: OSM, maxZoom: 19}),
+  dark: () => L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {attribution: OSM + ' &copy; <a href="https://carto.com/attributions">CARTO</a>', subdomains: "abcd", maxZoom: 19}),
+  none: () => null};
+let base = null;
+function setBase(b) {
+  if (base) map.removeLayer(base);
+  base = BASES[b]();
+  if (base) base.addTo(map);
+  document.querySelectorAll("#base button").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.b === b)));
+  try { localStorage.setItem("txmap-base", b); } catch (e) {}
+}
+let b0 = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+try { b0 = localStorage.getItem("txmap-base") || b0; } catch (e) {}
+setBase(b0);
+document.querySelectorAll("#base button").forEach(x => x.addEventListener("click", () => setBase(x.dataset.b)));
+
+Promise.all([fetch("data/state.json").then(r => r.json()), fetch("data/timeline.json").then(r => r.json())]).then(([S, T]) => {
+  const P = {}; T.projects.forEach(p => { P[p.id] = p; });
+  document.getElementById("hsrnote").textContent = "Drawn alignments run 7-10% shorter than the model's track (straight line between stations × 1.12): " +
+    S.hsr.map(h => `${h.id.slice(4)} ${h.km_map} vs ${h.km_model} km`).join(", ") + ".";
+  const feats = [];   // {kind, mode, metro, id, status, dfwYear, layer, len}
+  const add = (f, pts) => {
+    f.line = L.polyline(pts, {renderer, interactive: true, smoothFactor: 1});
+    f.len = len(pts);
+    f.line.bindPopup(() => popup(f), {maxWidth: 300});
+    feats.push(f);
+  };
+  S.hsr.forEach(h => add({kind: "hsr", mode: "hsr", id: h.id, h}, h.pts));
+  S.conv.forEach(c => add({kind: "conv", mode: "conv", id: c.id, c}, c.pts));
+  S.lines.forEach(l => add({kind: l.metro === "dfw" ? "dfw" : "urban", mode: l.mode, metro: l.metro, id: l.project, status: l.status,
+                            dfwYear: l.year, l}, l.pts));
+  const stations = S.stations.map(s => {
+    const m = L.circleMarker([s.lat, s.lon], {renderer, radius: s.kind === "major" ? 5.5 : 3.8, weight: 2, fillOpacity: 1});
+    m.bindTooltip(s.name + (s.hsr.length ? " · high-speed" : "") + (s.conv.length ? " · conventional" : ""), {direction: "top"});
+    return {s, m};
+  });
+  const names = {};
+  const labels = S.metros.map(m => {
+    const name = (T.projects.find(p => p.metro === m.id) || {}).metro_name || (m.id === "dfw" ? "Dallas-Fort Worth" :
+      m.id.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase()));
+    names[m.id] = name;
+    const short = m.id === "dfw" ? "Dallas-Fort Worth" : name.split("-")[0];
+    return L.tooltip({permanent: true, direction: "center", className: "mlabel", interactive: false, offset: [0, -14]}).setLatLng([m.lat, m.lon]).setContent(short);
+  });
+  const jump = document.getElementById("jump");
+  Object.entries(names).sort((a, b) => a[1].localeCompare(b[1])).forEach(([id, n]) => {
+    const o = document.createElement("option"); o.value = id; o.textContent = n; jump.appendChild(o);
+  });
+  jump.addEventListener("change", () => {
+    const v = jump.value;
+    if (v === "state") map.setView([31.0, -99.0], 6);
+    else if (v) map.fitBounds(L.featureGroup(feats.filter(f => f.metro === v).map(f => f.line)).getBounds(), {padding: [20, 20]});
+    jump.value = "";
+  });
+
+  let scen = "ratio", year = 2100;
+  const on = {}; document.querySelectorAll("[data-layer],[data-mode]").forEach(i => { on[i.dataset.layer || i.dataset.mode] = i.checked; });
+  const when = f => {   // [start, open] or null (never by 2100); today's lines open already
+    if (f.status === "existing") return [2025, 2025];
+    if (f.kind === "dfw") return f.dfwYear ? [f.dfwYear - (DFW_BUILD[f.mode] || 3), f.dfwYear] : null;
+    return T.scenarios[scen].when[f.id] || null;
+  };
+  const state = f => { const w = when(f); return !w ? "never" : w[1] <= year ? "open" : w[0] <= year ? "building" : "later"; };
+  const color = f => f.kind === "hsr" ? css("--hsr") : f.kind === "conv" ? css("--conv") : css(MODE_VAR[f.mode] || "--metro");
+  function visible(f, st) {
+    if (f.kind === "hsr") return st === "never" ? on.hsr_unfunded : on.hsr && (st !== "later" || on.later);
+    if (f.kind === "conv") return on.conv && st !== "never" && (st !== "later" || on.later);
+    if (!on[f.mode]) return false;
+    if (f.kind === "dfw" ? !on.dfw : !on.others) return false;
+    if (f.status === "existing" ? !on.existing : !on.proposed) return false;
+    return st !== "never" && (st !== "later" || on.later);
+  }
+  function draw() {
+    feats.forEach(f => {
+      const st = state(f), vis = visible(f, st);
+      if (!vis) { if (map.hasLayer(f.line)) map.removeLayer(f.line); return; }
+      const w = WEIGHT[f.mode] || 2;
+      let style;
+      if (st === "open") style = {color: color(f), weight: f.status === "existing" ? w * 0.75 : w, opacity: 0.95, dashArray: null};
+      else if (st === "building") style = {color: color(f), weight: w, opacity: 0.9, dashArray: "6 5"};
+      else if (st === "never") style = {color: css("--hsr-later"), weight: 3, opacity: 0.9, dashArray: "2 6"};
+      else style = {color: f.kind === "hsr" ? css("--hsr-later") : css("--later"), weight: Math.max(1.2, w * 0.6), opacity: 0.55, dashArray: "1 5"};
+      f.line.setStyle(style);
+      if (!map.hasLayer(f.line)) f.line.addTo(map);
+      if (st === "open" && (f.kind === "hsr" || f.kind === "conv")) f.line.bringToFront();
+    });
+    const ink = css("--ink"), surf = css("--surface");
+    stations.forEach(({s, m}) => {
+      const lines = [...s.hsr.map(c => feats.find(f => f.id === "hsr:" + c)), ...s.conv.map(c => feats.find(f => f.id === "conv:" + c))];
+      const open = lines.some(f => f && state(f) === "open");
+      const show = on.stations && lines.some(f => f && visible(f, state(f)));
+      if (!show) { if (map.hasLayer(m)) map.removeLayer(m); return; }
+      m.setStyle({color: open ? ink : css("--later"), fillColor: surf});
+      if (!map.hasLayer(m)) m.addTo(map);
+    });
+    labels.forEach(t => { const show = on.labels && map.getZoom() <= 9.5; if (show && !map.hasLayer(t)) t.addTo(map); if (!show && map.hasLayer(t)) map.removeLayer(t); });
+    stats();
+  }
+  function stats() {
+    const row = T.scenarios[scen].yearly.find(r => r.year === year) || T.scenarios[scen].yearly[0];
+    const kmOpen = k => feats.filter(f => (k(f)) && state(f) === "open" && f.status !== "existing").reduce((s, f) => s + f.len, 0);
+    const sumSpend = T.scenarios[scen].yearly.filter(r => r.year <= year).reduce((s, r) => s + r.spend + r.dfw_spend, 0);
+    const items = [
+      ["High-speed rail open", fmt(kmOpen(f => f.kind === "hsr")) + " km"],
+      ["Conventional routes open", feats.filter(f => f.kind === "conv" && state(f) === "open").length + " of " + S.conv.length],
+      ["New metro lines open (all metros)", fmt(kmOpen(f => f.kind === "urban" || f.kind === "dfw")) + " km"],
+      ["New daily metro transit trips", fmt((row.urban_trips_day || 0) + (row.dfw_trips_day || 0))],
+      ["Intercity rail trips a year", ((row.intercity_trips_year || 0) / 1e6).toFixed(1) + "M"],
+      ["Capital spent to date", money(sumSpend)]];
+    document.getElementById("stats").innerHTML = items.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("");
+    document.getElementById("yname").textContent = year;
+  }
+  function popup(f) {
+    const w = when(f), st = state(f);
+    const stTxt = !w ? "not reached by 2100 in this scenario" : f.status === "existing" ? "today's line" :
+      st === "open" ? `open since ${w[1]}` : st === "building" ? `being built, opens ${w[1]}` : `built ${w[0]}-${w[1]}`;
+    const p = P[f.id] || {};
+    let h = "";
+    if (f.kind === "hsr") {
+      h = `<b>${f.h.name}</b><br><span class="m">High-speed rail · ${stTxt}</span><br>${f.h.stations.join(" · ")}<br>`
+        + (p.capital ? `${money(p.capital)} · ${((p.trips_year || 0) / 1e6).toFixed(1)}M trips a year · ratio ${p.bcr.toFixed(2)}<br>` : "")
+        + `<span class="m">Drawn ${f.h.km_map} km (${f.h.source}); modelled ${f.h.km_model} km</span>`;
+    } else if (f.kind === "conv") {
+      h = `<b>${f.c.name}</b><br><span class="m">Conventional trains · ${stTxt}</span><br>${f.c.stations.join(" · ")}<br>`
+        + (p.capital ? `${money(p.capital)} · ${((p.trips_year || 0) / 1e6).toFixed(2)}M trips a year · ratio ${p.bcr.toFixed(2)}` : "");
+    } else {
+      h = `<b>${f.l.name}</b><br><span class="m">${MODE_NAME[f.mode] || f.mode} · ${names[f.metro] || f.metro} · ${stTxt}</span>`;
+      if (f.kind === "dfw" && f.status !== "existing") h += `<br><span class="m">DFW Transit's 2 million riders plan, on its own timetable</span>`;
+      if (p.capital) h += `<br>${money(p.capital)} · ${fmt(p.trips_day)} new daily trips (2050) · ratio ${p.bcr.toFixed(2)}`;
+    }
+    return `<div class="pop">${h}</div>`;
+  }
+  const yin = document.getElementById("year");
+  const setYear = y => {
+    year = +y; yin.value = year; document.getElementById("yout").textContent = year;
+    document.getElementById("ynote").textContent = year === 2025 ? "today" : year === 2100 ? "end of the plan" : "";
+    draw();
+  };
+  yin.addEventListener("input", () => setYear(yin.value));
+  document.querySelectorAll("[data-y]").forEach(b => b.addEventListener("click", () => setYear(b.dataset.y)));
+  let timer = null;
+  document.getElementById("play").addEventListener("click", e => {
+    if (timer) { clearInterval(timer); timer = null; e.target.textContent = "▶ Play"; return; }
+    if (year >= 2100) setYear(2025);
+    e.target.textContent = "❚❚ Pause";
+    timer = setInterval(() => { if (year >= 2100) { clearInterval(timer); timer = null; e.target.textContent = "▶ Play"; return; } setYear(year + 1); }, 180);
+  });
+  document.querySelectorAll("#scen button").forEach(b => b.addEventListener("click", () => {
+    scen = b.dataset.key;
+    document.querySelectorAll("#scen button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    draw();
+  }));
+  document.querySelectorAll("[data-layer],[data-mode]").forEach(i => i.addEventListener("change", () => { on[i.dataset.layer || i.dataset.mode] = i.checked; draw(); }));
+  document.getElementById("later").addEventListener("change", e => { on.later = e.target.checked; draw(); });
+  on.later = true;
+  map.on("zoomend", draw);
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
+  setYear(2100);
+}).catch(e => { document.getElementById("stats").textContent = "Could not load the map data: " + e; });
+</script>
+</body>
+</html>
