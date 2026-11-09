@@ -125,10 +125,15 @@ def main():
                      f"{('$' + format(r['capital'] / 1000, '.1f') + 'B') if r.get('capital') else ''} |")
     miss = [(m["name"].split(",")[0].split("-")[0], n) for m, _, a in rows for n, ok in a["anchors"] if not ok]
     L += ["", "**Anchors not served:** " + (", ".join(f"{n} ({c})" for c, n in miss) if miss else "none") + ".", "",
-          "What's not done: turn penalties in the road router (edge-based routing), and the full line-planning program "
-          "(choosing lines and frequencies together on a transfer-aware rider model, the mathematician's spec in "
-          "`study/cabinet/network.md`). The generator still builds lines one at a time from corridors between centers; "
-          "the changes here fix the worst of what that produces.", ""]
+          "Line planning (`vendor/dfw-transit/metro/lineplan.py`): after the full model prunes the greedy's pool, a "
+          "local search on the same model improves the network as a whole: it merges downtown stubs into through lines, "
+          "adds or swaps lines to reach unserved anchors, drops lines other lines make redundant, swaps a weak line for "
+          "a better version of its corridor and sets each line's headway, maximizing new daily trips less 1 trip per $M "
+          "of cost (the pruning's floor) less a penalty for each unserved anchor. Routes between centers also pass "
+          "anchors no center stands on (a campus beside downtown), and a corridor dense enough for metro where no "
+          "freeway or major arterial runs gets BRT on its street. The comparison above is against the networks before "
+          "the line planner when run with that folder. What's not done: turn penalties in the road router (edge-based "
+          "routing), and an exact integer program in place of the local search.", ""]
     with open(os.path.join(ROOT, "study", "router.md"), "w", encoding="utf-8") as fh:
         fh.write("\n".join(L))
     print("\n".join(L))
