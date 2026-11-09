@@ -376,18 +376,63 @@ def connections(plan, opens=None):
 
 
 # ---------------------------------------------------------------- schedule
+_POP = {}
+
+
+def growth_at(pr, year):
+    """A project's travel in `year` relative to its base year (the year its values were estimated):
+    its metro's model runs for an urban line (urban_trajectory), Texas's population for intercity
+    ones. Flat after 2100, the last year either reaches."""
+    y = min(year, 2100)
+    if pr.get("traj"):
+        return pr["traj"].get(y, pr["traj"][max(pr["traj"])])
+    if not _POP:
+        _POP.update(texas_pop())
+    return _POP[y] / _POP[pr["base_year"]]
+
+
+def uplift(pr):
+    """Mean travel over the 50 years from the year a project is valued from (`value_year`: its
+    opening year once scheduled, else its base year), discounted at 3%, relative to its base year:
+    the factor on its yearly benefits and fares in the ratio. Before Phase 1 the ratio held 2050's
+    travel for 50 years, so a line opening in 2090 was valued on 2050 Texas (study/cabinet/audit.md)."""
+    y0 = pr.get("value_year") or pr["base_year"]
+    return sum(growth_at(pr, y0 + t - 1) / 1.03 ** t for t in range(1, 51)) / PV_FACTOR   # as PV_FACTOR, end of year
+
+
 def ratio(pr):
-    """Benefit-cost ratio over 50 years at 3%: all benefits (travellers' gain, wider benefits,
-    agglomeration, plus any operating surplus) over capital plus the operating deficit (operating cost
-    minus fares). Land-tax bonds change who pays, not the ratio."""
-    margin = pr["fares"] - pr["opex"]
+    """Benefit-cost ratio over the 50 years from opening at 3%: all benefits (travellers' gain, wider
+    benefits, agglomeration, plus any operating surplus) over capital plus the operating deficit
+    (operating cost minus fares), benefits and fares growing with travel (uplift), operating cost
+    flat. Land-tax bonds change who pays, not the ratio."""
+    u = uplift(pr)
+    pr["uplift"] = u
+    margin = pr["fares"] * u - pr["opex"]
     pr["all_benefit"] = pr["benefit"] + pr.get("wider", 0.0) + pr.get("agglom", 0.0)
-    pr["net"] = pr["all_benefit"] + margin
-    pv_benefit = (pr["all_benefit"] + max(margin, 0.0)) * PV_FACTOR
+    pr["net"] = pr["all_benefit"] + pr["fares"] - pr["opex"]
+    pv_benefit = (pr["all_benefit"] * u + max(margin, 0.0)) * PV_FACTOR
     pv_cost = pr["capital"] + max(-margin, 0.0) * PV_FACTOR
     pr["bcr"] = pv_benefit / pv_cost if pv_cost > 0 else 0.0
-    pr["bcr_users"] = (pr["benefit"] + max(margin, 0.0)) * PV_FACTOR / pv_cost if pv_cost > 0 else 0.0
+    pr["bcr_users"] = (pr["benefit"] * u + max(margin, 0.0)) * PV_FACTOR / pv_cost if pv_cost > 0 else 0.0
     return pr["bcr"]
+
+
+def settle(projects, plan_fn, rounds=6):
+    """Run a scheduler until opening years settle: each project is valued from its opening year (or
+    2100 if it doesn't open by then), which can change the order, which changes the years. Returns
+    the last (built, spend)."""
+    for p in projects:
+        p["value_year"] = None
+    for _ in range(rounds):
+        built, spend = plan_fn(projects)
+        years = {p["id"]: p.get("open") or YEARS[-1] for p in projects}
+        if all(p.get("value_year") == years[p["id"]] for p in projects):
+            break
+        for p in projects:
+            p["value_year"] = years[p["id"]]
+    for p in projects:
+        ratio(p)
+    return built, spend
 
 
 def schedule(projects, budget, spend=None, order=None):
@@ -502,7 +547,7 @@ def main():
     runs = {}
     for key, _ in SCENARIOS:
         ps = copy.deepcopy(projects)
-        built, spend = schedule(ps, budget) if key == "ratio" else metros_first(ps, budget)
+        built, spend = settle(ps, (lambda q: schedule(q, budget)) if key == "ratio" else (lambda q: metros_first(q, budget)))
         rows = yearly(ps, spend, pop, dfw)
         for r in rows:
             r["net"] = r["benefit"] + r["wider"] + r["fares"] - r["opex"]

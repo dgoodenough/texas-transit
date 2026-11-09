@@ -1,6 +1,21 @@
 {
   "_doc": "Intercity mode choice (texas/intercity.py). Today's trips between NextGen zones (FHWA/ORNL NextGen NHTS 2022) are the base; each zone pair keeps its observed car/air split through pair-specific constants (a pivot-point nested logit), so the base reproduces today exactly. New modes (high-speed rail, later conventional rail) enter with their own time, cost and frequency and a constant relative to car, nested with air. No growth and no induced trips here: those are separate steps. Money is 2025 dollars. Values marked assumption are this study's, to be tested in the sensitivity runs.",
   "min_km": 80,
+  "growth_elasticity": 0.5,
+  "_growth_elasticity": "A pair's trips grow as (growth at one end x growth at the other) ^ this. 0.5 keeps trips per person constant when the whole state grows evenly; cross-sectional gravity fits are steeper (1.15 per end, study/interstate_rail.md), but they compare big cities with small ones at one time, not one city growing (study/hsr_buildout.md, Phase 1). Tested at 0.8.",
+  "income_growth_per_year": 0.0,
+  "_income_growth": "Long-distance trips per person grow this much a year from 2022 (real income; off by default: the plan's travel grows with population only).",
+  "border_twins": {
+    "factor": 0.3,
+    "cities": {"21340_TX": ["Ciudad Juarez", 1512450], "29700_TX": ["Nuevo Laredo", 425058], "32580_TX": ["Reynosa", 704767], "15180_TX": ["Matamoros", 541979]},
+    "_doc": "Mexican twin cities' residents travel into Texas too, and the NHTS (US residents) can't see them: each border zone's trips to the rest of Texas grow by factor x twin-city people / the zone's people. factor 0.3 is the study's own Monterrey border factor (study/interstate_rail.py: a Mexican resident makes 30% as many trips to Texas as a Texan at the same distance); 0 turns it off. INEGI 2020 municipal populations."
+  },
+  "policy": {
+    "car_toll_per_vkm": 0.0,
+    "air_surcharge": 0.0,
+    "air_ban_rail_minutes": 0,
+    "_doc": "Pricing the competing modes (off by default; study/cabinet/landuse.md): a road charge per vehicle-km on top of the car's operating cost (a VMT fee or tolls), a charge per air trip, and no flights on a pair where rail's ride is shorter than air_ban_rail_minutes (0: no ban; France bans flights under 2.5 hours by rail). The no-rail world faces the same charges, so travellers' gain is measured against it; a ban applies only once rail runs, and air travellers' loss is netted out."
+  },
   "_min_km": "Zone pairs whose centres are closer than this are left out (metro-scale trips, the urban layer's job).",
   "purposes": {
     "work": {
@@ -23,11 +38,11 @@
   "nest_public_scale": 0.6,
   "_nest": "Air and rail sit in one nest (public modes) with this scale: 1 is a plain logit; smaller makes them closer substitutes, so new rail draws more from air than from car. Assumption: 0.4-0.8 is the usual range for intercity nests; tested at 0.4 and 1.0.",
   "car": {
-    "circuity": 1.2,
+    "circuity": 1.1,
     "speed_kmh": 100,
     "terminal_min": 15,
     "cost_per_vehicle_km": 0.12,
-    "_doc": "Road km = straight-line km x circuity; average door-to-door speed including the urban ends (assumption); marginal operating cost per vehicle-km (fuel, wear; AAA-style marginal cost, assumption), split among the occupants; terminal minutes for parking and walking."
+    "_doc": "Road km = straight-line km x circuity; average door-to-door speed including the urban ends (assumption); marginal operating cost per vehicle-km (fuel, wear; AAA-style marginal cost, assumption), split among the occupants; terminal minutes for parking and walking. Circuity 1.1 (was 1.2): Texas's interstates between the big metros run 1.04-1.08 times the straight line (I-45 Dallas-Houston about 386 km for 362, I-35 Austin-San Antonio 128 for 118, I-10 Houston-San Antonio 317 for 304), with the urban ends on top; at 1.2 Dallas-Houston took 4.5 hours, against about 3.75 downtown to downtown (study/cabinet/audit.md)."
   },
   "air": {
     "block_min_fixed": 35,
@@ -44,17 +59,23 @@
     "_doc": "Flight (gate-to-gate) minutes = fixed + km / km-per-minute; airport access and egress; terminal minutes for check-in, security and boarding; schedule delay = a quarter of the service day / daily departures each way, capped (departures from the market's passengers / seats x load factor). Fares: the market's average from the airline ticket sample where it has one, else fixed + per km (assumption). All assumption-grade defaults to be checked against today's air share by distance."
   },
   "hsr": {
-    "access_min": 25,
-    "egress_min": 20,
+    "access_min": 10,
+    "egress_min": 10,
     "terminal_min": 15,
     "headway_min": 30,
     "max_wait_min": 30,
     "fare_fixed": 15,
     "fare_per_km": 0.2,
-    "asc_vs_car": -0.5,
+    "asc_vs_car": 0.421,
+    "asc_range": [
+      0.292,
+      2.053
+    ],
     "speed_kmh": 260,
     "stop_min": 3,
-    "_doc": "Station access and egress minutes (driving or local transit to a downtown or airport station); terminal minutes (boarding, no security queue); half the headway is the wait, capped; fare fixed + per km of track. Average speed between stops (Texas Central planned about 90 minutes Dallas-Houston for 240 miles with one stop). Constant relative to car: assumption, tested at 0 and -1.0.",
+    "_doc": "Station access and egress minutes: curb to platform and back (parking or drop-off, walking in); the drive from each county to its station is counted separately (RailNetwork.odds, at local_kmh), so these were 25 and 20 until the Phase 1 audit found the drive counted twice (study/cabinet/audit.md); terminal minutes (boarding, no security queue); half the headway is the wait, capped; fare fixed + per km of track. Average speed between stops (Texas Central planned about 90 minutes Dallas-Houston for 240 miles with one stop). Constant relative to car (asc_vs_car): fitted by study/calibrate_hsr.py to Brightline's Miami-Orlando riders (2024), the car-dependent American comparable; asc_range runs from Brightline's low to the Northeast Corridor's high (Amtrak's air-rail market shares). Was an assumption, -0.5.",
+    "transfer_min": 10,
+    "_transfer": "Out-of-vehicle minutes for changing trains, on a trip no single service pattern serves (only when a network is given service patterns; without them every pair is a one-seat ride). Assumption: a cross-platform change plus the risk of a missed connection.",
     "induced_share": 0.1,
     "_induced": "New trips rail itself generates (travel that wouldn't happen without it), as a share of the trips it takes from car and air. Assumption: HSR studies typically find 5-20%; tested at 0 and 0.2."
   },
@@ -65,13 +86,13 @@
     "service_hours": 18,
     "trains_per_day": 1,
     "headway_min": 1080,
-    "wait_share": 0.0753,
+    "wait_share": 0.0752,
     "max_wait_min": 240,
     "fare_fixed": 10,
     "fare_per_km": 0.08,
     "speed_kmh": 90,
     "stop_min": 3,
-    "asc_vs_car": -1.7353,
+    "asc_vs_car": -1.5626,
     "induced_share": 0.05,
     "min_km": 150,
     "_doc": "Conventional intercity trains on upgraded freight track (79 mph top speed): a few trains a day, so the headway is service_hours x 60 / trains_per_day each way and the wait is wait_share of it (people plan around a timetable), capped at max_wait_min. wait_share and asc_vs_car are fitted by study/interstate_rail.py: four trains a day carry 4^0.7 times one train's riders (frequency elasticity 0.7, assumption), and the Heartland Flyer as run today (one train a day each way) carries Amtrak's FY2024 riders. Speed between stops from the Heartland Flyer (Fort Worth - Oklahoma City, 330 km in about 4 hours with 6 stops). Fare from its FY2024 revenue per rider (about $2.2M / 80,000 = $27 for a typical 200-300 km trip). Induced trips are an assumption, half of high-speed rail's. min_km: county pairs closer than this don't use these trains (with a train or two a day, the wait outweighs the ride on short trips; without it the model's busiest Heartland Flyer pair is Dallas - Sherman, 93 km)."
