@@ -1,2 +1,2 @@
 line_id,name,mode,status,color,headway_min,notes
-G01,Brook / 11th Street - Langford Lane BRT,brt,proposed,#8e24aa,,"generated (R001): 3,681 per route-km >= BRT 3,000 (< metro 7,000); full model: 1,060 new daily trips in 2050 (2.11 per $M incl. opex; 1,060 lost without it, 1,060 alone); sketch: 658 new daily trips for $0.36B capital (1.31 per $M incl. opex)"
+G01,Brook / 11th Street - Langford Lane BRT,brt,proposed,#8e24aa,6,"generated (R001): 3,681 per route-km >= BRT 3,000 (< metro 7,000); full model: 1,060 new daily trips in 2050 (2.11 per $M incl. opex; 1,060 lost without it, 1,060 alone); sketch: 658 new daily trips for $0.36B capital (1.31 per $M incl. opex)"

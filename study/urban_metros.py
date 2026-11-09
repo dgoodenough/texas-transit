@@ -38,6 +38,12 @@ import csv  # noqa: E402
 from dfwt import config  # noqa: E402
 
 FUTURE = (2050, 2100)   # model years with every line open, the metro's own growth and the land-use package
+# The line planner's exchange rate (vendor/dfw-transit/metro/lineplan.py): a change to a metro's network must
+# carry this many new daily trips per $M of capital + 20 years' operating cost. In this plan's valuation
+# (study/timing.py) a line's ratio is about 0.15 x its trips per $M, so 2.5 is a ratio of about 0.37: the ratio
+# of the last projects the statewide queue reaches. At the generator's own floor (1, a ratio of about 0.15) the
+# planner bought riders, mostly with frequency, that the statewide queue then wouldn't fund.
+PLAN_FLOOR = 2.5
 # The 2 million plan's station-area land use (DFW Transit scenarios/two_million/config.json growth): stronger
 # development near new stations, today's stations upzoned from 2030, and a fifth of growth steered to station
 # areas. It changes nothing on today's land use (the ramps start after 2025).
@@ -179,7 +185,7 @@ def generate(ids=None):
         out = os.path.join(HOME, "generated", m["id"])
         try:
             r = gen.generate(m["id"], budget_musd=m["budget_musd"], out=out, policies=policies(m), future_years=FUTURE,
-                             full_model=True)
+                             full_model=True, override={"selection": {"plan": {"floor": PLAN_FLOOR}}})
         except (Exception, SystemExit) as e:   # one metro failing doesn't stop the rest
             import traceback; traceback.print_exc(); print(f"{m['id']}: FAILED {type(e).__name__}: {e}")
             os.makedirs(out, exist_ok=True)

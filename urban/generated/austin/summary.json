@@ -5,19 +5,19 @@
  "pop": 2283371.0,
  "jobs": 1303090.0,
  "budget_musd": 52737,
- "capital_musd": 46760.669098681836,
- "opex_new_musd": 993.26847690027,
- "lines": 27,
+ "capital_musd": 48183.719514533135,
+ "opex_new_musd": 1001.3322912384324,
+ "lines": 28,
  "by_mode": {
   "commuter": {
    "lines": 5,
-   "km": 199.45022727157163,
-   "capital_musd": 9743.163475238147
+   "km": 190.33581400709303,
+   "capital_musd": 9525.002629610313
   },
   "brt": {
-   "lines": 17,
-   "km": 386.7967218537762,
-   "capital_musd": 13147.879170239647
+   "lines": 18,
+   "km": 404.74883637485544,
+   "capital_musd": 13758.442605872026
   },
   "metro": {
    "lines": 5,
@@ -25,41 +25,41 @@
    "capital_musd": 38353.368010520004
   }
  },
- "stations_new": 294,
+ "stations_new": 304,
  "existing_lines": 1,
- "pop_800m": 0.26116561872774946,
+ "pop_800m": 0.2650962108216317,
  "pop_800m_today": 0.014525891762661433,
  "trips_today": 29899.2339120007,
- "trips": 265671.051404532,
- "boardings": 315702.9522051385,
- "jobs_45": 122593.97436948202,
+ "trips": 264300.2440149256,
+ "boardings": 314540.61533967353,
+ "jobs_45": 122840.5713032857,
  "jobs_45_today": 7749.742393050376,
  "asc": 0.6842,
  "asc_note": "set from the registry (asc +0.684; DFW +0.430): DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 1.06% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py); with a policy package on top (growth.tod, growth.capture, access.feeder, access.micromobility, access.kiss_ride, access.walk_max_m, access.walk_circuity, access.pnr_min_km, access.pnr_suburban, ridership.parking_policy)",
- "minutes": 10.525164373715718,
- "feeder_boardings": 83819.50551545662,
+ "minutes": 9.845781636238097,
+ "feeder_boardings": 83196.09326838808,
  "feeder_boardings_today": 19500.201839282778,
- "feeder_opex_musd": 115.77474661711292,
+ "feeder_opex_musd": 114.65260457238955,
  "commutes": 927913.1920262427,
- "share": 0.07534480076468485,
+ "share": 0.07495603725766885,
  "future": {
   "2050": {
-   "trips": 657027.4579143067,
+   "trips": 655327.7220651517,
    "trips_today_lines": 67874.52487241161,
-   "pop": 4637757.165261496,
-   "jobs": 2457027.3802146683,
-   "share": 0.09882276244020441,
-   "share_today_lines": 0.010208931097797311,
-   "feeder_opex_musd": 303.1695060666488
+   "pop": 4637958.487423677,
+   "jobs": 2456403.8118027374,
+   "share": 0.0985921287526728,
+   "share_today_lines": 0.010211522677781668,
+   "feeder_opex_musd": 300.64085629639413
   },
   "2100": {
-   "trips": 1421667.7600989763,
+   "trips": 1419419.0760430763,
    "trips_today_lines": 133951.0382580709,
-   "pop": 8673057.613970514,
-   "jobs": 4595455.773025997,
-   "share": 0.11432810111719888,
-   "share_today_lines": 0.010772114467628022,
-   "feeder_opex_musd": 714.64255969608
+   "pop": 8673437.611141736,
+   "jobs": 4594278.797427116,
+   "share": 0.11417650834934126,
+   "share_today_lines": 0.010774874098994724,
+   "feeder_opex_musd": 706.7409144053946
   }
  }
 }
