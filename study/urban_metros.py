@@ -181,7 +181,7 @@ def generate(ids=None):
             r = gen.generate(m["id"], budget_musd=m["budget_musd"], out=out, policies=policies(m), future_years=FUTURE,
                              full_model=True)
         except (Exception, SystemExit) as e:   # one metro failing doesn't stop the rest
-            print(f"{m['id']}: FAILED {type(e).__name__}: {e}")
+            import traceback; traceback.print_exc(); print(f"{m['id']}: FAILED {type(e).__name__}: {e}")
             os.makedirs(out, exist_ok=True)
             with open(os.path.join(out, "summary.json"), "w", encoding="utf-8") as f:
                 json.dump({"id": m["id"], "failed": f"{type(e).__name__}: {e}"}, f, indent=1)
