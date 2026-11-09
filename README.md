@@ -90,11 +90,10 @@ high-speed rail versus metro systems is an output, not an input.
    capital plus the operating deficit, across 50 years at 3%. Land tax near new urban stations (a
    Tax Increment Reinvestment Zone plus a Public Improvement District, borrowed against when a line
    opens) pays about 6% of the urban lines' capital. Projects go best ratio first and the budget
-   is spent whether or not a ratio reaches 1. By 2100 (current figures in `study/timing.md`): 9 of
-   16 high-speed corridors (the network redrawn in Phase 2), 123 of 168 metro lines and DFW's
-   plan; about 4.8M new daily metro transit trips (1.7M in DFW) and 89M intercity rail trips a year.
-   A third scenario, **the whole map**, builds every high-speed corridor by 2066 with cheaper
-   delivery and a ring-fenced Connectivity Program (`study/hsr_buildout.md`).
+   is spent whether or not a ratio reaches 1 (the figures by 2100 are in `study/timing.md`, and the
+   three scenarios side by side in `study/hsr_buildout.md`, "Where the plan stands"). A third
+   scenario, **the whole map**, builds every high-speed corridor by 2100 with cheaper delivery and
+   a ring-fenced Connectivity Program (`study/hsr_buildout.md`).
    The high-speed stations meet DFW's network on foot: Dallas beside Union Station, Fort Worth at
    Fort Worth Central. A second scenario, **metros first**, gives each metro its own budget stream
    and builds the metros decades sooner. The site (`docs/`, published with GitHub Pages) has the
@@ -123,14 +122,15 @@ high-speed rail versus metro systems is an output, not an input.
 
 ## What it would take to build every high-speed corridor
 
-`study/hsr_buildout.md`: a cabinet session (five memos in `study/cabinet/`: finance, infrastructure costs, land use and demand, network design and the line router, and an audit of the model) on getting Brownsville, Laredo, Lubbock and Amarillo, El Paso and Oklahoma City built by 2100, and a phased plan of work for the people who would implement it.
+`study/hsr_buildout.md`: a cabinet session (five memos in `study/cabinet/`: finance, infrastructure costs, land use and demand, network design and the line router, and an audit of the model) on getting Brownsville, Laredo, Lubbock and Amarillo, El Paso and Oklahoma City built by 2100, and a phased plan of work for the people who would implement it. Its opening section, "Where the plan stands", is generated from the model (`python study/plan_record.py`, after `python study/timing.py`): the three schedules, the branches, what each lever is worth, the Auditor's review and the metros' networks. `python study/decade_review.py` applies the Auditor's gates decade by decade (`study/decade_review.md`; observed riders, once there are any, go in `data/observed/ridership.csv`), and `python study/router.py` measures how the generated metro networks read to a rider (`study/router.md`).
 
 ## The site
 
 `docs/` is the website, served by GitHub Pages (Settings, Pages: deploy from the `main` branch,
 `/docs` folder): `index.html` (the plan by year) and `map.html` (the statewide map). Rebuild its
 data after a model run with `python study/timing.py`, `python tools/build_site.py`,
-`python tools/build_metro_maps.py` and `python tools/build_state_map.py`.
+`python tools/build_metro_maps.py` and `python tools/build_state_map.py`, then regenerate the plan's
+record with `python study/decade_review.py` and `python study/plan_record.py`.
 
 ## Reusing DFW Transit's code
 
