@@ -21,8 +21,9 @@ Writes study/timing.md and docs/data/timeline.json (the site's data).
    Fares and operating cost (urban fares URBAN_FARE a trip; urban operating cost includes the feeder buses
    the network adds, at DFW Transit's $ per feeder boarding). Benefit-cost ratio over 50 years at
    3% (PV_FACTOR): travellers' gain (plus any operating surplus) over capital plus the operating
-   deficit. Ratios are on 2050 travel. Intercity values grow with Texas's population from 2050
-   (tools/build_growth.py); urban ones follow each metro's own model runs in 2026, 2050 and 2100
+   deficit, valued over the 50 years from each project's opening, with travel growing: intercity
+   projects modelled at 2030, 2050, 2075 and 2100 travel (each county's trend, tools/build_growth.py);
+   urban ones follow each metro's own model runs in 2026, 2050 and 2100
    (its growth and the 2 million plan's station-area land use; study/urban_metros.py).
 3. Schedule. Dallas-Fort Worth keeps DFW Transit's $2.3B a year (its own plan and timetable); the rest
    of the $9.0B a year goes to the other projects, best ratio first (a project opens no earlier than the
@@ -224,7 +225,7 @@ def urban_projects():
     return out
 
 
-def hsr_projects(log=print, asc=None):
+def hsr_projects(log=print, asc=None, year=HSR_YEAR):
     order = []
     names = {v[0]: k for k, v in hsr.CORRIDORS.items()}
     with open(os.path.join(ROOT, "study", "hsr_options.md"), encoding="utf-8") as f:
@@ -238,13 +239,13 @@ def hsr_projects(log=print, asc=None):
     zones = ic.load_zones()
     base = ic.base_trips(zones, p)
     tx = {k: v for k, v in base.items() if "TX" in (zones[k[0]]["state"], zones[k[1]]["state"])}
-    growth = ic.zone_growth(zones, HSR_YEAR)
+    growth = ic.zone_growth(zones, year)
     prev = {"rail": 0.0, "benefit": 0.0, "fares": 0.0, "air": 0.0, "flights": 0.0, "vkm": 0.0, "pkm": 0.0}
     out = []
     for i, cid in enumerate(order):
         built = order[:i + 1]
         net = ic.RailNetwork({s: hsr.point(s) for s in hsr.stations_of(built)}, hsr.network_links(built), p["hsr"])
-        res = ic.run(tx, zones, p, net, growth)
+        res = ic.run(tx, zones, p, net, growth, year=year)
         tot = {"rail": sum(r["new"]["rail"] + r["new"]["induced"] for r in res.values()),
                "benefit": sum(r["benefit_usd"] for r in res.values()),
                "air": sum(r["base"]["air"] - r["new"]["air"] for r in res.values()),
@@ -272,13 +273,13 @@ def hsr_projects(log=print, asc=None):
     return out
 
 
-def conventional_projects(log=print):
+def conventional_projects(log=print, year=HSR_YEAR):
     p = ic.load_params()
     zones = ic.load_zones()
     base = ic.base_trips(zones, p)
     tx = {k: v for k, v in base.items() if "TX" in (zones[k[0]]["state"], zones[k[1]]["state"])}
     trips, _, _ = ir.add_monterrey(tx, zones, p, ir.BORDER_FACTOR)
-    growth = ic.zone_growth({k: v for k, v in zones.items() if k != "MTY"}, HSR_YEAR)
+    growth = ic.zone_growth({k: v for k, v in zones.items() if k != "MTY"}, year)
     growth["MTY"] = growth["41700_TX"]
     out = []
 
@@ -305,6 +306,37 @@ def conventional_projects(log=print):
         if log:
             log(f"  conventional {cid}: +{rail * 365 / 1e6:.2f}M trips, ${ben * 365 / 1e6:,.0f}M benefit a year")
     return out
+
+
+TRAVEL_YEARS = (2030, 2050, 2075, 2100)   # intercity travel years modelled (zone_growth has each county's trend)
+
+
+def with_trajectories(make, log=print):
+    """Intercity projects from `make(year=...)` at HSR_YEAR, each with its own travel trajectory
+    (traj: {year: value / value at HSR_YEAR}) from the same projects modelled at TRAVEL_YEARS, linear
+    between them, flat before the first and after the last. Before, every intercity project was scaled
+    from 2050 by Texas's population, so a corridor to a fast-growing metro grew like one to a slow one."""
+    runs = {y: make(log=log if y == HSR_YEAR else None, year=y) for y in TRAVEL_YEARS}
+    base = runs[HSR_YEAR]
+    for i, pr in enumerate(base):
+        def val(q):
+            return q["benefit"] + q.get("wider", 0.0) + q.get("agglom", 0.0)
+        b0 = val(pr)
+        pts = {y: (val(runs[y][i]) / b0 if b0 > 0 else 1.0) for y in TRAVEL_YEARS}
+        ks = sorted(pts)
+        traj = {}
+        for y in range(2025, 2101):
+            if y <= ks[0]:
+                traj[y] = pts[ks[0]]
+            elif y >= ks[-1]:
+                traj[y] = pts[ks[-1]]
+            else:
+                lo = max(k for k in ks if k <= y)
+                hi = min(k for k in ks if k >= y)
+                traj[y] = pts[lo] if lo == hi else pts[lo] + (pts[hi] - pts[lo]) * (y - lo) / (hi - lo)
+        pr["traj"] = traj
+        pr["travel_points"] = {str(y): round(v, 3) for y, v in pts.items()}
+    return base
 
 
 # ---------------------------------------------------------------- Dallas-Fort Worth
@@ -582,6 +614,7 @@ def asc_sensitivity(projects, log=print):
         log(f"  high-speed rail at constant {end:+.2f} ...")
         for q in hsr_projects(log=None, asc=end):
             q["value_year"] = by[q["id"]].get("value_year")
+            q["traj"] = by[q["id"]].get("traj")   # the central run's travel trajectory
             out.setdefault(q["id"], []).append(ratio(q))
     return out
 
@@ -589,7 +622,7 @@ def asc_sensitivity(projects, log=print):
 def main():
     pop = texas_pop()
     print("projects ...")
-    projects = urban_projects() + hsr_projects() + conventional_projects()
+    projects = urban_projects() + with_trajectories(hsr_projects) + with_trajectories(conventional_projects)
     dfw, plan, dfw_tax_year = dfw_layer()
     budget = other_budget(dfw)
     runs = {}
@@ -722,8 +755,10 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
     last = rows[-1]
     cap_all = sum(p["capital"] for p in built)
     draw = sum(p["capital"] - p.get("bond", 0) for p in built)
-    L += ["", "Gains and costs a year are at full build (2050 travel, with each metro's own growth and station-area land use "
-          "for the metros; DFW's at 2100); the ratios value each project from its own opening year. ", "",
+    L += ["", "Gains and costs a year in this table are a snapshot of each project at 2050 travel (with each metro's own "
+          "growth and station-area land use; DFW's at 2100), a reporting convention like a dollar year. The ratios value "
+          "each project over its own 50 years from opening, with its own travel growth (intercity projects modelled at "
+          "2030, 2050, 2075 and 2100 travel). ", "",
           f"**By 2100, statewide:** outside DFW {money(cap_all)} built ({money(cap_all - draw)} of it paid by land-tax bonds) of "
           f"{money(avail)} available, {money(avail - draw)} unspent; {last['urban_trips_day'] + last['dfw_trips_day']:,.0f} new "
           f"daily metro transit trips ({last['dfw_trips_day']:,.0f} in DFW), {last['intercity_trips_year'] / 1e6:.0f}M intercity "
