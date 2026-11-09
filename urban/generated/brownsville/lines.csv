@@ -1,2 +1,3 @@
 line_id,name,mode,status,color,headway_min,notes
-G01,International / Cleveland - Dennett Road BRT,brt,proposed,#8e24aa,,"generated (R001): 4,856 per route-km >= BRT 3,000 (< metro 7,000); full model: 2,306 new daily trips in 2050 (4.20 per $M incl. opex; 2,306 lost without it, 2,306 alone); sketch: 1,172 new daily trips for $0.39B capital (2.13 per $M incl. opex)"
+G01,International / Cleveland - Dennett Road BRT,brt,proposed,#8e24aa,6,"generated (R001): 4,856 per route-km >= BRT 3,000 (< metro 7,000); full model: 2,306 new daily trips in 2050 (4.20 per $M incl. opex; 2,306 lost without it, 2,306 alone); sketch: 1,172 new daily trips for $0.39B capital (2.13 per $M incl. opex)"
+G02,Van Buren / 6th Street - Robertson / Sam Houston BRT,brt,proposed,#00897b,6,"generated (R004): 4,274 per route-km >= BRT 3,000 (< metro 7,000); line planning: add R004; R004 every 6 min (was 8); sketch: no station within 650 m of the network (an island)"
