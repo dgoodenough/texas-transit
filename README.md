@@ -119,6 +119,10 @@ high-speed rail versus metro systems is an output, not an input.
    off shared trunks. In 2100 Houston reaches 7.7% of commutes by transit, San Antonio 9.0%,
    Austin 10.3% and El Paso 6.5%, against DFW's 7.3% under its own plan.
 
+## What it would take to build every high-speed corridor
+
+`study/hsr_buildout.md`: a cabinet session (five memos in `study/cabinet/`: finance, infrastructure costs, land use and demand, network design and the line router, and an audit of the model) on getting Brownsville, Laredo, Lubbock and Amarillo, El Paso and Oklahoma City built by 2100, and a phased plan of work for the people who would implement it.
+
 ## The site
 
 `docs/` is the website, served by GitHub Pages (Settings, Pages: deploy from the `main` branch,
