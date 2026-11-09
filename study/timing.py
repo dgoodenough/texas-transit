@@ -224,7 +224,7 @@ def urban_projects():
     return out
 
 
-def hsr_projects(log=print):
+def hsr_projects(log=print, asc=None):
     order = []
     names = {v[0]: k for k, v in hsr.CORRIDORS.items()}
     with open(os.path.join(ROOT, "study", "hsr_options.md"), encoding="utf-8") as f:
@@ -233,6 +233,8 @@ def hsr_projects(log=print):
             if len(c) == 9 and c[0].isdigit() and c[1] in names:
                 order.append(names[c[1]])
     p = ic.load_params()
+    if asc is not None:   # a sensitivity run at another constant against car
+        p["hsr"]["asc_vs_car"] = asc
     zones = ic.load_zones()
     base = ic.base_trips(zones, p)
     tx = {k: v for k, v in base.items() if "TX" in (zones[k[0]]["state"], zones[k[1]]["state"])}
@@ -376,18 +378,63 @@ def connections(plan, opens=None):
 
 
 # ---------------------------------------------------------------- schedule
+_POP = {}
+
+
+def growth_at(pr, year):
+    """A project's travel in `year` relative to its base year (the year its values were estimated):
+    its metro's model runs for an urban line (urban_trajectory), Texas's population for intercity
+    ones. Flat after 2100, the last year either reaches."""
+    y = min(year, 2100)
+    if pr.get("traj"):
+        return pr["traj"].get(y, pr["traj"][max(pr["traj"])])
+    if not _POP:
+        _POP.update(texas_pop())
+    return _POP[y] / _POP[pr["base_year"]]
+
+
+def uplift(pr):
+    """Mean travel over the 50 years from the year a project is valued from (`value_year`: its
+    opening year once scheduled, else its base year), discounted at 3%, relative to its base year:
+    the factor on its yearly benefits and fares in the ratio. Before Phase 1 the ratio held 2050's
+    travel for 50 years, so a line opening in 2090 was valued on 2050 Texas (study/cabinet/audit.md)."""
+    y0 = pr.get("value_year") or pr["base_year"]
+    return sum(growth_at(pr, y0 + t - 1) / 1.03 ** t for t in range(1, 51)) / PV_FACTOR   # as PV_FACTOR, end of year
+
+
 def ratio(pr):
-    """Benefit-cost ratio over 50 years at 3%: all benefits (travellers' gain, wider benefits,
-    agglomeration, plus any operating surplus) over capital plus the operating deficit (operating cost
-    minus fares). Land-tax bonds change who pays, not the ratio."""
-    margin = pr["fares"] - pr["opex"]
+    """Benefit-cost ratio over the 50 years from opening at 3%: all benefits (travellers' gain, wider
+    benefits, agglomeration, plus any operating surplus) over capital plus the operating deficit
+    (operating cost minus fares), benefits and fares growing with travel (uplift), operating cost
+    flat. Land-tax bonds change who pays, not the ratio."""
+    u = uplift(pr)
+    pr["uplift"] = u
+    margin = pr["fares"] * u - pr["opex"]
     pr["all_benefit"] = pr["benefit"] + pr.get("wider", 0.0) + pr.get("agglom", 0.0)
-    pr["net"] = pr["all_benefit"] + margin
-    pv_benefit = (pr["all_benefit"] + max(margin, 0.0)) * PV_FACTOR
+    pr["net"] = pr["all_benefit"] + pr["fares"] - pr["opex"]
+    pv_benefit = (pr["all_benefit"] * u + max(margin, 0.0)) * PV_FACTOR
     pv_cost = pr["capital"] + max(-margin, 0.0) * PV_FACTOR
     pr["bcr"] = pv_benefit / pv_cost if pv_cost > 0 else 0.0
-    pr["bcr_users"] = (pr["benefit"] + max(margin, 0.0)) * PV_FACTOR / pv_cost if pv_cost > 0 else 0.0
+    pr["bcr_users"] = (pr["benefit"] * u + max(margin, 0.0)) * PV_FACTOR / pv_cost if pv_cost > 0 else 0.0
     return pr["bcr"]
+
+
+def settle(projects, plan_fn, rounds=6):
+    """Run a scheduler until opening years settle: each project is valued from its opening year (or
+    2100 if it doesn't open by then), which can change the order, which changes the years. Returns
+    the last (built, spend)."""
+    for p in projects:
+        p["value_year"] = None
+    for _ in range(rounds):
+        built, spend = plan_fn(projects)
+        years = {p["id"]: p.get("open") or YEARS[-1] for p in projects}
+        if all(p.get("value_year") == years[p["id"]] for p in projects):
+            break
+        for p in projects:
+            p["value_year"] = years[p["id"]]
+    for p in projects:
+        ratio(p)
+    return built, spend
 
 
 def schedule(projects, budget, spend=None, order=None):
@@ -493,6 +540,52 @@ def pv(rows, key):
     return sum(r[key] / 1.03 ** (r["year"] - YEARS[0]) for r in rows)
 
 
+RISK_DRAWS, RISK_SEED = 4000, 2026
+RISK_SIGMA = {"cost": 0.26, "riders": 0.40}
+STRESS = {"cost": 1.45, "riders": 0.70}
+
+
+def ratio_at(pr, cost=1.0, riders=1.0):
+    """A project's ratio with its capital times `cost` and its riders (benefits and fares) times
+    `riders`, valued as ratio() from the same year."""
+    u = pr.get("uplift") or uplift(pr)
+    margin = pr["fares"] * u * riders - pr["opex"]
+    ben = (pr["benefit"] + pr.get("wider", 0.0) + pr.get("agglom", 0.0)) * u * riders
+    cost_pv = pr["capital"] * cost + max(-margin, 0.0) * PV_FACTOR
+    return (ben + max(margin, 0.0)) * PV_FACTOR / cost_pv if cost_pv > 0 else 0.0
+
+
+def risk(projects):
+    """P10 / P50 / P90 of each project's ratio over draws of its cost and riders (lognormal around the
+    model's own estimate, spreads from the reference class, RISK_SIGMA: rail cost overruns' spread,
+    Flyvbjerg 2003; ridership errors' spread, Flyvbjerg 2005), and the Auditor's stress gate: cost
+    x1.45 and riders x0.70 at once (study/hsr_buildout.md, guardrail 3)."""
+    import random
+    rnd = random.Random(RISK_SEED)
+    draws = [(math.exp(rnd.gauss(0, RISK_SIGMA["cost"])), math.exp(rnd.gauss(0, RISK_SIGMA["riders"])))
+             for _ in range(RISK_DRAWS)]
+    for pr in projects:
+        rs = sorted(ratio_at(pr, c, r) for c, r in draws)
+        pr["bcr_p10"], pr["bcr_p50"], pr["bcr_p90"] = (rs[int(q * (len(rs) - 1))] for q in (0.1, 0.5, 0.9))
+        pr["bcr_stress"] = ratio_at(pr, STRESS["cost"], STRESS["riders"])
+
+
+def asc_sensitivity(projects, log=print):
+    """{hsr id: (ratio at the low end of the constant's range, at the high end)}, each corridor valued
+    from the same year as in the plan (texas/intercity.json hsr.asc_range, study/calibrate_hsr.md)."""
+    lo, hi = ic.load_params()["hsr"].get("asc_range", [None, None])
+    by = {p["id"]: p for p in projects}
+    out = {}
+    for end in (lo, hi):
+        if end is None:
+            continue
+        log(f"  high-speed rail at constant {end:+.2f} ...")
+        for q in hsr_projects(log=None, asc=end):
+            q["value_year"] = by[q["id"]].get("value_year")
+            out.setdefault(q["id"], []).append(ratio(q))
+    return out
+
+
 def main():
     pop = texas_pop()
     print("projects ...")
@@ -502,12 +595,14 @@ def main():
     runs = {}
     for key, _ in SCENARIOS:
         ps = copy.deepcopy(projects)
-        built, spend = schedule(ps, budget) if key == "ratio" else metros_first(ps, budget)
+        built, spend = settle(ps, (lambda q: schedule(q, budget)) if key == "ratio" else (lambda q: metros_first(q, budget)))
         rows = yearly(ps, spend, pop, dfw)
         for r in rows:
             r["net"] = r["benefit"] + r["wider"] + r["fares"] - r["opex"]
             r["net_users"] = r["benefit"] + r["fares"] - r["opex"]
         runs[key] = {"projects": ps, "built": built, "rows": rows}
+    risk(runs["ratio"]["projects"])
+    runs["asc"] = asc_sensitivity(runs["ratio"]["projects"])
     write(runs, pop, dfw, plan, budget, dfw_tax_year)
 
 
@@ -594,8 +689,9 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
          f"(${BEN['air_externality_per_pkm']:.2f}), and agglomeration ({BEN['agglomeration_share']['urban']:.0%} of travellers' "
          f"gain for urban lines, {BEN['agglomeration_share']['hsr']:.0%} for high-speed rail). An urban trip is worth about "
          f"${1 / URBAN_B_PER_DOLLAR * (1 + BEN['agglomeration_share']['urban']) + URBAN_WIDER_PER_TRIP:.0f} in all. The **ratio** "
-         "is benefit over cost across 50 years at 3%: all benefits (plus any operating surplus) over capital plus the operating "
-         "deficit. Projects open best ratio first as the budget allows (spending spread over the construction years, carryover "
+         "is benefit over cost across the 50 years from a project's opening at 3%, with travel growing as forecast (Texas's "
+         "population for intercity lines, each metro's own 2026, 2050 and 2100 model runs for urban ones): all benefits (plus "
+         "any operating surplus) over capital plus the operating deficit. Projects open best ratio first as the budget allows (spending spread over the construction years, carryover "
          "allowed, no borrowing beyond the land-tax bonds); the budget is spent whether or not a ratio reaches 1.", "",
          "**Land tax.** Each new urban line's new stations form a Tax Increment Reinvestment Zone and a Public Improvement "
          f"District ({LT['radius_km'] * 1000:.0f} m around them): the city and county tax on the rise in value the line brings, "
@@ -610,9 +706,9 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
         ps = [p for p in projects if p["layer"] == key]
         bs = [p for p in ps if p.get("open")]
         cap = sum(p["capital"] for p in bs)
-        ben = sum(p["benefit"] for p in bs)
-        wid = sum(p.get("wider", 0) + p.get("agglom", 0) for p in bs)
-        mg = sum(p["fares"] - p["opex"] for p in bs)
+        ben = sum(p["benefit"] * p.get("uplift", 1.0) for p in bs)   # valued from each one's opening year
+        wid = sum((p.get("wider", 0) + p.get("agglom", 0)) * p.get("uplift", 1.0) for p in bs)
+        mg = sum(p["fares"] * p.get("uplift", 1.0) - p["opex"] for p in bs)
         cost = cap + max(-mg, 0) * PV_FACTOR
         r_u = (ben + max(mg, 0)) * PV_FACTOR / cost if cap else 0
         r_a = (ben + wid + max(mg, 0)) * PV_FACTOR / cost if cap else 0
@@ -627,13 +723,40 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
     cap_all = sum(p["capital"] for p in built)
     draw = sum(p["capital"] - p.get("bond", 0) for p in built)
     L += ["", "Gains and costs a year are at full build (2050 travel, with each metro's own growth and station-area land use "
-          "for the metros; DFW's at 2100). ", "",
+          "for the metros; DFW's at 2100); the ratios value each project from its own opening year. ", "",
           f"**By 2100, statewide:** outside DFW {money(cap_all)} built ({money(cap_all - draw)} of it paid by land-tax bonds) of "
           f"{money(avail)} available, {money(avail - draw)} unspent; {last['urban_trips_day'] + last['dfw_trips_day']:,.0f} new "
           f"daily metro transit trips ({last['dfw_trips_day']:,.0f} in DFW), {last['intercity_trips_year'] / 1e6:.0f}M intercity "
           f"rail trips a year, about {last['flights_day']:.0f} fewer flights a day, {money(last['benefit'])} a year of "
           f"travellers' gain and {money(last['wider'])} of wider benefits, and {money(last['opex'] - last['fares'])} a year "
           "more to operate than fares bring in.", ""]
+    # how sure
+    asc = runs.get("asc") or {}
+    lo, hi = ic.load_params()["hsr"].get("asc_range", [None, None])
+    inter = [p for p in projects if p["layer"] != "urban"]
+    L += ["## How sure", "",
+          f"Each ratio is the model's central estimate. **P10-P90** is the range over {RISK_DRAWS:,} draws of the project's "
+          f"cost (lognormal around the estimate, spread {RISK_SIGMA['cost']:.2f}: rail cost overruns, Flyvbjerg 2003) and its "
+          f"riders (spread {RISK_SIGMA['riders']:.2f}: ridership errors, Flyvbjerg 2005), centred on the model's own figures. "
+          f"The **stress** column is the Auditor's gate: cost x{STRESS['cost']:.2f} and riders x{STRESS['riders']:.2f} at once "
+          "(`study/hsr_buildout.md`, guardrail 3: a ratio of at least 0.8 there, or a connectivity designation)."
+          + (f" High-speed rail is also shown at both ends of its calibrated constant ({lo:+.2f} and {hi:+.2f}, "
+             "`study/calibrate_hsr.md`; central " f"{ic.load_params()['hsr']['asc_vs_car']:+.2f}): Brightline's low, and "
+             "the Northeast Corridor's high." if lo is not None else ""), "",
+          "| Intercity project | Opens | Ratio | P10 | P90 | Stress | At the constant's low | high |",
+          "|---|---|---|---|---|---|---|---|"]
+    for p in sorted(inter, key=lambda p: -p["bcr"]):
+        a = asc.get(p["id"], [])
+        L.append(f"| {label(p)} | {p.get('open') or 'not by 2100'} | {p['bcr']:.2f} | {p['bcr_p10']:.2f} | {p['bcr_p90']:.2f} | "
+                 f"{p['bcr_stress']:.2f} | {a[0]:.2f} | {a[1]:.2f} |" if len(a) == 2 else
+                 f"| {label(p)} | {p.get('open') or 'not by 2100'} | {p['bcr']:.2f} | {p['bcr_p10']:.2f} | {p['bcr_p90']:.2f} | "
+                 f"{p['bcr_stress']:.2f} | | |")
+    ub = [p for p in projects if p["layer"] == "urban" and p.get("open")]
+    if ub:
+        pass_stress = sum(1 for p in ub if p["bcr_stress"] >= 0.8)
+        L += ["", f"Urban lines built: median ratio {sorted(p['bcr'] for p in ub)[len(ub) // 2]:.2f} (P10-P90 of the median line "
+              f"{sorted(p['bcr_p10'] for p in ub)[len(ub) // 2]:.2f}-{sorted(p['bcr_p90'] for p in ub)[len(ub) // 2]:.2f}); "
+              f"{pass_stress} of {len(ub)} clear 0.8 under the stress.", ""]
     # what wider benefits change
     flips = sorted((p for p in projects if p["bcr"] >= 1 > p["bcr_users"]), key=lambda p: -p["bcr"])
     L += ["## What the wider benefits change", "",
@@ -735,6 +858,7 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
     os.makedirs(os.path.join(ROOT, "docs", "data"), exist_ok=True)
     keep = ("id", "layer", "metro", "metro_name", "name", "mode", "km", "capital", "opex", "fares", "benefit", "wider", "agglom",
             "bond", "land_tax_year", "trips_day", "trips_year", "air_day", "flights_day", "bcr", "bcr_users", "start", "open",
+            "bcr_p10", "bcr_p90", "bcr_stress", "uplift",
             "chain", "after")
 
     def rnd(d, n):

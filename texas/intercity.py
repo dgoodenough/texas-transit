@@ -124,14 +124,34 @@ def base_trips(zones, p, flows=os.path.join(ROOT, "data", "flows")):
             air, fare = tickets[pair][0], tickets[pair][1] / tickets[pair][0]
         out[pair] = {"km": dist, "car": car, "air": air, "work_share": d["purpose_work"] / d["annual_total_trips"],
                      "air_fare": fare}
+    add_border_twins(out, zones, p)
     return out
+
+
+def add_border_twins(base, zones, p):
+    """Trips by the Mexican twin cities' residents (p["border_twins"]): each border zone's pairs with
+    the rest of Texas and beyond grow by factor x twin-city people / the zone's people (in place)."""
+    bt = p.get("border_twins") or {}
+    f = bt.get("factor", 0.0)
+    if not f:
+        return base
+    for pair, d in base.items():
+        for z in pair:
+            other = pair[1] if z == pair[0] else pair[0]
+            if z in bt["cities"] and other not in bt["cities"] and zones[other]["state"] != "MX":
+                k = 1 + f * bt["cities"][z][1] / zones[z]["pop"]
+                d["car"] *= k
+                d["air"] *= k
+                d["border_twins"] = k
+    return base
 
 
 # ---------- level of service: (in-vehicle minutes, out-of-vehicle minutes, cost per person) ----------
 def car_los(dist, purpose, p):
     c = p["car"]
     road = dist * c["circuity"]
-    return road / c["speed_kmh"] * 60, c["terminal_min"], road * c["cost_per_vehicle_km"] / p["purposes"][purpose]["occupancy"]
+    per_vkm = c["cost_per_vehicle_km"] + (p.get("policy") or {}).get("car_toll_per_vkm", 0.0)
+    return road / c["speed_kmh"] * 60, c["terminal_min"], road * per_vkm / p["purposes"][purpose]["occupancy"]
 
 
 def air_los(dist, pax_per_day, fare, p):
@@ -157,6 +177,18 @@ def wait_min(svc, headway_min=None):
     return min(h * svc.get("wait_share", 0.5), svc["max_wait_min"])
 
 
+def asc_at(svc, dist):
+    """The service's constant against car for a trip of `dist` km: asc_vs_car, less
+    asc_per_ln_km x ln(asc_ref_km / dist) below asc_ref_km (rail's pull falls off on shorter trips,
+    where its access counts for more against the drive than the model's county centroids see;
+    fitted by study/calibrate_hsr.py). Without asc_per_ln_km, one constant at every distance."""
+    slope = svc.get("asc_per_ln_km", 0.0)
+    ref = svc.get("asc_ref_km", 0.0)
+    if not slope or dist >= ref:
+        return svc["asc_vs_car"]
+    return svc["asc_vs_car"] - slope * math.log(ref / dist)
+
+
 # ---------- a rail network: stations, links, the fastest path ----------
 class RailNetwork:
     """Stations {name: (lat, lon)} and links [(a, b, track_km)] run at one average speed with a
@@ -167,8 +199,8 @@ class RailNetwork:
     stations, headway minutes)], e.g. the two branches of a wye. Then a trip between two stations
     waits for the trains of every pattern calling at both (their frequencies add); a trip no single
     pattern serves waits for the least frequent link of its fastest route (a link's frequency is
-    that of the patterns running over it; a link no pattern runs takes svc's headway). There is no
-    transfer penalty, as without patterns."""
+    that of the patterns running over it; a link no pattern runs takes svc's headway), plus
+    svc's transfer_min for changing trains (transfer)."""
 
     def __init__(self, stations, links, svc, reach_km=60, services=None):
         self.stations, self.svc, self.reach_km = stations, svc, reach_km
@@ -214,6 +246,13 @@ class RailNetwork:
         stops = self.route(a, b) or [a, b]
         return max(60 / self._link_freq[tuple(sorted(k))] if self._link_freq[tuple(sorted(k))] else
                    self.svc["headway_min"] for k in zip(stops, stops[1:]))
+
+    def transfer(self, a, b):
+        """Minutes for changing trains (svc transfer_min) when service patterns are given and none
+        calls at both stations; 0 otherwise (without patterns every pair is a one-seat ride)."""
+        if not self.services or self.svc.get("transfer_min", 0) == 0:
+            return 0.0
+        return 0.0 if any(a in chain and b in chain for chain, _ in self.services) else self.svc["transfer_min"]
 
     def wait(self, a, b):
         """Minutes waiting for a train from station a to station b."""
@@ -270,11 +309,11 @@ class RailNetwork:
                 if dist < s.get("min_km", p["min_km"]):
                     continue
                 ride, track = paths[sb]
-                los = (ride, fixed + self.wait(sa, sb) + border + (da + db) / local_kmh * 60,
+                los = (ride, fixed + self.wait(sa, sb) + self.transfer(sa, sb) + border + (da + db) / local_kmh * 60,
                        s["fare_fixed"] + s["fare_per_km"] * track)
                 ivt, ovt, cost = car_los(dist, purpose, p)
                 v_car = utility((ivt + border, ovt, cost), purpose, p)
-                acc += wa * wb * math.exp(utility(los, purpose, p) - v_car + s["asc_vs_car"])
+                acc += wa * wb * math.exp(utility(los, purpose, p) - v_car + asc_at(s, dist))
         return acc
 
     def station_for(self, zone):
@@ -312,7 +351,8 @@ class RailNetwork:
             return None
         ride, track = route
         s = self.svc
-        ovt = (s["access_min"] + s["egress_min"] + s["terminal_min"] + self.wait(sa, sb) + (da + db) / local_kmh * 60
+        ovt = (s["access_min"] + s["egress_min"] + s["terminal_min"] + self.wait(sa, sb) + self.transfer(sa, sb)
+               + (da + db) / local_kmh * 60
                + za.get("border_min", 0) + zb.get("border_min", 0))
         return ride, ovt, s["fare_fixed"] + s["fare_per_km"] * track
 
@@ -344,26 +384,62 @@ def logsum_gain(s_car, s_air, rail_odds, scale):
     return math.log(s_car + math.exp(scale * math.log(sum(terms))))
 
 
-def run(base, zones, p, network=None, growth=None):
+def policy_shares(d, purpose, p):
+    """Today's car and air shares of a pair with the policy's charges on car and air (p["policy"]):
+    each mode's weight times exp(cost coefficient x the extra charge), renormalized. Without a policy,
+    today's shares."""
+    s_car, s_air = d["car"] / (d["car"] + d["air"]), d["air"] / (d["car"] + d["air"])
+    pol = p.get("policy") or {}
+    toll, sur = pol.get("car_toll_per_vkm", 0.0), pol.get("air_surcharge", 0.0)
+    if not toll and not sur:
+        return s_car, s_air
+    bc = p["cost_coef_per_dollar"][purpose]
+    w_car = s_car * math.exp(bc * toll * d["km"] * p["car"]["circuity"] / p["purposes"][purpose]["occupancy"])
+    w_air = s_air * math.exp(bc * sur)
+    return w_car / (w_car + w_air), w_air / (w_car + w_air)
+
+
+def run(base, zones, p, network=None, growth=None, year=None):
     """Mode split for every pair, today and with `network` (a RailNetwork, high-speed by default).
     `growth` ({zone: population factor}, from zone_growth) scales each pair's trips by the
     geometric mean of its two zones' growth. Returns {pair: {km, base: {car, air}, new: {car, air,
     rail, induced}, benefit_usd}} in daily person-trips; `induced` is extra rail travel on top of `rail`;
-    `benefit_usd` is the travellers' gain a day (logsum_gain), induced trips' own gain left out."""
+    `benefit_usd` is the travellers' gain a day (logsum_gain), induced trips' own gain left out.
+    Growth enters as (g_a x g_b) ^ growth_elasticity; with `year`, trips per person also grow with
+    income_growth_per_year from 2022. Charges on car and air (p["policy"]) shift today's split before
+    rail joins, so the gain is measured against a world with the same charges; an air ban
+    (air_ban_rail_minutes) drops air on pairs where rail's ride is shorter, once rail runs."""
     out = {}
+    e = p.get("growth_elasticity", 0.5)
+    inc = (1 + p.get("income_growth_per_year", 0.0)) ** max(0, (year or 2022) - 2022)
+    ban = (p.get("policy") or {}).get("air_ban_rail_minutes", 0)
     for pair, d in base.items():
-        g = math.sqrt(growth[pair[0]] * growth[pair[1]]) if growth else 1.0
+        g = ((growth[pair[0]] * growth[pair[1]]) ** e if growth else 1.0) * inc
         total = (d["car"] + d["air"]) * g
         if total <= 0:
             continue
-        res = {"km": d["km"], "base": {"car": d["car"] * g, "air": d["air"] * g},
+        s0 = [policy_shares(d, pu, p) for pu in ("work", "nonwork")]
+        wk = d["work_share"]
+        res = {"km": d["km"], "base": {"car": total * (wk * s0[0][0] + (1 - wk) * s0[1][0]),
+                                       "air": total * (wk * s0[0][1] + (1 - wk) * s0[1][1])},
                "new": {"car": 0.0, "air": 0.0, "rail": 0.0, "induced": 0.0}, "benefit_usd": 0.0}
+        banned = False
+        if ban and network is not None:
+            los = network.los(zones[pair[0]], zones[pair[1]], "work", p)
+            banned = los is not None and los[0] < ban
         for purpose, share in (("work", d["work_share"]), ("nonwork", 1 - d["work_share"])):
             trips = total * share
-            s_car, s_air = d["car"] / (d["car"] + d["air"]), d["air"] / (d["car"] + d["air"])
+            s_car, s_air = policy_shares(d, purpose, p)
             rail_odds = 0.0   # rail's odds against car: exp(V_rail + asc - V_car)
             if network is not None:
                 rail_odds = network.odds(zones[pair[0]], zones[pair[1]], purpose, p)
+            if banned and rail_odds > 0:   # no flights once rail runs: air's travellers choose car or rail
+                c, _, r = nested_split(s_car, 0.0, rail_odds, p["nest_public_scale"])
+                res["new"]["car"] += trips * c
+                res["new"]["rail"] += trips * r
+                res["benefit_usd"] += trips * logsum_gain(s_car, 0.0, rail_odds, p["nest_public_scale"]) / \
+                    abs(p["cost_coef_per_dollar"][purpose])
+                continue
             # pivot point: today's shares stand for exp(V + pair constant); rail joins relative to car
             c, a, r = nested_split(s_car, s_air, rail_odds, p["nest_public_scale"]) if s_car > 0 else (0, s_air, 0)
             res["new"]["car"] += trips * c

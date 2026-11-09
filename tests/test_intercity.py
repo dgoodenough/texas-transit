@@ -113,3 +113,73 @@ class DataTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PhaseOneSettingsTests(unittest.TestCase):
+    """Growth elasticity, border twin cities, pricing the competing modes, transfers (Phase 1)."""
+
+    def setUp(self):
+        import copy
+        self.copy = copy.deepcopy
+        self.p = ic.load_params()
+        self.zones = {"X": {"name": "X", "state": "TX", "pop": 1_000_000, "at": (30.0, -97.0), "parts": []},
+                      "Y": {"name": "Y", "state": "TX", "pop": 1_000_000, "at": (32.0, -97.0), "parts": []}}
+        self.base = {("X", "Y"): {"km": ic.km((30.0, -97.0), (32.0, -97.0)), "car": 900.0, "air": 100.0,
+                                  "work_share": 0.3, "air_fare": None}}
+        self.net = ic.RailNetwork({"A": (30.0, -97.0), "B": (32.0, -97.0)}, [("A", "B", 240.0)], self.p["hsr"])
+
+    def test_growth_elasticity(self):
+        p = self.copy(self.p)
+        p["growth_elasticity"] = 0.5
+        r = ic.run(self.base, self.zones, p, growth={"X": 1.44, "Y": 1.0})
+        self.assertAlmostEqual(r[("X", "Y")]["base"]["car"], 900 * 1.2)
+        p["growth_elasticity"] = 1.0
+        r = ic.run(self.base, self.zones, p, growth={"X": 1.44, "Y": 1.0})
+        self.assertAlmostEqual(r[("X", "Y")]["base"]["car"], 900 * 1.44)
+
+    def test_border_twins_scale_a_border_zones_trips(self):
+        p = self.copy(self.p)
+        p["border_twins"] = {"factor": 0.3, "cities": {"X": ["Twin", 500_000]}}
+        base = self.copy(self.base)
+        ic.add_border_twins(base, self.zones, p)
+        self.assertAlmostEqual(base[("X", "Y")]["car"], 900 * (1 + 0.3 * 0.5))
+
+    def test_a_road_charge_moves_trips_off_the_road_but_not_rails_appeal(self):
+        p = self.copy(self.p)
+        r0 = ic.run(self.base, self.zones, p, self.net)[("X", "Y")]
+        p["policy"]["car_toll_per_vkm"] = 0.06
+        r1 = ic.run(self.base, self.zones, p, self.net)[("X", "Y")]
+        self.assertLess(r1["base"]["car"], r0["base"]["car"])   # the no-rail world drives less too
+        self.assertGreater(r1["new"]["rail"], r0["new"]["rail"])
+        tot = lambda r: sum(r["new"][k] for k in ("car", "air", "rail"))  # noqa: E731
+        self.assertAlmostEqual(tot(r1), tot(r0))                # same travel, different modes
+
+    def test_an_air_ban_moves_air_to_rail_and_costs_air_travellers(self):
+        p = self.copy(self.p)
+        r0 = ic.run(self.base, self.zones, p, self.net)[("X", "Y")]
+        p["policy"]["air_ban_rail_minutes"] = 150
+        r1 = ic.run(self.base, self.zones, p, self.net)[("X", "Y")]
+        self.assertEqual(r1["new"]["air"], 0.0)
+        self.assertGreater(r1["new"]["rail"], r0["new"]["rail"])
+        self.assertLess(r1["benefit_usd"], r0["benefit_usd"])   # air travellers lose a choice
+
+    def test_a_trip_no_pattern_serves_pays_a_transfer(self):
+        p = self.copy(self.p)
+        st = {"A": (30.0, -97.0), "B": (31.0, -97.0), "C": (32.0, -97.0)}
+        links = [("A", "B", 115.0), ("B", "C", 115.0)]
+        through = ic.RailNetwork(st, links, p["hsr"], services=[(["A", "B", "C"], 30)])
+        split = ic.RailNetwork(st, links, p["hsr"], services=[(["A", "B"], 30), (["B", "C"], 30)])
+        self.assertEqual(through.transfer("A", "C"), 0.0)
+        self.assertEqual(split.transfer("A", "C"), p["hsr"]["transfer_min"])
+        za, zc = {"at": st["A"], "parts": []}, {"at": st["C"], "parts": []}
+        self.assertLess(split.odds(za, zc, "work", p), through.odds(za, zc, "work", p))
+
+
+class DistanceConstantTests(unittest.TestCase):
+    def test_constant_falls_below_the_reference_distance_only(self):
+        svc = {"asc_vs_car": 0.4, "asc_per_ln_km": 3.0, "asc_ref_km": 300}
+        self.assertEqual(ic.asc_at(svc, 300), 0.4)
+        self.assertEqual(ic.asc_at(svc, 600), 0.4)
+        import math
+        self.assertAlmostEqual(ic.asc_at(svc, 150), 0.4 - 3.0 * math.log(2))
+        self.assertEqual(ic.asc_at({"asc_vs_car": -1.5}, 100), -1.5)   # no slope: one constant

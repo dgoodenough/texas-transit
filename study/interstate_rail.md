@@ -6,7 +6,7 @@ Trains run at up to 79 mph on upgraded freight track: 90 km/h between stops, 3 m
 
 ## Calibration
 
-- **Riders:** the constant against car (-1.74) is set so the Heartland Flyer as it runs today, one train a day each way, carries Amtrak's FY2024 80,000 riders on today's travel.
+- **Riders:** the constant against car (-1.56) is set so the Heartland Flyer as it runs today, one train a day each way, carries Amtrak's FY2024 80,000 riders on today's travel.
 - **Frequency:** waiting counts 0.075 of the headway (people plan around a timetable), set so four trains a day carry 2.6 times one train's riders, a frequency elasticity of 0.7 (an assumption in the range intercity rail studies find).
 - **Monterrey:** a gravity model of trips between US metro zones with a Texas end, 150-1,500 km apart (3743 pairs, R² 0.83): trips rise with (population x population)^1.15 and fall with distance^2.64, times a border factor of 0.3 (assumption; tested at 0.15 and 0.6), with an hour at the border for car and train alike. Monterrey: 5.3M people (INEGI 2020).
 
@@ -18,30 +18,30 @@ New trips are on top of today's trains where there are some (Heartland Flyer and
 
 | Corridor | Route km | Trains a day each way | Time end to end | New trips a year | Capital | Per $B | Operating cost | Fares | Operating gap | Air trips a day taken |
 |---|---|---|---|---|---|---|---|---|---|---|
-| Heartland Flyer: Fort Worth - Oklahoma City | 370 | 2 | 4.4 h | 0.11M | $0.9B | 0.12M | $9M | $3M | $6M | 53 |
+| Heartland Flyer: Fort Worth - Oklahoma City | 370 | 2 | 4.4 h | 0.11M | $0.9B | 0.12M | $9M | $3M | $6M | 54 |
 | Heartland Flyer: Fort Worth - Oklahoma City | 370 | 4 | 4.4 h | 0.19M | $1.3B | 0.15M | $26M | $5M | $21M | 82 |
 | Oklahoma City - Wichita - Kansas City | 698 | 2 | 8.0 h | 0.00M | $1.6B | 0.00M | $33M | $0M | $33M | 2 |
-| Oklahoma City - Wichita - Kansas City | 698 | 4 | 8.0 h | 0.00M | $2.4B | 0.00M | $65M | $0M | $65M | 3 |
-| I-20: Dallas - Shreveport - Monroe - Jackson | 751 | 2 | 8.7 h | 0.64M | $1.7B | 0.36M | $35M | $8M | $27M | 340 |
-| I-20: Dallas - Shreveport - Monroe - Jackson | 751 | 4 | 8.7 h | 0.86M | $2.6B | 0.33M | $70M | $11M | $59M | 402 |
-| Texas Eagle east: Longview - Texarkana - Little Rock - Memphis | 658 | 2 | 7.5 h | 0.04M | $1.4B | 0.02M | $31M | $1M | $30M | 4 |
-| Texas Eagle east: Longview - Texarkana - Little Rock - Memphis | 658 | 4 | 7.5 h | 0.05M | $2.2B | 0.02M | $62M | $2M | $60M | 8 |
-| Sunset: Houston - Lake Charles - Lafayette - New Orleans | 642 | 2 | 7.4 h | 0.43M | $1.4B | 0.30M | $24M | $11M | $12M | 113 |
-| Sunset: Houston - Lake Charles - Lafayette - New Orleans | 642 | 4 | 7.4 h | 0.58M | $2.1B | 0.27M | $54M | $15M | $38M | 132 |
+| Oklahoma City - Wichita - Kansas City | 698 | 4 | 8.0 h | 0.00M | $2.4B | 0.00M | $65M | $0M | $65M | 2 |
+| I-20: Dallas - Shreveport - Monroe - Jackson | 751 | 2 | 8.7 h | 0.65M | $1.7B | 0.37M | $35M | $8M | $27M | 345 |
+| I-20: Dallas - Shreveport - Monroe - Jackson | 751 | 4 | 8.7 h | 0.88M | $2.6B | 0.34M | $70M | $11M | $59M | 406 |
+| Texas Eagle east: Longview - Texarkana - Little Rock - Memphis | 658 | 2 | 7.5 h | 0.04M | $1.4B | 0.03M | $31M | $1M | $30M | 3 |
+| Texas Eagle east: Longview - Texarkana - Little Rock - Memphis | 658 | 4 | 7.5 h | 0.05M | $2.2B | 0.02M | $62M | $1M | $60M | 7 |
+| Sunset: Houston - Lake Charles - Lafayette - New Orleans | 642 | 2 | 7.4 h | 0.44M | $1.4B | 0.31M | $24M | $12M | $12M | 110 |
+| Sunset: Houston - Lake Charles - Lafayette - New Orleans | 642 | 4 | 7.4 h | 0.60M | $2.1B | 0.28M | $54M | $16M | $38M | 128 |
 | El Paso - Las Cruces - Albuquerque | 453 | 2 | 5.1 h | 0.01M | $1.1B | 0.01M | $21M | $1M | $21M | 6 |
 | El Paso - Las Cruces - Albuquerque | 453 | 4 | 5.1 h | 0.02M | $1.5B | 0.01M | $42M | $1M | $42M | 6 |
-| San Antonio - Laredo - Monterrey | 544 | 2 | 6.1 h | 0.09M | $1.4B | 0.06M | $25M | $3M | $22M | 68 |
-| San Antonio - Laredo - Monterrey | 544 | 4 | 6.1 h | 0.13M | $2.0B | 0.06M | $51M | $4M | $46M | 98 |
+| San Antonio - Laredo - Monterrey | 544 | 2 | 6.1 h | 0.09M | $1.4B | 0.06M | $25M | $3M | $22M | 66 |
+| San Antonio - Laredo - Monterrey | 544 | 4 | 6.1 h | 0.13M | $2.0B | 0.06M | $51M | $4M | $47M | 95 |
 
-**All seven at four trains a day:** 1.8M new trips a year for $14.1B of capital (0.13M per $B) and an operating gap of $330M a year.
+**All seven at four trains a day:** 1.9M new trips a year for $14.1B of capital (0.13M per $B) and an operating gap of $331M a year.
 
 ## Against high-speed rail on the same routes
 
 | Route | Conventional, 4 trains a day: trips a year, capital, per $B | High-speed, built alone: trips a year, capital, per $B |
 |---|---|---|
 | Heartland Flyer: Fort Worth - Oklahoma City | 0.19M, $1.3B, 0.15M | 1.9M, $32.2B, 0.06M |
-| I-20: Dallas - Shreveport - Monroe - Jackson | 0.86M, $2.6B, 0.33M | 6.2M, $30.8B, 0.20M |
-| Sunset: Houston - Lake Charles - Lafayette - New Orleans | 0.58M, $2.1B, 0.27M | 6.2M, $56.1B, 0.11M |
+| I-20: Dallas - Shreveport - Monroe - Jackson | 0.88M, $2.6B, 0.34M | 6.2M, $30.8B, 0.20M |
+| Sunset: Houston - Lake Charles - Lafayette - New Orleans | 0.60M, $2.1B, 0.28M | 6.2M, $56.1B, 0.11M |
 
 High-speed rail carries several times the riders on each route, but conventional trains carry more per dollar of capital, at least for the few trains a day modelled here. The high-speed figures include trips within Texas that the conventional rows also have (Dallas - Longview, Houston - Beaumont).
 
@@ -50,7 +50,7 @@ High-speed rail carries several times the riders on each route, but conventional
 | Border factor | Trips a year |
 |---|---|
 | 0.15 | 0.10M |
-| 0.6 | 0.20M |
+| 0.6 | 0.19M |
 | 0.3 (as above) | 0.13M |
 
 ## Caveats

@@ -167,6 +167,50 @@ Each role gets concrete tasks, files and an acceptance test. Phase 1 must finish
 - Review every Phase 1–2 change before it reaches `study/timing.md`, so changes that raise HSR ratios aren't merged without the ones that lower them.
 - *Accept:* `study/hsr_buildout.md` is regenerated from the model with every number traced to a run, replacing the cabinet's hand-assembled figures.
 
+## Phase 1 results (the model, fixed and calibrated)
+
+Done in `texas/intercity.py`, `texas/intercity.json`, `study/calibrate_hsr.py` and `study/timing.py`:
+
+- **Rail's constant is calibrated, and it depends on distance** (`study/calibrate_hsr.md`). At 300 km and beyond it is
+  fitted to Brightline's Miami-Orlando riders (+0.46; range +0.33 to +2.16 up to the Northeast Corridor's air-rail shares);
+  below 300 km it falls with ln(distance), fitted so New York - Philadelphia (frequent fast trains, 3-6% of trips) and the
+  long Northeast pairs agree. One constant fitted on long trips gave Austin - San Antonio a third of all trips.
+- **Station access counted once**; **roads 1.1 times the straight line** (Dallas - Houston about 4 hours, not 4.5);
+  conventional trains refitted to the Heartland Flyer.
+- **Each project valued from its own opening year**, with travel growing after it; the schedule iterates until the years settle.
+- **Settings**: growth elasticity (0.5: trips per person constant; the cross-sectional 1.15 compares big and small cities, not
+  one city growing), Mexican twin cities (on, factor 0.3), income growth, a road charge, an air surcharge, an air ban (off),
+  a transfer penalty for service patterns.
+- **Uncertainty in every ratio**: P10-P90 over cost and rider draws, the Auditor's stress gate, and the constant's range
+  (`study/timing.md`, How sure).
+
+What it does to the high-speed network (best ratio first):
+
+| Corridor | Ratio before | After (P10-P90) | Opens before | After |
+|---|---|---|---|---|
+| Houston - San Antonio (I-10) | 0.14 | 0.72 (0.33-1.55) | 2100 | **2033** |
+| Texas Central (Dallas - Houston) | 0.21 | 0.87 (0.38-1.82) | 2078 | **2036** |
+| I-35 north (Dallas - Austin) | 1.10 | 0.73 (0.31-1.57) | 2036 | 2042 |
+| I-35 south (Austin - San Antonio) | 2.89 | 1.27 (0.59-2.56) | 2033 | 2044 |
+| US 290 (Houston - Austin) | 1.39 | 0.42 (0.22-0.86) | 2033 | 2080 |
+| Oklahoma City | 0.15 | 0.58 (0.26-1.30) | not by 2100 | **2082** |
+| Rio Grande Valley | 0.10 | 0.66 (0.28-1.44) | not by 2100 | **2089** |
+| Laredo | 0.06 | 0.24 (0.12-0.51) | not by 2100 | not by 2100 |
+| Fort Worth - Lubbock | 0.05 | 0.21 (0.11-0.39) | not by 2100 | not by 2100 |
+| West Texas to El Paso | 0.06 | 0.23 (0.12-0.53) | not by 2100 | not by 2100 |
+
+- **The long trips gained, the short ones lost.** Dallas - Houston rail takes about a third of trips (air falls from 11.5% to
+  3.2%), in line with Texas Central's own forecast share; Austin - San Antonio, at 117 km, falls from the plan's best line to
+  a good one. The network carries 72M trips a year in 2050 (76M before), but more of them on long, valuable trips.
+- **Oklahoma City and the Valley now make the cut**, on the plan's own budget. Laredo, Lubbock and West Texas still don't,
+  and the Gulf Coast to New Orleans ($56B) falls out of the budget. At the Northeast's constant every branch would pass 1;
+  at Brightline's, none does.
+- **The stress gate is strict.** At cost x1.45 and riders x0.70 no high-speed corridor and none of the 129 urban lines built
+  clears 0.8: on a reference-class reading almost everything in the plan is a policy choice, not a sure investment.
+- **Not done** (they need data the model doesn't have): trips under 80 km and within metros, trips to and from airports, a
+  residual value past 50 years. **Left to Phase 2**: service patterns (the transfer penalty is ready), the cost model and the
+  redrawn network.
+
 ## What this plan doesn't promise
 
 - That the branches pass a benefit-cost test. On every honest reading they don't; they're the price of one connected state, and the plan says so on every page that shows them.

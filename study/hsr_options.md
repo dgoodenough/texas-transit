@@ -6,52 +6,52 @@ Corridors are added one at a time, each time the one with the most new rail trip
 
 | Order | Corridor | Track km | Capital | New trips a year | Per $B | Built alone: trips a year, per $B | Network trips a year | Network capital |
 |---|---|---|---|---|---|---|---|---|
-| 1 | I-35 south: Austin - San Marcos - San Antonio | 135 | $13.5B | 14.94M | 1.11M | 14.9M, 1.11M | 14.9M | $14B |
-| 2 | US 290: Houston - Brenham - Austin | 256 | $23.8B | 13.20M | 0.55M | 10.2M, 0.42M | 28.1M | $37B |
-| 3 | I-35 north: Dallas - Waco - Temple - Austin | 329 | $30.5B | 12.99M | 0.43M | 9.7M, 0.31M | 41.1M | $68B |
-| 4 | Dallas - Tyler - Longview - Shreveport | 333 | $30.8B | 7.00M | 0.23M | 6.2M, 0.20M | 48.1M | $99B |
-| 5 | Fort Worth - Dallas | 54 | $5.5B | 0.86M | 0.16M | 0.0M, 0.00M | 49.0M | $104B |
-| 6 | Texas Central: Dallas - Brazos Valley - Houston | 400 | $36.1B | 4.34M | 0.12M | 7.9M, 0.21M | 53.3M | $140B |
-| 7 | Gulf Coast: Houston - Beaumont - Lake Charles - Lafayette - Baton Rouge - New Orleans | 605 | $56.1B | 7.01M | 0.12M | 6.2M, 0.11M | 60.3M | $196B |
-| 8 | Houston - Victoria - Corpus Christi | 341 | $31.5B | 3.34M | 0.11M | 2.4M, 0.08M | 63.7M | $228B |
-| 9 | I-10: Houston - Columbus - Seguin - San Antonio | 333 | $30.3B | 2.79M | 0.09M | 8.7M, 0.28M | 66.5M | $258B |
-| 10 | Dallas - Denton - Norman - Oklahoma City | 348 | $32.2B | 2.49M | 0.08M | 1.9M, 0.06M | 69.0M | $290B |
-| 11 | Rio Grande Valley: San Antonio - McAllen - Harlingen - Brownsville | 504 | $46.3B | 2.35M | 0.05M | 1.3M, 0.03M | 71.3M | $337B |
-| 12 | San Antonio - Laredo | 263 | $24.3B | 0.83M | 0.03M | 0.5M, 0.02M | 72.1M | $361B |
-| 13 | Fort Worth - Lubbock | 483 | $44.1B | 1.27M | 0.03M | 0.7M, 0.02M | 73.4M | $405B |
-| 14 | West Texas: Fort Worth - Abilene - Midland - Odessa - El Paso | 981 | $89.3B | 2.52M | 0.03M | 1.5M, 0.02M | 75.9M | $494B |
+| 1 | I-10: Houston - Columbus - Seguin - San Antonio | 333 | $31.5B | 7.90M | 0.25M | 7.9M, 0.25M | 7.9M | $31B |
+| 2 | Texas Central: Dallas - Brazos Valley - Houston | 400 | $36.7B | 10.15M | 0.28M | 9.2M, 0.25M | 18.0M | $68B |
+| 3 | I-35 north: Dallas - Waco - Temple - Austin | 329 | $30.5B | 6.79M | 0.22M | 6.5M, 0.21M | 24.8M | $99B |
+| 4 | I-35 south: Austin - San Marcos - San Antonio | 135 | $12.3B | 4.58M | 0.37M | 1.3M, 0.10M | 29.4M | $111B |
+| 5 | Dallas - Tyler - Longview - Shreveport | 333 | $30.8B | 7.17M | 0.23M | 4.3M, 0.14M | 36.6M | $142B |
+| 6 | Fort Worth - Dallas | 54 | $5.5B | 1.32M | 0.24M | 0.0M, 0.00M | 37.9M | $147B |
+| 7 | US 290: Houston - Brenham - Austin | 256 | $23.2B | 3.62M | 0.16M | 5.0M, 0.20M | 41.5M | $171B |
+| 8 | Dallas - Denton - Norman - Oklahoma City | 348 | $32.2B | 4.42M | 0.14M | 3.3M, 0.10M | 46.0M | $203B |
+| 9 | Rio Grande Valley: San Antonio - McAllen - Harlingen - Brownsville | 504 | $46.3B | 6.18M | 0.13M | 3.4M, 0.07M | 52.1M | $249B |
+| 10 | Houston - Victoria - Corpus Christi | 341 | $31.5B | 3.86M | 0.12M | 2.1M, 0.07M | 56.0M | $280B |
+| 11 | Gulf Coast: Houston - Beaumont - Lake Charles - Lafayette - Baton Rouge - New Orleans | 605 | $56.1B | 5.85M | 0.10M | 3.7M, 0.07M | 61.8M | $337B |
+| 12 | San Antonio - Laredo | 263 | $24.3B | 1.80M | 0.07M | 0.9M, 0.04M | 63.6M | $361B |
+| 13 | Fort Worth - Lubbock | 483 | $44.1B | 3.12M | 0.07M | 1.7M, 0.04M | 66.8M | $405B |
+| 14 | West Texas: Fort Worth - Abilene - Midland - Odessa - El Paso | 981 | $89.3B | 5.39M | 0.06M | 3.1M, 0.03M | 72.2M | $494B |
 
-**Everything built:** 75.9M trips a year (208,021 a day), 175,011 a day from car and 14,099 from air: about 136 fewer flights a day.
+**Everything built:** 72.2M trips a year (197,672 a day), 156,346 a day from car and 23,356 from air: about 225 fewer flights a day.
 
 Busiest pairs with everything built:
 
 | Pair | Rail trips a day |
 |---|---|
-| Austin - San Antonio | 39,963 |
-| Houston - rural TX (E) | 14,900 |
-| Dallas - rural TX (NE) | 12,265 |
-| Beaumont - Houston | 11,469 |
-| Austin - Houston | 11,402 |
-| Austin - Killeen | 9,869 |
-| Houston - San Antonio | 8,777 |
-| Dallas - Houston | 8,240 |
-| Austin - Dallas | 7,081 |
-| College Station - Houston | 6,341 |
-| Dallas - Waco | 4,514 |
-| Dallas - Oklahoma City | 4,203 |
+| Dallas - Houston | 19,011 |
+| Houston - San Antonio | 18,036 |
+| Austin - Dallas | 14,845 |
+| Austin - Houston | 11,831 |
+| Dallas - rural TX (NE) | 11,603 |
+| Dallas - Oklahoma City | 8,370 |
+| McAllen - San Antonio | 6,605 |
+| Dallas - San Antonio | 5,849 |
+| Dallas - rural TX (NW) | 5,619 |
+| Houston - rural TX (NE) | 5,196 |
+| Dallas - Shreveport | 3,781 |
+| Corpus Christi - Houston | 3,741 |
 
 ### Sensitivity (the first four corridors in the ranking; trips a year)
 
 | Change | Trips a year | Capital |
 |---|---|---|
-| as above | 48.1M | $99B |
-| $60M per km | 48.1M | $67B |
-| $110M per km | 48.1M | $120B |
-| no induced trips | 43.7M | $99B |
-| induced 20% | 52.5M | $99B |
-| constant vs car -1.0 | 30.3M | $99B |
-| constant vs car 0 | 74.2M | $99B |
-| today's travel (no growth) | 30.8M | $99B |
+| as above | 29.4M | $111B |
+| $60M per km | 29.4M | $75B |
+| $110M per km | 29.4M | $135B |
+| no induced trips | 26.7M | $111B |
+| induced 20% | 32.1M | $111B |
+| constant vs car -1.0 | 7.9M | $111B |
+| constant vs car 0 | 20.4M | $111B |
+| today's travel (no growth) | 18.7M | $111B |
 
 **Caveats.** Every parameter is a documented assumption (`texas/intercity.json`), not fitted to Texas rail data; the constant against car alone moves the first four corridors between 30M and 74M trips a year. Short trips (80-150 km) between metros and nearby rural counties get a few percent rail share, which is generous for a mode with about an hour of access and waiting. Growth is a Census trend extrapolation, not the Texas Demographic Center's projection. Intercity trips are not comparable one for one with the urban layer's daily trips (they are longer and worth more to each traveller); comparing the layers needs user benefits, not trip counts.
 

@@ -12,7 +12,8 @@ import timing  # noqa: E402
 
 def project(pid, capital, benefit, build=2, after=(), opex=0.0, fares=0.0):
     return {"id": pid, "layer": "hsr", "capital": capital, "benefit": benefit, "opex": opex, "fares": fares,
-            "build": build, "after": list(after), "base_year": 2050}
+            "build": build, "after": list(after), "base_year": 2050,
+            "traj": {y: 1.0 for y in range(2026, 2101)}}   # flat travel: the ratio is the plain 50-year one
 
 
 class GainTests(unittest.TestCase):
@@ -36,6 +37,17 @@ class ScheduleTests(unittest.TestCase):
         self.assertAlmostEqual(traj[2100], 1.5)
         base, traj, year = timing.urban_trajectory({"trips": 1100, "trips_today": 100})   # no future runs: as before
         self.assertEqual((base, traj, year), (1000, None, 2026))
+
+    def test_benefits_grow_from_the_opening_year(self):
+        a = project("a", 1000, 100)
+        a["traj"] = {y: 1.0 + (y - 2026) / 100 for y in range(2026, 2101)}   # travel grows 1% of base a year
+        a["value_year"] = 2026
+        early = timing.ratio(a)
+        a["value_year"] = 2080
+        late = timing.ratio(a)
+        self.assertGreater(late, early)   # valued on its own decade's travel
+        a["value_year"] = 2200   # past 2100 travel is held at 2100's
+        self.assertAlmostEqual(timing.uplift(a), a["traj"][2100], places=6)
 
     def test_ratio_counts_operating_deficit_as_cost(self):
         a = project("a", 1000, 100)
