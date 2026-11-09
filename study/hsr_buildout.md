@@ -243,6 +243,34 @@ What it shows:
   operating cost on the Triangle, the federal match and the partner states. The Lubbock - Amarillo and El Paso legs and
   the Valley pass 3M trips a year by 2100, so they earn their upgrade to full speed.
 - **Best ratio first is close to optimal**: a local search over the build order gains 0.9% in present value.
+- *Later*: Phase 4 put the trunk-first gate into the schedule itself (a branch starts three years after its trunk opens),
+  which moves the last branch from 2066 to the 2080s; the current years are in "Where the plan stands" above.
+
+## Phase 3 results (the router)
+
+What changed in DFW Transit's generator (`vendor/dfw-transit/metro/`, `study/router.md`): registry anchors (downtowns,
+airports, campuses, medical districts) mark the centers lines run between, and a downtown center more than a station's
+walk from its anchor moves onto it; lines of a mode that end in the downtown core from opposite sides are joined into
+through lines; and routes that wind (any 3 km stretch more than 2.2 times its straight line) are rejected.
+
+- **Mostly a wash on riders, better on sense in places.** Austin and San Antonio come out as before or slightly ahead;
+  El Paso's downtown center moved 0.7 km onto the real downtown, which now gets a station and UTEP with it (2 of 3 anchors
+  served, against none), for more riders (48,665 a day against 41,448) at more cost; Houston carries 9% fewer riders
+  (413,257 against 454,794) for 12% less capital, about the same per dollar. Statewide, new daily metro trips in 2100
+  fall about 2% (best ratio first: 4.64M against 4.75M).
+- **The acceptance tests mostly aren't met.** Few metro lines run through downtown (Houston 2 of 13, San Antonio 3 of 7,
+  Austin 2 of 5; the target was half); the median new BRT line runs within 400 m of another line for 53-84% of its length
+  (the target was 30%); 6 of 20 anchors still have no station (Hobby and San Antonio airports, UT Austin, El Paso airport, Texas
+  Tech, Baylor).
+- **What was tried and dropped.** A cap of two BRT lines a street (the plan's) cost Austin 6% of its riders and left the
+  median overlap at 75%: the overlap is branches sharing a trunk and BRT beside rail, which the 400 m measure counts as
+  duplication. It stays in the code, off. Moving every anchored center onto its anchor broke routing (an airport terminal
+  sits off the road graph: El Paso lost half its routed links), and making campuses near a downtown their own centers split
+  the corridors into stubs too short for rail; so only a far-off downtown moves.
+- **What it would take.** The fixes here patch a generator that builds lines one at a time from corridors between
+  centers. Through-running, anchor service and overlap are properties of the network as a whole: the line-planning program
+  in the mathematician's spec (choose lines and frequencies together on a transfer-aware rider model, with must-serve
+  anchors as constraints) and turn penalties in the road router are what's left, and neither is done.
 
 ## What this plan doesn't promise
 
