@@ -211,6 +211,39 @@ What it does to the high-speed network (best ratio first):
   residual value past 50 years. **Left to Phase 2**: service patterns (the transfer penalty is ready), the cost model and the
   redrawn network.
 
+## Phase 2 results (costs, network, money)
+
+Done in `texas/hsr.py`, `texas/hsr_alignments.json`, `texas/finance.py`, `study/hsr_options.py` and `study/timing.py`:
+
+- **Each intercity corridor follows its own travel growth**, modelled at 2030, 2050, 2075 and 2100 (before, every corridor
+  was scaled from 2050 by the state's population: a line to Austin's counties grew no faster than one to El Paso's).
+- **The cost model**: track along the drawn alignments; unit costs by context (urban and mid-city approaches, towns, rugged
+  and flat country) in low, central and high cases; design standards S1-S4 with their speeds; a learning curve earned by
+  km built. The plan uses the high case (business as usual) and no learning; the whole map uses central and learning.
+- **The network redrawn**: the Big Country trunk to Abilene with El Paso and Lubbock - Amarillo legs, the Valley from Corpus
+  Christi (Brownsville on the line, McAllen a spur). Everything built: 82M trips a year for $429B, against 83M for $450B
+  without Amarillo (`study/hsr_options.md`).
+- **Service patterns**: through trains once their corridors are built, shuttles before, a transfer for trips no pattern
+  serves, operating cost by the patterns' train-km ($4.7B a year at full build, against $6.2B for every corridor every 30
+  minutes; 11% fewer riders).
+- **The whole map** as a third scenario (`study/timing.md`, Scenario: the whole map): central costs with learning, the thin
+  legs to lighter standards, a 10% federal match, Oklahoma and Louisiana paying half their track, and the branches in a
+  ring-fenced Connectivity Program funded by the Rail Fund (1/8 cent) and the other lines' operating surplus.
+
+What it shows:
+
+- **Every corridor opens by 2066** in the whole map: Oklahoma City 2039, Laredo 2046, the Big Country trunk 2050, Lubbock and
+  Amarillo 2056, the Valley and McAllen 2060, El Paso 2066. The branches cost Texas about $64B. Intercity rail carries
+  100M trips a year by 2100, against 89M in best ratio first, and the metros lose nothing (the program is ring-fenced, and
+  cheaper high-speed rail leaves more of the statewide budget for metro lines).
+- **The money needed is small**: with the other lines' surplus pledged, almost no new tax; without it, $0.77B a year at
+  central costs (0.10 cents of sales tax) and $1.2B a year at business-as-usual costs with a P90 overrun (0.16 cents). The
+  cabinet's 1/8 cent covers the central case on its own.
+- **What it rests on**: costs falling as a delivery office learns (the high case is the default for a reason), fares covering
+  operating cost on the Triangle, the federal match and the partner states. The Lubbock - Amarillo and El Paso legs and
+  the Valley pass 3M trips a year by 2100, so they earn their upgrade to full speed.
+- **Best ratio first is close to optimal**: a local search over the build order gains 0.9% in present value.
+
 ## What this plan doesn't promise
 
 - That the branches pass a benefit-cost test. On every honest reading they don't; they're the price of one connected state, and the plan says so on every page that shows them.

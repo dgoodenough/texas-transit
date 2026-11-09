@@ -21,8 +21,9 @@ Writes study/timing.md and docs/data/timeline.json (the site's data).
    Fares and operating cost (urban fares URBAN_FARE a trip; urban operating cost includes the feeder buses
    the network adds, at DFW Transit's $ per feeder boarding). Benefit-cost ratio over 50 years at
    3% (PV_FACTOR): travellers' gain (plus any operating surplus) over capital plus the operating
-   deficit. Ratios are on 2050 travel. Intercity values grow with Texas's population from 2050
-   (tools/build_growth.py); urban ones follow each metro's own model runs in 2026, 2050 and 2100
+   deficit, valued over the 50 years from each project's opening, with travel growing: intercity
+   projects modelled at 2030, 2050, 2075 and 2100 travel (each county's trend, tools/build_growth.py);
+   urban ones follow each metro's own model runs in 2026, 2050 and 2100
    (its growth and the 2 million plan's station-area land use; study/urban_metros.py).
 3. Schedule. Dallas-Fort Worth keeps DFW Transit's $2.3B a year (its own plan and timetable); the rest
    of the $9.0B a year goes to the other projects, best ratio first (a project opens no earlier than the
@@ -42,7 +43,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.join(ROOT, "study"))
-from texas import conventional as cv, hsr, intercity as ic  # noqa: E402
+from texas import conventional as cv, finance, hsr, intercity as ic  # noqa: E402
 import interstate_rail as ir  # noqa: E402
 
 YEARS = list(range(2025, 2101))
@@ -57,7 +58,12 @@ HSR_YEAR = 2050
 URBAN_BASE_YEAR = HSR_YEAR   # urban values at 2050 travel too, when the metro has its 2050 run
 HSR_HEADWAY = 30
 METRO_YEARS = 30          # the metros-first scenario: each metro's budget over this many years from 2025
-SCENARIOS = (("ratio", "Best ratio first"), ("metros_first", "Metros first"))
+SCENARIOS = (("ratio", "Best ratio first"), ("metros_first", "Metros first"), ("whole_map", "The whole map"))
+# The whole map (study/hsr_buildout.md, Phase 2): central unit costs with the learning curve, the thin legs
+# built to lighter standards, and a ring-fenced Connectivity Program for the branches (texas/finance.py)
+WHOLE_MAP_HSR = {"case": "central", "learning": True, "drawn": True,
+                 "standards": {"OKC": "S2", "LRD": "S3", "VALLEY": "S3", "MFE": "S3", "BIGC": "S3", "PANH": "S4", "WEST": "S4"}}
+UPGRADE_TRIPS = 3e6   # a leg built below full standard earns an upgrade at this many trips a year
 
 
 def texas_pop():
@@ -224,7 +230,7 @@ def urban_projects():
     return out
 
 
-def hsr_projects(log=print, asc=None):
+def hsr_projects(log=print, asc=None, year=HSR_YEAR):
     order = []
     names = {v[0]: k for k, v in hsr.CORRIDORS.items()}
     with open(os.path.join(ROOT, "study", "hsr_options.md"), encoding="utf-8") as f:
@@ -238,13 +244,14 @@ def hsr_projects(log=print, asc=None):
     zones = ic.load_zones()
     base = ic.base_trips(zones, p)
     tx = {k: v for k, v in base.items() if "TX" in (zones[k[0]]["state"], zones[k[1]]["state"])}
-    growth = ic.zone_growth(zones, HSR_YEAR)
+    growth = ic.zone_growth(zones, year)
     prev = {"rail": 0.0, "benefit": 0.0, "fares": 0.0, "air": 0.0, "flights": 0.0, "vkm": 0.0, "pkm": 0.0}
     out = []
     for i, cid in enumerate(order):
         built = order[:i + 1]
-        net = ic.RailNetwork({s: hsr.point(s) for s in hsr.stations_of(built)}, hsr.network_links(built), p["hsr"])
-        res = ic.run(tx, zones, p, net, growth)
+        net = ic.RailNetwork({s: hsr.point(s) for s in hsr.stations_of(built)}, hsr.network_links(built, with_speed=True),
+                             p["hsr"], services=hsr.services_for(built))
+        res = ic.run(tx, zones, p, net, growth, year=year)
         tot = {"rail": sum(r["new"]["rail"] + r["new"]["induced"] for r in res.values()),
                "benefit": sum(r["benefit_usd"] for r in res.values()),
                "air": sum(r["base"]["air"] - r["new"]["air"] for r in res.values()),
@@ -260,25 +267,29 @@ def hsr_projects(log=print, asc=None):
         prev = tot
         out.append({"id": f"hsr:{cid}", "layer": "hsr", "name": hsr.CORRIDORS[cid][0], "mode": "hsr",
                     "km": hsr.track_km([cid]), "capital": hsr.capital_musd([cid], built=order[:i]),
-                    "opex": hsr.opex_musd([cid], HSR_HEADWAY, built=order[:i]),
+                    # the network's operating cost as run in service patterns (hsr.services_for), with it less without it
+                    "opex": hsr.pattern_opex_musd(built) - (hsr.pattern_opex_musd(order[:i]) if i else 0.0),
                     "fares": d["fares"] * 365 / 1e6, "benefit": d["benefit"] * 365 / 1e6,
                     "trips_day": d["rail"], "trips_year": d["rail"] * 365, "air_day": d["air"], "flights_day": d["flights"],
                     "wider": intercity_wider(d["vkm"], d["pkm"]),
                     "agglom": d["benefit"] * 365 / 1e6 * BEN["agglomeration_share"]["hsr"],
-                    "base_year": HSR_YEAR, "after": [f"hsr:{order[i - 1]}"] if i else [], "build": BUILD_YEARS["hsr"],
+                    # it opens no earlier than the trunk it hangs off (hsr.REQUIRES); its value was measured with the
+                    # corridors before it in the ranking built, an approximation when it opens before some of them
+                    "base_year": HSR_YEAR, "after": [f"hsr:{r}" for r in hsr.REQUIRES.get(cid, [])],
+                    "build": BUILD_YEARS["hsr"], "standard": hsr.standard_of(cid),
                     "chain": hsr.CORRIDORS[cid][1]})
         if log:
             log(f"  hsr {cid}: +{d['rail'] * 365 / 1e6:.2f}M trips, ${d['benefit'] * 365 / 1e6:,.0f}M benefit a year")
     return out
 
 
-def conventional_projects(log=print):
+def conventional_projects(log=print, year=HSR_YEAR):
     p = ic.load_params()
     zones = ic.load_zones()
     base = ic.base_trips(zones, p)
     tx = {k: v for k, v in base.items() if "TX" in (zones[k[0]]["state"], zones[k[1]]["state"])}
     trips, _, _ = ir.add_monterrey(tx, zones, p, ir.BORDER_FACTOR)
-    growth = ic.zone_growth({k: v for k, v in zones.items() if k != "MTY"}, HSR_YEAR)
+    growth = ic.zone_growth({k: v for k, v in zones.items() if k != "MTY"}, year)
     growth["MTY"] = growth["41700_TX"]
     out = []
 
@@ -305,6 +316,37 @@ def conventional_projects(log=print):
         if log:
             log(f"  conventional {cid}: +{rail * 365 / 1e6:.2f}M trips, ${ben * 365 / 1e6:,.0f}M benefit a year")
     return out
+
+
+TRAVEL_YEARS = (2030, 2050, 2075, 2100)   # intercity travel years modelled (zone_growth has each county's trend)
+
+
+def with_trajectories(make, log=print):
+    """Intercity projects from `make(year=...)` at HSR_YEAR, each with its own travel trajectory
+    (traj: {year: value / value at HSR_YEAR}) from the same projects modelled at TRAVEL_YEARS, linear
+    between them, flat before the first and after the last. Before, every intercity project was scaled
+    from 2050 by Texas's population, so a corridor to a fast-growing metro grew like one to a slow one."""
+    runs = {y: make(log=log if y == HSR_YEAR else None, year=y) for y in TRAVEL_YEARS}
+    base = runs[HSR_YEAR]
+    for i, pr in enumerate(base):
+        def val(q):
+            return q["benefit"] + q.get("wider", 0.0) + q.get("agglom", 0.0)
+        b0 = val(pr)
+        pts = {y: (val(runs[y][i]) / b0 if b0 > 0 else 1.0) for y in TRAVEL_YEARS}
+        ks = sorted(pts)
+        traj = {}
+        for y in range(2025, 2101):
+            if y <= ks[0]:
+                traj[y] = pts[ks[0]]
+            elif y >= ks[-1]:
+                traj[y] = pts[ks[-1]]
+            else:
+                lo = max(k for k in ks if k <= y)
+                hi = min(k for k in ks if k >= y)
+                traj[y] = pts[lo] if lo == hi else pts[lo] + (pts[hi] - pts[lo]) * (y - lo) / (hi - lo)
+        pr["traj"] = traj
+        pr["travel_points"] = {str(y): round(v, 3) for y, v in pts.items()}
+    return base
 
 
 # ---------------------------------------------------------------- Dallas-Fort Worth
@@ -471,7 +513,8 @@ def schedule(projects, budget, spend=None, order=None):
         # a project's value assumes the ones before it are there: it may be built alongside them, but
         # opens no earlier than they do
         first = max([YEARS[0]] + [max(d["start"], d["open"] - p["build"]) for d in deps])
-        per = (p["capital"] - p.get("bond", 0.0)) / p["build"]   # land-tax bonds pay part of an urban line
+        # land-tax bonds pay part of an urban line; federal and partner-state money part of a high-speed one
+        per = (p["capital"] - p.get("bond", 0.0) - p.get("outside", 0.0)) / p["build"]
         for y in range(first, YEARS[-1] - p["build"] + 1):   # opens by the last year
             trial = dict(spend)
             for k in range(p["build"]):
@@ -582,28 +625,309 @@ def asc_sensitivity(projects, log=print):
         log(f"  high-speed rail at constant {end:+.2f} ...")
         for q in hsr_projects(log=None, asc=end):
             q["value_year"] = by[q["id"]].get("value_year")
+            q["traj"] = by[q["id"]].get("traj")   # the central run's travel trajectory
             out.setdefault(q["id"], []).append(ratio(q))
     return out
+
+
+def whole_map_projects(base_projects, log=print):
+    """The project list for the whole-map scenario: urban and conventional as in the plan, high-speed
+    rail re-estimated under WHOLE_MAP_HSR (costs, standards and their speeds), each high-speed line with
+    its federal match and its partner state's share of out-of-state track (texas/finance.py)."""
+    saved = dict(hsr.SETTINGS)
+    try:
+        hsr.SETTINGS.update(WHOLE_MAP_HSR)
+        log("  high-speed rail, the whole map's costs and standards ...")
+        hs = with_trajectories(hsr_projects, log=None)
+    finally:
+        hsr.SETTINGS.clear()
+        hsr.SETTINGS.update(saved)
+    for q in hs:
+        cid = q["id"].split(":")[1]
+        q["outside"] = q["capital"] * (finance.FEDERAL_SHARE + finance.PARTNER_SHARE * finance.corridor_out_of_state(cid))
+        q["standard"] = WHOLE_MAP_HSR["standards"].get(cid, "S1")
+        q["connectivity"] = q["id"] in finance.CONNECTIVITY
+    rest = [copy.deepcopy(p) for p in base_projects if p["layer"] != "hsr"]
+    return rest + hs
+
+
+def program_stream(projects, pop, rounds=4):
+    """{year: $M} for the Connectivity Program: the Rail Fund, plus the operating surplus of high-speed
+    lines outside the program once open, less the program's own lines' operating deficits (their first
+    claim), given the open years already set."""
+    out = {}
+    for y in YEARS:
+        v = finance.rail_fund(y, pop)
+        surplus = deficit = 0.0
+        for p in projects:
+            if p.get("open") and p["open"] <= y and p["layer"] == "hsr":
+                margin = p["fares"] * growth_at(p, y) - p["opex"]
+                if p.get("connectivity"):
+                    deficit += max(-margin, 0.0)
+                elif finance.TRIANGLE_SURPLUS:
+                    surplus += margin
+        out[y] = max(0.0, v + max(surplus, 0.0) - deficit)
+    return out
+
+
+def trunk_first(projects):
+    """Best ratio first, but never a project before one it depends on (among `projects`)."""
+    ids = {p["id"] for p in projects}
+    left = sorted(projects, key=lambda p: -p["bcr"])
+    done, out = set(), []
+    while left:
+        nxt = next((p for p in left if all(d in done or d not in ids for d in p["after"])), left[0])
+        out.append(nxt)
+        done.add(nxt["id"])
+        left.remove(nxt)
+    return out
+
+
+def whole_map(projects, budget, pop):
+    """The whole-map scenario's schedule: everything outside the Connectivity Program best ratio first on
+    the statewide budget (as the plan); the program's corridors, in order of ratio, on the program's own
+    stream (program_stream), recomputed as its lines open (their deficits are its first claim)."""
+    for p in projects:
+        ratio(p)
+    main = [p for p in projects if not p.get("connectivity")]
+    prog = [p for p in projects if p.get("connectivity")]
+    for p in prog:
+        p["start"] = p["open"] = None
+    built, spend = schedule(projects, budget, order=trunk_first(main))
+    pbuilt, pspend = [], {y: 0.0 for y in YEARS}
+    for _ in range(4):
+        stream = program_stream(projects, pop)
+        pbuilt, pspend = schedule(projects, stream, order=trunk_first(prog))
+    total = {y: spend[y] + pspend[y] for y in YEARS}
+    return built + pbuilt, total
 
 
 def main():
     pop = texas_pop()
     print("projects ...")
-    projects = urban_projects() + hsr_projects() + conventional_projects()
+    projects = urban_projects() + with_trajectories(hsr_projects) + with_trajectories(conventional_projects)
     dfw, plan, dfw_tax_year = dfw_layer()
     budget = other_budget(dfw)
     runs = {}
+    wm = whole_map_projects(projects)
     for key, _ in SCENARIOS:
-        ps = copy.deepcopy(projects)
-        built, spend = settle(ps, (lambda q: schedule(q, budget)) if key == "ratio" else (lambda q: metros_first(q, budget)))
+        ps = copy.deepcopy(wm if key == "whole_map" else projects)
+        fn = {"ratio": lambda q: schedule(q, budget), "metros_first": lambda q: metros_first(q, budget),
+              "whole_map": lambda q: whole_map(q, budget, pop)}[key]
+        built, spend = settle(ps, fn)
         rows = yearly(ps, spend, pop, dfw)
         for r in rows:
             r["net"] = r["benefit"] + r["wider"] + r["fares"] - r["opex"]
             r["net_users"] = r["benefit"] + r["fares"] - r["opex"]
         runs[key] = {"projects": ps, "built": built, "rows": rows}
+    print("optimizing the order ...")
+    runs["optimized"] = optimize_order(projects, budget, pop, dfw)
+    print("what it takes ...")
+    runs["takes"] = what_it_takes(runs, budget, pop)
     risk(runs["ratio"]["projects"])
     runs["asc"] = asc_sensitivity(runs["ratio"]["projects"])
     write(runs, pop, dfw, plan, budget, dfw_tax_year)
+
+
+P90_COST = math.exp(1.2816 * 0.26)   # a P90 cost overrun at RISK_SIGMA["cost"]
+OPT_ITERS, OPT_SEED = 4000, 7
+
+
+def pv_net(projects, spend, pop, dfw):
+    """Present value in 2025 at 3% of the yearly net benefits (travellers' gain, wider benefits, fares less
+    operating cost) of everything open, 2025-2100: what a schedule buys with the same budget."""
+    rows = yearly(projects, spend, pop, dfw)
+    return sum((r["benefit"] + r["wider"] + r["fares"] - r["opex"]) / 1.03 ** (r["year"] - YEARS[0]) for r in rows)
+
+
+def optimize_order(projects, budget, pop, dfw, iters=OPT_ITERS, seed=OPT_SEED, log=print):
+    """Local search over the build order (study/hsr_buildout.md, Phase 2, the mathematician's scheduling
+    task): start from best ratio first and try swapping two projects or moving one earlier, keeping a
+    change when the present value of net benefits rises. The budget, the dependencies (a project whose
+    trunk hasn't opened is skipped) and each project's values are the plan's. Returns (order, the
+    greedy value, the optimized value)."""
+    import random
+    rnd = random.Random(seed)
+    ps = copy.deepcopy(projects)
+    for p in ps:
+        ratio(p)
+    by = {p["id"]: p for p in ps}
+
+    def prio(p):
+        r = p["bcr"]
+        for d in p["after"]:
+            if d in by:
+                r = min(r, prio(by[d]))
+        return r
+    order = [p["id"] for p in sorted(ps, key=lambda p: -prio(p))]
+
+    def value(o):
+        _, spend = schedule(ps, budget, order=[by[i] for i in o])
+        return pv_net(ps, spend, pop, dfw)
+    best = base = value(order)
+    n = len(order)
+    for it in range(iters):
+        o = list(order)
+        i = rnd.randrange(n)
+        j = max(0, min(n - 1, i + rnd.randint(-25, 25)))
+        if i == j:
+            continue
+        if rnd.random() < 0.5:
+            o[i], o[j] = o[j], o[i]
+        else:
+            o.insert(min(i, j), o.pop(max(i, j)))
+        v = value(o)
+        if v > best + 1e-6:
+            best, order = v, o
+    if log:
+        log(f"  optimized order: PV net benefits {base / 1000:,.1f}B -> {best / 1000:,.1f}B")
+    return order, base, best
+
+
+def program_cost_ratio(case, learning):
+    """{project id: its capital under `case` / `learning` over its capital under WHOLE_MAP_HSR}, for the
+    program's corridors, each costed with the corridors it hangs off already built."""
+    out = {}
+    saved = dict(hsr.SETTINGS)
+    try:
+        for cid in (c.split(":")[1] for c in finance.CONNECTIVITY):
+            deps = hsr.REQUIRES.get(cid, [])
+            hsr.SETTINGS.clear()
+            hsr.SETTINGS.update(WHOLE_MAP_HSR)
+            base = hsr.capital_musd([cid], built=deps)
+            hsr.SETTINGS.update({"case": case, "learning": learning})
+            out[f"hsr:{cid}"] = hsr.capital_musd([cid], built=deps) / base
+    finally:
+        hsr.SETTINGS.clear()
+        hsr.SETTINGS.update(saved)
+    return out
+
+
+def min_rail_fund(projects, budget, pop, mult=None, hi=12000.0):
+    """The smallest Rail Fund ($M a year from its start year) that opens every Connectivity Program
+    corridor by 2100 in the whole-map schedule, the program's capital times `mult` ({id: factor});
+    None if even `hi` doesn't (a trunk the program needs isn't built from the statewide budget)."""
+    saved = dict(finance.RAIL_FUND)
+
+    def all_open(level):
+        ps = copy.deepcopy(projects)
+        for p in ps:
+            if p.get("connectivity") and mult:
+                p["capital"] *= mult.get(p["id"], 1.0)
+                p["outside"] = p.get("outside", 0.0) * mult.get(p["id"], 1.0)
+        finance.RAIL_FUND["musd_per_year"] = level
+        whole_map(ps, budget, pop)
+        return all(p.get("open") for p in ps if p.get("connectivity"))
+    try:
+        if not all_open(hi):
+            return None
+        lo, top = 0.0, hi
+        for _ in range(14):
+            mid = (lo + top) / 2
+            if all_open(mid):
+                top = mid
+            else:
+                lo = mid
+        return top
+    finally:
+        finance.RAIL_FUND.clear()
+        finance.RAIL_FUND.update(saved)
+
+
+def what_it_takes(runs, budget, pop):
+    """{case: smallest Rail Fund, $M a year} to open every branch by 2100."""
+    ps = runs["whole_map"]["projects"]
+    cases = [("central costs, with learning (the whole map)", None),
+             ("central, a P90 overrun", {p: P90_COST for p in finance.CONNECTIVITY}),
+             ("high costs, no learning (business as usual)", program_cost_ratio("high", False)),
+             ("high, no learning, a P90 overrun", {k: v * P90_COST for k, v in program_cost_ratio("high", False).items()})]
+    out = [(lab, min_rail_fund(ps, budget, pop, m)) for lab, m in cases]
+    finance.TRIANGLE_SURPLUS = False   # if the other lines' operating surplus isn't pledged (or doesn't appear)
+    try:
+        for lab, m in (cases[0], cases[3]):
+            out.append((lab + ", no surplus pledged", min_rail_fund(ps, budget, pop, m)))
+    finally:
+        finance.TRIANGLE_SURPLUS = True
+    return out
+
+
+def optimizer_section(runs, budget, pop, dfw):
+    """Best ratio first against an optimized order: how much the greedy rule leaves on the table."""
+    if not runs.get("optimized"):
+        return []
+    order, base, best = runs["optimized"]
+    ps = copy.deepcopy(runs["ratio"]["projects"])
+    by = {p["id"]: p for p in ps}
+    greedy = {p["id"]: p.get("open") for p in runs["ratio"]["projects"]}
+    schedule(ps, budget, order=[by[i] for i in order])
+    moved = [((greedy[p["id"]] or 2101) - (p.get("open") or 2101), p) for p in ps
+             if (greedy[p["id"]] or 2101) != (p.get("open") or 2101)]
+    L = ["## Is best ratio first good enough?", "",
+         f"A local search over the build order ({OPT_ITERS:,} tries, swapping projects or moving one earlier, keeping a "
+         "change only if the present value of net benefits 2025-2100 rises; same budget, same values, trunks before "
+         f"branches) raises that value from {money(base)} to {money(best)}, **{(best / base - 1):+.1%}**. Best ratio "
+         "first ranks each project by its own ratio; the search also weighs when the money is free and how long each "
+         "project takes to build. Biggest moves:", "",
+         "| Project | Opens: best ratio first | Optimized |", "|---|---|---|"]
+    for d, p in sorted(moved, key=lambda x: -abs(x[0]))[:12]:
+        L.append(f"| {label(p)} | {greedy[p['id']] or 'not by 2100'} | {p.get('open') or 'not by 2100'} |")
+    L += ["", ("The gain is small: best ratio first stays the plan's rule, and the search is a check on it." if best / base - 1 < 0.03
+               else "The gain is large enough that the plan should consider scheduling by the optimized order."), ""]
+    return L
+
+
+def whole_map_section(runs, pop):
+    """The whole map against best ratio first: the high-speed network and the Connectivity Program."""
+    a, w = runs["ratio"], runs["whole_map"]
+    aw = {p["id"]: p for p in a["projects"]}
+    hs = [p for p in w["projects"] if p["layer"] == "hsr"]
+    L = ["## Scenario: the whole map", "",
+         "The cabinet's plan (`study/hsr_buildout.md`): high-speed rail at central unit costs with the learning curve a "
+         "permanent delivery office would earn, the thin legs to lighter standards (Oklahoma City 250 km/h double track; "
+         "Laredo, the Valley, McAllen and the Big Country trunk 250 km/h single track with passing loops; Lubbock - "
+         "Amarillo and El Paso 200 km/h single track first), a federal match of "
+         f"{finance.FEDERAL_SHARE:.0%} and Oklahoma and Louisiana paying {finance.PARTNER_SHARE:.0%} of the track in their "
+         "states. The branches (the Connectivity Program) are built from their own ring-fenced money, never the statewide "
+         f"budget: the Rail Fund (1/8 cent of sales tax from {finance.RAIL_FUND['start']}, about "
+         f"${finance.RAIL_FUND['musd_per_year'] / 1000:.2f}B a year and growing with Texas), plus the operating surplus "
+         "of the high-speed lines outside it, less the branches' own operating deficits. Everything else is as in best "
+         "ratio first.", "",
+         "| Corridor | Standard | Capital | Texas pays | Ratio | Opens (whole map) | Opens (best ratio first) | Trips a year, 2100 |",
+         "|---|---|---|---|---|---|---|---|"]
+    for p in sorted(hs, key=lambda p: (p.get("open") or 9999)):
+        t2100 = p["trips_year"] * p["traj"].get(2100, 1.0) if p.get("traj") else p["trips_year"]
+        flag = " (upgrade: past 3M a year)" if p.get("standard", "S1") in ("S3", "S4") and t2100 >= UPGRADE_TRIPS else ""
+        L.append(f"| {label(p)}{' *' if p.get('connectivity') else ''} | {p.get('standard', 'S1')} | {money(p['capital'])} | "
+                 f"{money(p['capital'] - p.get('outside', 0.0))} | {p['bcr']:.2f} | {p.get('open') or 'not by 2100'} | "
+                 f"{aw.get(p['id'], {}).get('open') or 'not by 2100'} | {t2100 / 1e6:.1f}M{flag} |")
+    prog = [p for p in hs if p.get("connectivity")]
+    stream = program_stream(w["projects"], pop)
+    fund = sum(finance.rail_fund(y, pop) for y in YEARS)
+    built = [p for p in prog if p.get("open")]
+    L += ["", "\\* the Connectivity Program.", "",
+          f"**The program:** the Rail Fund raises {money(fund)} by 2100; with the other high-speed lines' surplus and less "
+          f"the branches' deficits, {money(sum(stream.values()))} is available to it. It builds {len(built)} of {len(prog)} "
+          f"branch corridors ({money(sum(p['capital'] - p.get('outside', 0.0) for p in built))} of Texas's money)"
+          + (", every one by 2100." if len(built) == len(prog) else
+             f"; not by 2100: {', '.join(label(p) for p in prog if not p.get('open'))}.")
+          + " Ratios are well below 1 for most of them: the program is a choice to connect the state, not an investment.",
+          ""]
+    if runs.get("takes"):
+        L += ["**What it takes to open every branch by 2100** (the smallest Rail Fund that does, everything else as above):", "",
+              "| Cost case | Rail Fund needed a year | In sales tax |", "|---|---|---|"]
+        cent = finance.RAIL_FUND["musd_per_year"] / 0.125   # $M a year per cent of sales tax
+        for lab, v in runs["takes"]:
+            L.append(f"| {lab} | {money(v) if v is not None else 'not reachable'} | "
+                     + (f"{v / cent:.2f} cents" if v is not None else "a trunk it needs isn't built") + " |")
+        L += ["", f"The central package proposes 1/8 cent ({money(finance.RAIL_FUND['musd_per_year'])} a year). With the other "
+              "high-speed lines' operating surplus pledged, the branches need little new tax: the surplus (fares over "
+              "operating cost on the Triangle and the Gulf) pays for most of them, so the Rail Fund is insurance against "
+              "overruns and fares that don't cover costs. Without the surplus, the rows marked so are what the tax "
+              "alone has to raise.", ""]
+    L += [f"Statewide by 2100: {w['rows'][-1]['urban_trips_day'] + w['rows'][-1]['dfw_trips_day']:,.0f} new daily metro "
+          f"trips and {w['rows'][-1]['intercity_trips_year'] / 1e6:.0f}M intercity rail trips a year, against "
+          f"{a['rows'][-1]['intercity_trips_year'] / 1e6:.0f}M in best ratio first.", ""]
+    return L
 
 
 def scenario_section(runs):
@@ -722,8 +1046,10 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
     last = rows[-1]
     cap_all = sum(p["capital"] for p in built)
     draw = sum(p["capital"] - p.get("bond", 0) for p in built)
-    L += ["", "Gains and costs a year are at full build (2050 travel, with each metro's own growth and station-area land use "
-          "for the metros; DFW's at 2100); the ratios value each project from its own opening year. ", "",
+    L += ["", "Gains and costs a year in this table are a snapshot of each project at 2050 travel (with each metro's own "
+          "growth and station-area land use; DFW's at 2100), a reporting convention like a dollar year. The ratios value "
+          "each project over its own 50 years from opening, with its own travel growth (intercity projects modelled at "
+          "2030, 2050, 2075 and 2100 travel). ", "",
           f"**By 2100, statewide:** outside DFW {money(cap_all)} built ({money(cap_all - draw)} of it paid by land-tax bonds) of "
           f"{money(avail)} available, {money(avail - draw)} unspent; {last['urban_trips_day'] + last['dfw_trips_day']:,.0f} new "
           f"daily metro transit trips ({last['dfw_trips_day']:,.0f} in DFW), {last['intercity_trips_year'] / 1e6:.0f}M intercity "
@@ -852,7 +1178,9 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
           "of them reach a ratio of 1 on their own than when the sketch's single-line trips split the total.",
           "- Operating cost is outside the capital budget, as in DFW Transit; the deficits are in the ratio, but no budget pays "
           "them yet.", ""]
+    L += optimizer_section(runs, budget, pop, dfw)
     L += scenario_section(runs)
+    L += whole_map_section(runs, pop)
     with open(os.path.join(ROOT, "study", "timing.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(L))
     os.makedirs(os.path.join(ROOT, "docs", "data"), exist_ok=True)

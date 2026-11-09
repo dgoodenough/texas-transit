@@ -1,73 +1,773 @@
 {
- "_doc": "Map alignments for the high-speed corridors (texas/hsr.py CORRIDORS): waypoints (lat, lon) between each pair of neighbouring stations, drawn on the statewide map (tools/build_state_map.py, docs/map.html). For the map only: the model's track km stay texas/hsr.py's (straight line x TRACK_FACTOR); the map's note compares the two. A light effort. Texas Central (TC) follows its published corridor: south from the Dallas station along I-45, then the high-voltage transmission corridor through Ellis, Navarro, Freestone, Limestone, Leon, Madison and Grimes counties (the Brazos Valley station near Roans Prairie, SH 90) and Waller, into Houston along US 290 to the Northwest Mall site (FRA final EIS 2017 and record of decision 2020; Texas Central's county list). Dallas-Fort Worth (FW) follows NCTCOG's recommended alignment: the I-30 median, with a stop at Arlington's entertainment district (here a waypoint, not a modelled station) and a tunnel at the SH 360 / SH 161 interchanges (DFW High-Speed Transportation Connections Study, Phase 1, 2021; Phase 2 FAQs 2024-25). Every other corridor is drawn along the interstate or US highway it is named for, through the towns on it: no proposal exists to trace.",
+ "_doc": "Map alignments for the high-speed corridors (texas/hsr.py CORRIDORS): waypoints (lat, lon) between each pair of neighbouring stations, drawn on the statewide map (tools/build_state_map.py, docs/map.html). A light effort. Texas Central (TC) follows its published corridor: south from the Dallas station along I-45, then the high-voltage transmission corridor through Ellis, Navarro, Freestone, Limestone, Leon, Madison and Grimes counties (the Brazos Valley station near Roans Prairie, SH 90) and Waller, into Houston along US 290 to the Northwest Mall site (FRA final EIS 2017 and record of decision 2020; Texas Central's county list). Dallas-Fort Worth (FW) follows NCTCOG's recommended alignment: the I-30 median, with a stop at Arlington's entertainment district (here a waypoint, not a modelled station) and a tunnel at the SH 360 / SH 161 interchanges (DFW High-Speed Transportation Connections Study, Phase 1, 2021; Phase 2 FAQs 2024-25). Every other corridor is drawn along the interstate or US highway it is named for, through the towns on it: no proposal exists to trace. Phase 2 redraws the west and south (study/cabinet/network.md): the Big Country trunk on I-20 to Abilene, the Panhandle leg on US-84 and I-27 to Lubbock and Amarillo, the Valley on US-77 from Corpus Christi through Kingsville and Harlingen to Brownsville, McAllen a spur on US-83. The model's track km follow these alignments (texas/hsr.py link_km).",
  "_sources": {
-  "TC": ["https://en.wikipedia.org/wiki/Texas_Central_Railway", "https://www.keranews.org/texas-news/2017-12-15/some-texans-dodge-bullet-train-others-are-square-in-its-path", "https://communityimpact.com/houston/news/2015/03/12/final-corridor-proposed-for-houston-to-dallas-railway-2"],
-  "FW": ["https://www.nctcog.org/getmedia/8bb1c4f5-4a1d-4c51-bf3e-dab5ec80345c/PressROct21.pdf", "https://nctcog.org/getmedia/d7118629-f176-41ba-ab4e-033f63aa6f86/2025-03-27-DFW-HSR-Study-FAQs.pdf", "https://communityimpact.com/grapevine-colleyville-southlake/transportation/proposed-high-speed-rail-in-dfw-enters-environmental-phase/"]
+  "TC": [
+   "https://en.wikipedia.org/wiki/Texas_Central_Railway",
+   "https://www.keranews.org/texas-news/2017-12-15/some-texans-dodge-bullet-train-others-are-square-in-its-path",
+   "https://communityimpact.com/houston/news/2015/03/12/final-corridor-proposed-for-houston-to-dallas-railway-2"
+  ],
+  "FW": [
+   "https://www.nctcog.org/getmedia/8bb1c4f5-4a1d-4c51-bf3e-dab5ec80345c/PressROct21.pdf",
+   "https://nctcog.org/getmedia/d7118629-f176-41ba-ab4e-033f63aa6f86/2025-03-27-DFW-HSR-Study-FAQs.pdf",
+   "https://communityimpact.com/grapevine-colleyville-southlake/transportation/proposed-high-speed-rail-in-dfw-enters-environmental-phase/"
+  ]
  },
- "source": {"TC": "Texas Central's corridor (FRA EIS)", "FW": "NCTCOG's I-30 alignment"},
+ "source": {
+  "TC": "Texas Central's corridor (FRA EIS)",
+  "FW": "NCTCOG's I-30 alignment"
+ },
  "waypoints": {
   "TC": {
-   "Dallas|Brazos Valley": [[32.745, -96.790], [32.700, -96.765], [32.640, -96.725], [32.560, -96.690], [32.460, -96.640], [32.350, -96.590], [32.200, -96.500], [32.050, -96.400], [31.930, -96.330], [31.800, -96.260], [31.650, -96.200], [31.480, -96.140], [31.300, -96.090], [31.120, -96.050], [30.950, -96.030], [30.780, -96.040]],
-   "Brazos Valley|Houston": [[30.440, -96.010], [30.300, -95.960], [30.170, -95.890], [30.060, -95.820], [29.990, -95.730], [29.940, -95.640], [29.890, -95.560], [29.850, -95.510], [29.820, -95.475]]
+   "Dallas|Brazos Valley": [
+    [
+     32.745,
+     -96.79
+    ],
+    [
+     32.7,
+     -96.765
+    ],
+    [
+     32.64,
+     -96.725
+    ],
+    [
+     32.56,
+     -96.69
+    ],
+    [
+     32.46,
+     -96.64
+    ],
+    [
+     32.35,
+     -96.59
+    ],
+    [
+     32.2,
+     -96.5
+    ],
+    [
+     32.05,
+     -96.4
+    ],
+    [
+     31.93,
+     -96.33
+    ],
+    [
+     31.8,
+     -96.26
+    ],
+    [
+     31.65,
+     -96.2
+    ],
+    [
+     31.48,
+     -96.14
+    ],
+    [
+     31.3,
+     -96.09
+    ],
+    [
+     31.12,
+     -96.05
+    ],
+    [
+     30.95,
+     -96.03
+    ],
+    [
+     30.78,
+     -96.04
+    ]
+   ],
+   "Brazos Valley|Houston": [
+    [
+     30.44,
+     -96.01
+    ],
+    [
+     30.3,
+     -95.96
+    ],
+    [
+     30.17,
+     -95.89
+    ],
+    [
+     30.06,
+     -95.82
+    ],
+    [
+     29.99,
+     -95.73
+    ],
+    [
+     29.94,
+     -95.64
+    ],
+    [
+     29.89,
+     -95.56
+    ],
+    [
+     29.85,
+     -95.51
+    ],
+    [
+     29.82,
+     -95.475
+    ]
+   ]
   },
   "FW": {
-   "Fort Worth|Dallas": [[32.746, -97.300], [32.744, -97.250], [32.748, -97.200], [32.752, -97.150], [32.752, -97.090], [32.756, -97.040], [32.763, -96.990], [32.768, -96.940], [32.771, -96.890], [32.774, -96.850]]
+   "Fort Worth|Dallas": [
+    [
+     32.746,
+     -97.3
+    ],
+    [
+     32.744,
+     -97.25
+    ],
+    [
+     32.748,
+     -97.2
+    ],
+    [
+     32.752,
+     -97.15
+    ],
+    [
+     32.752,
+     -97.09
+    ],
+    [
+     32.756,
+     -97.04
+    ],
+    [
+     32.763,
+     -96.99
+    ],
+    [
+     32.768,
+     -96.94
+    ],
+    [
+     32.771,
+     -96.89
+    ],
+    [
+     32.774,
+     -96.85
+    ]
+   ]
   },
   "I35N": {
-   "Dallas|Waco": [[32.690, -96.830], [32.550, -96.850], [32.390, -96.850], [32.200, -96.960], [32.010, -97.120], [31.800, -97.090], [31.650, -97.110]],
-   "Waco|Temple": [[31.450, -97.190], [31.300, -97.260], [31.180, -97.320]],
-   "Temple|Austin": [[30.950, -97.540], [30.780, -97.620], [30.630, -97.680], [30.510, -97.680], [30.400, -97.700]]
+   "Dallas|Waco": [
+    [
+     32.69,
+     -96.83
+    ],
+    [
+     32.55,
+     -96.85
+    ],
+    [
+     32.39,
+     -96.85
+    ],
+    [
+     32.2,
+     -96.96
+    ],
+    [
+     32.01,
+     -97.12
+    ],
+    [
+     31.8,
+     -97.09
+    ],
+    [
+     31.65,
+     -97.11
+    ]
+   ],
+   "Waco|Temple": [
+    [
+     31.45,
+     -97.19
+    ],
+    [
+     31.3,
+     -97.26
+    ],
+    [
+     31.18,
+     -97.32
+    ]
+   ],
+   "Temple|Austin": [
+    [
+     30.95,
+     -97.54
+    ],
+    [
+     30.78,
+     -97.62
+    ],
+    [
+     30.63,
+     -97.68
+    ],
+    [
+     30.51,
+     -97.68
+    ],
+    [
+     30.4,
+     -97.7
+    ]
+   ]
   },
   "I35S": {
-   "Austin|San Marcos": [[30.150, -97.780], [29.990, -97.880]],
-   "San Marcos|San Antonio": [[29.800, -98.030], [29.700, -98.120], [29.580, -98.310], [29.490, -98.420]]
+   "Austin|San Marcos": [
+    [
+     30.15,
+     -97.78
+    ],
+    [
+     29.99,
+     -97.88
+    ]
+   ],
+   "San Marcos|San Antonio": [
+    [
+     29.8,
+     -98.03
+    ],
+    [
+     29.7,
+     -98.12
+    ],
+    [
+     29.58,
+     -98.31
+    ],
+    [
+     29.49,
+     -98.42
+    ]
+   ]
   },
   "I10": {
-   "Houston|Columbus": [[29.780, -95.560], [29.785, -95.820], [29.780, -95.950], [29.780, -96.160], [29.740, -96.380]],
-   "Columbus|Seguin": [[29.700, -96.780], [29.680, -96.900], [29.690, -97.110], [29.680, -97.400], [29.680, -97.650]],
-   "Seguin|San Antonio": [[29.550, -98.150], [29.520, -98.320], [29.460, -98.430]]
+   "Houston|Columbus": [
+    [
+     29.78,
+     -95.56
+    ],
+    [
+     29.785,
+     -95.82
+    ],
+    [
+     29.78,
+     -95.95
+    ],
+    [
+     29.78,
+     -96.16
+    ],
+    [
+     29.74,
+     -96.38
+    ]
+   ],
+   "Columbus|Seguin": [
+    [
+     29.7,
+     -96.78
+    ],
+    [
+     29.68,
+     -96.9
+    ],
+    [
+     29.69,
+     -97.11
+    ],
+    [
+     29.68,
+     -97.4
+    ],
+    [
+     29.68,
+     -97.65
+    ]
+   ],
+   "Seguin|San Antonio": [
+    [
+     29.55,
+     -98.15
+    ],
+    [
+     29.52,
+     -98.32
+    ],
+    [
+     29.46,
+     -98.43
+    ]
+   ]
   },
   "US290": {
-   "Houston|Brenham": [[29.880, -95.540], [29.970, -95.690], [30.040, -95.830], [30.100, -96.080], [30.120, -96.250]],
-   "Brenham|Austin": [[30.180, -96.600], [30.180, -96.940], [30.290, -97.150], [30.350, -97.370], [30.340, -97.550], [30.300, -97.680]]
+   "Houston|Brenham": [
+    [
+     29.88,
+     -95.54
+    ],
+    [
+     29.97,
+     -95.69
+    ],
+    [
+     30.04,
+     -95.83
+    ],
+    [
+     30.1,
+     -96.08
+    ],
+    [
+     30.12,
+     -96.25
+    ]
+   ],
+   "Brenham|Austin": [
+    [
+     30.18,
+     -96.6
+    ],
+    [
+     30.18,
+     -96.94
+    ],
+    [
+     30.29,
+     -97.15
+    ],
+    [
+     30.35,
+     -97.37
+    ],
+    [
+     30.34,
+     -97.55
+    ],
+    [
+     30.3,
+     -97.68
+    ]
+   ]
   },
   "LRD": {
-   "San Antonio|Laredo": [[29.300, -98.640], [29.140, -98.900], [28.890, -99.100], [28.670, -99.170], [28.440, -99.230], [28.040, -99.360], [27.700, -99.450]]
-  },
-  "RGV": {
-   "San Antonio|McAllen": [[29.150, -98.470], [28.970, -98.480], [28.460, -98.180], [28.330, -98.120], [27.760, -98.070], [27.230, -98.140], [26.700, -98.120], [26.300, -98.160]],
-   "McAllen|Harlingen": [[26.180, -98.050], [26.160, -97.990], [26.170, -97.830]],
-   "Harlingen|Brownsville": [[26.130, -97.630], [26.020, -97.560]]
+   "San Antonio|Laredo": [
+    [
+     29.3,
+     -98.64
+    ],
+    [
+     29.14,
+     -98.9
+    ],
+    [
+     28.89,
+     -99.1
+    ],
+    [
+     28.67,
+     -99.17
+    ],
+    [
+     28.44,
+     -99.23
+    ],
+    [
+     28.04,
+     -99.36
+    ],
+    [
+     27.7,
+     -99.45
+    ]
+   ]
   },
   "CC": {
-   "Houston|Victoria": [[29.700, -95.500], [29.620, -95.630], [29.550, -95.810], [29.310, -96.100], [29.200, -96.270], [29.000, -96.650]],
-   "Victoria|Corpus Christi": [[28.620, -97.150], [28.300, -97.280], [28.040, -97.510], [27.880, -97.460]]
+   "Houston|Victoria": [
+    [
+     29.7,
+     -95.5
+    ],
+    [
+     29.62,
+     -95.63
+    ],
+    [
+     29.55,
+     -95.81
+    ],
+    [
+     29.31,
+     -96.1
+    ],
+    [
+     29.2,
+     -96.27
+    ],
+    [
+     29.0,
+     -96.65
+    ]
+   ],
+   "Victoria|Corpus Christi": [
+    [
+     28.62,
+     -97.15
+    ],
+    [
+     28.3,
+     -97.28
+    ],
+    [
+     28.04,
+     -97.51
+    ],
+    [
+     27.88,
+     -97.46
+    ]
+   ]
   },
   "GULF": {
-   "Houston|Beaumont": [[29.780, -95.250], [29.780, -94.980], [29.820, -94.680], [29.820, -94.380]],
-   "Beaumont|Lake Charles": [[30.090, -93.740], [30.200, -93.450]],
-   "Lake Charles|Lafayette": [[30.220, -92.660], [30.230, -92.300]],
-   "Lafayette|Baton Rouge": [[30.310, -91.790], [30.420, -91.420]],
-   "Baton Rouge|New Orleans": [[30.240, -90.920], [30.070, -90.480], [29.990, -90.250]]
+   "Houston|Beaumont": [
+    [
+     29.78,
+     -95.25
+    ],
+    [
+     29.78,
+     -94.98
+    ],
+    [
+     29.82,
+     -94.68
+    ],
+    [
+     29.82,
+     -94.38
+    ]
+   ],
+   "Beaumont|Lake Charles": [
+    [
+     30.09,
+     -93.74
+    ],
+    [
+     30.2,
+     -93.45
+    ]
+   ],
+   "Lake Charles|Lafayette": [
+    [
+     30.22,
+     -92.66
+    ],
+    [
+     30.23,
+     -92.3
+    ]
+   ],
+   "Lafayette|Baton Rouge": [
+    [
+     30.31,
+     -91.79
+    ],
+    [
+     30.42,
+     -91.42
+    ]
+   ],
+   "Baton Rouge|New Orleans": [
+    [
+     30.24,
+     -90.92
+    ],
+    [
+     30.07,
+     -90.48
+    ],
+    [
+     29.99,
+     -90.25
+    ]
+   ]
   },
   "OKC": {
-   "Dallas|Denton": [[32.850, -96.880], [32.960, -96.950], [33.050, -96.990]],
-   "Denton|Norman": [[33.630, -97.130], [33.900, -97.150], [34.170, -97.140], [34.500, -97.170], [34.740, -97.220], [35.000, -97.360]],
-   "Norman|Oklahoma City": [[35.340, -97.480]]
+   "Dallas|Denton": [
+    [
+     32.85,
+     -96.88
+    ],
+    [
+     32.96,
+     -96.95
+    ],
+    [
+     33.05,
+     -96.99
+    ]
+   ],
+   "Denton|Norman": [
+    [
+     33.63,
+     -97.13
+    ],
+    [
+     33.9,
+     -97.15
+    ],
+    [
+     34.17,
+     -97.14
+    ],
+    [
+     34.5,
+     -97.17
+    ],
+    [
+     34.74,
+     -97.22
+    ],
+    [
+     35.0,
+     -97.36
+    ]
+   ],
+   "Norman|Oklahoma City": [
+    [
+     35.34,
+     -97.48
+    ]
+   ]
   },
   "SHV": {
-   "Dallas|Tyler": [[32.760, -96.700], [32.750, -96.600], [32.740, -96.280], [32.560, -95.860], [32.400, -95.500]],
-   "Tyler|Longview": [[32.420, -95.050]],
-   "Longview|Shreveport": [[32.540, -94.370], [32.500, -94.050]]
+   "Dallas|Tyler": [
+    [
+     32.76,
+     -96.7
+    ],
+    [
+     32.75,
+     -96.6
+    ],
+    [
+     32.74,
+     -96.28
+    ],
+    [
+     32.56,
+     -95.86
+    ],
+    [
+     32.4,
+     -95.5
+    ]
+   ],
+   "Tyler|Longview": [
+    [
+     32.42,
+     -95.05
+    ]
+   ],
+   "Longview|Shreveport": [
+    [
+     32.54,
+     -94.37
+    ],
+    [
+     32.5,
+     -94.05
+    ]
+   ]
   },
   "WEST": {
-   "Fort Worth|Abilene": [[32.750, -97.500], [32.760, -97.800], [32.700, -98.100], [32.470, -98.680], [32.390, -98.980], [32.420, -99.400]],
-   "Abilene|Midland": [[32.470, -100.410], [32.250, -101.480], [32.050, -101.850]],
-   "Midland|Odessa": [[31.930, -102.220]],
-   "Odessa|El Paso": [[31.590, -102.890], [31.420, -103.490], [31.040, -104.830], [31.170, -105.360], [31.450, -105.950], [31.700, -106.300]]
+   "Abilene|Midland": [
+    [
+     32.47,
+     -100.41
+    ],
+    [
+     32.25,
+     -101.48
+    ],
+    [
+     32.05,
+     -101.85
+    ]
+   ],
+   "Midland|Odessa": [
+    [
+     31.93,
+     -102.22
+    ]
+   ],
+   "Odessa|El Paso": [
+    [
+     31.59,
+     -102.89
+    ],
+    [
+     31.42,
+     -103.49
+    ],
+    [
+     31.04,
+     -104.83
+    ],
+    [
+     31.17,
+     -105.36
+    ],
+    [
+     31.45,
+     -105.95
+    ],
+    [
+     31.7,
+     -106.3
+    ]
+   ]
   },
-  "LBB": {
-   "Fort Worth|Lubbock": [[32.760, -97.800], [32.810, -98.110], [33.110, -98.590], [33.180, -99.180], [33.160, -99.730], [33.130, -100.230], [33.190, -101.380], [33.450, -101.700]]
+  "BIGC": {
+   "Fort Worth|Weatherford": [
+    [
+     32.75,
+     -97.5
+    ]
+   ],
+   "Weatherford|Abilene": [
+    [
+     32.7,
+     -98.1
+    ],
+    [
+     32.47,
+     -98.68
+    ],
+    [
+     32.39,
+     -98.98
+    ],
+    [
+     32.42,
+     -99.4
+    ]
+   ]
+  },
+  "PANH": {
+   "Abilene|Lubbock": [
+    [
+     32.45,
+     -100.53
+    ],
+    [
+     32.72,
+     -100.92
+    ],
+    [
+     33.19,
+     -101.38
+    ],
+    [
+     33.45,
+     -101.7
+    ]
+   ],
+   "Lubbock|Amarillo": [
+    [
+     33.85,
+     -101.84
+    ],
+    [
+     34.19,
+     -101.71
+    ],
+    [
+     34.55,
+     -101.75
+    ],
+    [
+     34.98,
+     -101.92
+    ]
+   ]
+  },
+  "VALLEY": {
+   "Corpus Christi|Kingsville": [
+    [
+     27.7,
+     -97.6
+    ]
+   ],
+   "Kingsville|Harlingen": [
+    [
+     27.22,
+     -97.79
+    ],
+    [
+     26.9,
+     -97.79
+    ],
+    [
+     26.48,
+     -97.78
+    ],
+    [
+     26.32,
+     -97.73
+    ]
+   ],
+   "Harlingen|Brownsville": [
+    [
+     26.13,
+     -97.63
+    ],
+    [
+     26.02,
+     -97.56
+    ]
+   ]
+  },
+  "MFE": {
+   "Harlingen|McAllen": [
+    [
+     26.17,
+     -97.83
+    ],
+    [
+     26.16,
+     -97.99
+    ],
+    [
+     26.19,
+     -98.13
+    ]
+   ]
   }
  }
 }
