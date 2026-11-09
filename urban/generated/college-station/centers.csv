@@ -1,4 +1,4 @@
 center_id,name,kind,lat,lon,activity,pop,jobs,peak_density_per_km2,peak_job_density_per_km2
 C01,Villa Maria / John Sharp,downtown,30.602973,-96.4123,34728,1981,32747,10686,10076
+A01,Texas A&M University,major,30.6187,-96.3365,60375,20432,4943,0,0
 T01,Alexandria / Southern Plantation,town,30.561899,-96.280596,30243,23734,6509,4059,784
-T02,Briarcrest / Broadmoor,town,30.649106,-96.340442,25471,11383,14088,5803,3657

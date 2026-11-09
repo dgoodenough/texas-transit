@@ -1,4 +1,4 @@
 center_id,name,kind,lat,lon,activity,pop,jobs,peak_density_per_km2,peak_job_density_per_km2
 C01,Avenue L / Avenue K,minor,33.588326,-101.8495,29435,13076,16359,6523,4795
-C02,Memphis / 24th Street,downtown,33.568354,-101.899741,24884,4815,20069,9389,7602
+C02,Texas Tech University,downtown,33.568354,-101.899741,24884,4815,20069,9389,7602
 T01,Frankford / 114th Street,town,33.495136,-101.944872,11559,8137,3422,3579,987

@@ -40,9 +40,15 @@ People + jobs per km2 within 1.0 km on a 0.5 km grid; cells of at least 4,000/km
 4 road links (Gabriel graph over centers and towns, <= 25 km). Routed: metro profile 4, BRT profile 3. Regional rail routes from downtown and major centers on standard-gauge track: no track route 2.
 Link routes dropped: 1 x no route.
 
-8 candidate lines (shortest center-to-center paths that pass the length, circuity and turn tests), 3 dense enough for a mode: Metro 0, Streetcar 0, BRT 3, Rail 0.
+6 candidate lines (shortest center-to-center paths that pass the length, circuity and turn tests), 3 dense enough for a mode: Metro 0, Streetcar 0, BRT 3, Rail 0.
 
 Mode rule (people + jobs within 800 m per route-km): metro >= 7,000 (6-45 km), streetcar >= 12,000 (<= 8 km), BRT >= 3,000 (BRT over capacity becomes metro); regional rail on existing track with >= 2,000 within 1.6 km per km.
+
+## Rider sense
+
+- Metro lines running through a downtown: 0 of 0.
+- BRT lines: 1; the median one runs 0% of its length within 400 m of another line.
+- Least straight line: 0.79 (end-to-end distance over length); worst winding over any 3 km: 1.79x the straight line.
 
 ## 3. Chosen lines
 
@@ -58,10 +64,10 @@ Chosen by the full model (metro/modelselect.py): the sketch drew a pool of 1 lin
 
 | candidate | mode | km | new trips/day | trips per $M | reason |
 |---|---|---|---|---|---|
-| R001 Tancahua / Lipan - Staples / Saratoga | brt | 13.9 | 2,767 | 4.08 | extended by R006 |
-| R003 Tancahua / Lipan - Violet / Leopard | brt | 19.9 | 2 | 0.00 | duplicate: 100% of it within 400 m of chosen line R006 (Staples / Saratoga - Violet / Leopard), 0.0 km of its own |
+| R001 Tancahua / Lipan - Staples / Saratoga | brt | 13.9 | 2,767 | 4.08 | extended by R005 |
+| R002 Tancahua / Lipan - Violet / Leopard | brt | 19.9 | 2 | 0.00 | duplicate: 100% of it within 400 m of chosen line R005 (Staples / Saratoga - Violet / Leopard), 0.0 km of its own |
 
-5 paths had no mode: 4 x too thin; 1 x 3,378 per route-km >= BRT 3,000 (< metro.
+3 paths had no mode: 2 x too thin; 1 x 3,378 per route-km >= BRT 3,000 (< metro.
 
 All candidates with their scores: `candidates.csv`; centers: `centers.csv`; map: `preview.png`.
 

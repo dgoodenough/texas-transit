@@ -10,6 +10,7 @@ Gazetteer of places (reference points). Extra keys this repo adds, which DFW Tra
   texas_pop     2020 population of the metro's Texas counties (the budget is Texas's money)
   buildout      true for the metros the generator runs in build-out mode (BUILDOUT below)
   policies      true for the metros with the 2 million plan's policy package (POLICY_METROS below)
+  anchors       places lines should reach (downtown, airports, campuses, medical districts; ANCHORS below)
   budget_musd   capital budget: DFW Transit's rate per resident ($2.3B a year for 7.47M people)
                 x texas_pop x 30 years, the generator's default horizon (as DFW Transit's
                 generated Houston and Eugene); 75 years, DFW Transit's horizon, for the build-out
@@ -58,6 +59,24 @@ STATES = {"48": "tx", "05": "ar", "22": "la", "35": "nm", "40": "ok"}
 # mixed traffic, so here they are today's frequent buses and the generator may propose real BRT
 # on their streets.
 BRT = {"houston": r"Silver Line|\bBRT\b"}
+# Anchors (vendor/dfw-transit metro/anchors.py): places a line should reach even when they aren't the
+# densest spots: the downtown (city hall), airports, big campuses, medical districts. weight: riders a day
+# it draws beyond the people and jobs around it (assumption: about a third of an airport's daily
+# passengers, a half of a campus's students).
+ANCHORS = {
+    "houston": [("Downtown Houston", 29.7604, -95.3698, "downtown", 0), ("Bush Intercontinental Airport", 29.9902, -95.3368, "airport", 30000),
+                ("Hobby Airport", 29.6454, -95.2789, "airport", 8000), ("Texas Medical Center", 29.7071, -95.3978, "medical", 30000),
+                ("University of Houston", 29.7199, -95.3422, "university", 20000), ("Rice University", 29.7174, -95.4018, "university", 4000)],
+    "austin": [("Downtown Austin", 30.2672, -97.7431, "downtown", 0), ("Austin-Bergstrom Airport", 30.1975, -97.6664, "airport", 20000),
+               ("University of Texas", 30.2849, -97.7341, "university", 25000), ("Texas State University", 29.8884, -97.9384, "university", 18000)],
+    "san-antonio": [("Downtown San Antonio", 29.4241, -98.4936, "downtown", 0), ("San Antonio Airport", 29.5337, -98.4698, "airport", 10000),
+                    ("UTSA", 29.5830, -98.6197, "university", 17000), ("South Texas Medical Center", 29.5100, -98.5780, "medical", 20000)],
+    "el-paso": [("Downtown El Paso", 31.7587, -106.4869, "downtown", 0), ("El Paso Airport", 31.8072, -106.3778, "airport", 4000),
+                ("UTEP", 31.7709, -106.5047, "university", 12000)],
+    "college-station": [("Texas A&M University", 30.6187, -96.3365, "university", 35000)],
+    "lubbock": [("Texas Tech University", 33.5843, -101.8783, "university", 20000)],
+    "waco": [("Baylor University", 31.5489, -97.1131, "university", 10000)],
+}
 
 
 def fetch(url):
@@ -166,6 +185,8 @@ def main():
             e["policies"] = True
         if mid in BRT:
             e["brt_name_pattern"] = BRT[mid]
+        if mid in ANCHORS:
+            e["anchors"] = [{"name": n, "lat": la, "lon": lo, "kind": k, "weight": w} for n, la, lo, k, w in ANCHORS[mid]]
         metros.append(e)
     metros.sort(key=lambda e: -e["texas_pop"])
     old, keep_top = {}, {}

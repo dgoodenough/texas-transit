@@ -30,7 +30,7 @@ People + jobs per km2 within 1.0 km on a 0.5 km grid; cells of at least 4,000/km
 | id | name | kind | people + jobs | jobs | peak density /km2 | lat, lon |
 |---|---|---|---|---|---|---|
 | C01 | Avenue L / Avenue K | minor | 29,435 | 16,359 | 6,523 | 33.5883, -101.8495 |
-| C02 | Memphis / 24th Street | downtown | 24,884 | 20,069 | 9,389 | 33.5684, -101.8997 |
+| C02 | Texas Tech University | downtown | 24,884 | 20,069 | 9,389 | 33.5684, -101.8997 |
 | T01 | Frankford / 114th Street | town | 11,559 | 3,422 | 3,579 | 33.4951, -101.9449 |
 
 ## 2. Corridors
@@ -41,6 +41,13 @@ People + jobs per km2 within 1.0 km on a 0.5 km grid; cells of at least 4,000/km
 
 Mode rule (people + jobs within 800 m per route-km): metro >= 7,000 (6-45 km), streetcar >= 12,000 (<= 8 km), BRT >= 3,000 (BRT over capacity becomes metro); regional rail on existing track with >= 2,000 within 1.6 km per km.
 
+## Rider sense
+
+- Metro lines running through a downtown: 0 of 1.
+- BRT lines: 1; the median one runs 3% of its length within 400 m of another line.
+- Least straight line: 0.71 (end-to-end distance over length); worst winding over any 3 km: 1.42x the straight line.
+- Anchors (registry): 0 of 1 have a station within 600 m; not served: Texas Tech University (university).
+
 ## 3. Chosen lines
 
 Chosen by the full model (metro/modelselect.py): the sketch drew a pool of 2 lines (floor 0.0 new trips per $M), carrying 14,862 new daily trips in 2050 in the full model; 1 rounds of pruning lines under 1.0 per $M (each line valued by the mean of the trips lost without it and the trips it adds alone) kept 2, carrying 14,862. In order of that value; the table's trips are the sketch's, the full model's are in `candidates.csv` (model_trips).
@@ -48,7 +55,7 @@ Chosen by the full model (metro/modelselect.py): the sketch drew a pool of 2 lin
 | # | line | mode | km | stops | density /route-km | capital $B | new trips/day | trips per $M | peak-hour load | why this mode |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 1 | G01 Avenue L / Avenue K - Frankford / 114th Street | brt | 18.4 | 14 | 5,669 | 0.63 | 2,745 | 3.04 | 94 | 5,669 per route-km >= BRT 3,000 (< metro 7,000) |
-| 2 | G02 Avenue L / Avenue K - Memphis / 24th Street | metro | 6.8 | 5 | 9,733 | 2.60 | 638 | 0.22 | 55 | 9,733 people+jobs per route-km >= metro 7,000 |
+| 2 | G02 Avenue L / Avenue K - Texas Tech University | metro | 6.8 | 5 | 9,733 | 2.60 | 638 | 0.22 | 55 | 9,733 people+jobs per route-km >= metro 7,000 |
 
 ## 4. Rejected candidates
 
@@ -56,7 +63,7 @@ Chosen by the full model (metro/modelselect.py): the sketch drew a pool of 2 lin
 
 | candidate | mode | km | new trips/day | trips per $M | reason |
 |---|---|---|---|---|---|
-| R003 Memphis / 24th Street - Frankford / 114th Street | brt | 11.7 | 120 | 0.21 | duplicate: 100% of it within 400 m of chosen line R002 (Avenue L / Avenue K - Frankford / 114th Street), 0.0 km of its own |
+| R003 Texas Tech University - Frankford / 114th Street | brt | 11.7 | 120 | 0.21 | duplicate: 100% of it within 400 m of chosen line R002 (Avenue L / Avenue K - Frankford / 114th Street), 0.0 km of its own |
 
 0 paths had no mode: .
 

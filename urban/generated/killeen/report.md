@@ -40,6 +40,12 @@ People + jobs per km2 within 1.0 km on a 0.5 km grid; cells of at least 4,000/km
 
 Mode rule (people + jobs within 800 m per route-km): metro >= 7,000 (6-45 km), streetcar >= 12,000 (<= 8 km), BRT >= 3,000 (BRT over capacity becomes metro); regional rail on existing track with >= 2,000 within 1.6 km per km.
 
+## Rider sense
+
+- Metro lines running through a downtown: 0 of 0.
+- BRT lines: 0; the median one runs 0% of its length within 400 m of another line.
+- Least straight line: 1.00 (end-to-end distance over length); worst winding over any 3 km: 1.00x the straight line.
+
 ## 3. Chosen lines
 
 In the order chosen (most new daily trips per $M first; sketch demand, single-line trips).

@@ -1,0 +1,138 @@
+"""Do the generated networks read like a rider would draw them? (study/hsr_buildout.md, Phase 3)
+
+    python study/router.py [BEFORE_DIR]
+
+For each metro's generated network (urban/generated/<id>/), from its tables alone:
+  through    share of new metro lines that run through the downtown (pass within 1 km of the
+             registry's downtown anchor with both ends more than 3 km from it), against ending there
+  overlap    the median new BRT line's share of length within 400 m of another line
+  anchors    registry anchors (airports, campuses, medical districts, the downtown) with a new or
+             existing station within 600 m
+  straight   the median line's end-to-end distance over its length
+With BEFORE_DIR (a copy of urban/generated from before the router changes), compares the two, and
+the daily trips and capital from each summary.json. Writes study/router.md.
+"""
+import csv
+import json
+import math
+import os
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+csv.field_size_limit(1 << 28)
+
+
+def xy(lat, lon, lat0):
+    return lon * 111.32 * math.cos(math.radians(lat0)), lat * 110.57
+
+
+def lines_of(folder):
+    """{line_id: (mode, status, [(x, y)] km)} from lines.csv and line_segments.csv, and stations."""
+    if not os.path.exists(os.path.join(folder, "lines.csv")):
+        return None, None, None
+    meta = {r["line_id"]: r for r in csv.DictReader(open(os.path.join(folder, "lines.csv"), encoding="utf-8"))}
+    st = list(csv.DictReader(open(os.path.join(folder, "stations.csv"), encoding="utf-8")))
+    lat0 = sum(float(s["lat"]) for s in st) / max(len(st), 1)
+    pts = {}
+    for r in csv.DictReader(open(os.path.join(folder, "line_segments.csv"), encoding="utf-8")):
+        body = r["geometry_wkt"][r["geometry_wkt"].index("(") + 1:-1]
+        pts.setdefault(r["line_id"], []).extend(
+            xy(float(q.split()[1]), float(q.split()[0]), lat0) for q in body.split(","))
+    out = {k: (meta[k]["mode"], meta[k]["status"], v) for k, v in pts.items() if k in meta}
+    stations = [xy(float(s["lat"]), float(s["lon"]), lat0) for s in st]
+    return out, stations, lat0
+
+
+def length(P):
+    return sum(math.dist(a, b) for a, b in zip(P, P[1:]))
+
+
+def near_share(P, others, r=0.4, step=0.2):
+    S = []
+    for a, b in zip(P, P[1:]):
+        n = max(1, int(math.dist(a, b) / step))
+        S += [(a[0] + (b[0] - a[0]) * k / n, a[1] + (b[1] - a[1]) * k / n) for k in range(n)]
+    if not S:
+        return 0.0
+    grid = {}
+    for Q in others:
+        for q in Q:
+            grid.setdefault((int(q[0] // r), int(q[1] // r)), []).append(q)
+    hit = 0
+    for p in S:
+        cx, cy = int(p[0] // r), int(p[1] // r)
+        if any(math.dist(p, q) <= r for i in (cx - 1, cx, cx + 1) for j in (cy - 1, cy, cy + 1) for q in grid.get((i, j), ())):
+            hit += 1
+    return hit / len(S)
+
+
+def measure(folder, anchors):
+    lines, stations, lat0 = lines_of(folder)
+    if not lines:
+        return None
+    new = {k: v for k, v in lines.items() if v[1] != "existing"}
+    down = next(((a["lat"], a["lon"]) for a in anchors if a["kind"] == "downtown"), None)
+    res = {"lines": len(new)}
+    metro = [v[2] for v in new.values() if v[0] == "metro"]
+    if down:
+        d = xy(*down, lat0)
+        thr = sum(1 for P in metro if min(math.dist(p, d) for p in P) <= 1.0
+                  and math.dist(P[0], d) > 3.0 and math.dist(P[-1], d) > 3.0)
+        ends = sum(1 for P in metro if min(math.dist(P[0], d), math.dist(P[-1], d)) <= 3.0)
+        res.update(metro=len(metro), through=thr, end_downtown=ends)
+    brt = [k for k, v in new.items() if v[0] == "brt"]
+    ov = sorted(near_share(new[k][2], [v[2] for j, v in lines.items() if j != k]) for k in brt)
+    res["brt"], res["overlap"] = len(brt), (ov[len(ov) // 2] if ov else None)
+    res["anchors"] = [(a["name"], any(math.dist(xy(a["lat"], a["lon"], lat0), s) <= 0.6 for s in stations)) for a in anchors]
+    st = sorted(math.dist(v[2][0], v[2][-1]) / max(length(v[2]), 0.1) for v in new.values())
+    res["straight"] = st[len(st) // 2] if st else None
+    sp = os.path.join(folder, "summary.json")
+    if os.path.exists(sp):
+        s = json.load(open(sp, encoding="utf-8"))
+        res["trips"], res["capital"] = s.get("trips"), s.get("capital_musd")
+    return res
+
+
+def main():
+    before_dir = sys.argv[1] if len(sys.argv) > 1 else None
+    reg = json.load(open(os.path.join(ROOT, "urban", "metros.json"), encoding="utf-8"))
+    rows = []
+    for m in reg["metros"]:
+        anchors = m.get("anchors") or []
+        a = measure(os.path.join(ROOT, "urban", "generated", m["id"]), anchors)
+        b = measure(os.path.join(before_dir, m["id"]), anchors) if before_dir else None
+        if a and (anchors or a["lines"] >= 5):
+            rows.append((m, b, a))
+    f = lambda r, k, fmt: (fmt.format(r[k]) if r and r.get(k) is not None else "")  # noqa: E731
+    L = ["# Do the generated networks read like a rider would draw them?", "",
+         "Generated by `python study/router.py`. Phase 3 of `study/hsr_buildout.md`: DFW Transit's generator "
+         "(`vendor/dfw-transit/metro/`) now takes anchors from the registry (the downtown, airports, campuses, medical "
+         "districts: `tools/build_metro_registry.py` ANCHORS), joins lines that end in the downtown core from opposite "
+         "sides into through lines, and rejects routes that wind (no 3 km stretch more than 2.2 times the straight line). "
+         "Measured from each network's tables: metro lines through downtown (passing within 1 km of the downtown, both "
+         "ends more than 3 km away) and ending there; the median new BRT line's share within 400 m of another line; "
+         "anchors with a station within 600 m; the median line's straightness (end to end over length).", ""]
+    hdr = "| Metro | Lines | Metro through downtown | Metro ending downtown | Median BRT overlap | Anchors served | Straightness | Daily trips | Capital |"
+    L += [hdr, "|---|---|---|---|---|---|---|---|---|"]
+    for m, b, a in rows:
+        for lab, r in (("before", b), ("after", a)):
+            if r is None:
+                continue
+            served = f"{sum(ok for _, ok in r['anchors'])} of {len(r['anchors'])}" if r["anchors"] else ""
+            L.append(f"| {m['name'].split(',')[0].split('-')[0]}{' (' + lab + ')' if b else ''} | {r['lines']} | "
+                     f"{f(r, 'through', '{}')}{'/' + str(r['metro']) if r.get('metro') is not None else ''} | {f(r, 'end_downtown', '{}')} | "
+                     f"{f(r, 'overlap', '{:.0%}')} | {served} | {f(r, 'straight', '{:.2f}')} | {f(r, 'trips', '{:,.0f}')} | "
+                     f"{('$' + format(r['capital'] / 1000, '.1f') + 'B') if r.get('capital') else ''} |")
+    miss = [(m["name"].split(",")[0].split("-")[0], n) for m, _, a in rows for n, ok in a["anchors"] if not ok]
+    L += ["", "**Anchors not served:** " + (", ".join(f"{n} ({c})" for c, n in miss) if miss else "none") + ".", "",
+          "What's not done: turn penalties in the road router (edge-based routing), and the full line-planning program "
+          "(choosing lines and frequencies together on a transfer-aware rider model, the mathematician's spec in "
+          "`study/cabinet/network.md`). The generator still builds lines one at a time from corridors between centers; "
+          "the changes here fix the worst of what that produces.", ""]
+    with open(os.path.join(ROOT, "study", "router.md"), "w", encoding="utf-8") as fh:
+        fh.write("\n".join(L))
+    print("\n".join(L))
+
+
+if __name__ == "__main__":
+    main()
