@@ -67,6 +67,50 @@
    },
    "policies": true,
    "brt_name_pattern": "Silver Line|\\bBRT\\b",
+   "anchors": [
+    {
+     "name": "Downtown Houston",
+     "lat": 29.7604,
+     "lon": -95.3698,
+     "kind": "downtown",
+     "weight": 0
+    },
+    {
+     "name": "Bush Intercontinental Airport",
+     "lat": 29.9902,
+     "lon": -95.3368,
+     "kind": "airport",
+     "weight": 30000
+    },
+    {
+     "name": "Hobby Airport",
+     "lat": 29.6454,
+     "lon": -95.2789,
+     "kind": "airport",
+     "weight": 8000
+    },
+    {
+     "name": "Texas Medical Center",
+     "lat": 29.7071,
+     "lon": -95.3978,
+     "kind": "medical",
+     "weight": 30000
+    },
+    {
+     "name": "University of Houston",
+     "lat": 29.7199,
+     "lon": -95.3422,
+     "kind": "university",
+     "weight": 20000
+    },
+    {
+     "name": "Rice University",
+     "lat": 29.7174,
+     "lon": -95.4018,
+     "kind": "university",
+     "weight": 4000
+    }
+   ],
    "calibration": {
     "weekday_boardings": 43920,
     "source": "NTD 2024 average typical weekday, 60008 LR 42,946 + 60008 RB 974"
@@ -134,6 +178,36 @@
    },
    "buildout": true,
    "policies": true,
+   "anchors": [
+    {
+     "name": "Downtown San Antonio",
+     "lat": 29.4241,
+     "lon": -98.4936,
+     "kind": "downtown",
+     "weight": 0
+    },
+    {
+     "name": "San Antonio Airport",
+     "lat": 29.5337,
+     "lon": -98.4698,
+     "kind": "airport",
+     "weight": 10000
+    },
+    {
+     "name": "UTSA",
+     "lat": 29.583,
+     "lon": -98.6197,
+     "kind": "university",
+     "weight": 17000
+    },
+    {
+     "name": "South Texas Medical Center",
+     "lat": 29.51,
+     "lon": -98.578,
+     "kind": "medical",
+     "weight": 20000
+    }
+   ],
    "ridership_asc": {
     "asc": 0.778,
     "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 1.26% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
@@ -195,6 +269,36 @@
    },
    "buildout": true,
    "policies": true,
+   "anchors": [
+    {
+     "name": "Downtown Austin",
+     "lat": 30.2672,
+     "lon": -97.7431,
+     "kind": "downtown",
+     "weight": 0
+    },
+    {
+     "name": "Austin-Bergstrom Airport",
+     "lat": 30.1975,
+     "lon": -97.6664,
+     "kind": "airport",
+     "weight": 20000
+    },
+    {
+     "name": "University of Texas",
+     "lat": 30.2849,
+     "lon": -97.7341,
+     "kind": "university",
+     "weight": 25000
+    },
+    {
+     "name": "Texas State University",
+     "lat": 29.8884,
+     "lon": -97.9384,
+     "kind": "university",
+     "weight": 18000
+    }
+   ],
    "ridership_asc": {
     "asc": 0.6842,
     "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 1.06% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
@@ -300,6 +404,29 @@
     }
    },
    "policies": true,
+   "anchors": [
+    {
+     "name": "Downtown El Paso",
+     "lat": 31.7587,
+     "lon": -106.4869,
+     "kind": "downtown",
+     "weight": 0
+    },
+    {
+     "name": "El Paso Airport",
+     "lat": 31.8072,
+     "lon": -106.3778,
+     "kind": "airport",
+     "weight": 4000
+    },
+    {
+     "name": "UTEP",
+     "lat": 31.7709,
+     "lon": -106.5047,
+     "kind": "university",
+     "weight": 12000
+    }
+   ],
    "ridership_asc": {
     "asc": 0.5052,
     "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.77% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
@@ -577,6 +704,15 @@
      "2100": 1.4614
     }
    },
+   "anchors": [
+    {
+     "name": "Texas Tech University",
+     "lat": 33.5843,
+     "lon": -101.8783,
+     "kind": "university",
+     "weight": 20000
+    }
+   ],
    "ridership_asc": {
     "asc": 0.3112,
     "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.54% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
@@ -632,6 +768,15 @@
      "2100": 1.4569
     }
    },
+   "anchors": [
+    {
+     "name": "Baylor University",
+     "lat": 31.5489,
+     "lon": -97.1131,
+     "kind": "university",
+     "weight": 10000
+    }
+   ],
    "ridership_asc": {
     "asc": 0.057,
     "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.34% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
@@ -803,6 +948,15 @@
      "2100": 1.9803
     }
    },
+   "anchors": [
+    {
+     "name": "Texas A&M University",
+     "lat": 30.6187,
+     "lon": -96.3365,
+     "kind": "university",
+     "weight": 35000
+    }
+   ],
    "ridership_asc": {
     "asc": 0.8876,
     "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 1.54% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
