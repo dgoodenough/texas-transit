@@ -28,7 +28,7 @@ People + jobs per km2 within 1.0 km on a 0.5 km grid; cells of at least 4,000/km
 
 | id | name | kind | people + jobs | jobs | peak density /km2 | lat, lon |
 |---|---|---|---|---|---|---|
-| C01 | 8th Street / Dutton | downtown | 23,757 | 12,953 | 8,268 | 31.5447, -97.1205 |
+| C01 | Baylor University | downtown | 23,757 | 12,953 | 8,268 | 31.5447, -97.1205 |
 | T01 | Hewitt Drive | town | 26,761 | 16,534 | 6,592 | 31.4862, -97.2092 |
 
 ## 2. Corridors
@@ -39,13 +39,20 @@ People + jobs per km2 within 1.0 km on a 0.5 km grid; cells of at least 4,000/km
 
 Mode rule (people + jobs within 800 m per route-km): metro >= 7,000 (6-45 km), streetcar >= 12,000 (<= 8 km), BRT >= 3,000 (BRT over capacity becomes metro); regional rail on existing track with >= 2,000 within 1.6 km per km.
 
+## Rider sense
+
+- Metro lines running through a downtown: 0 of 0.
+- BRT lines: 1; the median one runs 0% of its length within 400 m of another line.
+- Least straight line: 0.73 (end-to-end distance over length); worst winding over any 3 km: 1.60x the straight line.
+- Anchors (registry): 0 of 1 have a station within 600 m; not served: Baylor University (university).
+
 ## 3. Chosen lines
 
 Chosen by the full model (metro/modelselect.py): the sketch drew a pool of 1 lines (floor 0.0 new trips per $M), carrying 3,793 new daily trips in 2050 in the full model; 1 rounds of pruning lines under 1.0 per $M (each line valued by the mean of the trips lost without it and the trips it adds alone) kept 1, carrying 3,793. In order of that value; the table's trips are the sketch's, the full model's are in `candidates.csv` (model_trips).
 
 | # | line | mode | km | stops | density /route-km | capital $B | new trips/day | trips per $M | peak-hour load | why this mode |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | G01 8th Street / Dutton - Hewitt Drive | brt | 14.4 | 11 | 5,013 | 0.49 | 485 | 0.69 | 25 | 5,013 per route-km >= BRT 3,000 (< metro 7,000) |
+| 1 | G01 Baylor University - Hewitt Drive | brt | 14.4 | 11 | 5,013 | 0.49 | 485 | 0.69 | 25 | 5,013 per route-km >= BRT 3,000 (< metro 7,000) |
 
 ## 4. Rejected candidates
 
