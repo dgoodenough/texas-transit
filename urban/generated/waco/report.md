@@ -48,9 +48,9 @@ Mode rule (people + jobs within 800 m per route-km): metro >= 7,000 (6-45 km), s
 
 ## Line planning
 
-After the pruning, a local search on the full model (metro/lineplan.py) improves the network as a whole: J = new daily trips - 1.0 x ($M of capital + opex over the valuation years) - 1,000 for each must-serve anchor without a station. From 1 lines, 3,793 daily trips, $0.5B and 1 anchors unserved to 1 lines, 4,294 daily trips, $0.5B and 1 unserved (J +431).
+After the pruning, a local search on the full model (metro/lineplan.py) improves the network as a whole: J = new daily trips - 2.5 x ($M of capital + opex over the valuation years) - 1,000 for each must-serve anchor without a station. From 1 lines, 3,793 daily trips, $0.5B and 1 anchors unserved to 1 lines, 4,294 daily trips, $0.5B and 1 unserved (J +325).
 
-- Round 1: R001 every 6 min (was 8) (J +431)
+- Round 1: R001 every 6 min (was 8) (J +325)
 - Still unserved: Baylor University.
 
 ## 3. Chosen lines

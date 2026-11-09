@@ -23,15 +23,15 @@ Trips are daily transit trips from the model with every line open on today's lan
 
 | Metro | People (TX) | Budget | Capital | Lines | Metro / streetcar / BRT / regional rail km | Within 800 m of a station | Trips a day (today) | New trips per $B | Constant |
 |---|---|---|---|---|---|---|---|---|---|
-| Houston-Pasadena-The Woodlands | 7.15M | $165.1B | $105.8B | 55 | 362 / 0 / 1,015 / 452 | 28% (2%) | 450,728 (66,571) | 3,631 | +0.88 |
-| San Antonio-New Braunfels | 2.56M | $59.1B | $49.0B | 32 | 167 / 0 / 455 / 134 | 27% (0%) | 201,503 (0) | 4,114 | +0.78 |
-| Austin-Round Rock-San Marcos | 2.28M | $52.7B | $48.2B | 28 | 156 / 0 / 405 / 190 | 27% (1%) | 264,300 (29,899) | 4,865 | +0.68 |
-| McAllen-Edinburg-Mission | 0.87M | $8.0B | $3.6B | 4 | 0 / 0 / 86 / 24 | 13% (0%) | 11,841 (0) | 3,317 | -0.14 |
-| El Paso | 0.87M | $20.1B | $8.3B | 6 | 22 / 0 / 89 / 0 | 19% (0%) | 49,488 (0) | 5,938 | +0.51 |
+| Houston-Pasadena-The Woodlands | 7.15M | $165.1B | $60.3B | 26 | 259 / 0 / 384 / 119 | 17% (2%) | 370,368 (66,571) | 5,040 | +0.88 |
+| San Antonio-New Braunfels | 2.56M | $59.1B | $24.1B | 17 | 85 / 0 / 245 / 0 | 18% (0%) | 159,002 (0) | 6,592 | +0.78 |
+| Austin-Round Rock-San Marcos | 2.28M | $52.7B | $35.5B | 18 | 119 / 0 / 249 / 83 | 23% (1%) | 248,485 (29,899) | 6,159 | +0.68 |
+| McAllen-Edinburg-Mission | 0.87M | $8.0B | $2.0B | 2 | 0 / 0 / 24 / 24 | 8% (0%) | 8,630 (0) | 4,214 | -0.14 |
+| El Paso | 0.87M | $20.1B | $8.3B | 6 | 22 / 0 / 89 / 0 | 19% (0%) | 49,758 (0) | 5,970 | +0.51 |
 | Killeen-Temple | 0.48M | $4.4B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | -0.02 |
 | Corpus Christi | 0.45M | $4.1B | $1.1B | 1 | 0 / 0 / 34 / 0 | 11% (0%) | 12,955 (0) | 11,416 | +0.65 |
 | Brownsville-Harlingen | 0.42M | $3.9B | $0.7B | 2 | 0 / 0 / 21 / 0 | 11% (0%) | 3,465 (0) | 4,674 | +0.18 |
-| Beaumont-Port Arthur | 0.40M | $3.7B | $0.3B | 1 | 0 / 0 / 8 / 0 | 3% (0%) | 478 (0) | 1,611 | +0.02 |
+| Beaumont-Port Arthur | 0.40M | $3.7B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | +0.02 |
 | Lubbock | 0.35M | $3.2B | $0.7B | 1 | 0 / 0 / 19 / 0 | 13% (0%) | 7,940 (0) | 12,135 | +0.31 |
 | Waco | 0.30M | $2.7B | $0.5B | 1 | 0 / 0 / 14 / 0 | 9% (0%) | 2,429 (0) | 4,969 | +0.06 |
 | Longview | 0.29M | $2.6B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | -0.51 |
@@ -42,18 +42,18 @@ Trips are daily transit trips from the model with every line open on today's lan
 | Abilene | 0.18M | $1.6B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | +0.03 |
 | Midland | 0.18M | $1.6B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | -0.13 |
 | Odessa | 0.17M | $1.5B | $0.7B | 2 | 0 / 0 / 21 / 0 | 19% (0%) | 2,335 (0) | 3,165 | -0.22 |
-| Wichita Falls | 0.15M | $1.4B | $0.4B | 1 | 0 / 0 / 10 / 0 | 14% (0%) | 1,018 (0) | 2,867 | -0.18 |
+| Wichita Falls | 0.15M | $1.4B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | -0.18 |
 | Sherman-Denison | 0.14M | $1.3B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | +0.19 |
 | San Angelo | 0.12M | $1.1B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | +0.14 |
 | Victoria | 0.10M | $0.9B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | -0.18 |
 | Texarkana | 0.09M | $0.9B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | -0.22 |
 | Eagle Pass | 0.06M | $0.5B | $0.0B | 0 | 0 / 0 / 0 / 0 | 0% (0%) | 0 (0) | 0 | -0.61 |
 
-**All 25 metros:** 18.6M Texans, $221B of capital against $350B of budget, 138 lines (metro 706 km, streetcar 0 km, brt 2,232 km, regional rail 800 km), 1,027,931 daily transit trips against 96,470 today, 4,213 new daily trips per $B; $4.8B a year more to operate.
+**All 25 metros:** 18.6M Texans, $136B of capital against $350B of budget, 80 lines (metro 485 km, streetcar 0 km, brt 1,155 km, regional rail 226 km), 884,819 daily transit trips against 96,470 today, 5,803 new daily trips per $B; $3.0B a year more to operate.
 
-**Unspent: $129B of the $350B.** 10 metros get no line at all (Killeen, Longview, Tyler, Abilene, Midland, Sherman, San Angelo, Victoria, Texarkana, Eagle Pass), and most of the other small ones one short BRT line. The generator only drafts lines between activity centers, clusters of at least 20,000 people + jobs at 4,000 per km2 or more, and only gives a corridor a mode when the people + jobs along it reach that mode's density (DFW's calibration, `vendor/dfw-transit/metro/generate.json`). Texas's smaller metros are mostly too spread out for rail or BRT by those tests; their case is for local bus, which this generator doesn't draw. The unspent money goes back to the statewide pot for the timing step.
+**Unspent: $214B of the $350B.** 12 metros get no line at all (Killeen, Beaumont, Longview, Tyler, Abilene, Midland, Wichita Falls, Sherman, San Angelo, Victoria, Texarkana, Eagle Pass), and most of the other small ones one short BRT line. The generator only drafts lines between activity centers, clusters of at least 20,000 people + jobs at 4,000 per km2 or more, and only gives a corridor a mode when the people + jobs along it reach that mode's density (DFW's calibration, `vendor/dfw-transit/metro/generate.json`). Texas's smaller metros are mostly too spread out for rail or BRT by those tests; their case is for local bus, which this generator doesn't draw. The unspent money goes back to the statewide pot for the timing step.
 
-Metros under 300,000 people (15): $3B for 25,234 new daily trips, 7,405 per $B; the 10 larger ones: 4,163 per $B. The flat per-resident budget is a starting point: the statewide timing step moves money to where it buys the most riders, urban or intercity.
+Metros under 300,000 people (15): $3B for 24,216 new daily trips, 7,933 per $B; the 10 larger ones: 5,754 per $B. The flat per-resident budget is a starting point: the statewide timing step moves money to where it buys the most riders, urban or intercity.
 
 ## How the lines were chosen
 
@@ -61,20 +61,19 @@ By the full model (DFW Transit `metro/modelselect.py`): the generator's quick sk
 
 | Metro | Pool | Kept | Cut by the full model | Best kept, trips per $M | Weakest kept | Highest-value line |
 |---|---|---|---|---|---|---|
+| McAllen-Edinburg-Mission | 2 | 2 | 0 | 6.6 | 2.6 | Jackson / Schunior - 1st Street / Mayberry (brt, 6,369 trips) |
 | El Paso | 6 | 6 | 0 | 10.2 | 4.5 | Pellicano / George Dieter - Nonap / Mark Twain (brt, 4,335 trips) |
 | Corpus Christi | 1 | 1 | 0 | 10.0 | 10.0 | Staples / Saratoga - Violet / Leopard (brt, 16,301 trips) |
-| Beaumont-Port Arthur | 1 | 1 | 0 | 1.4 | 1.4 | Turtle Creek Drive - Stadium / Lewis (brt, 567 trips) |
 | Lubbock | 1 | 1 | 0 | 13.0 | 13.0 | Avenue L / Avenue K - Frankford / 114th Street (brt, 12,155 trips) |
 | Waco | 1 | 1 | 0 | 5.4 | 5.4 | Baylor University - Hewitt Drive (brt, 3,793 trips) |
 | Amarillo | 1 | 1 | 0 | 10.9 | 10.9 | Wolflin / Amarillo - Highland / 16th Avenue (brt, 6,920 trips) |
 | College Station-Bryan | 2 | 2 | 0 | 15.7 | 12.0 | Texas A&M University - Villa Maria / John Sharp (brt, 6,845 trips) |
 | Laredo | 1 | 1 | 0 | 7.3 | 7.3 | Calton / McPherson - Sierra Vista Boulevard (brt, 4,439 trips) |
 | Odessa | 2 | 2 | 0 | 5.0 | 3.1 | Grant / 14th Street - Eastridge / Billy Hext (brt, 2,618 trips) |
-| Wichita Falls | 1 | 1 | 0 | 2.1 | 2.1 | Brook / 11th Street - Langford Lane (brt, 1,060 trips) |
 
-**The full model cuts nothing.** Every line the generator can draw scores at least 1.4 new daily trips per $M, above the floor and about where DFW's own plan's weaker lines sit: the sketch underrates lines that work as a network (Houston's weakest regional rail line scores 0.08 in the sketch, 1.9 in the full model), and dropping its floor adds lines, mostly in Houston (50 lines and $72B to 71 and $121B; 5.8% of commutes by transit in 2100 to 6.8%) with the sketch's floor dropped.
+**The full model cuts nothing.** Every line the generator can draw scores at least 2.6 new daily trips per $M, above the floor and about where DFW's own plan's weaker lines sit: the sketch underrates lines that work as a network (Houston's weakest regional rail line scores 0.08 in the sketch, 1.9 in the full model), and dropping its floor adds lines, mostly in Houston (50 lines and $72B to 71 and $121B; 5.8% of commutes by transit in 2100 to 6.8%) with the sketch's floor dropped.
 
-**Branches.** A candidate that runs within 400 m of chosen lines for more than half its length is a duplicate unless it has at least 5 km of route of its own: then it's a branch off a shared trunk, charged only for the track it doesn't share with lines of its mode (the network splits shared track's cost among the lines on it). 1 lines are branches; 6 candidates are still duplicates (parallel copies or near-copies of chosen lines). A metro branch along a BRT trunk is a different mode on the same street, so it pays its own way: in effect an upgrade of that stretch.
+**Branches.** A candidate that runs within 400 m of chosen lines for more than half its length is a duplicate unless it has at least 5 km of route of its own: then it's a branch off a shared trunk, charged only for the track it doesn't share with lines of its mode (the network splits shared track's cost among the lines on it). 1 lines are branches; 10 candidates are still duplicates (parallel copies or near-copies of chosen lines). A metro branch along a BRT trunk is a different mode on the same street, so it pays its own way: in effect an upgrade of that stretch.
 
 ## With growth and station-area development, 2050 and 2100
 
@@ -84,25 +83,23 @@ Dallas-Fort Worth under its own plan, for comparison: 0.6% of commutes by transi
 
 | Metro | Package | People 2020 | 2050 | 2100 | Transit share with the network, today's land use | 2050 | 2100 | 2100, today's lines alone | Daily trips 2050 | 2100 | Feeder buses added, $M a year (2050) |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Houston-Pasadena-The Woodlands | policies + land use | 7.15M | 11.41M | 17.38M | 5.0% | 6.6% | 7.7% | 1.2% | 913,655 | 1,628,064 | 361 |
-| San Antonio-New Braunfels | policies + land use | 2.56M | 4.00M | 5.99M | 6.5% | 8.4% | 9.7% | 0.0% | 391,221 | 670,752 | 226 |
-| Austin-Round Rock-San Marcos | policies + land use | 2.28M | 4.64M | 8.67M | 7.5% | 9.9% | 11.4% | 1.1% | 655,328 | 1,419,419 | 301 |
-| McAllen-Edinburg-Mission | land use | 0.87M | 1.15M | 1.46M | 1.5% | 2.0% | 2.5% | 0.0% | 20,758 | 32,117 | 9 |
-| El Paso | policies + land use | 0.87M | 1.05M | 1.23M | 5.3% | 6.5% | 7.7% | 0.0% | 73,623 | 101,633 | 47 |
+| Houston-Pasadena-The Woodlands | policies + land use | 7.15M | 11.38M | 17.33M | 4.1% | 5.7% | 6.7% | 1.2% | 783,185 | 1,404,597 | 343 |
+| San Antonio-New Braunfels | policies + land use | 2.56M | 3.99M | 5.98M | 5.2% | 6.8% | 7.8% | 0.0% | 312,177 | 540,102 | 188 |
+| Austin-Round Rock-San Marcos | policies + land use | 2.28M | 4.63M | 8.66M | 7.0% | 9.4% | 10.8% | 1.1% | 621,170 | 1,346,784 | 313 |
+| McAllen-Edinburg-Mission | land use | 0.87M | 1.15M | 1.45M | 1.1% | 1.6% | 2.1% | 0.0% | 16,465 | 27,217 | 9 |
+| El Paso | policies + land use | 0.87M | 1.05M | 1.23M | 5.3% | 6.6% | 7.7% | 0.0% | 73,994 | 102,097 | 47 |
 | Corpus Christi | land use | 0.45M | 0.49M | 0.53M | 2.6% | 3.4% | 3.8% | 0.0% | 18,008 | 22,058 | 11 |
 | Brownsville-Harlingen | land use | 0.42M | 0.46M | 0.49M | 0.9% | 1.0% | 1.2% | 0.0% | 4,454 | 5,533 | 2 |
-| Beaumont-Port Arthur | land use | 0.40M | 0.42M | 0.44M | 0.1% | 0.2% | 0.2% | 0.0% | 656 | 858 | 0 |
 | Lubbock | land use | 0.35M | 0.43M | 0.53M | 1.7% | 2.3% | 2.9% | 0.0% | 13,718 | 20,517 | 6 |
 | Waco | land use | 0.30M | 0.37M | 0.44M | 0.7% | 1.0% | 1.3% | 0.0% | 4,294 | 6,760 | 3 |
 | Amarillo | land use | 0.27M | 0.32M | 0.39M | 1.4% | 1.9% | 2.4% | 0.0% | 7,623 | 11,823 | 3 |
 | College Station-Bryan | land use | 0.27M | 0.40M | 0.56M | 3.3% | 4.2% | 5.2% | 0.0% | 20,312 | 36,082 | 11 |
 | Laredo | land use | 0.27M | 0.31M | 0.36M | 1.2% | 1.6% | 2.0% | 0.0% | 5,061 | 7,153 | 6 |
 | Odessa | land use | 0.17M | 0.26M | 0.37M | 1.2% | 1.6% | 2.2% | 0.0% | 4,890 | 9,522 | 2 |
-| Wichita Falls | land use | 0.15M | 0.14M | 0.14M | 0.7% | 0.9% | 0.9% | 0.0% | 1,218 | 1,268 | 0 |
 
-**The 4 policy metros in 2100:** Houston 7.7%, San Antonio 9.7%, Austin 11.4%, El Paso 7.7% of commutes by transit, against 7.3% in DFW under its plan. With the land use alone and 30-year budgets (Austin and San Antonio 75) they reached 2.9-5.6%: feeder buses widen every station's reach, priced parking at the densest job centers makes the drive downtown cost something, and the generator draws a bigger network for riders who will use it. Their feeder buses cost $934M a year to run by 2050.
+**The 4 policy metros in 2100:** Houston 6.7%, San Antonio 7.8%, Austin 10.8%, El Paso 7.7% of commutes by transit, against 7.3% in DFW under its plan. With the land use alone and 30-year budgets (Austin and San Antonio 75) they reached 2.9-5.6%: feeder buses widen every station's reach, priced parking at the densest job centers makes the drive downtown cost something, and the generator draws a bigger network for riders who will use it. Their feeder buses cost $890M a year to run by 2050.
 
-**All 15 metros:** 1,027,931 daily transit trips on today's land use, 2,134,819 in 2050 and 3,973,558 in 2100; 4.9% of commutes by transit, then 6.8% and 8.3%.
+**All 13 metros:** 884,819 daily transit trips on today's land use, 1,885,352 in 2050 and 3,540,244 in 2100; 4.4% of commutes by transit, then 6.1% and 7.5%.
 
 Every line is open from 2026 here, so station areas have had their full time to develop by 2050; the timing step opens lines over the century and scales each metro's riders along these years.
 
