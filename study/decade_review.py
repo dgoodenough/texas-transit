@@ -73,7 +73,7 @@ def review(T, scen):
         designated = pid in T.get("connectivity", []) and scen == "whole_map"
         gate3 = "pass" if (stress or 0) >= STRESS_MIN else ("designated" if designated else "fail")
         verdict = ("hold" if gate2 == "hold" else "proceed" if gate3 == "pass" else
-                   "proceed (connectivity)" if gate3 == "designated" else "a policy choice: fails the stress gate")
+                   "proceed (connectivity)" if gate3 == "designated" else "right-of-way and design only: fails the stress gate")
         rows.append({"decade": start // 10 * 10, "id": pid, "name": p["name"], "start": start, "opens": opens,
                      "ratio": p.get("bcr"), "stress": stress, "gate2": gate2, "slip_to": slip, "gate3": gate3, "verdict": verdict,
                      "notes": "; ".join(notes)})
@@ -110,10 +110,11 @@ def main():
           (lambda fail, n: f"{len(fail)} of {n} projects fail the stress gate without a designation"
            + (": every one that isn't in the Connectivity Program" if len(fail) == sum(1 for r in rows if r["gate3"] != "designated") else "")
            + (f" ({', '.join(fail)})" if fail else "")
-           + (". Read strictly, the gate would stop them all, the Triangle included: at cost x1.45 and riders x0.70 no "
-              "corridor in the plan clears 0.8 (`study/hsr_buildout.md`, Phase 1 results). Building them is a policy choice "
-              "made on the central case and its P10-P90 range (`study/timing.md`, How sure), which the decade review should "
-              "re-make each decade at current costs and riders, not a sure investment." if fail else "."))(
+           + (". Under the governor's rule (`study/second_session.md`, item 2) each gets its right-of-way protected and "
+              "its design done, and no construction money, until it passes the gate at current costs and riders or the "
+              "Legislature designates it by name. Read strictly, the gate would stop them all, the Triangle included: at "
+              "cost x1.45 and riders x0.70 no corridor in the plan clears 0.8 (`study/hsr_buildout.md`, Phase 1 results), "
+              "so the designations are where the decisions are made." if fail else "."))(
               [r["name"].split(":")[0] for r in rows if r["gate3"] == "fail"], len(rows)), ""]
     with open(os.path.join(ROOT, "study", "decade_review.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(L))

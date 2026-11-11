@@ -60,7 +60,7 @@ def run(floor, folder):
     out["metro_capital"] = sum(p["capital"] for p in urban)
     for key in SCEN:
         ps = copy.deepcopy(wm if key == "whole_map" else projects)
-        fn = {"ratio": lambda q: timing.schedule(q, budget), "metros_first": lambda q: timing.metros_first(q, budget),
+        fn = {"ratio": lambda q: timing.schedule(q, budget), "metros_first": lambda q: timing.metros_first(q, budget, pop),
               "whole_map": lambda q: timing.whole_map(q, budget, pop)}[key]
         built, spend = timing.settle(ps, fn)
         rows = timing.yearly(ps, spend, pop, dfw)

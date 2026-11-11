@@ -490,14 +490,20 @@ def settle(projects, plan_fn, rounds=6):
     return built, spend
 
 
-def schedule(projects, budget, spend=None, order=None):
+PIPELINE_KM = None   # a cap on high-speed km under construction at once (study/session2_tests.py: a steady pipeline); None: none
+
+
+def schedule(projects, budget, spend=None, order=None, busy=None):
     """Schedule `projects` (sets each one's start and open years; None if it doesn't fit by 2100).
     `budget`: $M a year, a number or {year: $M}; `spend`: {year: $M} already committed (counted
     against the same budget). Each project starts in the first year its spending fits: cumulative
     spending never exceeds cumulative budget (carryover, no borrowing), no earlier than what it depends
     on starts, and it opens no earlier than that opens. Order: best ratio first (a dependent's priority
-    capped at its parent's), or the given list `order`."""
+    capped at its parent's), or the given list `order`. With PIPELINE_KM, a high-speed project also
+    starts only when the km under construction each year it builds (`busy`, {year: km}, updated) stay
+    within it."""
     by = {p["id"]: p for p in projects}
+    busy = {} if busy is None else busy
     for p in projects:
         ratio(p)
 
@@ -529,6 +535,10 @@ def schedule(projects, budget, spend=None, order=None):
         # land-tax bonds pay part of an urban line; federal and partner-state money part of a high-speed one
         per = (p["capital"] - p.get("bond", 0.0) - p.get("outside", 0.0)) / p["build"]
         for y in range(first, YEARS[-1] - p["build"] + 1):   # opens by the last year
+            if PIPELINE_KM and p["layer"] == "hsr" and any(
+                    busy.get(y + k, 0.0) + p["km"] > PIPELINE_KM for k in range(p["build"])) and \
+                    p["km"] <= PIPELINE_KM:
+                continue
             trial = dict(spend)
             for k in range(p["build"]):
                 trial[y + k] += per
@@ -541,16 +551,62 @@ def schedule(projects, budget, spend=None, order=None):
             if ok:
                 spend = trial
                 p["start"], p["open"] = y, y + p["build"]
+                if p["layer"] == "hsr":
+                    for k in range(p["build"]):
+                        busy[y + k] = busy.get(y + k, 0.0) + p["km"]
                 built.append(p)
                 break
     return built, spend
 
 
-def metros_first(projects, budget):
-    """Scenario: each metro gets its own stream, its 30-year generator budget (urban/metros.json
-    budget_musd) spread evenly over METRO_YEARS from 2025, and builds its lines in the generator's
-    order as that stream allows. Intercity projects take what's left of the $6.7B a year (including
-    whatever the metros don't spend), best ratio first."""
+def metro_pop(metro_id, y):
+    """A metro's people in `y`: its generated network's model runs (today, 2050, 2100), straight lines
+    between, flat after 2100; None without them."""
+    p = os.path.join(URBAN_GENERATED, metro_id, "summary.json")
+    if not os.path.exists(p):
+        return None
+    s = json.load(open(p, encoding="utf-8"))
+    pts = {2020: s.get("pop")}   # the census population the network was generated on
+    pts.update({int(k): v.get("pop") for k, v in (s.get("future") or {}).items()})
+    pts = {k: v for k, v in pts.items() if v}
+    if not pts:
+        return None
+    ks = sorted(pts)
+    if y <= ks[0]:
+        return pts[ks[0]]
+    if y >= ks[-1]:
+        return pts[ks[-1]]
+    lo = max(k for k in ks if k <= y)
+    hi = min(k for k in ks if k >= y)
+    return pts[lo] if lo == hi else pts[lo] + (pts[hi] - pts[lo]) * (y - lo) / (hi - lo)
+
+
+def metro_stream(m, n, pop=None):
+    """{year: $M} for a metro over its first n years from 2025: its budget (urban/metros.json budget_musd,
+    DFW's rate per 2020 resident) spread evenly, times how much faster than Texas it has grown by that year
+    (study/second_session.md, item 8: a metro that quadruples, as Austin does, gets the stream of its share
+    of the state as it grows, not as it was in 2020). A metro growing as fast as Texas keeps its stream; the
+    statewide budget doesn't change. `pop`: Texas's people by year (texas_pop); evenly without it or
+    without the metro's own trajectory."""
+    pop = pop or texas_pop()
+    base = m["budget_musd"] / n
+    p0 = metro_pop(m["id"], 2020)
+    out = {}
+    for y in YEARS:
+        if y >= YEARS[0] + n:
+            out[y] = 0.0
+            continue
+        py = metro_pop(m["id"], y)
+        out[y] = base * ((py / p0) / (pop[y] / pop[2020]) if p0 and py and 2020 in pop else 1.0)
+    return out
+
+
+def metros_first(projects, budget, pop=None):
+    """Scenario: each metro gets its own stream, its generator budget (urban/metros.json budget_musd)
+    over METRO_YEARS from 2025 (the whole horizon for the build-out and policy metros), shared out by its
+    growth against Texas's each year (metro_stream), and builds its lines in the generator's order as that stream
+    allows. Intercity projects take what's left of the statewide budget (including whatever the metros
+    don't spend), best ratio first."""
     reg = json.load(open(os.path.join(ROOT, "urban", "metros.json"), encoding="utf-8"))
     spend = {y: 0.0 for y in YEARS}
     built = []
@@ -559,7 +615,7 @@ def metros_first(projects, budget):
         if not ps:
             continue
         n = len(YEARS) if m.get("buildout") or m.get("policies") else METRO_YEARS   # 75-year budgets cover DFW's whole horizon
-        stream = {y: (m["budget_musd"] / n if y < YEARS[0] + n else 0.0) for y in YEARS}
+        stream = metro_stream(m, n, pop)
         b, s_m = schedule(ps, stream, order=ps)   # generator order (the list is already in it)
         built += b
         for y in YEARS:
@@ -708,11 +764,12 @@ def whole_map(projects, budget, pop):
     prog = [p for p in projects if p.get("connectivity")]
     for p in prog:
         p["start"] = p["open"] = None
-    built, spend = schedule(projects, budget, order=trunk_first(main))
+    busy = {}
+    built, spend = schedule(projects, budget, order=trunk_first(main), busy=busy)
     pbuilt, pspend = [], {y: 0.0 for y in YEARS}
     for _ in range(4):
         stream = program_stream(projects, pop)
-        pbuilt, pspend = schedule(projects, stream, order=trunk_first(prog))
+        pbuilt, pspend = schedule(projects, stream, order=trunk_first(prog), busy=dict(busy))
     total = {y: spend[y] + pspend[y] for y in YEARS}
     return built + pbuilt, total
 
@@ -727,7 +784,7 @@ def main():
     wm = whole_map_projects(projects)
     for key, _ in SCENARIOS:
         ps = copy.deepcopy(wm if key == "whole_map" else projects)
-        fn = {"ratio": lambda q: schedule(q, budget), "metros_first": lambda q: metros_first(q, budget),
+        fn = {"ratio": lambda q: schedule(q, budget), "metros_first": lambda q: metros_first(q, budget, pop),
               "whole_map": lambda q: whole_map(q, budget, pop)}[key]
         built, spend = settle(ps, fn)
         rows = yearly(ps, spend, pop, dfw)

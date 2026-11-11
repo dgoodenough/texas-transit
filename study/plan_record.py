@@ -83,6 +83,9 @@ def record(T):
         Y = T["scenarios"][k]["yearly"]
         return Y[-1][field]
 
+    def year(k, y, field):
+        return next(r[field] for r in T["scenarios"][k]["yearly"] if r["year"] == y)
+
     def opened(k, ids):
         w = T["scenarios"][k]["when"]
         return [i for i in ids if i in w]
@@ -107,6 +110,10 @@ def record(T):
           row("Capital spent 2025-2100 (DFW included)",
               lambda k: money(sum(r["spend"] + r["dfw_spend"] for r in T["scenarios"][k]["yearly"]))),
           row("Net benefit a year, 2100 (travellers, wider, fares less opex)", lambda k: money(last_year(k, "net"))),
+          row("Operating cost less fares a year, 2050 / 2100", lambda k: money(year(k, 2050, "opex") - year(k, 2050, "fares"))
+              + " / " + money(last_year(k, "opex") - last_year(k, "fares"))),
+          row("Operating cost less fares, 2025-2100 (no budget pays it yet)",
+              lambda k: money(sum(r["opex"] - r["fares"] for r in T["scenarios"][k]["yearly"]))),
           "", f"Budget: {money(T['budget_musd'])} a year statewide ({money(T['dfw_musd'])} of it DFW's own plan), 2025-2100. "
           "High-speed km for the whole map are its redrawn, lighter-standard corridors; for the other two, today's cost model.", ""]
 

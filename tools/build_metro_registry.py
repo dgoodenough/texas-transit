@@ -78,6 +78,51 @@ def border(mid):
     return out or None
 
 
+VALLEY = ("rio-grande-valley", "Rio Grande Valley (McAllen-Edinburg-Mission and Brownsville-Harlingen), TX",
+          ["mcallen", "brownsville"])
+
+
+def merge_valley(metros):
+    """One network for the Valley (study/second_session.md, item 21): McAllen-Edinburg-Mission and
+    Brownsville-Harlingen are one 1.3M-person region the census splits in two; one entry with both
+    counties, both downtowns and every port of entry, the budgets and people summed."""
+    vid, name, parts = VALLEY
+    ps = [e for e in metros if e["id"] in parts]
+    if len(ps) < 2:
+        return metros
+    e = {"id": vid, "name": name, "cbsa": "+".join(p["cbsa"] for p in ps),
+         "state_fips": ["48"], "state_abbr": {"48": "tx"},
+         "county_fips": [f for p in ps for f in p["county_fips"]],
+         "county_names": {k: v for p in ps for k, v in p["county_names"].items()},
+         "downtowns": [d for p in ps for d in p.get("downtowns", [])],
+         "texas_pop": sum(p["texas_pop"] for p in ps), "budget_musd": sum(p["budget_musd"] for p in ps),
+         "merged_from": parts}
+    if all(p.get("growth") for p in ps):   # people-weighted
+        w = [p["texas_pop"] for p in ps]
+        e["growth"] = {"_doc": ps[0]["growth"].get("_doc", "") + "; the two metros' trends, people-weighted"}
+        for k in ("regional_pop", "regional_jobs"):
+            yrs = set.intersection(*(set(p["growth"][k]) for p in ps))
+            e["growth"][k] = {y: round(sum(p["growth"][k][y] * wi for p, wi in zip(ps, w)) / sum(w), 4) for y in sorted(yrs)}
+    b = [q for p in ps for q in (p.get("border") or [])]
+    if b:
+        e["border"] = b
+    keep = [m for m in metros if m["id"] not in parts]
+    keep.append(e)
+    keep.sort(key=lambda m: -m["texas_pop"])
+    return keep
+
+
+def valley_only():
+    """Apply merge_valley() to the registry as it is (no downloads)."""
+    with open(OUT, encoding="utf-8") as f:
+        reg = json.load(f)
+    reg["metros"] = merge_valley(reg["metros"])
+    with open(OUT, "w", encoding="utf-8") as f:
+        json.dump(reg, f, indent=1)
+        f.write("\n")
+    print([m["id"] for m in reg["metros"]][:8])
+
+
 def border_only():
     """Apply border() to the registry as it is (no downloads)."""
     with open(OUT, encoding="utf-8") as f:
@@ -223,6 +268,7 @@ def main():
             e["border"] = border(mid)
         metros.append(e)
     metros.sort(key=lambda e: -e["texas_pop"])
+    metros = merge_valley(metros)
     old, keep_top = {}, {}
     if os.path.exists(OUT):
         with open(OUT, encoding="utf-8") as f:
@@ -250,5 +296,7 @@ def main():
 if __name__ == "__main__":
     if "--border" in sys.argv:
         border_only()
+    elif "--valley" in sys.argv:
+        valley_only()
     else:
         main()
