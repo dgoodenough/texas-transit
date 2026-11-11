@@ -96,7 +96,7 @@ def merge_valley(metros):
          "county_names": {k: v for p in ps for k, v in p["county_names"].items()},
          "downtowns": [d for p in ps for d in p.get("downtowns", [])],
          "texas_pop": sum(p["texas_pop"] for p in ps), "budget_musd": sum(p["budget_musd"] for p in ps),
-         "merged_from": parts}
+         "merged_from": parts, "cbsa_pop": {p["cbsa"]: p["texas_pop"] for p in ps}}
     if all(p.get("growth") for p in ps):   # people-weighted
         w = [p["texas_pop"] for p in ps]
         e["growth"] = {"_doc": ps[0]["growth"].get("_doc", "") + "; the two metros' trends, people-weighted"}
@@ -128,7 +128,7 @@ def border_only():
     with open(OUT, encoding="utf-8") as f:
         reg = json.load(f)
     for e in reg["metros"]:
-        b = border(e["id"])
+        b = border(e["id"]) or [q for mid in e.get("merged_from", []) for q in (border(mid) or [])] or None
         if b:
             e["border"] = b
         else:

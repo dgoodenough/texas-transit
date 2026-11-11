@@ -103,6 +103,12 @@ def shares():
                                                                                 "acs_transit_share_cbsa.csv"))}
 
 
+def share_of(m, sh):
+    """A metro's ACS transit share: its CBSA's, or for a merged metro (the Valley) its CBSAs' weighted by people."""
+    w = m.get("cbsa_pop") or {m["cbsa"]: 1.0}
+    return sum(sh[c] * v for c, v in w.items()) / sum(w.values())
+
+
 # Corrections to step 1's GTFS reading: (metro, line_id, mode, why). Re-applied on every run, since a
 # new fetch rewrites existing/.
 MODE_FIXES = [
@@ -146,16 +152,16 @@ def calibrate():
                                   " + ".join(f"{a} {b} {ntd[(a, b)]:,}" for a, b in rows)}
         save_registry(reg)
         r = generate.calibrate(mid, log=print)
-        x = math.log(sh[by[mid]["cbsa"]] / s_dfw)
+        x = math.log(share_of(by[mid], sh) / s_dfw)
         fits.append((mid, x, r["asc"] - asc_dfw, r["asc"], n))
-        print(f"{mid}: asc {r['asc']:+.4f} (DFW {asc_dfw:+.4f}), ACS share {sh[by[mid]['cbsa']]:.2%}, "
+        print(f"{mid}: asc {r['asc']:+.4f} (DFW {asc_dfw:+.4f}), ACS share {share_of(by[mid], sh):.2%}, "
               f"ln(share / DFW's) {x:+.3f}")
     k = sum(x * y for _, x, y, _, _ in fits) / sum(x * x for _, x, _, _, _ in fits)
     print(f"slope k = {k:.3f}")
     for m in reg["metros"]:
         if m["id"] in CALIBRATE:
             continue
-        s = max(sh[m["cbsa"]], FLOOR_SHARE)
+        s = max(share_of(m, sh), FLOOR_SHARE)
         asc = asc_dfw + k * math.log(s / s_dfw)
         m["ridership_asc"] = {"asc": round(asc, 4), "source": (
             f"DFW's constant {asc_dfw:+.4f} + {k:.3f} x ln(ACS 2020-24 transit share {s:.2%} / DFW's {s_dfw:.2%}); "

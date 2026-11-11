@@ -389,7 +389,15 @@
      "bus_day": 97,
      "source": "US Bureau of Transportation Statistics, Border Crossing Entry Data (data.bts.gov keg4-3bc2), 2024, inbound crossings a day at each port, averaged over the year"
     }
-   ]
+   ],
+   "cbsa_pop": {
+    "32580": 870781,
+    "15180": 421017
+   },
+   "ridership_asc": {
+    "asc": -0.0108,
+    "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.30%, McAllen's and Brownsville-Harlingen's weighted by people / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+   }
   },
   {
    "id": "el-paso",
