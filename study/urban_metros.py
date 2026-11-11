@@ -174,7 +174,9 @@ def calibrate():
     save_registry(reg)
 
 
-def generate(ids=None):
+def generate(ids=None, floors=None, sweep_dir=None):
+    """Generate each metro's network (urban/generated/<id>/). `floors`: also run the line planner at each of these
+    floors from the same pruned network (study/fixed_point.py), written to sweep_dir/<floor>/<id>/."""
     from metro import generate as gen
     fix_inputs()
     reg = load_registry()
@@ -185,13 +187,22 @@ def generate(ids=None):
         out = os.path.join(HOME, "generated", m["id"])
         try:
             r = gen.generate(m["id"], budget_musd=m["budget_musd"], out=out, policies=policies(m), future_years=FUTURE,
-                             full_model=True, override={"selection": {"plan": {"floor": PLAN_FLOOR}}})
+                             full_model=True, override={"selection": {"plan": {"floor": PLAN_FLOOR}}},
+                             plan_floors=floors, sweep_dir=sweep_dir)
         except (Exception, SystemExit) as e:   # one metro failing doesn't stop the rest
             import traceback; traceback.print_exc(); print(f"{m['id']}: FAILED {type(e).__name__}: {e}")
             os.makedirs(out, exist_ok=True)
             with open(os.path.join(out, "summary.json"), "w", encoding="utf-8") as f:
                 json.dump({"id": m["id"], "failed": f"{type(e).__name__}: {e}"}, f, indent=1)
             continue
+        for f, rf in (r.get("sweep") or {}).items():
+            write_summary(m, rf, rf["out"], t0)
+        write_summary(m, r, out, t0)
+
+
+def write_summary(m, r, out, t0):
+    """summary.json for one generated network (r: metro.generate's result)."""
+    if True:
         st, res = r["stats"], r["model"] or {}
         chosen = r["chosen"]
         by_mode = {}
@@ -467,6 +478,15 @@ if __name__ == "__main__":
     if cmd == "calibrate":
         calibrate()
     elif cmd == "generate":
-        generate(sys.argv[2:] or None)
+        args, floors, sweep_dir = sys.argv[2:], None, None
+        if "--sweep" in args:   # --sweep 1,1.75,4 [--sweep-dir DIR]: the line planner at several floors (study/fixed_point.py)
+            k = args.index("--sweep")
+            floors = [float(x) for x in args[k + 1].split(",")]
+            args = args[:k] + args[k + 2:]
+        if "--sweep-dir" in args:
+            k = args.index("--sweep-dir")
+            sweep_dir = args[k + 1]
+            args = args[:k] + args[k + 2:]
+        generate(args or None, floors, sweep_dir)
     else:
         summary()

@@ -67,6 +67,9 @@ UPGRADE_TRIPS = 3e6   # a leg built below full standard earns an upgrade at this
 GATE_YEARS = 3        # a Connectivity Program branch starts only after its trunk has run this long (study/hsr_buildout.md)
 
 
+URBAN_GENERATED = os.path.join(ROOT, "urban", "generated")   # the metros' networks (study/fixed_point.py points it elsewhere)
+
+
 def texas_pop():
     """{year: Texas population} from the county trend, linear between its years."""
     tot = {}
@@ -113,7 +116,7 @@ def districts(metro_id, order):
     """{cand_id: (people, jobs, new stations)} within land_tax.radius_km of each project's new stations;
     a station, and a block group, belongs to the first project (in `order`) that reaches it."""
     import numpy as np
-    d = os.path.join(ROOT, "urban", "generated", metro_id)
+    d = os.path.join(URBAN_GENERATED, metro_id)
     lines = list(csv.DictReader(open(os.path.join(d, "lines.csv"), encoding="utf-8")))
     cand = {}
     for r in lines:
@@ -192,7 +195,7 @@ def urban_projects():
     reg = json.load(open(os.path.join(ROOT, "urban", "metros.json"), encoding="utf-8"))
     out = []
     for m in reg["metros"]:
-        d = os.path.join(ROOT, "urban", "generated", m["id"])
+        d = os.path.join(URBAN_GENERATED, m["id"])
         s = json.load(open(os.path.join(d, "summary.json"), encoding="utf-8"))
         cpath = os.path.join(d, "candidates.csv")
         if not os.path.exists(cpath):   # no corridor dense enough for a candidate (study/urban_metros.md)
