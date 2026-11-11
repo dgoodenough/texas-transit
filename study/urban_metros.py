@@ -186,18 +186,20 @@ def generate(ids=None, floors=None, sweep_dir=None):
         t0 = time.time()
         out = os.path.join(HOME, "generated", m["id"])
         try:
+            override = {"selection": {"plan": {"floor": PLAN_FLOOR}}}
+            if floors:   # the floor sweep compares with the plan's networks as built, without airport spurs
+                override["lines"] = {"airport_spur": {"enabled": False}}
             r = gen.generate(m["id"], budget_musd=m["budget_musd"], out=out, policies=policies(m), future_years=FUTURE,
-                             full_model=True, override={"selection": {"plan": {"floor": PLAN_FLOOR}}},
-                             plan_floors=floors, sweep_dir=sweep_dir)
+                             full_model=True, override=override, plan_floors=floors, sweep_dir=sweep_dir,
+                             on_floor=lambda f, rf: write_summary(m, rf, rf["out"], t0), sweep_only=bool(floors))
         except (Exception, SystemExit) as e:   # one metro failing doesn't stop the rest
             import traceback; traceback.print_exc(); print(f"{m['id']}: FAILED {type(e).__name__}: {e}")
             os.makedirs(out, exist_ok=True)
             with open(os.path.join(out, "summary.json"), "w", encoding="utf-8") as f:
                 json.dump({"id": m["id"], "failed": f"{type(e).__name__}: {e}"}, f, indent=1)
             continue
-        for f, rf in (r.get("sweep") or {}).items():
-            write_summary(m, rf, rf["out"], t0)
-        write_summary(m, r, out, t0)
+        if not r.get("sweep_only"):
+            write_summary(m, r, out, t0)
 
 
 def write_summary(m, r, out, t0):
