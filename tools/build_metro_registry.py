@@ -11,6 +11,9 @@ Gazetteer of places (reference points). Extra keys this repo adds, which DFW Tra
   buildout      true for the metros the generator runs in build-out mode (BUILDOUT below)
   policies      true for the metros with the 2 million plan's policy package (POLICY_METROS below)
   anchors       places lines should reach (downtown, airports, campuses, medical districts; ANCHORS below)
+  border        ports of entry: people crossing from Mexico a day, on foot or by bus, added to the zone at
+                their bridge (data/urban/border_crossings.json, tools/fetch_border.py; `--border` applies
+                just this to the current registry)
   budget_musd   capital budget: DFW Transit's rate per resident ($2.3B a year for 7.47M people)
                 x texas_pop x 30 years, the generator's default horizon (as DFW Transit's
                 generated Houston and Eugene); 75 years, DFW Transit's horizon, for the build-out
@@ -63,6 +66,35 @@ BRT = {"houston": r"Silver Line|\bBRT\b"}
 # densest spots: the downtown (city hall), airports, big campuses, medical districts. weight: riders a day
 # it draws beyond the people and jobs around it (assumption: about a third of an airport's daily
 # passengers, a half of a campus's students).
+def border(mid):
+    """The metro's ports of entry: [{port, bridge, lat, lon, pedestrians_day, bus_day}] (tools/fetch_border.py)."""
+    p = os.path.join(ROOT, "data", "urban", "border_crossings.json")
+    if not os.path.exists(p):
+        return None
+    d = json.load(open(p, encoding="utf-8"))
+    out = [{"port": q["port"], "bridge": q["bridge"], "lat": q["lat"], "lon": q["lon"],
+            "pedestrians_day": q.get("pedestrians_day", 0), "bus_day": q.get("bus_passengers_day", 0),
+            "source": d["source"]} for q in d["ports"] if q["metro"] == mid]
+    return out or None
+
+
+def border_only():
+    """Apply border() to the registry as it is (no downloads)."""
+    with open(OUT, encoding="utf-8") as f:
+        reg = json.load(f)
+    for e in reg["metros"]:
+        b = border(e["id"])
+        if b:
+            e["border"] = b
+        else:
+            e.pop("border", None)
+    with open(OUT, "w", encoding="utf-8") as f:
+        json.dump(reg, f, indent=1)
+        f.write("\n")
+    print("border:", ", ".join(f"{e['id']} {sum(p['pedestrians_day'] + p['bus_day'] for p in e['border']):,}"
+                               for e in reg["metros"] if e.get("border")))
+
+
 ANCHORS = {
     "houston": [("Downtown Houston", 29.7604, -95.3698, "downtown", 0), ("Bush Intercontinental Airport", 29.9902, -95.3368, "airport", 30000),
                 ("Hobby Airport", 29.6454, -95.2789, "airport", 8000), ("Texas Medical Center", 29.7071, -95.3978, "medical", 30000),
@@ -187,6 +219,8 @@ def main():
             e["brt_name_pattern"] = BRT[mid]
         if mid in ANCHORS:
             e["anchors"] = [{"name": n, "lat": la, "lon": lo, "kind": k, "weight": w} for n, la, lo, k, w in ANCHORS[mid]]
+        if border(mid):
+            e["border"] = border(mid)
         metros.append(e)
     metros.sort(key=lambda e: -e["texas_pop"])
     old, keep_top = {}, {}
@@ -214,4 +248,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if "--border" in sys.argv:
+        border_only()
+    else:
+        main()
