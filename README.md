@@ -124,6 +124,8 @@ high-speed rail versus metro systems is an output, not an input.
 
 `study/hsr_buildout.md`: a cabinet session (five memos in `study/cabinet/`: finance, infrastructure costs, land use and demand, network design and the line router, and an audit of the model) on getting Brownsville, Laredo, Lubbock and Amarillo, El Paso and Oklahoma City built by 2100, and a phased plan of work for the people who would implement it. Its opening section, "Where the plan stands", is generated from the model (`python study/plan_record.py`, after `python study/timing.py`): the three schedules, the branches, what each lever is worth, the Auditor's review and the metros' networks. `python study/decade_review.py` applies the Auditor's gates decade by decade (`study/decade_review.md`; observed riders, once there are any, go in `data/observed/ridership.csv`), and `python study/router.py` measures how the generated metro networks read to a rider (`study/router.md`).
 
+`study/second_session.md`: the cabinet back with the transit planners of Houston, DFW, San Antonio, Austin, El Paso, the Valley and the mid-size cities, reviewing the whole plan after the line planner. Everyone files a fight, a big swing and a number they don't believe; the governor answers all 26 items (adopt, test or reject) and sets the next plan of work.
+
 ## The site
 
 `docs/` is the website, served by GitHub Pages (Settings, Pages: deploy from the `main` branch,
