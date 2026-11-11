@@ -67,6 +67,9 @@ UPGRADE_TRIPS = 3e6   # a leg built below full standard earns an upgrade at this
 GATE_YEARS = 3        # a Connectivity Program branch starts only after its trunk has run this long (study/hsr_buildout.md)
 
 
+URBAN_GENERATED = os.path.join(ROOT, "urban", "generated")   # the metros' networks (study/fixed_point.py points it elsewhere)
+
+
 def texas_pop():
     """{year: Texas population} from the county trend, linear between its years."""
     tot = {}
@@ -113,7 +116,7 @@ def districts(metro_id, order):
     """{cand_id: (people, jobs, new stations)} within land_tax.radius_km of each project's new stations;
     a station, and a block group, belongs to the first project (in `order`) that reaches it."""
     import numpy as np
-    d = os.path.join(ROOT, "urban", "generated", metro_id)
+    d = os.path.join(URBAN_GENERATED, metro_id)
     lines = list(csv.DictReader(open(os.path.join(d, "lines.csv"), encoding="utf-8")))
     cand = {}
     for r in lines:
@@ -192,7 +195,7 @@ def urban_projects():
     reg = json.load(open(os.path.join(ROOT, "urban", "metros.json"), encoding="utf-8"))
     out = []
     for m in reg["metros"]:
-        d = os.path.join(ROOT, "urban", "generated", m["id"])
+        d = os.path.join(URBAN_GENERATED, m["id"])
         s = json.load(open(os.path.join(d, "summary.json"), encoding="utf-8"))
         cpath = os.path.join(d, "candidates.csv")
         if not os.path.exists(cpath):   # no corridor dense enough for a candidate (study/urban_metros.md)
@@ -266,8 +269,11 @@ def hsr_projects(log=print, asc=None, year=HSR_YEAR):
                     tot["fares"] += (r["new"]["rail"] + r["new"]["induced"]) * los[2]
         d = {k: tot[k] - prev[k] for k in tot}
         prev = tot
+        cap = hsr.capital_musd([cid], built=order[:i])
         out.append({"id": f"hsr:{cid}", "layer": "hsr", "name": hsr.CORRIDORS[cid][0], "mode": "hsr",
-                    "km": hsr.track_km([cid]), "capital": hsr.capital_musd([cid], built=order[:i]),
+                    "km": hsr.track_km([cid]), "capital": cap,
+                    # the track outside Texas: paid by the state it runs in, with the federal money that comes with it
+                    "outside": finance.paid_by_others(cap, finance.corridor_shares(cid)),
                     # the network's operating cost as run in service patterns (hsr.services_for), with it less without it
                     "opex": hsr.pattern_opex_musd(built) - (hsr.pattern_opex_musd(order[:i]) if i else 0.0),
                     "fares": d["fares"] * 365 / 1e6, "benefit": d["benefit"] * 365 / 1e6,
@@ -307,8 +313,12 @@ def conventional_projects(log=print, year=HSR_YEAR):
         rail, fares, air, ben, vkm, pkm = (after[i] - before[i] for i in range(6))
         opex = cv.opex_musd(cid, 4) - (cv.opex_musd(cid, today) if against == "today" else 0.0)
         dep = {"KC": ["conv:FLYER"], "EAGLE": ["conv:I20"]}.get(cid, [])
+        cap = cv.capital_musd(cid, 4, p["conventional"])
         out.append({"id": f"conv:{cid}", "layer": "conventional", "name": cv.CORRIDORS[cid][0], "mode": "conventional",
-                    "km": cv.route_km(cid), "capital": cv.capital_musd(cid, 4, p["conventional"]), "opex": opex,
+                    "km": cv.route_km(cid), "capital": cap, "opex": opex,
+                    # the track outside Texas is paid by the state it runs in, with the federal money that comes with
+                    # it; Mexico pays for its side (texas/finance.py paid_by_others)
+                    "outside": finance.paid_by_others(cap, finance.conventional_shares(cid)),
                     "fares": fares * 365 / 1e6, "benefit": ben * 365 / 1e6, "trips_day": rail, "trips_year": rail * 365,
                     "air_day": air, "wider": intercity_wider(vkm, pkm),
                     "agglom": ben * 365 / 1e6 * BEN["agglomeration_share"]["conventional"],
@@ -647,7 +657,7 @@ def whole_map_projects(base_projects, log=print):
         hsr.SETTINGS.update(saved)
     for q in hs:
         cid = q["id"].split(":")[1]
-        q["outside"] = q["capital"] * (finance.FEDERAL_SHARE + finance.PARTNER_SHARE * finance.corridor_out_of_state(cid))
+        q["outside"] = finance.paid_by_others(q["capital"], finance.corridor_shares(cid), federal_in=finance.FEDERAL_SHARE)
         q["standard"] = WHOLE_MAP_HSR["standards"].get(cid, "S1")
         q["connectivity"] = q["id"] in finance.CONNECTIVITY
         if q["connectivity"]:
@@ -925,13 +935,20 @@ def lever_grid(runs, budget, pop, dfw):
             finance.RAIL_FUND["musd_per_year"] = saved[0]["musd_per_year"] if rf else 0.0
             finance.TRIANGLE_SURPLUS = bool(sur)
             for p in ps:
-                if p["layer"] != "hsr":
+                if p["layer"] not in ("hsr", "conventional"):
                     continue
                 cid = p["id"].split(":")[1]
+                if p["layer"] == "conventional":   # the neighbours' and Mexico's shares, as levers
+                    p["outside"] = finance.paid_by_others(p["capital"], finance.conventional_shares(cid),
+                                                          federal_out=finance.OUT_FEDERAL_SHARE if fed else 0.0,
+                                                          partner=saved[3] if par else 0.0)
+                    continue
                 if costs == "high":
                     p["capital"] *= high.get(p["id"], 1.0)
-                p["outside"] = p["capital"] * ((saved[2] if fed else 0.0)
-                                               + (saved[3] if par else 0.0) * finance.corridor_out_of_state(cid))
+                p["outside"] = finance.paid_by_others(p["capital"], finance.corridor_shares(cid),
+                                                      federal_in=saved[2] if fed else 0.0,
+                                                      federal_out=finance.OUT_FEDERAL_SHARE if fed else 0.0,
+                                                      partner=saved[3] if par else 0.0)
                 if not rf and not sur:
                     p["connectivity"] = False
             settle(ps, lambda q: whole_map(q, budget, pop))   # as the scenario: valued from the year each opens
@@ -961,8 +978,9 @@ def whole_map_section(runs, pop):
          "permanent delivery office would earn, the thin legs to lighter standards (Oklahoma City 250 km/h double track; "
          "Laredo, the Valley, McAllen and the Big Country trunk 250 km/h single track with passing loops; Lubbock - "
          "Amarillo and El Paso 200 km/h single track first), a federal match of "
-         f"{finance.FEDERAL_SHARE:.0%} and Oklahoma and Louisiana paying {finance.PARTNER_SHARE:.0%} of the track in their "
-         "states. The branches (the Connectivity Program) are built from their own ring-fenced money, never the statewide "
+         f"{finance.FEDERAL_SHARE:.0%} on the track in Texas. As in every scenario, the track in other states is theirs: "
+         f"{finance.OUT_FEDERAL_SHARE:.0%} federal money granted to the state it runs in and {finance.PARTNER_SHARE:.0%} that "
+         "state's own (Mexico pays for its side of the Monterrey line). The branches (the Connectivity Program) are built from their own ring-fenced money, never the statewide "
          f"budget: the Rail Fund (1/8 cent of sales tax from {finance.RAIL_FUND['start']}, about "
          f"${finance.RAIL_FUND['musd_per_year'] / 1000:.2f}B a year and growing with Texas), plus the operating surplus "
          "of the high-speed lines outside it, less the branches' own operating deficits. Everything else is as in best "

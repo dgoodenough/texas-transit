@@ -175,7 +175,7 @@ a{color:var(--metro)}
     <div><span class="eyebrow">Rail Fund (1/8 cent of sales tax)</span><div class="chips" data-lever="rail_fund"><button type="button" data-v="0">No</button><button type="button" data-v="1">Yes</button></div></div>
     <div><span class="eyebrow">Triangle surplus pledged to the branches</span><div class="chips" data-lever="surplus"><button type="button" data-v="0">No</button><button type="button" data-v="1">Yes</button></div></div>
     <div><span class="eyebrow">Federal match (10%)</span><div class="chips" data-lever="federal"><button type="button" data-v="0">No</button><button type="button" data-v="1">Yes</button></div></div>
-    <div><span class="eyebrow">Oklahoma and Louisiana pay half their track</span><div class="chips" data-lever="partners"><button type="button" data-v="0">No</button><button type="button" data-v="1">Yes</button></div></div>
+    <div><span class="eyebrow">Neighbouring states pay for their track, with the federal money that goes to them</span><div class="chips" data-lever="partners"><button type="button" data-v="0">No</button><button type="button" data-v="1">Yes</button></div></div>
   </div>
   <div class="figs" id="wit-figs"></div>
   <div class="cards" id="wit-cards"></div>
@@ -268,7 +268,7 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
   }
   const NOTES = {
     ratio: "Every project in one queue, best ratio first. The Triangle's high-speed lines come early (Austin–San Antonio and Texas Central 2033); under a third of the metro lines open by 2050; Laredo, Lubbock, Amarillo and El Paso are never reached.",
-    whole_map: "The cabinet's plan (study/hsr_buildout.md): high-speed rail built the way a permanent delivery office would, cheaper over time, thin legs to lighter standards, a federal match and Oklahoma and Louisiana paying for their track. The branches have their own ring-fenced money (an eighth of a cent of sales tax plus the busier lines' operating surplus), so they never take a metro line's place, and a branch starts only once the line it hangs off has run three years. " + wholeMapYears() + ".",
+    whole_map: "The cabinet's plan (study/hsr_buildout.md): high-speed rail built the way a permanent delivery office would, cheaper over time, thin legs to lighter standards, a federal match on the track in Texas, and, as in every plan here, the neighbouring states paying for the track in theirs with the federal money that comes with it. The branches have their own ring-fenced money (an eighth of a cent of sales tax plus the busier lines' operating surplus), so they never take a metro line's place, and a branch starts only once the line it hangs off has run three years. " + wholeMapYears() + ".",
     metros_first: `Each metro gets its own stream, its share of the budget at DFW's rate spread over ${T.metro_years} years from 2025, and builds its lines in order. Intercity rail takes the rest. The metros finish decades sooner; the high-speed lines open 10-15 years later.`};
   function useScenario(key) {
     scen = key;
@@ -320,7 +320,7 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
         const dm = on.metro_2100 - off.metro_2100;
         document.getElementById("wit-lede").textContent =
           `Built as Texas builds today, with no money of their own, ${off.branches} of ${n} branch corridors open by 2100. `
-          + (on.branches === n ? `With a delivery office that learns, an eighth of a cent of sales tax, the busier lines' surplus, a 10% federal match and the neighbours paying half their track, all ${n} open by ${Math.max(...yrs)}`
+          + (on.branches === n ? `With a delivery office that learns, an eighth of a cent of sales tax, the busier lines' surplus, a 10% federal match and the neighbouring states paying for their own track, all ${n} open by ${Math.max(...yrs)}`
                                 : `With every lever, ${on.branches} of ${n} open by 2100`)
           + `, and the metros ${dm > 0 ? "give up nothing: they carry " + fmt(dm) + " more new trips a day in 2100, because the branches no longer draw on their budget"
                                        : dm === 0 ? "give up nothing: every metro line is built by 2100 either way"

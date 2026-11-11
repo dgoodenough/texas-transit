@@ -65,6 +65,23 @@ class PatternTests(unittest.TestCase):
 
 
 class FinanceTests(unittest.TestCase):
+    def test_texas_outline(self):
+        for la, lo in ((32.78, -96.80), (31.76, -106.49), (27.53, -99.49), (25.90, -97.50), (29.76, -95.37)):
+            self.assertTrue(finance.in_texas(la, lo) or not finance.in_mexico(la, lo), (la, lo))
+        for la, lo in ((35.47, -97.52), (29.95, -90.07), (35.08, -106.65)):   # Oklahoma City, New Orleans, Albuquerque
+            self.assertFalse(finance.in_texas(la, lo))
+        self.assertTrue(finance.in_mexico(25.67, -100.31))   # Monterrey
+
+    def test_neighbours_pay_their_track(self):
+        # the track outside Texas comes out of the neighbours' and federal money, not Texas's budget
+        self.assertAlmostEqual(finance.paid_by_others(100.0, (0.6, 0.0)), 60.0)
+        self.assertAlmostEqual(finance.paid_by_others(100.0, (0.0, 0.4)), 40.0)   # Mexico's side
+        self.assertAlmostEqual(finance.paid_by_others(100.0, (0.6, 0.0), federal_out=0.5, partner=0.0), 30.0)
+        self.assertAlmostEqual(finance.paid_by_others(100.0, (0.0, 0.0), federal_in=0.1), 10.0)
+        us, mx = finance.conventional_shares("KC")
+        self.assertGreater(us, 0.9)
+        self.assertGreater(finance.conventional_shares("MTY")[1], 0.3)
+
     def test_out_of_state_shares(self):
         self.assertGreater(finance.corridor_out_of_state("OKC"), 0.4)
         self.assertGreater(finance.corridor_out_of_state("GULF"), 0.5)

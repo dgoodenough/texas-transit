@@ -25,7 +25,7 @@ STD = {"S1": "320 km/h double track", "S2": "250 km/h double track", "S3": "250 
        "S4": "200 km/h single track first"}
 LEVER_TEXT = {"costs": "a delivery office that learns (against costs as built today)", "rail_fund": "the Rail Fund",
               "surplus": "the Triangle's surplus pledged", "federal": "the 10% federal match",
-              "partners": "Oklahoma and Louisiana paying half their track"}
+              "partners": "the neighbouring states paying for the track in theirs (with the federal money granted to them)"}
 BIG = ("houston", "san-antonio", "austin", "el-paso")
 
 
@@ -67,7 +67,7 @@ def record(T):
     dm = on["metro_2100"] - off["metro_2100"]
     L += [f"**The answer.** Built as Texas builds today, with no money of their own, {off['branches']} of {len(conn)} branch "
           f"corridors open by 2100. With a delivery office that learns, an eighth of a cent of sales tax (the Rail Fund), "
-          f"the Triangle's operating surplus, a 10% federal match and Oklahoma and Louisiana paying half their track, "
+          f"the Triangle's operating surplus, a 10% federal match and the neighbouring states paying for the track in theirs, "
           + (f"all {len(conn)} open by {max(yrs)}" if on["branches"] == len(conn) else f"{on['branches']} of {len(conn)} open by 2100")
           + f", for {money(on['branches_texas'])} of Texas's money, and the metros "
           + (f"give up nothing: {dm:,.0f} more new daily trips in 2100 than without the levers, because the branches no "
