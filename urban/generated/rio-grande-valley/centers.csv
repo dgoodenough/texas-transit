@@ -1,0 +1,9 @@
+center_id,name,kind,lat,lon,activity,pop,jobs,peak_density_per_km2,peak_job_density_per_km2
+C01,Colonel Rowe / Trenton,downtown,26.265704,-98.212623,27341,7991,19350,6031,4654
+T01,Tyler / 6th Street,town,26.18939,-97.688592,61058,30854,30204,6025,3523
+T02,Kelly / Fir,town,26.188889,-98.173247,58706,38788,19918,5916,3222
+T03,Cleveland / International,town,25.907291,-97.480023,58441,40189,18252,5343,1411
+T04,6th Street / Border,town,26.155156,-97.998954,35887,20024,15863,5189,2617
+T05,Shary / Griffin,town,26.223278,-98.283448,31816,16071,15745,5539,2943
+T06,McCullough / Stenger,town,26.127498,-97.626979,21182,14701,6481,3839,1147
+T07,McColl / Hi Line,town,26.108382,-98.229709,9946,8737,1209,2145,66
