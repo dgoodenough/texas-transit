@@ -80,6 +80,24 @@ def review(T, scen):
     return rows
 
 
+def to_pass(stress):
+    """How much better than today's estimate a project's numbers must come in to clear the stress gate: the
+    ratio scales with riders and inversely with cost (the operating deficit aside)."""
+    if stress is None or stress >= STRESS_MIN:
+        return ""
+    k = STRESS_MIN / max(stress, 1e-9)
+    return f"costs {1 - 1 / k:.0%} under the estimate, or riders {k - 1:.0%} over it" if k < 20 else "out of reach"
+
+
+def urban_gate(T, scen):
+    """The metro lines against the same gate (study/third_session.md, item 1): how many pass, and by how much the rest miss."""
+    when = T["scenarios"][scen]["when"]
+    ps = [p for p in T["projects"] if p["layer"] == "urban" and p["id"] in when and p.get("bcr_stress") is not None]
+    ok = [p for p in ps if p["bcr_stress"] >= STRESS_MIN]
+    ks = sorted(STRESS_MIN / max(p["bcr_stress"], 1e-9) for p in ps if p["bcr_stress"] < STRESS_MIN)
+    return len(ps), ok, ks
+
+
 def main():
     scen = sys.argv[1] if len(sys.argv) > 1 else "whole_map"
     T = json.load(open(os.path.join(ROOT, "docs", "data", "timeline.json"), encoding="utf-8"))
@@ -92,13 +110,13 @@ def main():
          "riders x0.70) or a connectivity designation. Intercity projects only; each metro's lines are reviewed by its "
          "own agency.", ""]
     for dec in sorted({r["decade"] for r in rows}):
-        L += [f"## {dec}s", "", "| Project | Starts | Opens | Ratio | Under stress | Gate 2 (trunk first) | Gate 3 | Verdict | Notes |",
-              "|---|---|---|---|---|---|---|---|---|"]
+        L += [f"## {dec}s", "", "| Project | Starts | Opens | Ratio | Under stress | Gate 2 (trunk first) | Gate 3 | Verdict | To pass the gate | Notes |",
+              "|---|---|---|---|---|---|---|---|---|---|"]
         for r in (r for r in rows if r["decade"] == dec):
             L.append(f"| {r['name']} | {r['start']} | {r['opens']} | {r['ratio']:.2f} | "
-                     f"{r['stress']:.2f} | {r['gate2']} | {r['gate3']} | {r['verdict']} | {r['notes']} |"
+                     f"{r['stress']:.2f} | {r['gate2']} | {r['gate3']} | {r['verdict']} | {to_pass(r['stress'])} | {r['notes']} |"
                      if r["ratio"] is not None and r["stress"] is not None else
-                     f"| {r['name']} | {r['start']} | {r['opens']} | | | {r['gate2']} | {r['gate3']} | {r['verdict']} | {r['notes']} |")
+                     f"| {r['name']} | {r['start']} | {r['opens']} | | | {r['gate2']} | {r['gate3']} | {r['verdict']} | | {r['notes']} |")
         L.append("")
     holds = [r for r in rows if r["gate2"] == "hold"]
     L += ["## What the review changes", "",
@@ -116,6 +134,20 @@ def main():
               "cost x1.45 and riders x0.70 no corridor in the plan clears 0.8 (`study/hsr_buildout.md`, Phase 1 results), "
               "so the designations are where the decisions are made." if fail else "."))(
               [r["name"].split(":")[0] for r in rows if r["gate3"] == "fail"], len(rows)), ""]
+    n, ok, ks = urban_gate(T, scen)
+    if n:
+        med = ks[len(ks) // 2] if ks else None
+        L += ["## The binding gate (third session)", "",
+              "The governor's rule since the third session (`study/third_session.md`, items 1 and 10): every corridor and "
+              "every metro line keeps its place in the plan and gets its design and right-of-way, but signs construction only "
+              f"when its refreshed cost estimate (at 30% design) and refreshed forecast clear {STRESS_MIN} under the stress; "
+              "a metro line also waits until its city has zoned its station districts by right, and the refreshed forecast "
+              "uses the zoning the city has actually adopted. The money of a project that fails waits in the fund for the "
+              "next decade's review. The **To pass the gate** column says how much better than today's estimate a "
+              "project's numbers must come in.", "",
+              f"**The metro lines** under the same gate: {len(ok)} of {n} pass "
+              + (f"({', '.join(p['name'] for p in ok)})" if ok else "") + "."
+              + (f" The median of the rest needs costs {1 - 1 / med:.0%} under the estimate or riders {med - 1:.0%} over it." if med else ""), ""]
     with open(os.path.join(ROOT, "study", "decade_review.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(L))
     print("\n".join(L))

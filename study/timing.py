@@ -62,7 +62,8 @@ SCENARIOS = (("ratio", "Best ratio first"), ("metros_first", "Metros first"), ("
 # The whole map (study/hsr_buildout.md, Phase 2): central unit costs with the learning curve, the thin legs
 # built to lighter standards, and a ring-fenced Connectivity Program for the branches (texas/finance.py)
 WHOLE_MAP_HSR = {"case": "central", "learning": True, "drawn": True,
-                 "standards": {"OKC": "S2", "LRD": "S3", "VALLEY": "S3", "MFE": "S3", "BIGC": "S3", "PANH": "S4", "WEST": "S4"}}
+                 "standards": {"OKC": "S2", "LRD": "S3", "VALLEY": "S3", "MFE": "S3", "BIGC": "S3", "PANH": "S4", "WEST": "S4",
+                               "CC": "S4"}}   # the Gulf spine as 200 km/h single track first (study/third_session.md, item 9)
 UPGRADE_TRIPS = 3e6   # a leg built below full standard earns an upgrade at this many trips a year
 GATE_YEARS = 3        # a Connectivity Program branch starts only after its trunk has run this long (study/hsr_buildout.md)
 
@@ -192,6 +193,16 @@ def urban_trajectory(s):
     return base, traj, URBAN_BASE_YEAR
 
 
+BOND_MULT = 2.0   # station-area bonds where the metro outgrows Texas (study/third_session.md, item 4; session 2's item 26)
+
+
+def outgrows(metro_id):
+    """Does the metro grow faster than Texas to 2100 (its own model runs against the state's trend)?"""
+    pop = texas_pop()
+    a, b = metro_pop(metro_id, 2020), metro_pop(metro_id, 2100)
+    return bool(a and b and b / a > pop[2100] / pop[2020])
+
+
 def urban_projects():
     reg = json.load(open(os.path.join(ROOT, "urban", "metros.json"), encoding="utf-8"))
     out = []
@@ -212,6 +223,7 @@ def urban_projects():
         # the feeder buses the network adds (study/urban_metros.py), in the base year, shared out like the riders
         feeder = ((s.get("future") or {}).get(str(base_year)) or s).get("feeder_opex_musd", 0.0)
         dist = districts(m["id"], [r["cand_id"] for r in rows])
+        bond_mult = BOND_MULT if outgrows(m["id"]) else 1.0
         prev = None
         for r in rows:
             trips = model * share_of(r) / sketch if sketch else 0.0
@@ -220,7 +232,7 @@ def urban_projects():
             benefit = trips / URBAN_B_PER_DOLLAR * URBAN_DAYS / 1e6
             fares = trips * URBAN_FARE * URBAN_DAYS / 1e6
             pid = f"{m['id']}:{r['cand_id']}"
-            out.append({"id": pid, "layer": "urban", "metro": m["id"], "metro_name": m["name"].split(",")[0],
+            out.append({"id": pid, "layer": "urban", "metro": m["id"], "metro_name": m["name"].split(",")[0].split(" (")[0],
                         "name": r["name"], "mode": r["mode"], "km": float(r["km"]),
                         "capital": float(r["capital_musd"]),
                         "opex": float(r["opex_musd_yr"]) + max(feeder, 0.0) * (share_of(r) / sketch if sketch else 0.0),
@@ -229,7 +241,7 @@ def urban_projects():
                         "wider": trips * URBAN_WIDER_PER_TRIP * URBAN_DAYS / 1e6,
                         "agglom": benefit * BEN["agglomeration_share"]["urban"],
                         "district_pop": dp, "district_jobs": dj, "new_stations": dn,
-                        "land_tax_year": tax_year, "bond": min(bond, float(r["capital_musd"])),
+                        "land_tax_year": tax_year, "bond": min(bond * bond_mult, float(r["capital_musd"])),
                         "base_year": base_year, "traj": traj, "after": [prev] if prev else [], "build": BUILD_YEARS[r["mode"]]})
             prev = pid
     return out
@@ -1110,6 +1122,8 @@ def scenario_section(runs):
                    ("net_users", "Travellers' gain + fares - operating cost, present value"),
                    ("net", "All benefits + fares - operating cost, present value")):
         L.append(f"| {lab} | {money(pv(a['rows'], k))} | {money(pv(b['rows'], k))} |")
+    L.append(f"| The same with the wider benefits halved | {money(pv(a['rows'], 'net') - 0.5 * pv(a['rows'], 'wider'))} | "
+             f"{money(pv(b['rows'], 'net') - 0.5 * pv(b['rows'], 'wider'))} |")
     L += ["", "When the intercity lines open:", "", "| Line | Best ratio first | Metros first |", "|---|---|---|"]
     bw = {p["id"]: p for p in b["projects"]}
     for p in sorted((p for p in a["projects"] if p["layer"] != "urban"), key=lambda p: (p["open"] or 9999)):
@@ -1206,7 +1220,13 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
           f"daily metro transit trips ({last['dfw_trips_day']:,.0f} in DFW), {last['intercity_trips_year'] / 1e6:.0f}M intercity "
           f"rail trips a year, about {last['flights_day']:.0f} fewer flights a day, {money(last['benefit'])} a year of "
           f"travellers' gain and {money(last['wider'])} of wider benefits, and {money(last['opex'] - last['fares'])} a year "
-          "more to operate than fares bring in.", ""]
+          "more to operate than fares bring in.", "",
+          "**What it's worth, and with half the wider benefits** (the Auditor's figure, `study/third_session.md` item 2): the "
+          "present value in 2025 at 3% of the plan's net benefits 2025-2100 is "
+          + ", ".join(f"{money(pv(runs[k]['rows'], 'net'))} {lab.lower()}" for k, lab in SCENARIOS if k in runs)
+          + "; with the wider benefits halved (they're allowances, not modelled: `texas/benefits.json`), "
+          + ", ".join(f"{money(pv(runs[k]['rows'], 'net') - 0.5 * pv(runs[k]['rows'], 'wider'))}" for k, _ in SCENARIOS if k in runs)
+          + ".", ""]
     # how sure
     asc = runs.get("asc") or {}
     lo, hi = ic.load_params()["hsr"].get("asc_range", [None, None])
@@ -1359,7 +1379,9 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
                                    for p in runs["whole_map"]["projects"] if p["layer"] == "hsr"],
             "scenarios": {key: {"label": lab,
                                 "when": {p["id"]: [p["start"], p["open"]] for p in runs[key]["projects"] if p.get("open")},
-                                "yearly": [rnd(r, 1) for r in runs[key]["rows"]]}
+                                "yearly": [rnd(r, 1) for r in runs[key]["rows"]],
+                                "pv": round(pv(runs[key]["rows"], "net")),
+                                "pv_half_wider": round(pv(runs[key]["rows"], "net") - 0.5 * pv(runs[key]["rows"], "wider"))}
                           for key, lab in SCENARIOS}}
     with open(os.path.join(ROOT, "docs", "data", "timeline.json"), "w", encoding="utf-8") as f:
         json.dump(data, f, separators=(",", ":"))

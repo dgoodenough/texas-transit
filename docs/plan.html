@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Texas Transit Plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A statewide transit plan for Texas at DFW Transit's spending rate: high-speed rail, conventional trains to the neighbours and Monterrey, and rail and BRT in 25 metros, timed under one budget to 2100.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: a planning brief driven by one year control. Year + running totals, the statewide map and spending chart, one metro at a time, then the tables. */
+:root{
+  --bg:#f3f4f1; --surface:#fbfbf9; --ink:#1d2421; --muted:#5d6762; --rule:#d5d9d3;
+  --land:#e6e8e1; --land-tx:#fdfdfb; --state-line:#b9beb5;
+  --hsr:#b3261e; --hsr-later:#e2b9b4; --metro:#1f5fbf; --brt:#0f8a6c; --rail:#7a3fa0; --rail-later:#cdb7da; --street:#c26a00;
+  --existing:#4a4f4c; --later:#c3c8c1; --dot:#8b958f; --focus:#1f5fbf; --budget:#1d2421;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141917; --surface:#1b211f; --ink:#e6ebe8; --muted:#9ba6a0; --rule:#2e3633;
+  --land:#20272a; --land-tx:#262f2c; --state-line:#3d4744;
+  --hsr:#ff6b5e; --hsr-later:#5a2f2b; --metro:#6aa3ff; --brt:#3cc79f; --rail:#c08be3; --rail-later:#4a3a55; --street:#f0a040;
+  --existing:#a5aca8; --later:#3a4440; --dot:#5d6964; --focus:#6aa3ff; --budget:#e6ebe8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141917; --surface:#1b211f; --ink:#e6ebe8; --muted:#9ba6a0; --rule:#2e3633;
+  --land:#20272a; --land-tx:#262f2c; --state-line:#3d4744;
+  --hsr:#ff6b5e; --hsr-later:#5a2f2b; --metro:#6aa3ff; --brt:#3cc79f; --rail:#c08be3; --rail-later:#4a3a55; --street:#f0a040;
+  --existing:#a5aca8; --later:#3a4440; --dot:#5d6964; --focus:#6aa3ff; --budget:#e6ebe8; color-scheme:dark}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:.01em;line-height:1.05;margin:0;text-wrap:balance}
+h1{font-size:clamp(40px,6vw,64px)}
+h2{font-size:30px}
+h3{font-size:21px;font-weight:600}
+p{margin:0;max-width:68ch}
+.eyebrow{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:13px;color:var(--muted)}
+header{display:flex;flex-direction:column;gap:12px}
+.maplink{margin:0;font-size:15px}.maplink a{font-weight:700}
+.lede{font-size:17px}
+section{display:flex;flex-direction:column;gap:16px}
+.yearbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);
+  display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding-block:10px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.year{font-family:var(--display);font-size:52px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;min-width:3.2ch}
+input[type=range]{width:100%;accent-color:var(--hsr)}
+button{font:inherit;cursor:pointer}
+.play{border:1px solid var(--rule);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;font-size:14px}
+input[type=range]:focus-visible,button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.figs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.fig{background:var(--surface);padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.fig .n{font-family:var(--display);font-size:30px;font-weight:700;line-height:1.05;font-variant-numeric:tabular-nums}
+.fig .l{font-size:12.5px;color:var(--muted)}
+.mapgrid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}
+.panel{display:flex;flex-direction:column;gap:14px;min-width:0}
+svg{display:block;width:100%;height:auto}
+.legend svg{display:inline-block;width:14px;height:14px;flex:none}
+.mapbox{background:var(--surface);border:1px solid var(--rule)}
+.dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:14px;font-variant-numeric:tabular-nums;margin:0}
+.dl dt{color:var(--muted)}
+.dl dd{margin:0;text-align:right}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:18px;height:0;border-top:4px solid;display:inline-block}
+.levers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 20px}
+.levers > div{display:flex;flex-direction:column;gap:6px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--rule);padding:12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.card h3{font-family:var(--display);font-size:19px;margin:0;line-height:1.1}
+.card .opens{font-family:var(--display);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.card .never{color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{font-size:13px;padding:4px 10px;border-radius:999px;border:1px solid var(--rule);background:var(--surface);color:var(--ink)}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chips button.none{color:var(--muted)}
+.scen{display:flex;flex-direction:column;gap:8px;margin-top:-24px}
+.tablewrap{overflow-x:auto;border-top:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 10px;text-align:right;border-bottom:1px solid var(--rule);white-space:nowrap}
+th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}
+th{font-family:var(--display);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+td.name{white-space:normal;min-width:220px}
+tr.future td{color:var(--muted)}
+.pill{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:999px;border:1px solid var(--rule)}
+.pill.ok{border-color:var(--brt);color:var(--brt)}
+.note{font-size:13.5px;color:var(--muted);max-width:75ch}
+.warn{border-left:3px solid var(--street);padding:2px 0 2px 14px}
+ul.caveats{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;max-width:80ch}
+a{color:var(--metro)}
+@media (max-width:860px){.mapgrid{grid-template-columns:1fr}.figs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:480px){.figs{grid-template-columns:repeat(2,minmax(0,1fr))}.year{font-size:40px}.yearbar{grid-template-columns:auto 1fr}.play{grid-column:1/-1;justify-self:start}}
+@media (prefers-reduced-motion:reduce){.play{display:none}}
+/* Leaflet 1.9.4 (BSD-2-Clause), inlined: the page loads no outside stylesheets */
+.leaflet-pane,.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile-container,.leaflet-pane > svg,.leaflet-pane > canvas,.leaflet-zoom-box,.leaflet-image-layer,.leaflet-layer {position: absolute;left: 0;top: 0;}.leaflet-container {overflow: hidden;}.leaflet-tile,.leaflet-marker-icon,.leaflet-marker-shadow {-webkit-user-select: none;-moz-user-select: none;user-select: none;-webkit-user-drag: none;}.leaflet-tile::selection {background: transparent;}.leaflet-safari .leaflet-tile {image-rendering: -webkit-optimize-contrast;}.leaflet-safari .leaflet-tile-container {width: 1600px;height: 1600px;-webkit-transform-origin: 0 0;}.leaflet-marker-icon,.leaflet-marker-shadow {display: block;}.leaflet-container .leaflet-overlay-pane svg {max-width: none !important;max-height: none !important;}.leaflet-container .leaflet-marker-pane img,.leaflet-container .leaflet-shadow-pane img,.leaflet-container .leaflet-tile-pane img,.leaflet-container img.leaflet-image-layer,.leaflet-container .leaflet-tile {max-width: none !important;max-height: none !important;width: auto;padding: 0;}.leaflet-container img.leaflet-tile {mix-blend-mode: plus-lighter;}.leaflet-container.leaflet-touch-zoom {-ms-touch-action: pan-x pan-y;touch-action: pan-x pan-y;}.leaflet-container.leaflet-touch-drag {-ms-touch-action: pinch-zoom;touch-action: none;touch-action: pinch-zoom;}.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {-ms-touch-action: none;touch-action: none;}.leaflet-container {-webkit-tap-highlight-color: transparent;}.leaflet-container a {-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);}.leaflet-tile {filter: inherit;visibility: hidden;}.leaflet-tile-loaded {visibility: inherit;}.leaflet-zoom-box {width: 0;height: 0;-moz-box-sizing: border-box;box-sizing: border-box;z-index: 800;}.leaflet-overlay-pane svg {-moz-user-select: none;}.leaflet-pane         { z-index: 400; }.leaflet-tile-pane    { z-index: 200; }.leaflet-overlay-pane { z-index: 400; }.leaflet-shadow-pane  { z-index: 500; }.leaflet-marker-pane  { z-index: 600; }.leaflet-tooltip-pane   { z-index: 650; }.leaflet-popup-pane   { z-index: 700; }.leaflet-map-pane canvas { z-index: 100; }.leaflet-map-pane svg    { z-index: 200; }.leaflet-vml-shape {width: 1px;height: 1px;}.lvml {behavior: url(#default#VML);display: inline-block;position: absolute;}.leaflet-control {position: relative;z-index: 800;pointer-events: visiblePainted;pointer-events: auto;}.leaflet-top,.leaflet-bottom {position: absolute;z-index: 1000;pointer-events: none;}.leaflet-top {top: 0;}.leaflet-right {right: 0;}.leaflet-bottom {bottom: 0;}.leaflet-left {left: 0;}.leaflet-control {float: left;clear: both;}.leaflet-right .leaflet-control {float: right;}.leaflet-top .leaflet-control {margin-top: 10px;}.leaflet-bottom .leaflet-control {margin-bottom: 10px;}.leaflet-left .leaflet-control {margin-left: 10px;}.leaflet-right .leaflet-control {margin-right: 10px;}.leaflet-fade-anim .leaflet-popup {opacity: 0;-webkit-transition: opacity 0.2s linear;-moz-transition: opacity 0.2s linear;transition: opacity 0.2s linear;}.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {opacity: 1;}.leaflet-zoom-animated {-webkit-transform-origin: 0 0;-ms-transform-origin: 0 0;transform-origin: 0 0;}svg.leaflet-zoom-animated {will-change: transform;}.leaflet-zoom-anim .leaflet-zoom-animated {-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);-moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);transition:         transform 0.25s cubic-bezier(0,0,0.25,1);}.leaflet-zoom-anim .leaflet-tile,.leaflet-pan-anim .leaflet-tile {-webkit-transition: none;-moz-transition: none;transition: none;}.leaflet-zoom-anim .leaflet-zoom-hide {visibility: hidden;}.leaflet-interactive {cursor: pointer;}.leaflet-grab {cursor: -webkit-grab;cursor:    -moz-grab;cursor:         grab;}.leaflet-crosshair,.leaflet-crosshair .leaflet-interactive {cursor: crosshair;}.leaflet-popup-pane,.leaflet-control {cursor: auto;}.leaflet-dragging .leaflet-grab,.leaflet-dragging .leaflet-grab .leaflet-interactive,.leaflet-dragging .leaflet-marker-draggable {cursor: move;cursor: -webkit-grabbing;cursor:    -moz-grabbing;cursor:         grabbing;}.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-image-layer,.leaflet-pane > svg path,.leaflet-tile-container {pointer-events: none;}.leaflet-marker-icon.leaflet-interactive,.leaflet-image-layer.leaflet-interactive,.leaflet-pane > svg path.leaflet-interactive,svg.leaflet-image-layer.leaflet-interactive path {pointer-events: visiblePainted;pointer-events: auto;}.leaflet-container {background: #ddd;outline-offset: 1px;}.leaflet-container a {color: #0078A8;}.leaflet-zoom-box {border: 2px dotted #38f;background: rgba(255,255,255,0.5);}.leaflet-container {font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;font-size: 12px;font-size: 0.75rem;line-height: 1.5;}.leaflet-bar {box-shadow: 0 1px 5px rgba(0,0,0,0.65);border-radius: 4px;}.leaflet-bar a {background-color: #fff;border-bottom: 1px solid #ccc;width: 26px;height: 26px;line-height: 26px;display: block;text-align: center;text-decoration: none;color: black;}.leaflet-bar a,.leaflet-control-layers-toggle {background-position: 50% 50%;background-repeat: no-repeat;display: block;}.leaflet-bar a:hover,.leaflet-bar a:focus {background-color: #f4f4f4;}.leaflet-bar a:first-child {border-top-left-radius: 4px;border-top-right-radius: 4px;}.leaflet-bar a:last-child {border-bottom-left-radius: 4px;border-bottom-right-radius: 4px;border-bottom: none;}.leaflet-bar a.leaflet-disabled {cursor: default;background-color: #f4f4f4;color: #bbb;}.leaflet-touch .leaflet-bar a {width: 30px;height: 30px;line-height: 30px;}.leaflet-touch .leaflet-bar a:first-child {border-top-left-radius: 2px;border-top-right-radius: 2px;}.leaflet-touch .leaflet-bar a:last-child {border-bottom-left-radius: 2px;border-bottom-right-radius: 2px;}.leaflet-control-zoom-in,.leaflet-control-zoom-out {font: bold 18px 'Lucida Console', Monaco, monospace;text-indent: 1px;}.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {font-size: 22px;}.leaflet-control-layers {box-shadow: 0 1px 5px rgba(0,0,0,0.4);background: #fff;border-radius: 5px;}.leaflet-control-layers-toggle {background-image: url(images/layers.png);width: 36px;height: 36px;}.leaflet-retina .leaflet-control-layers-toggle {background-image: url(images/layers-2x.png);background-size: 26px 26px;}.leaflet-touch .leaflet-control-layers-toggle {width: 44px;height: 44px;}.leaflet-control-layers .leaflet-control-layers-list,.leaflet-control-layers-expanded .leaflet-control-layers-toggle {display: none;}.leaflet-control-layers-expanded .leaflet-control-layers-list {display: block;position: relative;}.leaflet-control-layers-expanded {padding: 6px 10px 6px 6px;color: #333;background: #fff;}.leaflet-control-layers-scrollbar {overflow-y: scroll;overflow-x: hidden;padding-right: 5px;}.leaflet-control-layers-selector {margin-top: 2px;position: relative;top: 1px;}.leaflet-control-layers label {display: block;font-size: 13px;font-size: 1.08333em;}.leaflet-control-layers-separator {height: 0;border-top: 1px solid #ddd;margin: 5px -10px 5px -6px;}.leaflet-default-icon-path {background-image: url(images/marker-icon.png);}.leaflet-container .leaflet-control-attribution {background: #fff;background: rgba(255, 255, 255, 0.8);margin: 0;}.leaflet-control-attribution,.leaflet-control-scale-line {padding: 0 5px;color: #333;line-height: 1.4;}.leaflet-control-attribution a {text-decoration: none;}.leaflet-control-attribution a:hover,.leaflet-control-attribution a:focus {text-decoration: underline;}.leaflet-attribution-flag {display: inline !important;vertical-align: baseline !important;width: 1em;height: 0.6669em;}.leaflet-left .leaflet-control-scale {margin-left: 5px;}.leaflet-bottom .leaflet-control-scale {margin-bottom: 5px;}.leaflet-control-scale-line {border: 2px solid #777;border-top: none;line-height: 1.1;padding: 2px 5px 1px;white-space: nowrap;-moz-box-sizing: border-box;box-sizing: border-box;background: rgba(255, 255, 255, 0.8);text-shadow: 1px 1px #fff;}.leaflet-control-scale-line:not(:first-child) {border-top: 2px solid #777;border-bottom: none;margin-top: -2px;}.leaflet-control-scale-line:not(:first-child):not(:last-child) {border-bottom: 2px solid #777;}.leaflet-touch .leaflet-control-attribution,.leaflet-touch .leaflet-control-layers,.leaflet-touch .leaflet-bar {box-shadow: none;}.leaflet-touch .leaflet-control-layers,.leaflet-touch .leaflet-bar {border: 2px solid rgba(0,0,0,0.2);background-clip: padding-box;}.leaflet-popup {position: absolute;text-align: center;margin-bottom: 20px;}.leaflet-popup-content-wrapper {padding: 1px;text-align: left;border-radius: 12px;}.leaflet-popup-content {margin: 13px 24px 13px 20px;line-height: 1.3;font-size: 13px;font-size: 1.08333em;min-height: 1px;}.leaflet-popup-content p {margin: 17px 0;margin: 1.3em 0;}.leaflet-popup-tip-container {width: 40px;height: 20px;position: absolute;left: 50%;margin-top: -1px;margin-left: -20px;overflow: hidden;pointer-events: none;}.leaflet-popup-tip {width: 17px;height: 17px;padding: 1px;margin: -10px auto 0;pointer-events: auto;-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);transform: rotate(45deg);}.leaflet-popup-content-wrapper,.leaflet-popup-tip {background: white;color: #333;box-shadow: 0 3px 14px rgba(0,0,0,0.4);}.leaflet-container a.leaflet-popup-close-button {position: absolute;top: 0;right: 0;border: none;text-align: center;width: 24px;height: 24px;font: 16px/24px Tahoma, Verdana, sans-serif;color: #757575;text-decoration: none;background: transparent;}.leaflet-container a.leaflet-popup-close-button:hover,.leaflet-container a.leaflet-popup-close-button:focus {color: #585858;}.leaflet-popup-scrolled {overflow: auto;}.leaflet-oldie .leaflet-popup-content-wrapper {-ms-zoom: 1;}.leaflet-oldie .leaflet-popup-tip {width: 24px;margin: 0 auto;-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);}.leaflet-oldie .leaflet-control-zoom,.leaflet-oldie .leaflet-control-layers,.leaflet-oldie .leaflet-popup-content-wrapper,.leaflet-oldie .leaflet-popup-tip {border: 1px solid #999;}.leaflet-div-icon {background: #fff;border: 1px solid #666;}.leaflet-tooltip {position: absolute;padding: 6px;background-color: #fff;border: 1px solid #fff;border-radius: 3px;color: #222;white-space: nowrap;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;pointer-events: none;box-shadow: 0 1px 3px rgba(0,0,0,0.4);}.leaflet-tooltip.leaflet-interactive {cursor: pointer;pointer-events: auto;}.leaflet-tooltip-top:before,.leaflet-tooltip-bottom:before,.leaflet-tooltip-left:before,.leaflet-tooltip-right:before {position: absolute;pointer-events: none;border: 6px solid transparent;background: transparent;content: "";}.leaflet-tooltip-bottom {margin-top: 6px;}.leaflet-tooltip-top {margin-top: -6px;}.leaflet-tooltip-bottom:before,.leaflet-tooltip-top:before {left: 50%;margin-left: -6px;}.leaflet-tooltip-top:before {bottom: 0;margin-bottom: -12px;border-top-color: #fff;}.leaflet-tooltip-bottom:before {top: 0;margin-top: -12px;margin-left: -6px;border-bottom-color: #fff;}.leaflet-tooltip-left {margin-left: -6px;}.leaflet-tooltip-right {margin-left: 6px;}.leaflet-tooltip-left:before,.leaflet-tooltip-right:before {top: 50%;margin-top: -6px;}.leaflet-tooltip-left:before {right: 0;margin-right: -12px;border-left-color: #fff;}.leaflet-tooltip-right:before {left: 0;margin-left: -12px;border-right-color: #fff;}@media print {.leaflet-control {-webkit-print-color-adjust: exact;print-color-adjust: exact;}}
+#metromap{height:600px;background:var(--surface);font-family:var(--body)}
+.leaflet-container{background:var(--surface);font:inherit}
+.leaflet-bar a{background:var(--surface);color:var(--ink);border-bottom-color:var(--rule)}
+.leaflet-bar a:hover{background:var(--bg)}
+.leaflet-control-attribution{background:color-mix(in srgb,var(--surface) 80%,transparent)!important;color:var(--muted)}
+.leaflet-control-attribution a{color:var(--muted)}
+.leaflet-tooltip{background:var(--surface);color:var(--ink);border-color:var(--rule);font-size:13px;box-shadow:none}
+.leaflet-tooltip-top:before{border-top-color:var(--rule)}
+@media (max-width:860px){#metromap{height:460px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Statewide study · draft · November 2026</div>
+  <h1>Texas Transit Plan</h1>
+  <p class="lede">What DFW Transit's money buys if all of Texas spends at the same rate per resident, $9.0B a year of capital to 2100: high-speed rail between the big metros, conventional trains to the neighbours and Monterrey, and rail and BRT inside every metro, with Dallas-Fort Worth running <a href="https://dgoodenough.github.io/dfw-transit/">its own plan</a> on $2.3B of that a year. Land tax near new stations helps pay for the metro lines. Move the year to watch it get built.</p>
+  <p class="maplink"><a href="index.html">← The story</a> · <a href="map.html">Open the statewide map →</a> every line, high-speed to streetcar, with toggles for each mode and a year slider.</p>
+  <p class="maplink"><a href="https://github.com/dgoodenough/texas-transit/blob/main/study/second_session.md#what-came-of-it">What the governor's review found →</a> the cabinet's and the metro planners' 26 items, each tested on these networks: the floor, the money, the border, a line into Juárez.</p>
+</header>
+
+<div class="yearbar">
+  <div class="year" id="ylab" aria-live="polite">2050</div>
+  <label class="slider" for="year"><span class="eyebrow">Year</span><input id="year" type="range" min="2025" max="2100" step="1" value="2050"></label>
+  <button class="play" id="play" type="button">Play</button>
+</div>
+
+<div class="scen">
+  <div class="chips" id="scen" role="group" aria-label="Scenario">
+    <button type="button" data-key="ratio" aria-pressed="true">Best ratio first</button>
+    <button type="button" data-key="metros_first" aria-pressed="false">Metros first</button>
+    <button type="button" data-key="whole_map" aria-pressed="false">The whole map</button>
+  </div>
+  <p class="note" id="scen-note"></p>
+</div>
+
+<div class="figs" aria-label="Totals for the selected year">
+  <div class="fig"><span class="n" id="f-spent"></span><span class="l">capital spent to date, statewide</span></div>
+  <div class="fig"><span class="n" id="f-urban"></span><span class="l">new daily transit trips in the metros, DFW included</span></div>
+  <div class="fig"><span class="n" id="f-inter"></span><span class="l">intercity rail trips a year</span></div>
+  <div class="fig"><span class="n" id="f-flights"></span><span class="l">fewer flights a day</span></div>
+  <div class="fig"><span class="n" id="f-gain"></span><span class="l">benefits a year: travellers' gain and wider</span></div>
+  <div class="fig"><span class="n" id="f-gap"></span><span class="l">operating cost minus fares a year</span></div>
+</div>
+
+<section aria-labelledby="map-h">
+  <h2 id="map-h">The state</h2>
+  <div class="mapgrid">
+    <div class="mapbox"><svg id="state" role="img" aria-label="Map of Texas: high-speed rail, conventional trains and metro areas in the selected year"></svg></div>
+    <div class="panel">
+      <div class="legend">
+        <span><i class="sw" style="border-color:var(--hsr)"></i>high-speed, open</span>
+        <span><i class="sw" style="border-color:var(--hsr);border-top-style:dashed"></i>building</span>
+        <span><i class="sw" style="border-color:var(--hsr-later)"></i>later</span>
+        <span><i class="sw" style="border-color:var(--rail);border-top-style:dotted"></i>conventional trains</span>
+        <span><svg viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="none" stroke="var(--brt)" stroke-width="2"></circle></svg>metro, sized by new transit trips</span>
+      </div>
+      <h3>Spending</h3>
+      <svg id="spend" role="img" aria-label="Capital spent to date by layer against the budget"></svg>
+      <div class="legend">
+        <span><i class="sw" style="border-color:var(--metro)"></i>DFW</span>
+        <span><i class="sw" style="border-color:var(--brt)"></i>other metros</span>
+        <span><i class="sw" style="border-color:var(--hsr)"></i>high-speed</span>
+        <span><i class="sw" style="border-color:var(--rail)"></i>conventional</span>
+        <span><i class="sw" style="border-color:var(--budget);border-top-width:2px;border-top-style:dashed"></i>statewide budget to date (land-tax bonds pay the rest)</span>
+      </div>
+      <p class="note" id="next"></p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="wit-h">
+  <h2 id="wit-h">What it takes to build the whole map</h2>
+  <p>In one statewide queue, best ratio first, the branches (Oklahoma City, Laredo, the Valley, Abilene, Lubbock and Amarillo, El Paso) come last or not at all, and all but the Valley fail a benefit-cost test on their own; the cabinet's plan (<a href="https://github.com/dgoodenough/texas-transit/blob/main/study/hsr_buildout.md">study/hsr_buildout.md</a>) builds them anyway, as a choice to connect the state, from money of their own. Switch the levers to see what each one buys.</p>
+  <p class="lede" id="wit-lede"></p>
+  <div class="levers" id="levers">
+    <div><span class="eyebrow">High-speed costs</span><div class="chips" data-lever="costs"><button type="button" data-v="high">As built today</button><button type="button" data-v="central">A delivery office that learns</button></div></div>
+    <div><span class="eyebrow">Rail Fund (1/8 cent of sales tax)</span><div class="chips" data-lever="rail_fund"><button type="button" data-v="0">No</button><button type="button" data-v="1">Yes</button></div></div>
+    <div><span class="eyebrow">Triangle surplus pledged to the branches</span><div class="chips" data-lever="surplus"><button type="button" data-v="0">No</button><button type="button" data-v="1">Yes</button></div></div>
+    <div><span class="eyebrow">Federal match (10%)</span><div class="chips" data-lever="federal"><button type="button" data-v="0">No</button><button type="button" data-v="1">Yes</button></div></div>
+    <div><span class="eyebrow">Neighbouring states pay for their track, with the federal money that goes to them</span><div class="chips" data-lever="partners"><button type="button" data-v="0">No</button><button type="button" data-v="1">Yes</button></div></div>
+  </div>
+  <div class="figs" id="wit-figs"></div>
+  <div class="cards" id="wit-cards"></div>
+  <p class="note">Cards: each branch in the whole map (its design standard, its cost and what Texas pays after the federal and partner shares, its ratio with the P10–P90 range for cost overruns and ridership misses), and when it opens under each plan. "Not by 2100" means the money runs out first. The lever results are the whole-map schedule rerun for each setting; with neither the Rail Fund nor the surplus there is no program, and the branches wait in the statewide queue.</p>
+</section>
+
+<section aria-labelledby="urb-h">
+  <h2 id="urb-h">Inside the metros</h2>
+  <p>Each network is drawn by DFW Transit's generator from Census population and jobs, commute flows and real roads and rail, at DFW's rate per resident; DFW's is its own hand-built plan. Lines open in order as the budget allows. Pick a metro, then zoom in to follow each alignment street by street (stations appear as you zoom in); hover or tap a line or station for its name and opening year.</p>
+  <div class="chips" id="chips" role="group" aria-label="Metro"></div>
+  <div class="mapgrid">
+    <div class="mapbox"><div id="metromap" role="application" aria-label="Zoomable map of the selected metro's network in the selected year"></div></div>
+    <div class="panel">
+      <h3 id="mname"></h3>
+      <dl class="dl" id="mstats"></dl>
+      <div class="legend">
+        <span><i class="sw" style="border-color:var(--metro)"></i>metro</span>
+        <span><i class="sw" style="border-color:var(--brt)"></i>BRT</span>
+        <span><i class="sw" style="border-color:var(--rail)"></i>regional rail</span>
+        <span><i class="sw" style="border-color:var(--later)"></i>not open yet</span>
+        <span><i class="sw" style="border-color:var(--existing)"></i>today</span>
+        <span><i class="sw" style="border-color:var(--rule);border-top-width:2px"></i>motorways and main roads</span>
+      </div>
+      <p class="note" id="mnote"></p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="t1">
+  <h2 id="t1">Intercity lines, in the order they open</h2>
+  <p>Each project's ratio is travellers' gain (plus any operating surplus) over capital plus the operating deficit, across 50 years at 3%. A ratio of 1 or more means travellers' gains alone pay for it. The budget is spent either way; the ratio sets the order.</p>
+  <div class="tablewrap"><table id="tinter"><thead><tr><th>Opens</th><th>Line</th><th>Capital</th><th>Trips a year</th><th>Gain a year: travellers', wider</th><th>Fares − operating</th><th>Ratio: users, all</th></tr></thead><tbody></tbody></table></div>
+</section>
+
+<section aria-labelledby="t2">
+  <h2 id="t2">By layer</h2>
+  <div class="tablewrap"><table id="tlayer"><thead><tr><th>Layer</th><th>Projects</th><th>Built by 2100</th><th>Capital</th><th>Land-tax bonds</th><th>Travellers' gain a year</th><th>Wider benefits a year</th><th>Fares − operating a year</th><th>Ratio, all benefits</th><th>Ratio 1 or more</th></tr></thead><tbody></tbody></table></div>
+  <p class="note warn" id="unspent"></p>
+</section>
+
+<section aria-labelledby="cv">
+  <h2 id="cv">What to keep in mind</h2>
+  <ul class="caveats">
+    <li>Benefits are travellers' gain plus wider benefits: congestion, crashes and emissions avoided for every car-km off the road and air passenger-km out of the sky, and agglomeration for urban and high-speed lines. These are allowances from US and UK practice, not modelled traffic; halve them and most urban lines fall back under a ratio of 1. Even with them, only 21 of the 103 projects pay for themselves: everything else is built on the plan's premise, spending DFW's rate, in the order that buys the most.</li>
+    <li>Land tax near new urban stations (a Tax Increment Reinvestment Zone on the rise in value plus a small Public Improvement District assessment, borrowed against when the line opens) pays about 8% of the urban lines' capital, a fifth to a third in the smaller metros. It assumes cities form the districts and the uplift arrives with the line.</li>
+    <li>Dallas-Fort Worth runs DFW Transit's 2 million riders plan on its own timetable; what it doesn't spend, and its stations' land-tax bonds, go to the rest of the state. The statewide stations meet its network on foot: Dallas high-speed beside Union Station, Fort Worth at Fort Worth Central, Denton at its transit center, if the Oklahoma City line is built (in the best-ratio order the money runs out before it).</li>
+    <li>An urban trip is worth about $12 in all (its rider's $8 and $4 to everyone else), an intercity trip $40-80 to its traveller. So the order still favours the Triangle's high-speed lines; the metros-first scenario shows the other way round.</li>
+    <li>Operating cost is outside the capital budget, as in DFW Transit. By 2100 the lines statewide, DFW included, cost about $4.5B a year more to run than they take in fares, and no budget pays that yet.</li>
+    <li>The model overrates infrequent rail: at its constant it puts about 16,000 riders a day on Austin's Red Line, and NTD counts 1,636. Regional rail and the conventional trains are likely overrated; metro and BRT are where the calibration holds.</li>
+    <li>High-speed rail's appeal beyond its time and cost is calibrated to Brightline's Miami–Orlando riders, and falls on trips under 300 km, as on New York–Philadelphia (study/calibrate_hsr.md). Dallas–Houston rail takes about a third of trips. At the Northeast Corridor's higher appeal every high-speed ratio would be two to four times larger. Each ratio also has a P10–P90 range for cost overruns and ridership misses (study/timing.md).</li>
+    <li>Each metro's riders follow its own model runs in 2026, 2050 and 2100: its counties' growth trend, with DFW's 2 million plan's land use around new stations (more homes and jobs near them, a fifth of growth steered there). Those runs open every line from 2026, so late lines are credited with station areas that have had decades to grow. Intercity values grow with Texas's population trend; nothing changes in driving or flying.</li>
+  </ul>
+  <p class="note">Source and method: <a href="https://github.com/dgoodenough/texas-transit">github.com/dgoodenough/texas-transit</a> (study/timing.md, hsr_options.md, interstate_rail.md, urban_metros.md).</p>
+</section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+(function () {
+const NS = "http://www.w3.org/2000/svg";
+const el = (n, a, p) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
+const fmt = n => Math.round(n).toLocaleString("en-US");
+const money = m => (m < 0 ? "−" : "") + (Math.abs(m) >= 1000 ? "$" + (Math.abs(m) / 1000).toFixed(1) + "B" : "$" + fmt(Math.abs(m)) + "M");
+const pathD = pts => pts.map((p, i) => (i ? "L" : "M") + p[0] + " " + p[1]).join("");
+const status = (p, y) => !p || !p.open ? "never" : p.open <= y ? "open" : p.start <= y ? "building" : "later";
+
+Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.json").then(r => r.json())]).then(([M, T]) => {
+  const P = {}; T.projects.forEach(p => { P[p.id] = p; });
+  // an urban line's new daily trips in year y: its 2050 value along its metro's trajectory (timeline.json urban_traj)
+  function urbanTrips(p, y) {
+    const tj = (T.urban_traj || {})[p.metro];
+    if (!tj) return p.trips_day;
+    const ks = Object.keys(tj).map(Number).sort((a, b) => a - b);
+    const lo = ks.filter(k => k <= y).pop() ?? ks[0], hi = ks.find(k => k >= y) ?? ks[ks.length - 1];
+    const f = lo === hi ? tj[lo] : tj[lo] + (tj[hi] - tj[lo]) * (y - lo) / (hi - lo);
+    return p.trips_day * f;
+  }
+  let Y = {}, YL = T.yearly, scen = "ratio";
+  // the Connectivity Program's corridors in the whole map, in the order they open (timeline.json)
+  // a corridor's short name: its own name if it has one ("Panhandle: ..."), else its far end
+  const label = n => n.includes(":") ? n.split(":")[0] : n.split(" - ").pop();
+  const WPN = {}; (T.whole_map_projects || []).forEach(p => { WPN[p.id] = label(p.name); });
+  function wholeMapYears() {
+    const w = ((T.scenarios.whole_map || {}).when) || {};
+    const ids = (T.connectivity || []).filter(id => w[id]).sort((a, b) => w[a][1] - w[b][1]);
+    const miss = (T.connectivity || []).filter(id => !w[id]);
+    if (!ids.length) return "No branch opens by 2100";
+    return (miss.length ? `${ids.length} of ${T.connectivity.length} corridors open by 2100` : `Every corridor opens by ${w[ids[ids.length - 1]][1]}`)
+      + ": " + ids.map(id => `${WPN[id] || id} ${w[id][1]}`).join(", ");
+  }
+  const NOTES = {
+    ratio: "Every project in one queue, best ratio first. The Triangle's high-speed lines come early (Austin–San Antonio and Texas Central 2033); under a third of the metro lines open by 2050; Laredo, Lubbock, Amarillo and El Paso are never reached.",
+    whole_map: "The cabinet's plan (study/hsr_buildout.md): high-speed rail built the way a permanent delivery office would, cheaper over time, thin legs to lighter standards, a federal match on the track in Texas, and, as in every plan here, the neighbouring states paying for the track in theirs with the federal money that comes with it. The branches have their own ring-fenced money (an eighth of a cent of sales tax plus the busier lines' operating surplus), so they never take a metro line's place, and a branch starts only once the line it hangs off has run three years. " + wholeMapYears() + ".",
+    metros_first: `Each metro gets its own stream, its share of the budget at DFW's rate spread over ${T.metro_years} years from 2025, and builds its lines in order. Intercity rail takes the rest. The metros finish decades sooner; the high-speed lines open 10-15 years later.`};
+  function useScenario(key) {
+    scen = key;
+    const S = T.scenarios[key];
+    T.projects.forEach(p => { const w = S.when[p.id]; p.start = w ? w[0] : null; p.open = w ? w[1] : null; });
+    YL = S.yearly; Y = {}; YL.forEach(r => { Y[r.year] = r; });
+    document.querySelectorAll("#scen button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.key === key)));
+    document.getElementById("scen-note").textContent = NOTES[key] + (S.pv ? ` Worth ${money(S.pv)} in all (present value at 3%, 2025-2100), or ${money(S.pv_half_wider)} counting half the wider benefits.` : "");
+  }
+  useScenario("ratio");
+  // ---- what it takes (timeline.json levers: the whole-map schedule for each lever setting)
+  if (T.levers) {
+    const L = {costs: "central", rail_fund: "1", surplus: "1", federal: "1", partners: "1"};
+    const WP = {}; (T.whole_map_projects || []).forEach(p => { WP[p.id] = p; });
+    const short = id => WP[id] ? label(WP[id].name) : id;
+    const stops = id => WP[id] ? WP[id].name.replace(/^.*?: /, "") : "";
+    const STD = {S1: "320 km/h", S2: "250 km/h double track", S3: "250 km/h single track, passing loops", S4: "200 km/h single track first"};
+    function renderLevers() {
+      document.querySelectorAll("#levers .chips").forEach(c => c.querySelectorAll("button").forEach(b =>
+        b.setAttribute("aria-pressed", String(b.dataset.v === L[c.dataset.lever]))));
+      const r = T.levers[T.lever_names.map(k => L[k]).join("|")];
+      if (!r) return;
+      const opened = T.connectivity.filter(id => r.opens[id]);
+      const last = Math.max(0, ...opened.map(id => r.opens[id]));
+      document.getElementById("wit-figs").innerHTML = [
+        [`${r.branches} of ${T.connectivity.length}`, "branch corridors open by 2100"],
+        [opened.length === T.connectivity.length ? String(last) : "—", "the last one opens"],
+        [money(r.hsr_texas), "high-speed capital Texas pays"],
+        [money(r.branches_texas), "of it for the branches"],
+        [(r.intercity_2100 / 1e6).toFixed(0) + "M", "intercity rail trips a year, 2100"],
+        [fmt(r.metro_2100), "new daily metro trips, 2100"]].map(f =>
+        `<div class="fig"><span class="n">${f[0]}</span><span class="l">${f[1]}</span></div>`).join("");
+      document.getElementById("wit-cards").innerHTML = T.connectivity.map(id => {
+        const p = WP[id] || {}, y = r.opens[id];
+        const sc = k => ((T.scenarios[k] || {}).when || {})[id];
+        const o = k => sc(k) ? sc(k)[1] : "not by 2100";
+        return `<div class="card"><h3>${short(id)}</h3><span class="note">${stops(id)}</span>
+          <span class="opens ${y ? "" : "never"}">${y || "not by 2100"}</span>
+          <span class="note">${STD[p.standard] || ""} · ${money(p.capital || 0)}, Texas pays ${money((p.capital || 0) - (p.outside || 0))}</span>
+          <span class="note">Ratio ${p.bcr != null ? p.bcr.toFixed(2) : "—"}${p.bcr_p10 != null ? ` (P10–P90 ${p.bcr_p10.toFixed(2)}–${p.bcr_p90.toFixed(2)})` : ""}</span>
+          <span class="note">Opens: best ratio first ${o("ratio")} · metros first ${o("metros_first")} · whole map ${o("whole_map")}</span></div>`;
+      }).join("");
+    }
+    {   // the one-sentence answer: business as usual against every lever, and what the metros give up
+      const off = T.levers[T.lever_names.map((k, i) => i === 0 ? "high" : "0").join("|")];
+      const on = T.levers[T.lever_names.map((k, i) => i === 0 ? "central" : "1").join("|")];
+      if (off && on) {
+        const n = T.connectivity.length, yrs = T.connectivity.map(id => on.opens[id]).filter(Boolean);
+        const dm = on.metro_2100 - off.metro_2100;
+        document.getElementById("wit-lede").textContent =
+          `Built as Texas builds today, with no money of their own, ${off.branches} of ${n} branch corridors open by 2100. `
+          + (on.branches === n ? `With a delivery office that learns, an eighth of a cent of sales tax, the busier lines' surplus, a 10% federal match and the neighbouring states paying for their own track, all ${n} open by ${Math.max(...yrs)}`
+                                : `With every lever, ${on.branches} of ${n} open by 2100`)
+          + `, and the metros ${dm > 0 ? "give up nothing: they carry " + fmt(dm) + " more new trips a day in 2100, because the branches no longer draw on their budget"
+                                       : dm === 0 ? "give up nothing: every metro line is built by 2100 either way"
+                                       : "carry " + fmt(-dm) + " fewer new trips a day in 2100"}.`;
+      }
+    }
+    document.querySelectorAll("#levers .chips button").forEach(b => b.addEventListener("click", () => {
+      L[b.parentElement.dataset.lever] = b.dataset.v; renderLevers();
+    }));
+    renderLevers();
+  } else {
+    document.querySelector('[aria-labelledby="wit-h"]').hidden = true;
+  }
+  const yIn = document.getElementById("year");
+
+  // ---------- statewide map ----------
+  const S = document.getElementById("state");
+  const all = [];
+  M.states.TX.forEach(r => r.forEach(p => all.push(p)));
+  Object.values(M.conv).forEach(c => c.forEach(p => all.push(p)));
+  const xs = all.map(p => p[0]), ys = all.map(p => p[1]);
+  const x0 = Math.min(...xs) - 40, x1 = Math.max(...xs) + 110, y0 = Math.min(...ys) - 40, y1 = Math.max(...ys) + 40;
+  S.setAttribute("viewBox", `${x0} ${y0} ${x1 - x0} ${y1 - y0}`);
+  el("rect", {x: x0, y: y0, width: x1 - x0, height: y1 - y0, fill: "var(--land)"}, S);
+  for (const st in M.states) M.states[st].forEach(r => el("path", {d: pathD(r) + "Z", fill: st === "TX" ? "var(--land-tx)" : "var(--land)",
+    stroke: "var(--state-line)", "stroke-width": 1.2, "stroke-linejoin": "round"}, S));
+  const metroG = el("g", {}, S);
+  const circles = M.metros.map(m => {
+    const c = el("circle", {cx: m.xy[0], cy: m.xy[1], r: 0, fill: "var(--brt)", "fill-opacity": 0.12, stroke: "var(--brt)", "stroke-width": 1.6}, metroG);
+    const t = el("title", {}, c);
+    return {m, c, t};
+  });
+  const convG = el("g", {}, S), hsrG = el("g", {}, S), labG = el("g", {}, S);
+  const conv = Object.entries(M.conv).map(([id, pts]) => {
+    const p = el("path", {d: pathD(pts), fill: "none", "stroke-linecap": "round", "stroke-linejoin": "round"}, convG);
+    el("title", {}, p).textContent = P[id] ? P[id].name : id;
+    return {id, p};
+  });
+  const hsrL = Object.entries(M.hsr).map(([id, pts]) => {
+    const p = el("path", {d: pathD(pts), fill: "none", "stroke-linecap": "round", "stroke-linejoin": "round"}, hsrG);
+    el("title", {}, p).textContent = P[id] ? P[id].name : id;
+    return {id, p};
+  });
+  const labels = {"Dallas": [9, -9], "Fort Worth": [-78, -9], "Houston": [9, 17], "Austin": [-52, 4], "San Antonio": [-92, 14],
+    "El Paso": [8, -8], "Lubbock": [9, -6], "Oklahoma City": [9, 4], "Shreveport": [9, 4], "New Orleans": [-34, 22], "Laredo": [-54, 5],
+    "Corpus Christi": [9, 6], "McAllen": [-60, 6], "Midland": [-22, -11], "Waco": [9, 4]};
+  const lab = (x, y, t, muted) => { el("text", {x, y, "font-size": muted ? 19 : 21, fill: muted ? "var(--muted)" : "var(--ink)",
+    "font-family": "Barlow Condensed, Arial Narrow, sans-serif", "font-weight": 600}, labG).textContent = t; };
+  const stEls = {};
+  for (const s in M.hsr_stations) {
+    const st = M.hsr_stations[s];
+    stEls[s] = el("circle", {cx: st.xy[0], cy: st.xy[1], r: st.kind === "major" ? 4.5 : 2.8, fill: "var(--surface)", stroke: "var(--ink)", "stroke-width": 1.4}, labG);
+    if (labels[s]) lab(st.xy[0] + labels[s][0], st.xy[1] + labels[s][1], s);
+  }
+  for (const n in M.conv_ends) { const p = M.conv_ends[n]; el("circle", {cx: p[0], cy: p[1], r: 3.5, fill: "var(--surface)", stroke: "var(--rail)", "stroke-width": 1.6}, labG); lab(p[0] + 8, p[1] + 5, n, true); }
+  el("text", {x: M.dfw.xy[0] + 24, y: M.dfw.xy[1] - 28, "font-size": 16, fill: "var(--muted)", "font-family": "Public Sans, sans-serif"}, labG).textContent = "DFW Transit's plan";
+
+  // ---------- spending chart ----------
+  const C = document.getElementById("spend");
+  const W = 300, H = 170, pl = 34, pb = 20, pt = 8, pr = 6;
+  C.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const yrs = T.yearly.map(r => r.year);
+  const budget = yrs.map((y, i) => T.budget_musd * (i + 1));
+  const ymax = Math.ceil(budget[budget.length - 1] / 100000) * 100000;
+  const sx = y => pl + (y - yrs[0]) / (yrs[yrs.length - 1] - yrs[0]) * (W - pl - pr);
+  const sy = v => H - pb - v / ymax * (H - pb - pt);
+  for (let v = 0; v <= ymax; v += 100000) {
+    el("path", {d: `M${pl} ${sy(v)}H${W - pr}`, stroke: "var(--rule)", "stroke-width": 0.6}, C);
+    el("text", {x: pl - 4, y: sy(v) + 3, "text-anchor": "end", "font-size": 9, fill: "var(--muted)", "font-family": "Public Sans, sans-serif"}, C).textContent = "$" + v / 1000 + "B";
+  }
+  [2025, 2050, 2075, 2100].forEach(y => el("text", {x: sx(y), y: H - 6, "text-anchor": y === 2100 ? "end" : y === 2025 ? "start" : "middle", "font-size": 9, fill: "var(--muted)", "font-family": "Public Sans, sans-serif"}, C).textContent = y);
+  const areaG = el("g", {}, C);
+  function drawChart() {
+    while (areaG.firstChild) areaG.removeChild(areaG.firstChild);
+    const cum = {dfw: [], urban: [], hsr: [], conventional: []};
+    const per = {dfw: {}, urban: {}, hsr: {}, conventional: {}};
+    YL.forEach(q => { per.dfw[q.year] = q.dfw_spend; });
+    T.projects.forEach(p => { if (!p.open) return; const b = p.open - p.start; for (let y = p.start; y < p.open; y++) per[p.layer][y] = (per[p.layer][y] || 0) + (p.capital - (p.bond || 0)) / b; });
+    for (const k in cum) { let s = 0; yrs.forEach(y => { s += per[k][y] || 0; cum[k].push(s); }); }
+    let base = yrs.map(() => 0);
+    [["dfw", "var(--metro)"], ["urban", "var(--brt)"], ["hsr", "var(--hsr)"], ["conventional", "var(--rail)"]].forEach(([k, col]) => {
+      const top = base.map((b, i) => b + cum[k][i]);
+      const d = "M" + yrs.map((y, i) => `${sx(y)} ${sy(top[i])}`).join("L") + "L" + yrs.slice().reverse().map((y, j) => `${sx(y)} ${sy(base[yrs.length - 1 - j])}`).join("L") + "Z";
+      el("path", {d, fill: col, "fill-opacity": 0.55, stroke: "none"}, areaG);
+      base = top;
+    });
+  }
+  el("path", {d: "M" + yrs.map((y, i) => `${sx(y)} ${sy(budget[i])}`).join("L"), fill: "none", stroke: "var(--budget)", "stroke-width": 1.2, "stroke-dasharray": "4 3"}, C);
+  const cursor = el("path", {d: "", stroke: "var(--ink)", "stroke-width": 1}, C);
+
+  // ---------- one metro: a zoomable map ----------
+  const COLV = {metro: "--metro", brt: "--brt", commuter: "--rail", streetcar: "--street"};
+  const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim() || "#888";
+  const chips = document.getElementById("chips");
+  const LM = L.map("metromap", {preferCanvas: true, zoomSnap: 0.5, worldCopyJump: false});
+  LM.attributionControl.setPrefix(false);
+  LM.attributionControl.addAttribution("Roads: Overture Maps Foundation");
+  const roadG = L.layerGroup().addTo(LM), lineG = L.layerGroup().addTo(LM), stG2 = L.layerGroup();
+  const STATION_ZOOM = 12;   // stations appear when zoomed in to neighbourhood level
+  const zoomed = () => LM.getZoom() >= STATION_ZOOM;
+  LM.on("zoomend", () => {
+    if (zoomed() && !LM.hasLayer(stG2)) stG2.addTo(LM);
+    if (!zoomed() && LM.hasLayer(stG2)) LM.removeLayer(stG2);
+    drawMetro(+yIn.value);
+  });
+  const cacheM = {};
+  let cur = "houston", mLines = [], mStations = [], token = 0;
+  const lineStatus = (l, y) => l.status === "existing" ? "today" : l.year ? (l.year <= y ? "open" : "later") : status(P[l.project], y);
+  const stationYear = s => s.year || (s.today ? 2025 : Math.min(...s.projects.map(id => (P[id] && P[id].open) || 9999)));
+  async function buildMetro(id) {
+    cur = id;
+    const my = ++token;
+    const m = M.metros.find(x => x.id === id);
+    chips.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.id === id)));
+    document.getElementById("mname").textContent = m.name;
+    if (!cacheM[id]) cacheM[id] = await fetch(`data/metros/${id}.json`).then(r => r.json());
+    if (my !== token) return;
+    const D = cacheM[id];
+    roadG.clearLayers(); lineG.clearLayers(); stG2.clearLayers();
+    const rc = cssv("--rule"), rm = cssv("--muted");
+    const RW = [2.2, 1.6, 1.1, 0.6];
+    D.roads.forEach(([c, pts]) => L.polyline(pts, {color: c < 2 ? rm : rc, weight: RW[c], opacity: c < 2 ? 0.45 : 0.8, interactive: false}).addTo(roadG));
+    mLines = D.lines.map(l => {
+      const pl = L.polyline(l.pts, {lineCap: "round", lineJoin: "round"}).addTo(lineG);
+      const pr_ = P[l.project];
+      const yo = l.status === "existing" ? "open today" : l.year ? `opens ${l.year}` : pr_ && pr_.open ? `opens ${pr_.open}` : "not built by 2100";
+      pl.bindTooltip(`<b>${l.name}</b><br>${l.mode === "commuter" ? "regional rail" : l.mode}, ${yo}`, {sticky: true});
+      return {l, pl};
+    });
+    mStations = D.stations.map(st => {
+      const cm = L.circleMarker([st.lat, st.lon], {radius: 3.5, weight: 1.5}).addTo(stG2);
+      const yr = stationYear(st);
+      cm.bindTooltip(`<b>${st.name}</b><br>${st.lines.slice(0, 4).join(", ")}${st.lines.length > 4 ? "…" : ""}<br>${yr <= 2025 ? "open today" : yr < 9999 ? "opens " + yr : "not built by 2100"}`, {direction: "top"});
+      return {st, cm, yr};
+    });
+    const pts = D.lines.flatMap(l => l.pts);
+    const fit = pts.length ? pts : D.roads.flatMap(r => r[1]);
+    if (fit.length) LM.fitBounds(L.latLngBounds(fit), {padding: [20, 20]});
+    if (zoomed() && !LM.hasLayer(stG2)) stG2.addTo(LM);
+    if (!zoomed() && LM.hasLayer(stG2)) LM.removeLayer(stG2);
+    drawMetro(+yIn.value);
+  }
+  function drawMetro(y) {
+    const m = M.metros.find(x => x.id === cur);
+    const later = cssv("--later"), ink = cssv("--ink"), surf = cssv("--surface"), ex = cssv("--existing");
+    mLines.forEach(({l, pl}) => {
+      const s = lineStatus(l, y);
+      const col = s === "today" ? (l.color || ex) : s === "open" || s === "building" ? (l.color || cssv(COLV[l.mode] || "--ink")) : later;
+      const k = LM.getZoom() >= STATION_ZOOM ? 1 : 0.7;
+      pl.setStyle({color: col, weight: k * (s === "open" || s === "today" ? 4.5 : s === "building" ? 3.5 : 2.2),
+                   dashArray: s === "building" ? "8 6" : null, opacity: s === "later" || s === "never" ? 0.8 : 1});
+      if (s === "open" || s === "today") pl.bringToFront();
+    });
+    mStations.forEach(({cm, yr}) => {
+      const on = yr <= y;
+      cm.setStyle({color: on ? ink : later, fillColor: surf, fillOpacity: 1, radius: on ? 3.5 : 2.5});
+      if (on) cm.bringToFront();
+    });
+    if (m.dfw) {
+      const len = pts => pts.reduce((a, q, i) => i ? a + Math.hypot(q[0] - pts[i - 1][0], q[1] - pts[i - 1][1]) : 0, 0);
+      const kmo = k => fmt(m.net.filter(l => l.mode === k && l.dfw_year <= y).reduce((a, l) => a + len(l.pts), 0));
+      let sp = 0; YL.forEach(q => { if (q.year <= y) sp += q.dfw_spend; });
+      const names = new Set(m.net.filter(l => l.dfw_year <= y).map(l => l.name)), all = new Set(m.net.map(l => l.name));
+      const rows = [["People (2020)", fmt(m.pop)], ["Lines open / planned", `${names.size} / ${all.size}`],
+        ["Metro / BRT / regional rail open", `${kmo("metro")} / ${kmo("brt")} / ${kmo("commuter")} km`],
+        ["Capital spent to date", money(sp)],
+        ["New daily transit trips (DFW Transit's model)", fmt(Y[y].dfw_trips_day)],
+        ["Budget", "$2.3B a year"]];
+      document.getElementById("mstats").innerHTML = rows.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("");
+      document.getElementById("mnote").innerHTML = `DFW Transit's own plan on its own timetable, the 2 million riders scenario; what it doesn't spend goes to the rest of the state. <a href="https://dgoodenough.github.io/dfw-transit/map.html">Its map</a>. The high-speed station sits beside Union Station.`;
+      return;
+    }
+    const ps = T.projects.filter(p => p.metro === cur);
+    const open = ps.filter(p => status(p, y) === "open");
+    const km = k => fmt(open.filter(p => p.mode === k).reduce((a, p) => a + p.km, 0));
+    const rows = [["People (2020)", fmt(m.pop)], ["Lines open / planned", `${open.length} / ${ps.length}`],
+      ["Metro / BRT / regional rail open", `${km("metro")} / ${km("brt")} / ${km("commuter")} km`],
+      ["Capital in open lines", money(open.reduce((a, p) => a + p.capital, 0))],
+      [`New daily transit trips, ${y}`, fmt(open.reduce((a, p) => a + urbanTrips(p, y), 0))],
+      [`Budget share, ${m.budget_years || 30} years`, money(m.budget)],
+      ["Policy package", m.policies ? "yes: feeders every 15 min, bikes and drop-off to stations, priced parking downtown" : "land use only"]];
+    document.getElementById("mstats").innerHTML = rows.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("");
+    const next = ps.filter(p => p.open && p.open > y).sort((a, b) => a.open - b.open)[0];
+    document.getElementById("mnote").textContent = !ps.length ? "No corridor here reaches the density the generator needs for BRT or rail."
+      : next ? `Next to open: ${next.name} (${next.mode === "commuter" ? "regional rail" : next.mode}), ${next.open}.` : "Every line in this metro's plan is open.";
+    if (m.page) document.getElementById("mnote").insertAdjacentHTML("beforeend",
+      ` <a href="${m.page}"><strong>Open ${m.name.split("-")[0]}'s full map →</strong></a> line and station pages, a trip planner from any address, data layers and a diagram.`);
+  }
+  M.metros.forEach(m => {
+    const b = document.createElement("button");
+    b.type = "button"; b.dataset.id = m.id; b.textContent = m.dfw ? "DFW" : m.name.split("-")[0];
+    if (!m.dfw && !T.projects.some(p => p.metro === m.id)) b.classList.add("none");
+    b.addEventListener("click", () => buildMetro(m.id));
+    chips.appendChild(b);
+  });
+
+  // ---------- tables ----------
+  let inter = [];
+  const tb = document.querySelector("#tinter tbody");
+  function tables() {
+  inter = T.projects.filter(p => p.layer !== "urban").sort((a, b) => (a.open || 9999) - (b.open || 9999));
+  tb.innerHTML = inter.map(p => `<tr data-id="${p.id}"><td>${p.open || "not built"}</td><td class="name">${p.name}</td><td>${money(p.capital)}</td>` +
+    `<td>${(p.trips_year / 1e6).toFixed(2)}M</td><td>${money(p.benefit)}, ${money((p.wider || 0) + (p.agglom || 0))}</td><td>${money(p.fares - p.opex)}</td>` +
+    `<td>${p.bcr_users.toFixed(2)}, ${p.bcr.toFixed(2)}${p.bcr >= 1 ? ' <span class="pill ok">pays</span>' : ""}</td></tr>`).join("");
+  const LAY = [["urban", "Urban rail and BRT, 24 metros outside DFW"], ["hsr", "High-speed rail"], ["conventional", "Conventional trains"]];
+  document.querySelector("#tlayer tbody").innerHTML = LAY.map(([k, n]) => {
+    const ps = T.projects.filter(p => p.layer === k), bs = ps.filter(p => p.open);
+    const cap = bs.reduce((a, p) => a + p.capital, 0), ben = bs.reduce((a, p) => a + p.benefit, 0), mg = bs.reduce((a, p) => a + p.fares - p.opex, 0);
+    const wid = bs.reduce((a, p) => a + (p.wider || 0) + (p.agglom || 0), 0), bond = bs.reduce((a, p) => a + (p.bond || 0), 0);
+    const r = (ben + wid + Math.max(mg, 0)) * 25.73 / (cap + Math.max(-mg, 0) * 25.73);
+    const ok = ps.filter(p => p.bcr >= 1);
+    return `<tr><td>${n}</td><td>${ps.length}</td><td>${bs.length}</td><td>${money(cap)}</td><td>${money(bond)}</td><td>${money(ben)}</td><td>${money(wid)}</td><td>${money(mg)}</td><td>${r.toFixed(2)}</td><td>${ok.length}</td></tr>`;
+  }).join("") + `<tr><td>Dallas-Fort Worth, its own plan (2100)</td><td>${T.dfw.lines}</td><td>its timetable</td><td>${money(T.dfw.spent)}</td><td>${money(T.dfw.bonds)}</td>` +
+    `<td>${money(T.dfw.benefit)}</td><td>${money(T.dfw.wider)}</td><td>${money(T.dfw.margin)}</td><td></td><td></td></tr>`;
+  const built = T.projects.filter(p => p.open).reduce((a, p) => a + p.capital - (p.bond || 0), 0), avail = T.other_total;
+  const left = T.projects.filter(p => !p.open);
+  const names = left.filter(p => p.layer !== "urban").map(p => p.name.split(":")[0]);
+  const urbanLeft = left.filter(p => p.layer === "urban").length;
+  document.getElementById("unspent").innerHTML = `<b>${money(built)} of ${money(avail)} spent by 2100 outside DFW</b> (the statewide budget minus what DFW spends, plus DFW's land-tax bonds; urban lines' own bonds pay ${money(T.projects.filter(p => p.open).reduce((a, p) => a + (p.bond || 0), 0))} more). What's left (${money(avail - built)}) doesn't fit ` +
+    [names.length ? names.join(", ") : "", urbanLeft ? `${urbanLeft} metro line${urbanLeft > 1 ? "s" : ""}` : ""].filter(Boolean).join(" or ") + " before 2100.";
+  }
+
+  // ---------- the year ----------
+  function draw() {
+    const y = +yIn.value, r = Y[y];
+    document.getElementById("ylab").textContent = y;
+    let spent = 0; YL.forEach(q => { if (q.year <= y) spent += q.spend + q.dfw_spend; });
+    document.getElementById("f-spent").textContent = money(spent);
+    document.getElementById("f-urban").textContent = fmt(r.urban_trips_day + r.dfw_trips_day);
+    document.getElementById("f-inter").textContent = (r.intercity_trips_year / 1e6).toFixed(1) + "M";
+    document.getElementById("f-flights").textContent = fmt(r.flights_day);
+    document.getElementById("f-gain").textContent = money(r.benefit + r.wider);
+    document.getElementById("f-gap").textContent = money(r.opex - r.fares);
+    hsrL.forEach(({id, p}) => {
+      const s = status(P[id], y);
+      p.setAttribute("stroke", s === "open" || s === "building" ? "var(--hsr)" : "var(--hsr-later)");
+      p.setAttribute("stroke-width", s === "open" ? 7 : s === "building" ? 4 : 2.5);
+      p.setAttribute("stroke-dasharray", s === "building" ? "10 6" : s === "open" ? "none" : "6 6");
+      if (s === "open") hsrG.appendChild(p);
+    });
+    const live = new Set();
+    hsrL.forEach(({id}) => { if (status(P[id], y) === "open") (M.hsr[id] || []).forEach(q => live.add(q.join())); });
+    for (const s in stEls) stEls[s].setAttribute("fill", live.has(M.hsr_stations[s].xy.join()) ? "var(--hsr)" : "var(--surface)");
+    conv.forEach(({id, p}) => {
+      const s = status(P[id], y);
+      p.setAttribute("stroke", s === "open" ? "var(--rail)" : "var(--rail-later)");
+      p.setAttribute("stroke-width", s === "open" ? 3.5 : 2.5);
+      p.setAttribute("stroke-dasharray", s === "open" ? "1 6" : "1 8");
+    });
+    const tr = {dfw: r.dfw_trips_day};
+    T.projects.forEach(p => { if (p.layer === "urban" && status(p, y) === "open") tr[p.metro] = (tr[p.metro] || 0) + urbanTrips(p, y); });
+    const maxT = Math.max(1, ...YL.map(q => q.dfw_trips_day));
+    circles.forEach(({m, c, t}) => {
+      const v = tr[m.id] || 0;
+      c.setAttribute("r", v ? 5 + 40 * Math.sqrt(v / maxT) : 0);
+      t.textContent = `${m.name}: ${fmt(v)} new daily transit trips in ${y}`;
+    });
+    cursor.setAttribute("d", `M${sx(y)} ${pt}V${H - pb}`);
+    const nx = inter.filter(p => p.open && p.open > y)[0];
+    document.getElementById("next").textContent = nx ? `Next intercity opening: ${nx.name}, ${nx.open}.` : "Every intercity line that fits the budget is open.";
+    tb.querySelectorAll("tr").forEach(row => row.classList.toggle("future", !(P[row.dataset.id].open && P[row.dataset.id].open <= y)));
+    drawMetro(y);
+  }
+  yIn.addEventListener("input", draw);
+  let timer = null;
+  const play = document.getElementById("play");
+  play.addEventListener("click", () => {
+    if (timer) { clearInterval(timer); timer = null; play.textContent = "Play"; return; }
+    if (+yIn.value >= 2100) yIn.value = 2025;
+    play.textContent = "Pause";
+    timer = setInterval(() => { if (+yIn.value >= 2100) { clearInterval(timer); timer = null; play.textContent = "Play"; return; } yIn.value = +yIn.value + 1; draw(); }, 180);
+  });
+  document.querySelectorAll("#scen button").forEach(b => b.addEventListener("click", () => {
+    useScenario(b.dataset.key); drawChart(); tables(); buildMetro(cur); draw();
+  }));
+  drawChart();
+  tables();
+  buildMetro("houston");
+  draw();
+}).catch(e => { document.querySelector(".wrap").insertAdjacentHTML("beforeend", `<p class="note warn">The map data didn't load (${e.message}). Open this page from its site, not as a local file.</p>`); });
+})();
+</script>
+</body>
+</html>

@@ -150,3 +150,20 @@ where the statewide site would go beyond DFW's, and it rests on Phase 2's per-me
    the statewide page with named lines and stations may be enough.
 3. **One page or many?** A single statewide page with every metro inside would be large: DFW's alone is 3.6 MB. Per-metro
    pages linked from the statewide map keep each one fast.
+
+## What was built (November 2026)
+
+All five phases, on the defaults above (colours for rail, streets for BRT, a page for each big metro, cards for the rest):
+
+| Phase | What there is now | Where |
+|---|---|---|
+| 1. Names | Every metro's lines and stations renamed: agency names for today's lines, colour names for new rail (skipping today's colours), the outer town for regional rail, the main street for BRT; stations by landmark, neighbourhood or cross streets from each metro's own gazetteer (Overture). Every name and why in `urban/generated/<id>/names.csv`; hand fixes in `urban/names/<id>/` | DFW Transit `metro/names.py`, `metro/overture.fetch_gazetteer` |
+| 2. Metro pages | DFW's map for Houston, San Antonio, Austin, El Paso and the Rio Grande Valley: the three schedules as scenarios, the year slider, line and station pages, the door-to-door trip planner, data layers and the diagram, on each metro's own model. Linked from each metro's panel on the plan page | `docs/metros/<id>.html`; DFW Transit `metro/pages.py`, `dfwt/webmap.write(site=...)`; `tools/build_metro_pages.py` |
+| 3. Statewide trip planner | Any two high-speed stations, in the year and schedule shown, timed as the intercity model times a trip (the ride, the wait, changes), against the drive; at each end a hand-over to the metro's own map at the station nearest the high-speed one | `docs/map.html`, `docs/data/intercity.json`; `tools/build_trip_planner.py` |
+| 4. Statewide map and story | The map's line panel (every line by group, its state in the year shown), station pages with "trip from / to here", high-speed lines coloured by family, metro lines in their own colours. A story page (`docs/index.html`); the dashboard is now `docs/plan.html` | `docs/map.html`, `docs/index.html`, `docs/plan.html` |
+| 5. Editable tables | Each metro's `stages.csv` and `service.csv` as first drafts (every line one stage, opening in the main schedule's year; its headway), and `validation.md`: dfwt's validator on the result, as DFW's network is checked. Rows edited by hand survive a rerun | DFW Transit `metro/tables.py`; `tools/metro_tables.py` |
+
+**Still short of DFW's:** the intercity planner covers high-speed rail only (the conventional trains run a few times a
+day and aren't in it); the metro pages' years are a decade grid, not every year; the hand-over between the statewide
+planner and a metro page is a link, not one continuous door-to-door trip; and the drafted stages are whole lines (the
+validator flags the long ones, STAGE_TOO_BIG, for an editor to split as DFW's were).

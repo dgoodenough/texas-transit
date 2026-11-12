@@ -73,7 +73,7 @@ select{width:100%;font:13px var(--body);padding:5px;background:var(--surface);co
   <h1>Texas Transit Map</h1>
   <p class="sub">The statewide plan at DFW Transit's spending rate, every line drawn, year by year.</p>
   <div class="body">
-  <div class="nav"><a href="index.html">← The plan</a><a href="https://github.com/dgoodenough/texas-transit">Source</a><a href="https://dgoodenough.github.io/dfw-transit/map.html">DFW Transit's map</a></div>
+  <div class="nav"><a href="index.html">← The story</a><a href="plan.html">The plan in numbers</a><a href="https://github.com/dgoodenough/texas-transit">Source</a><a href="https://dgoodenough.github.io/dfw-transit/map.html">DFW Transit's map</a></div>
 
   <div class="year"><output id="yout">2100</output><span class="small" id="ynote">every funded line open</span></div>
   <input id="year" type="range" min="2025" max="2100" step="1" value="2100" aria-label="Year">
@@ -81,8 +81,16 @@ select{width:100%;font:13px var(--body);padding:5px;background:var(--surface);co
   <div class="seg" id="scen" role="group" aria-label="Scenario"><button data-key="ratio" aria-pressed="true">Best ratio first</button><button data-key="metros_first" aria-pressed="false">Metros first</button><button data-key="whole_map" aria-pressed="false">Whole map</button></div>
   <label class="t"><input type="checkbox" id="later" checked> Show what's built later (faint)</label>
 
+  <h2>Trip between cities</h2>
+  <div class="row"><select id="tfrom" aria-label="From station"></select><select id="tto" aria-label="To station"></select></div>
+  <div id="tripout" class="small" aria-live="polite"></div>
+
+  <h2>Lines</h2>
+  <details id="linepanel"><summary>Every line, in the year and plan shown</summary><div id="linelist" class="small"></div></details>
+
   <h2>Intercity</h2>
   <label class="t"><input type="checkbox" data-layer="hsr" checked><span class="sw" style="border-color:var(--hsr)"></span>High-speed rail</label>
+  <p class="m" style="margin:0 0 6px 26px;font-size:12px">By family: <span style="color:#c62828">■</span> the Triangle · <span style="color:#ad1457">■</span> Gulf Coast and east · <span style="color:#ef6c00">■</span> South Texas · <span style="color:#8d6e63">■</span> West Texas · <span style="color:#6a1b9a">■</span> north to Oklahoma</p>
   <label class="t"><input type="checkbox" data-layer="hsr_unfunded" checked><span class="sw d" style="border-color:var(--hsr-later)"></span>High-speed corridors not reached by 2100</label>
   <p class="m" id="stdnote" hidden style="margin:2px 0 6px 26px;font-size:12px">Whole map: a thinner red line is a lighter standard (250 km/h single track with passing loops, or 200 km/h single track first); tap a line for its standard and cost.</p>
   <label class="t"><input type="checkbox" data-layer="conv" checked><span class="sw" style="border-color:var(--conv);border-top-width:3px"></span>Conventional trains (today's track)</label>
@@ -198,7 +206,7 @@ Promise.all([fetch("data/state.json").then(r => r.json()), fetch("data/timeline.
     jump.value = "";
   });
 
-  let scen = "ratio", year = 2100;
+  let scen = "ratio", year = 2100, IC = null;   // IC: the trip planner's data (data/intercity.json)
   const on = {}; document.querySelectorAll("[data-layer],[data-mode]").forEach(i => { on[i.dataset.layer || i.dataset.mode] = i.checked; });
   const when = f => {   // [start, open] or null (never by 2100); today's lines open already
     if (f.status === "existing") return [2025, 2025];
@@ -206,7 +214,15 @@ Promise.all([fetch("data/state.json").then(r => r.json()), fetch("data/timeline.
     return T.scenarios[scen].when[f.id] || null;
   };
   const state = f => { const w = when(f); return !w ? "never" : w[1] <= year ? "open" : w[0] <= year ? "building" : "later"; };
-  const color = f => f.kind === "hsr" ? css("--hsr") : f.kind === "conv" ? css("--conv") : css(MODE_VAR[f.mode] || "--metro");
+  // high-speed corridors by family (the Triangle, the Gulf and east, the south, the west, the north); metro lines in
+  // their own colours (DFW Transit's, and the generated networks' agency-style ones: metro/names.py)
+  const HSR_FAMILY = {TC: "#c62828", FW: "#c62828", I35N: "#c62828", I35S: "#c62828", I10: "#c62828", US290: "#c62828",
+                      GULF: "#ad1457", SHV: "#ad1457", CC: "#ef6c00", VALLEY: "#ef6c00", MFE: "#ef6c00", LRD: "#ef6c00",
+                      BIGC: "#8d6e63", WEST: "#8d6e63", PANH: "#8d6e63", OKC: "#6a1b9a"};
+  const FAMILY_NAME = {"#c62828": "The Triangle", "#ad1457": "Gulf Coast and east", "#ef6c00": "South Texas",
+                       "#8d6e63": "West Texas", "#6a1b9a": "North to Oklahoma"};
+  const color = f => f.kind === "hsr" ? (HSR_FAMILY[f.id.slice(4)] || css("--hsr")) : f.kind === "conv" ? css("--conv")
+    : (f.l && f.l.color) || css(MODE_VAR[f.mode] || "--metro");
   function visible(f, st) {
     if (f.kind === "hsr") return st === "never" ? on.hsr_unfunded : on.hsr && (st !== "later" || on.later);
     if (f.kind === "conv") return on.conv && st !== "never" && (st !== "later" || on.later);
@@ -255,7 +271,56 @@ Promise.all([fetch("data/state.json").then(r => r.json()), fetch("data/timeline.
       ["Capital spent to date", money(sumSpend)]];
     document.getElementById("stats").innerHTML = items.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("");
     document.getElementById("yname").textContent = year;
+    if (IC) planTrip();
+    if (document.getElementById("linepanel").open) lineList();
   }
+  // ---- the line panel: every line by group, its state in the year shown; tap one to zoom to it
+  function lineList() {
+    const st = f => { const w = when(f), s = state(f);
+      return f.status === "existing" ? "today" : !w ? "not by 2100" : s === "open" ? `since ${w[1]}` : s === "building" ? `building, ${w[1]}` : `opens ${w[1]}`; };
+    const groups = [["High-speed rail", feats.filter(f => f.kind === "hsr")], ["Conventional trains", feats.filter(f => f.kind === "conv")]];
+    const byMetro = {};
+    feats.filter(f => f.kind === "urban" || f.kind === "dfw").forEach(f => { (byMetro[f.metro] = byMetro[f.metro] || new Map()).set(f.l.name, f); });
+    Object.keys(byMetro).sort((a, b) => (names[a] || a).localeCompare(names[b] || b))
+      .forEach(m => groups.push([names[m] || m, [...byMetro[m].values()]]));
+    const rows = [];
+    groups.forEach(([g, fs]) => {
+      fs.sort((a, b) => ((when(a) || [0, 9999])[1] - (when(b) || [0, 9999])[1]) || (a.l || a.h || a.c).name.localeCompare((b.l || b.h || b.c).name));
+      rows.push(`<p class="m" style="margin:10px 0 2px;font-weight:700">${esc(g)}</p>`);
+      fs.forEach(f => {
+        const k = feats.indexOf(f), nm = (f.l || f.h || f.c).name, s = state(f);
+        rows.push(`<button type="button" class="ln" data-k="${k}" style="display:flex;gap:8px;align-items:center;width:100%;text-align:left;background:none;border:0;padding:2px 0;cursor:pointer;color:inherit;opacity:${s === "open" || f.status === "existing" ? 1 : 0.6}">`
+          + `<span style="flex:none;width:16px;height:4px;border-radius:2px;background:${color(f)}"></span><span style="flex:1">${esc(nm)}</span><span class="m">${st(f)}</span></button>`);
+      });
+    });
+    const box = document.getElementById("linelist");
+    box.innerHTML = rows.join("");
+    box.querySelectorAll("button.ln").forEach(b => b.addEventListener("click", () => {
+      const f = feats[+b.dataset.k];
+      map.fitBounds(f.line.getBounds(), {padding: [30, 30], maxZoom: 12});
+      f.line.openPopup(f.line.getCenter());
+    }));
+  }
+  document.getElementById("linepanel").addEventListener("toggle", e => { if (e.target.open) lineList(); });
+  // ---- station pages: an intercity station's lines, its metro connection, and the trip planner from or to it
+  stations.forEach(({s, m}) => m.bindPopup(() => {
+    const ls = [...s.hsr.map(c => feats.find(f => f.id === "hsr:" + c)), ...s.conv.map(c => feats.find(f => f.id === "conv:" + c))].filter(Boolean);
+    const loc = IC && IC.local[s.name];
+    const gy = GRID.filter(y => y <= year).pop() || GRID[0];
+    return `<div class="pop"><b>${esc(s.name)}</b><br>`
+      + ls.map(f => { const w = when(f); return `<span style="display:inline-block;width:12px;height:4px;border-radius:2px;background:${color(f)};margin-right:6px;vertical-align:middle"></span>${esc((f.h || f.c).name)} <span class="m">· ${!w ? "not by 2100" : state(f) === "open" ? "open" : "opens " + w[1]}</span>`; }).join("<br>")
+      + (loc ? `<br><span class="m">Local: ` + (loc.station ? `${esc(loc.name)} (${Math.round(loc.km * 1000)} m), ` : "") + `<a href="${loc.station ? `${loc.page}#year=${gy}&station=${loc.station}` : loc.page}">${loc.metro}'s map →</a></span>` : "")
+      + (IC && IC.stations[s.name] ? `<br><button type="button" data-tfrom="${esc(s.name)}">Trip from here</button> <button type="button" data-tto="${esc(s.name)}">Trip to here</button>` : "")
+      + "</div>";
+  }, {maxWidth: 300}));
+  map.on("popupopen", e => {
+    e.popup.getElement().querySelectorAll("[data-tfrom],[data-tto]").forEach(b => b.addEventListener("click", () => {
+      const id = b.dataset.tfrom ? "tfrom" : "tto";
+      document.getElementById(id).value = b.dataset.tfrom || b.dataset.tto;
+      planTrip();
+      document.getElementById("tripout").scrollIntoView({block: "nearest"});
+    }));
+  });
   function popup(f) {
     const w = when(f), st = state(f);
     const stTxt = !w ? "not reached by 2100 in this scenario" : f.status === "existing" ? "today's line" :
@@ -277,6 +342,94 @@ Promise.all([fetch("data/state.json").then(r => r.json()), fetch("data/timeline.
     }
     return `<div class="pop">${h}</div>`;
   }
+  // ---- the statewide trip planner (tools/build_trip_planner.py): high-speed rail as the intercity model times it,
+  // in the year and plan shown, handing over to each metro's own map at the station nearest the high-speed one
+  const tripLayer = L.layerGroup().addTo(map);
+  const GRID = [2025, 2030, 2035, 2040, 2050, 2060, 2070, 2080, 2090, 2100];   // the metro pages' years
+  const hm = m => (m >= 60 ? Math.floor(m / 60) + " h " : "") + Math.round(m % 60) + " min";
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+  function services(built) {
+    const out = [], covered = new Set();
+    IC.patterns.forEach(([cids, chain, h]) => { if (cids.every(c => built.has(c))) { out.push([chain, h]); cids.forEach(c => covered.add(c)); } });
+    built.forEach(c => { if (!covered.has(c)) out.push([IC.chains[c], IC.shuttle[c] || 60]); });
+    return out;
+  }
+  function planTrip() {
+    const out = document.getElementById("tripout");
+    tripLayer.clearLayers();
+    if (!IC) return;
+    const a = document.getElementById("tfrom").value, b = document.getElementById("tto").value;
+    if (!a || !b || a === b) { out.innerHTML = "Pick two stations: the trip is timed as the intercity model times it, in the year and plan shown above."; return; }
+    const sc = IC.scenarios[scen] || {};
+    const built = new Set(Object.keys(sc).filter(c => sc[c][0] <= year));
+    const speed = {}, adj = {};
+    built.forEach(c => {
+      const sp = IC.speeds[sc[c][1]] || IC.speeds.S1;
+      IC.links[c].forEach(([x, y, k]) => { const key = [x, y].sort().join("|"); if (!speed[key] || speed[key][0] < sp) speed[key] = [sp, k, x, y]; });
+    });
+    Object.values(speed).forEach(([sp, k, x, y]) => { const t = k / sp * 60; (adj[x] = adj[x] || []).push([y, t, k]); (adj[y] = adj[y] || []).push([x, t, k]); });
+    const best = {[a]: [0, 0]}, prev = {[a]: null}, done = new Set();
+    for (;;) {
+      let u = null;
+      for (const s in best) if (!done.has(s) && (u === null || best[s][0] < best[u][0])) u = s;
+      if (u === null || u === b) break;
+      done.add(u);
+      (adj[u] || []).forEach(([v, t, k]) => {
+        const nt = best[u][0] + t + (u !== a ? IC.svc.stop_min : 0);
+        if (!best[v] || nt < best[v][0]) { best[v] = [nt, best[u][1] + k]; prev[v] = u; }
+      });
+    }
+    if (!best[b]) { out.innerHTML = `<b>${a} to ${b}</b>: not connected by high-speed rail in ${year} in this plan. Drag the year later, or try another plan.`; return; }
+    const route = [b]; while (prev[route[0]]) route.unshift(prev[route[0]]);
+    const svc = services(built);
+    // legs: from each station, the service running furthest along the route without a change
+    const legs = [];
+    for (let i = 0; i < route.length - 1;) {
+      let pick = null, reach = i;
+      svc.forEach(([chain, h]) => {
+        let j = i;
+        while (j < route.length - 1 && chain.includes(route[j]) && Math.abs(chain.indexOf(route[j + 1]) - chain.indexOf(route[j])) === 1) j++;
+        if (j > reach || (j === reach && j > i && pick && h < pick[1])) { reach = j; pick = [chain, h]; }
+      });
+      if (!pick) break;
+      const chain = pick[0], toward = chain.indexOf(route[reach]) > chain.indexOf(route[i]) ? chain[chain.length - 1] : chain[0];
+      legs.push({from: route[i], to: route[reach], toward, h: pick[1], stops: reach - i - 1});
+      i = reach;
+    }
+    const direct = svc.filter(([chain]) => chain.includes(a) && chain.includes(b)).reduce((s, [, h]) => s + 60 / h, 0);
+    const h = direct ? 60 / direct : Math.max(...legs.map(l => l.h));
+    const wait = Math.min(h * IC.svc.wait_share, IC.svc.max_wait_min);
+    const changes = Math.max(legs.length - 1, 0), ride = best[b][0], track = best[b][1];
+    const total = ride + wait + changes * IC.svc.transfer_min;
+    const fare = IC.svc.fare_fixed + IC.svc.fare_per_km * track;
+    const A = IC.stations[a], B = IC.stations[b];
+    const straight = Math.hypot((A[0] - B[0]) * 110.57, (A[1] - B[1]) * 111.32 * Math.cos((A[0] + B[0]) / 2 * Math.PI / 180));
+    const car = straight * IC.drive.circuity / IC.drive.kmh * 60;
+    const gy = GRID.filter(y => y <= year).pop() || GRID[0];
+    const hand = (s, verb) => {
+      const c = IC.local[s];
+      if (!c) return `<li>${verb} ${s} station: no metro network in the plan reaches it; local buses, a drive or a drop-off.</li>`;
+      const link = c.station ? `${c.page}#year=${gy}&station=${c.station}` : c.page;
+      return `<li>${verb} ${s} station: ` + (c.station ? `the ${c.metro} network's ${esc(c.name)} stop is ${Math.round(c.km * 1000)} m away. ` : "")
+        + `<a href="${link}">Plan that part on ${c.metro}'s map →</a></li>`;
+    };
+    out.innerHTML = `<b>${a} to ${b} in ${year}</b>: about <b>${hm(total)}</b> station to station `
+      + `(${hm(ride)} on board, ${hm(wait)} average wait` + (changes ? `, ${changes} change${changes > 1 ? "s" : ""}` : "") + `), about $${Math.round(fare)}. `
+      + `By car about ${hm(car)}.<ol>` + hand(a, "Get to")
+      + legs.map(l => `<li>Take the train toward ${l.toward} from ${l.from} to ${l.to} (every ${l.h} min` + (l.stops ? `, ${l.stops} stop${l.stops > 1 ? "s" : ""}` : "") + `).</li>`).join("")
+      + hand(b, "From") + "</ol>";
+    tripLayer.addLayer(L.polyline(route.map(s => [IC.stations[s][0], IC.stations[s][1]]), {color: css("--ink"), weight: 7, opacity: 0.35, interactive: false}));
+  }
+  fetch("data/intercity.json").then(r => r.json()).then(d => {
+    IC = d;
+    const names = Object.keys(d.stations).sort();
+    ["tfrom", "tto"].forEach((id, k) => {
+      const el = document.getElementById(id);
+      el.innerHTML = `<option value="">${k ? "To…" : "From…"}</option>` + names.map(n => `<option>${n}</option>`).join("");
+      el.addEventListener("change", planTrip);
+    });
+    planTrip();
+  }).catch(() => { document.getElementById("tripout").textContent = "The trip planner's data didn't load."; });
   const yin = document.getElementById("year");
   const setYear = y => {
     year = +y; yin.value = year; document.getElementById("yout").textContent = year;

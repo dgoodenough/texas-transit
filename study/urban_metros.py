@@ -292,7 +292,7 @@ def summary():
         out += ["| Metro | Today's lines carry (NTD 2024, weekday) | ACS transit share of workers | Constant |",
                 "|---|---|---|---|",
                 f"| Dallas-Fort Worth (DFW Transit) | 80,000 rail | {cal['share_dfw']:.2%} | {cal['asc_dfw']:+.3f} |"]
-        name = {m["id"]: m["name"].split(",")[0] for m in reg["metros"]}
+        name = {m["id"]: m["name"].split(",")[0].split(" (")[0] for m in reg["metros"]}
         cbsa = {m["id"]: m["cbsa"] for m in reg["metros"]}
         for f in cal["fits"]:
             out.append(f"| {name[f['id']]} | {f['weekday_boardings']:,} | {sh[cbsa[f['id']]]:.2%} | {f['asc']:+.3f} |")
