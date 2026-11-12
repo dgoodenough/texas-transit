@@ -127,7 +127,8 @@ high-speed rail versus metro systems is an output, not an input.
 ## The site
 
 `docs/` is the website, served by GitHub Pages (Settings, Pages: deploy from the `main` branch,
-`/docs` folder), in DFW Transit's style (`study/site_parity.md`):
+`/docs` folder), in DFW Transit's style (`study/site_parity.md`), tidied after a usability review by designers
+and residents (`study/site_review.md`). Every page opens in 2050 and shares one bar of links:
 
 - `index.html`: the story, its numbers read from the model's data
 - `plan.html`: the plan by year (the dashboard: the three schedules, the levers, every metro)

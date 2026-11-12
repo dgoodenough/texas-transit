@@ -42,6 +42,19 @@ p{margin:0;max-width:68ch}
 header{display:flex;flex-direction:column;gap:12px}
 .maplink{margin:0;font-size:15px}.maplink a{font-weight:700}
 .lede{font-size:17px}
+nav.site{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;font-size:14px;border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:-16px}
+nav.site a{color:var(--ink);text-decoration:none}nav.site a:hover{text-decoration:underline}
+nav.site a[aria-current]{font-weight:700;text-decoration:underline;text-underline-offset:4px}
+nav.site .brand{font-family:var(--display);font-weight:700;font-size:18px;margin-right:6px}
+nav.site .sep{color:var(--muted);margin-left:8px}
+nav.jump{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;font-size:14px}
+details.sec>summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary .more{font-size:13.5px;color:var(--metro);font-weight:600}
+details.sec>summary .more::before{content:"Show ▸"}details.sec[open]>summary .more::before{content:"Hide ▾"}
+details.sec{display:flex;flex-direction:column;gap:16px}details.sec[open]>summary{margin-bottom:16px}
+.mlink a{display:inline-block;padding:8px 14px;border-radius:999px;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;font-size:14px}
+h2[id],section[id]{scroll-margin-top:96px}
 section{display:flex;flex-direction:column;gap:16px}
 .yearbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);
   display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding-block:10px}
@@ -109,12 +122,12 @@ a{color:var(--metro)}
 </head>
 <body>
 <div class="wrap">
+<nav class="site" aria-label="Site"><a class="brand" href="index.html">Texas Transit</a><a href="index.html">The story</a><a href="plan.html" aria-current="page">The plan</a><a href="map.html">The map</a><span class="sep">Metro maps:</span><a href="metros/houston.html">Houston</a><a href="metros/san-antonio.html">San Antonio</a><a href="metros/austin.html">Austin</a><a href="metros/el-paso.html">El Paso</a><a href="metros/rio-grande-valley.html">the Valley</a><a href="https://dgoodenough.github.io/dfw-transit/map.html">DFW</a></nav>
 <header>
   <div class="eyebrow">Statewide study · draft · November 2026</div>
   <h1>Texas Transit Plan</h1>
   <p class="lede">What DFW Transit's money buys if all of Texas spends at the same rate per resident, $9.0B a year of capital to 2100: high-speed rail between the big metros, conventional trains to the neighbours and Monterrey, and rail and BRT inside every metro, with Dallas-Fort Worth running <a href="https://dgoodenough.github.io/dfw-transit/">its own plan</a> on $2.3B of that a year. Land tax near new stations helps pay for the metro lines. Move the year to watch it get built.</p>
-  <p class="maplink"><a href="index.html">← The story</a> · <a href="map.html">Open the statewide map →</a> every line, high-speed to streetcar, with toggles for each mode and a year slider.</p>
-  <p class="maplink"><a href="https://github.com/dgoodenough/texas-transit/blob/main/study/second_session.md#what-came-of-it">What the governor's review found →</a> the cabinet's and the metro planners' 26 items, each tested on these networks: the floor, the money, the border, a line into Juárez.</p>
+  <nav class="jump" aria-label="On this page"><span class="eyebrow">On this page</span><a href="#map-h">The state</a><a href="#wit-h">The whole map</a><a href="#urb-h">Inside the metros</a><a href="#t1">Intercity lines</a><a href="#t2">By layer</a><a href="#cv">What to keep in mind</a><a href="https://github.com/dgoodenough/texas-transit/blob/main/study/third_session.md">The governor's reviews ↗</a></nav>
 </header>
 
 <div class="yearbar">
@@ -169,7 +182,7 @@ a{color:var(--metro)}
 
 <section aria-labelledby="wit-h">
   <h2 id="wit-h">What it takes to build the whole map</h2>
-  <p>In one statewide queue, best ratio first, the branches (Oklahoma City, Laredo, the Valley, Abilene, Lubbock and Amarillo, El Paso) come last or not at all, and all but the Valley fail a benefit-cost test on their own; the cabinet's plan (<a href="https://github.com/dgoodenough/texas-transit/blob/main/study/hsr_buildout.md">study/hsr_buildout.md</a>) builds them anyway, as a choice to connect the state, from money of their own. Switch the levers to see what each one buys.</p>
+  <p id="wit-intro">The branch corridors (Oklahoma City, Laredo, the Valley, the Gulf to Corpus Christi, Abilene, Lubbock and Amarillo, El Paso) fail a benefit-cost test on their own; the cabinet's plan (<a href="https://github.com/dgoodenough/texas-transit/blob/main/study/hsr_buildout.md">study/hsr_buildout.md</a>) builds them anyway, as a choice to connect the state, from money of their own. Switch the levers to see what each one buys.</p>
   <p class="lede" id="wit-lede"></p>
   <div class="levers" id="levers">
     <div><span class="eyebrow">High-speed costs</span><div class="chips" data-lever="costs"><button type="button" data-v="high">As built today</button><button type="button" data-v="central">A delivery office that learns</button></div></div>
@@ -191,13 +204,13 @@ a{color:var(--metro)}
     <div class="mapbox"><div id="metromap" role="application" aria-label="Zoomable map of the selected metro's network in the selected year"></div></div>
     <div class="panel">
       <h3 id="mname"></h3>
+      <p class="mlink" id="mlink" hidden></p>
       <dl class="dl" id="mstats"></dl>
       <div class="legend">
-        <span><i class="sw" style="border-color:var(--metro)"></i>metro</span>
-        <span><i class="sw" style="border-color:var(--brt)"></i>BRT</span>
-        <span><i class="sw" style="border-color:var(--rail)"></i>regional rail</span>
+        <span>Each line in its own colour:</span>
+        <span><i class="sw" style="border-color:var(--ink)"></i>open</span>
+        <span><i class="sw" style="border-color:var(--ink);border-top-style:dashed"></i>being built</span>
         <span><i class="sw" style="border-color:var(--later)"></i>not open yet</span>
-        <span><i class="sw" style="border-color:var(--existing)"></i>today</span>
         <span><i class="sw" style="border-color:var(--rule);border-top-width:2px"></i>motorways and main roads</span>
       </div>
       <p class="note" id="mnote"></p>
@@ -206,19 +219,24 @@ a{color:var(--metro)}
 </section>
 
 <section aria-labelledby="t1">
-  <h2 id="t1">Intercity lines, in the order they open</h2>
+<details class="sec" id="d-t1">
+  <summary><h2 id="t1">Intercity lines, in the order they open</h2><span class="more"></span></summary>
   <p>Each project's ratio is travellers' gain (plus any operating surplus) over capital plus the operating deficit, across 50 years at 3%. A ratio of 1 or more means travellers' gains alone pay for it. The budget is spent either way; the ratio sets the order.</p>
   <div class="tablewrap"><table id="tinter"><thead><tr><th>Opens</th><th>Line</th><th>Capital</th><th>Trips a year</th><th>Gain a year: travellers', wider</th><th>Fares − operating</th><th>Ratio: users, all</th></tr></thead><tbody></tbody></table></div>
+</details>
 </section>
 
 <section aria-labelledby="t2">
-  <h2 id="t2">By layer</h2>
+<details class="sec" id="d-t2">
+  <summary><h2 id="t2">By layer</h2><span class="more"></span></summary>
   <div class="tablewrap"><table id="tlayer"><thead><tr><th>Layer</th><th>Projects</th><th>Built by 2100</th><th>Capital</th><th>Land-tax bonds</th><th>Travellers' gain a year</th><th>Wider benefits a year</th><th>Fares − operating a year</th><th>Ratio, all benefits</th><th>Ratio 1 or more</th></tr></thead><tbody></tbody></table></div>
+</details>
   <p class="note warn" id="unspent"></p>
 </section>
 
 <section aria-labelledby="cv">
-  <h2 id="cv">What to keep in mind</h2>
+<details class="sec" id="d-cv">
+  <summary><h2 id="cv">What to keep in mind</h2><span class="more"></span></summary>
   <ul class="caveats">
     <li>Benefits are travellers' gain plus wider benefits: congestion, crashes and emissions avoided for every car-km off the road and air passenger-km out of the sky, and agglomeration for urban and high-speed lines. These are allowances from US and UK practice, not modelled traffic; halve them and most urban lines fall back under a ratio of 1. Even with them, only 21 of the 103 projects pay for themselves: everything else is built on the plan's premise, spending DFW's rate, in the order that buys the most.</li>
     <li>Land tax near new urban stations (a Tax Increment Reinvestment Zone on the rise in value plus a small Public Improvement District assessment, borrowed against when the line opens) pays about 8% of the urban lines' capital, a fifth to a third in the smaller metros. It assumes cities form the districts and the uplift arrives with the line.</li>
@@ -230,6 +248,7 @@ a{color:var(--metro)}
     <li>Each metro's riders follow its own model runs in 2026, 2050 and 2100: its counties' growth trend, with DFW's 2 million plan's land use around new stations (more homes and jobs near them, a fifth of growth steered there). Those runs open every line from 2026, so late lines are credited with station areas that have had decades to grow. Intercity values grow with Texas's population trend; nothing changes in driving or flying.</li>
   </ul>
   <p class="note">Source and method: <a href="https://github.com/dgoodenough/texas-transit">github.com/dgoodenough/texas-transit</a> (study/timing.md, hsr_options.md, interstate_rail.md, urban_metros.md).</p>
+</details>
 </section>
 </div>
 
@@ -239,6 +258,7 @@ a{color:var(--metro)}
 const NS = "http://www.w3.org/2000/svg";
 const el = (n, a, p) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
 const fmt = n => Math.round(n).toLocaleString("en-US");
+const approx = n => n >= 1e6 ? (n / 1e6).toFixed(2) + "M" : n >= 1e4 ? fmt(Math.round(n / 1000) * 1000) : fmt(n);
 const money = m => (m < 0 ? "−" : "") + (Math.abs(m) >= 1000 ? "$" + (Math.abs(m) / 1000).toFixed(1) + "B" : "$" + fmt(Math.abs(m)) + "M");
 const pathD = pts => pts.map((p, i) => (i ? "L" : "M") + p[0] + " " + p[1]).join("");
 const status = (p, y) => !p || !p.open ? "never" : p.open <= y ? "open" : p.start <= y ? "building" : "later";
@@ -287,6 +307,15 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
     const short = id => WP[id] ? label(WP[id].name) : id;
     const stops = id => WP[id] ? WP[id].name.replace(/^.*?: /, "") : "";
     const STD = {S1: "320 km/h", S2: "250 km/h double track", S3: "250 km/h single track, passing loops", S4: "200 km/h single track first"};
+    {   // the queue's verdict on the branches, from the data (best ratio first: when each opens, and its ratio)
+      const rw = T.scenarios.ratio.when, ids = T.connectivity.slice().sort((a, b) => ((rw[a] || [0, 9999])[1]) - ((rw[b] || [0, 9999])[1]));
+      const late = ids.map(id => `${short(id)} ${rw[id] ? rw[id][1] : "not by 2100"}`);
+      const bcr = T.connectivity.map(id => (WP[id] || {}).bcr).filter(v => v != null);
+      const fail = bcr.filter(v => v < 1).length;
+      document.getElementById("wit-intro").innerHTML = `In one statewide queue, best ratio first, the ${T.connectivity.length} branch corridors open late or not at all (${late.join(", ")}), and `
+        + (fail === bcr.length ? `none passes a benefit-cost test on its own (ratios ${Math.min(...bcr).toFixed(2)} to ${Math.max(...bcr).toFixed(2)})` : `${fail} of ${bcr.length} fail a benefit-cost test on their own`)
+        + `. The cabinet's plan (<a href="https://github.com/dgoodenough/texas-transit/blob/main/study/hsr_buildout.md">study/hsr_buildout.md</a>) builds them anyway, as a choice to connect the state, from money of their own. Switch the levers to see what each one buys.`;
+    }
     function renderLevers() {
       document.querySelectorAll("#levers .chips").forEach(c => c.querySelectorAll("button").forEach(b =>
         b.setAttribute("aria-pressed", String(b.dataset.v === L[c.dataset.lever]))));
@@ -300,7 +329,7 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
         [money(r.hsr_texas), "high-speed capital Texas pays"],
         [money(r.branches_texas), "of it for the branches"],
         [(r.intercity_2100 / 1e6).toFixed(0) + "M", "intercity rail trips a year, 2100"],
-        [fmt(r.metro_2100), "new daily metro trips, 2100"]].map(f =>
+        [approx(r.metro_2100), "new daily metro trips, 2100"]].map(f =>
         `<div class="fig"><span class="n">${f[0]}</span><span class="l">${f[1]}</span></div>`).join("");
       document.getElementById("wit-cards").innerHTML = T.connectivity.map(id => {
         const p = WP[id] || {}, y = r.opens[id];
@@ -437,6 +466,9 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
     const m = M.metros.find(x => x.id === id);
     chips.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.id === id)));
     document.getElementById("mname").textContent = m.name;
+    const ml = document.getElementById("mlink"), pg = m.dfw ? "https://dgoodenough.github.io/dfw-transit/map.html" : m.page;
+    ml.hidden = !pg;
+    if (pg) ml.innerHTML = `<a href="${pg}">Open ${m.dfw ? "DFW Transit" : m.name.split(/[-(]/)[0].trim()}'s full map →</a> <span class="note">stations, trip planner, diagram</span>`;
     if (!cacheM[id]) cacheM[id] = await fetch(`data/metros/${id}.json`).then(r => r.json());
     if (my !== token) return;
     const D = cacheM[id];
@@ -502,13 +534,13 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
       ["Capital in open lines", money(open.reduce((a, p) => a + p.capital, 0))],
       [`New daily transit trips, ${y}`, fmt(open.reduce((a, p) => a + urbanTrips(p, y), 0))],
       [`Budget share, ${m.budget_years || 30} years`, money(m.budget)],
-      ["Policy package", m.policies ? "yes: feeders every 15 min, bikes and drop-off to stations, priced parking downtown" : "land use only"]];
+      ["Policy package", m.policies ? "yes" : "land use only"]];
     document.getElementById("mstats").innerHTML = rows.map(r => `<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join("");
     const next = ps.filter(p => p.open && p.open > y).sort((a, b) => a.open - b.open)[0];
     document.getElementById("mnote").textContent = !ps.length ? "No corridor here reaches the density the generator needs for BRT or rail."
       : next ? `Next to open: ${next.name} (${next.mode === "commuter" ? "regional rail" : next.mode}), ${next.open}.` : "Every line in this metro's plan is open.";
-    if (m.page) document.getElementById("mnote").insertAdjacentHTML("beforeend",
-      ` <a href="${m.page}"><strong>Open ${m.name.split("-")[0]}'s full map →</strong></a> line and station pages, a trip planner from any address, data layers and a diagram.`);
+    if (m.policies) document.getElementById("mnote").insertAdjacentHTML("beforeend",
+      " Policy package: feeder buses every 15 minutes, bikes and drop-off at stations, priced parking downtown.");
   }
   M.metros.forEach(m => {
     const b = document.createElement("button");
@@ -536,12 +568,16 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
     return `<tr><td>${n}</td><td>${ps.length}</td><td>${bs.length}</td><td>${money(cap)}</td><td>${money(bond)}</td><td>${money(ben)}</td><td>${money(wid)}</td><td>${money(mg)}</td><td>${r.toFixed(2)}</td><td>${ok.length}</td></tr>`;
   }).join("") + `<tr><td>Dallas-Fort Worth, its own plan (2100)</td><td>${T.dfw.lines}</td><td>its timetable</td><td>${money(T.dfw.spent)}</td><td>${money(T.dfw.bonds)}</td>` +
     `<td>${money(T.dfw.benefit)}</td><td>${money(T.dfw.wider)}</td><td>${money(T.dfw.margin)}</td><td></td><td></td></tr>`;
-  const built = T.projects.filter(p => p.open).reduce((a, p) => a + p.capital - (p.bond || 0), 0), avail = T.other_total;
+  // what the statewide budget actually paid (the schedule's yearly spend: net of land-tax bonds and of the track
+  // neighbouring states pay for), against what was there to spend outside DFW
+  const built = YL.reduce((a, q) => a + q.spend, 0), avail = T.other_total;
   const left = T.projects.filter(p => !p.open);
   const names = left.filter(p => p.layer !== "urban").map(p => p.name.split(":")[0]);
   const urbanLeft = left.filter(p => p.layer === "urban").length;
-  document.getElementById("unspent").innerHTML = `<b>${money(built)} of ${money(avail)} spent by 2100 outside DFW</b> (the statewide budget minus what DFW spends, plus DFW's land-tax bonds; urban lines' own bonds pay ${money(T.projects.filter(p => p.open).reduce((a, p) => a + (p.bond || 0), 0))} more). What's left (${money(avail - built)}) doesn't fit ` +
-    [names.length ? names.join(", ") : "", urbanLeft ? `${urbanLeft} metro line${urbanLeft > 1 ? "s" : ""}` : ""].filter(Boolean).join(" or ") + " before 2100.";
+  const bonds = money(T.projects.filter(p => p.open).reduce((a, p) => a + (p.bond || 0), 0));
+  document.getElementById("unspent").innerHTML = `<b>${money(built)} of ${money(avail)} spent by 2100 outside DFW</b> (the statewide budget minus what DFW spends, plus DFW's land-tax bonds; urban lines' own bonds pay ${bonds} more, and neighbouring states pay for the track in theirs). `
+    + (left.length ? `What's left (${money(avail - built)}) doesn't fit ` + [names.length ? names.join(", ") : "", urbanLeft ? `${urbanLeft} metro line${urbanLeft > 1 ? "s" : ""}` : ""].filter(Boolean).join(" or ") + " before 2100."
+                   : `Every project in this schedule is built by 2100, with ${money(avail - built)} to spare${scen === "whole_map" ? ", which the whole map banks toward running costs" : ""}.`);
   }
 
   // ---------- the year ----------
@@ -550,7 +586,7 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
     document.getElementById("ylab").textContent = y;
     let spent = 0; YL.forEach(q => { if (q.year <= y) spent += q.spend + q.dfw_spend; });
     document.getElementById("f-spent").textContent = money(spent);
-    document.getElementById("f-urban").textContent = fmt(r.urban_trips_day + r.dfw_trips_day);
+    document.getElementById("f-urban").textContent = approx(r.urban_trips_day + r.dfw_trips_day);
     document.getElementById("f-inter").textContent = (r.intercity_trips_year / 1e6).toFixed(1) + "M";
     document.getElementById("f-flights").textContent = fmt(r.flights_day);
     document.getElementById("f-gain").textContent = money(r.benefit + r.wider);
@@ -597,9 +633,13 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
   document.querySelectorAll("#scen button").forEach(b => b.addEventListener("click", () => {
     useScenario(b.dataset.key); drawChart(); tables(); buildMetro(cur); draw();
   }));
+  // a jump link or #hash to a collapsed section opens it
+  const openFor = h => { const t = h && document.getElementById(h.slice(1)); const d = t && t.closest("details.sec"); if (d) d.open = true; };
+  window.addEventListener("hashchange", () => openFor(location.hash)); openFor(location.hash);
   drawChart();
   tables();
-  buildMetro("houston");
+  const want = new URLSearchParams(location.search).get("metro");
+  buildMetro(M.metros.some(m => m.id === want) ? want : "houston");
   draw();
 }).catch(e => { document.querySelector(".wrap").insertAdjacentHTML("beforeend", `<p class="note warn">The map data didn't load (${e.message}). Open this page from its site, not as a local file.</p>`); });
 })();
