@@ -553,7 +553,7 @@ def schedule(projects, budget, spend=None, order=None, busy=None):
                 p["start"], p["open"] = y, y + p["build"]
                 if p["layer"] == "hsr":
                     for k in range(p["build"]):
-                        busy[y + k] = busy.get(y + k, 0.0) + p["km"]
+                        busy[y + k] = busy.get(y + k, 0.0) + p.get("km", 0.0)
                 built.append(p)
                 break
     return built, spend
