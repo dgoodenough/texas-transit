@@ -305,9 +305,9 @@
    }
   },
   {
-   "id": "mcallen",
-   "name": "McAllen-Edinburg-Mission, TX",
-   "cbsa": "32580",
+   "id": "rio-grande-valley",
+   "name": "Rio Grande Valley (McAllen-Edinburg-Mission and Brownsville-Harlingen), TX",
+   "cbsa": "32580+15180",
    "state_fips": [
     "48"
    ],
@@ -315,44 +315,88 @@
     "48": "tx"
    },
    "county_fips": [
-    "48215"
+    "48215",
+    "48061"
    ],
    "county_names": {
-    "48215": "Hidalgo"
+    "48215": "Hidalgo",
+    "48061": "Cameron"
    },
    "downtowns": [
     {
      "name": "McAllen (city's Census internal point)",
      "lat": 26.224966,
      "lon": -98.246083
+    },
+    {
+     "name": "Brownsville (city's Census internal point)",
+     "lat": 25.995689,
+     "lon": -97.450848
     }
    ],
-   "texas_pop": 870781,
-   "budget_musd": 8045,
+   "texas_pop": 1291798,
+   "budget_musd": 11935,
+   "merged_from": [
+    "mcallen",
+    "brownsville"
+   ],
    "growth": {
-    "_doc": "County trend (tools/build_growth.py); jobs relative to LODES 2023, growing with people",
+    "_doc": "County trend (tools/build_growth.py); jobs relative to LODES 2023, growing with people; the two metros' trends, people-weighted",
     "regional_pop": {
      "2020": 1.0,
-     "2030": 1.1143,
-     "2040": 1.2206,
-     "2050": 1.3178,
-     "2060": 1.4056,
-     "2075": 1.5198,
-     "2100": 1.6672
+     "2030": 1.088,
+     "2040": 1.1692,
+     "2050": 1.2429,
+     "2060": 1.3092,
+     "2075": 1.3949,
+     "2100": 1.5049
     },
     "regional_jobs": {
      "2023": 1.0,
-     "2030": 1.0774,
-     "2040": 1.1801,
-     "2050": 1.2741,
-     "2060": 1.359,
-     "2075": 1.4694,
-     "2100": 1.6119
+     "2030": 1.0598,
+     "2040": 1.1384,
+     "2050": 1.2099,
+     "2060": 1.2742,
+     "2075": 1.3572,
+     "2100": 1.4638
     }
    },
+   "border": [
+    {
+     "port": "Hidalgo",
+     "bridge": "Hidalgo - Reynosa bridge",
+     "lat": 26.095,
+     "lon": -98.271,
+     "pedestrians_day": 6623,
+     "bus_day": 564,
+     "source": "US Bureau of Transportation Statistics, Border Crossing Entry Data (data.bts.gov keg4-3bc2), 2024, inbound crossings a day at each port, averaged over the year"
+    },
+    {
+     "port": "Progreso",
+     "bridge": "Progreso bridge",
+     "lat": 26.0627,
+     "lon": -97.956,
+     "pedestrians_day": 3309,
+     "bus_day": 0,
+     "source": "US Bureau of Transportation Statistics, Border Crossing Entry Data (data.bts.gov keg4-3bc2), 2024, inbound crossings a day at each port, averaged over the year"
+    },
+    {
+     "port": "Brownsville",
+     "bridge": "Gateway international bridge, downtown Brownsville",
+     "lat": 25.8975,
+     "lon": -97.4985,
+     "pedestrians_day": 8166,
+     "bus_day": 97,
+     "source": "US Bureau of Transportation Statistics, Border Crossing Entry Data (data.bts.gov keg4-3bc2), 2024, inbound crossings a day at each port, averaged over the year"
+    }
+   ],
+   "cbsa_pop": {
+    "32580": 870781,
+    "15180": 421017
+   },
    "ridership_asc": {
-    "asc": -0.1372,
-    "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.24% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+    "asc": -0.0108,
+    "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.30%, McAllen's and Brownsville-Harlingen's weighted by people / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
    }
   },
   {
@@ -430,7 +474,27 @@
    "ridership_asc": {
     "asc": 0.5052,
     "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.77% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
-   }
+   },
+   "border": [
+    {
+     "port": "Ysleta",
+     "bridge": "Zaragoza bridge, Ysleta",
+     "lat": 31.6726,
+     "lon": -106.3352,
+     "pedestrians_day": 3977,
+     "bus_day": 0,
+     "source": "US Bureau of Transportation Statistics, Border Crossing Entry Data (data.bts.gov keg4-3bc2), 2024, inbound crossings a day at each port, averaged over the year"
+    },
+    {
+     "port": "El Paso",
+     "bridge": "Paso del Norte bridge, downtown El Paso (El Paso port: also Stanton and the Bridge of the Americas)",
+     "lat": 31.7486,
+     "lon": -106.4869,
+     "pedestrians_day": 12983,
+     "bus_day": 916,
+     "source": "US Bureau of Transportation Statistics, Border Crossing Entry Data (data.bts.gov keg4-3bc2), 2024, inbound crossings a day at each port, averaged over the year"
+    }
+   ]
   },
   {
    "id": "killeen",
@@ -540,57 +604,6 @@
    "ridership_asc": {
     "asc": 0.6454,
     "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.99% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
-   }
-  },
-  {
-   "id": "brownsville",
-   "name": "Brownsville-Harlingen, TX",
-   "cbsa": "15180",
-   "state_fips": [
-    "48"
-   ],
-   "state_abbr": {
-    "48": "tx"
-   },
-   "county_fips": [
-    "48061"
-   ],
-   "county_names": {
-    "48061": "Cameron"
-   },
-   "downtowns": [
-    {
-     "name": "Brownsville (city's Census internal point)",
-     "lat": 25.995689,
-     "lon": -97.450848
-    }
-   ],
-   "texas_pop": 421017,
-   "budget_musd": 3890,
-   "growth": {
-    "_doc": "County trend (tools/build_growth.py); jobs relative to LODES 2023, growing with people",
-    "regional_pop": {
-     "2020": 1.0,
-     "2030": 1.0337,
-     "2040": 1.0629,
-     "2050": 1.0881,
-     "2060": 1.1098,
-     "2075": 1.1366,
-     "2100": 1.1692
-    },
-    "regional_jobs": {
-     "2023": 1.0,
-     "2030": 1.0234,
-     "2040": 1.0523,
-     "2050": 1.0772,
-     "2060": 1.0987,
-     "2075": 1.1252,
-     "2100": 1.1575
-    }
-   },
-   "ridership_asc": {
-    "asc": 0.1835,
-    "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.43% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
    }
   },
   {
@@ -1011,7 +1024,18 @@
    "ridership_asc": {
     "asc": 0.4714,
     "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.72% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
-   }
+   },
+   "border": [
+    {
+     "port": "Laredo",
+     "bridge": "Gateway to the Americas bridge, downtown Laredo",
+     "lat": 27.5003,
+     "lon": -99.5072,
+     "pedestrians_day": 8072,
+     "bus_day": 2256,
+     "source": "US Bureau of Transportation Statistics, Border Crossing Entry Data (data.bts.gov keg4-3bc2), 2024, inbound crossings a day at each port, averaged over the year"
+    }
+   ]
   },
   {
    "id": "tyler",
@@ -1541,7 +1565,18 @@
    "ridership_asc": {
     "asc": -0.6092,
     "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.10% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
-   }
+   },
+   "border": [
+    {
+     "port": "Eagle Pass",
+     "bridge": "Eagle Pass bridge I, downtown",
+     "lat": 28.7086,
+     "lon": -100.5049,
+     "pedestrians_day": 2936,
+     "bus_day": 488,
+     "source": "US Bureau of Transportation Statistics, Border Crossing Entry Data (data.bts.gov keg4-3bc2), 2024, inbound crossings a day at each port, averaged over the year"
+    }
+   ]
   }
  ],
  "_calibration": {

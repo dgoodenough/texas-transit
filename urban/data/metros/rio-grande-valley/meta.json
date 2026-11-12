@@ -1,0 +1,273 @@
+{
+  "metro": {
+    "id": "rio-grande-valley",
+    "name": "Rio Grande Valley (McAllen-Edinburg-Mission and Brownsville-Harlingen), TX",
+    "cbsa": "32580+15180",
+    "state_fips": [
+      "48"
+    ],
+    "state_abbr": {
+      "48": "tx"
+    },
+    "county_fips": [
+      "48215",
+      "48061"
+    ],
+    "county_names": {
+      "48215": "Hidalgo",
+      "48061": "Cameron"
+    },
+    "downtowns": [
+      {
+        "name": "McAllen (city's Census internal point)",
+        "lat": 26.224966,
+        "lon": -98.246083
+      },
+      {
+        "name": "Brownsville (city's Census internal point)",
+        "lat": 25.995689,
+        "lon": -97.450848
+      }
+    ],
+    "texas_pop": 1291798,
+    "budget_musd": 11935,
+    "merged_from": [
+      "mcallen",
+      "brownsville"
+    ],
+    "growth": {
+      "_doc": "County trend (tools/build_growth.py); jobs relative to LODES 2023, growing with people; the two metros' trends, people-weighted",
+      "regional_pop": {
+        "2020": 1.0,
+        "2030": 1.088,
+        "2040": 1.1692,
+        "2050": 1.2429,
+        "2060": 1.3092,
+        "2075": 1.3949,
+        "2100": 1.5049
+      },
+      "regional_jobs": {
+        "2023": 1.0,
+        "2030": 1.0598,
+        "2040": 1.1384,
+        "2050": 1.2099,
+        "2060": 1.2742,
+        "2075": 1.3572,
+        "2100": 1.4638
+      }
+    },
+    "border": [
+      {
+        "port": "Hidalgo",
+        "bridge": "Hidalgo - Reynosa bridge",
+        "lat": 26.095,
+        "lon": -98.271,
+        "pedestrians_day": 6623,
+        "bus_day": 564,
+        "source": "US Bureau of Transportation Statistics, Border Crossing Entry Data (data.bts.gov keg4-3bc2), 2024, inbound crossings a day at each port, averaged over the year"
+      },
+      {
+        "port": "Progreso",
+        "bridge": "Progreso bridge",
+        "lat": 26.0627,
+        "lon": -97.956,
+        "pedestrians_day": 3309,
+        "bus_day": 0,
+        "source": "US Bureau of Transportation Statistics, Border Crossing Entry Data (data.bts.gov keg4-3bc2), 2024, inbound crossings a day at each port, averaged over the year"
+      },
+      {
+        "port": "Brownsville",
+        "bridge": "Gateway international bridge, downtown Brownsville",
+        "lat": 25.8975,
+        "lon": -97.4985,
+        "pedestrians_day": 8166,
+        "bus_day": 97,
+        "source": "US Bureau of Transportation Statistics, Border Crossing Entry Data (data.bts.gov keg4-3bc2), 2024, inbound crossings a day at each port, averaged over the year"
+      }
+    ]
+  },
+  "sources": {
+    "cbsa_delineation": {
+      "status": "ok",
+      "url": "https://www2.census.gov/programs-surveys/metro-micro/geographies/reference-files/2023/delineation-files/list1_2023.xlsx",
+      "vintage": "2023 (OMB Bulletin 23-01)",
+      "cbsa_title": null,
+      "registry_matches": false,
+      "missing_from_registry": [],
+      "not_in_cbsa": [
+        "48061",
+        "48215"
+      ],
+      "checked_at": "2026-11-11T19:18:31+00:00"
+    },
+    "cenpop2020": {
+      "vintage": "2020 Census (P.L. 94-171), centres of population by block group",
+      "status": "ok",
+      "files": [
+        {
+          "state": "48",
+          "url": "https://www2.census.gov/geo/docs/reference/cenpop2020/blkgrp/CenPop2020_Mean_BG48.txt",
+          "status": "ok",
+          "read_from": "repo copy",
+          "path": "data/CenPop2020_BG_TX.txt",
+          "rows": 899
+        }
+      ],
+      "checked_at": "2026-11-11T19:18:31+00:00"
+    },
+    "tiger2020_bg": {
+      "vintage": "TIGER/Line 2020 block groups (ALAND)",
+      "status": "ok",
+      "files": [
+        {
+          "state": "48",
+          "url": "https://www2.census.gov/geo/tiger/TIGER2020/BG/tl_2020_48_bg.zip",
+          "status": "ok",
+          "rows": 899
+        }
+      ],
+      "checked_at": "2026-11-11T19:18:33+00:00"
+    },
+    "lodes_wac": {
+      "vintage": "LODES 8, 2024, all jobs (S000/JT00, C000)",
+      "year": 2024,
+      "status": "ok",
+      "files": [
+        {
+          "state": "48",
+          "url": "https://lehd.ces.census.gov/data/lodes/LODES8/tx/wac/tx_wac_S000_JT00_2024.csv.gz",
+          "status": "ok"
+        }
+      ],
+      "checked_at": "2026-11-11T19:18:37+00:00"
+    },
+    "lodes_od": {
+      "vintage": "LODES 8, 2024, all jobs (S000)",
+      "year": 2024,
+      "status": "ok",
+      "files": [
+        {
+          "state": "48",
+          "url": "https://lehd.ces.census.gov/data/lodes/LODES8/tx/od/tx_od_main_JT00_2024.csv.gz",
+          "status": "ok"
+        },
+        {
+          "state": "48",
+          "url": "https://lehd.ces.census.gov/data/lodes/LODES8/tx/od/tx_od_aux_JT00_2024.csv.gz",
+          "status": "ok"
+        }
+      ],
+      "checked_at": "2026-11-11T19:19:12+00:00"
+    },
+    "mobility_database": {
+      "status": "ok",
+      "url": "https://storage.googleapis.com/mdb-csv/sources.csv",
+      "catalog_rows": 3629,
+      "selected": [],
+      "checked_at": "2026-11-11T19:19:43+00:00"
+    },
+    "gtfs": {
+      "status": "missing",
+      "feeds": [],
+      "checked_at": "2026-11-11T19:19:43+00:00"
+    },
+    "overture_transportation": {
+      "status": "ok",
+      "release": "2026-09-23.1",
+      "url": "s3://overturemaps-us-west-2/release/2026-09-23.1/theme=transportation/type=segment/",
+      "license": "\u00a9 OpenStreetMap contributors, ODbL 1.0 (via Overture Maps Foundation)",
+      "bbox": [
+        -98.6665,
+        25.768,
+        -97.0473,
+        26.6299
+      ],
+      "files": {
+        "roads.parquet": {
+          "subtype": "road",
+          "classes": [
+            "motorway",
+            "trunk",
+            "primary",
+            "secondary",
+            "tertiary"
+          ],
+          "rows": 34363,
+          "sha256": "4256e2cf53c41d4ecbd7f2533c10311438cd5eda40f9f917ecf6dd1fd9612b6b"
+        },
+        "rail.parquet": {
+          "subtype": "rail",
+          "classes": null,
+          "rows": 487,
+          "sha256": "cd56897d3ee9571b7acfd78a5d14d91f1624187a1e42348d99dde5378ea82281"
+        }
+      },
+      "checked_at": "2026-11-11T19:20:11+00:00"
+    }
+  },
+  "outputs": {
+    "zones.csv": {
+      "rows": 899,
+      "pop": 1291798,
+      "jobs": 448727,
+      "jobs_in_unknown_block_groups": 0,
+      "by_county": {
+        "48061": 327,
+        "48215": 572
+      },
+      "empty_columns": [],
+      "written_at": "2026-11-11T19:18:37+00:00"
+    },
+    "od_tracts.csv": {
+      "rows": 55680,
+      "written_at": "2026-11-11T19:19:42+00:00"
+    },
+    "existing/lines.csv": {
+      "rows": 0,
+      "written_at": "2026-11-11T19:19:43+00:00"
+    },
+    "existing/stations.csv": {
+      "rows": 0,
+      "written_at": "2026-11-11T19:19:43+00:00"
+    },
+    "existing/line_stops.csv": {
+      "rows": 0,
+      "written_at": "2026-11-11T19:19:43+00:00"
+    },
+    "existing/line_segments.csv": {
+      "rows": 0,
+      "written_at": "2026-11-11T19:19:43+00:00"
+    },
+    "existing/routes.csv": {
+      "rows": 0,
+      "written_at": "2026-11-11T19:19:43+00:00"
+    },
+    "osm/roads.parquet": {
+      "rows": 34363,
+      "written_at": "2026-11-11T19:19:59+00:00"
+    },
+    "osm/rail.parquet": {
+      "rows": 487,
+      "written_at": "2026-11-11T19:20:11+00:00"
+    }
+  },
+  "bbox": [
+    -98.6665,
+    25.768,
+    -97.0473,
+    26.6299
+  ],
+  "fetched_at": "2026-11-11T19:20:11+00:00",
+  "missing": [
+    {
+      "item": "existing/",
+      "source": "gtfs",
+      "why": "ok"
+    },
+    {
+      "item": "CBSA county list verification",
+      "source": "cbsa_delineation",
+      "why": "county list differs from the OMB delineation (not in the CBSA: 48061, 48215)"
+    }
+  ]
+}

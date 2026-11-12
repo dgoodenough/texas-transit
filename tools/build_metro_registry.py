@@ -11,6 +11,9 @@ Gazetteer of places (reference points). Extra keys this repo adds, which DFW Tra
   buildout      true for the metros the generator runs in build-out mode (BUILDOUT below)
   policies      true for the metros with the 2 million plan's policy package (POLICY_METROS below)
   anchors       places lines should reach (downtown, airports, campuses, medical districts; ANCHORS below)
+  border        ports of entry: people crossing from Mexico a day, on foot or by bus, added to the zone at
+                their bridge (data/urban/border_crossings.json, tools/fetch_border.py; `--border` applies
+                just this to the current registry)
   budget_musd   capital budget: DFW Transit's rate per resident ($2.3B a year for 7.47M people)
                 x texas_pop x 30 years, the generator's default horizon (as DFW Transit's
                 generated Houston and Eugene); 75 years, DFW Transit's horizon, for the build-out
@@ -63,6 +66,80 @@ BRT = {"houston": r"Silver Line|\bBRT\b"}
 # densest spots: the downtown (city hall), airports, big campuses, medical districts. weight: riders a day
 # it draws beyond the people and jobs around it (assumption: about a third of an airport's daily
 # passengers, a half of a campus's students).
+def border(mid):
+    """The metro's ports of entry: [{port, bridge, lat, lon, pedestrians_day, bus_day}] (tools/fetch_border.py)."""
+    p = os.path.join(ROOT, "data", "urban", "border_crossings.json")
+    if not os.path.exists(p):
+        return None
+    d = json.load(open(p, encoding="utf-8"))
+    out = [{"port": q["port"], "bridge": q["bridge"], "lat": q["lat"], "lon": q["lon"],
+            "pedestrians_day": q.get("pedestrians_day", 0), "bus_day": q.get("bus_passengers_day", 0),
+            "source": d["source"]} for q in d["ports"] if q["metro"] == mid]
+    return out or None
+
+
+VALLEY = ("rio-grande-valley", "Rio Grande Valley (McAllen-Edinburg-Mission and Brownsville-Harlingen), TX",
+          ["mcallen", "brownsville"])
+
+
+def merge_valley(metros):
+    """One network for the Valley (study/second_session.md, item 21): McAllen-Edinburg-Mission and
+    Brownsville-Harlingen are one 1.3M-person region the census splits in two; one entry with both
+    counties, both downtowns and every port of entry, the budgets and people summed."""
+    vid, name, parts = VALLEY
+    ps = [e for e in metros if e["id"] in parts]
+    if len(ps) < 2:
+        return metros
+    e = {"id": vid, "name": name, "cbsa": "+".join(p["cbsa"] for p in ps),
+         "state_fips": ["48"], "state_abbr": {"48": "tx"},
+         "county_fips": [f for p in ps for f in p["county_fips"]],
+         "county_names": {k: v for p in ps for k, v in p["county_names"].items()},
+         "downtowns": [d for p in ps for d in p.get("downtowns", [])],
+         "texas_pop": sum(p["texas_pop"] for p in ps), "budget_musd": sum(p["budget_musd"] for p in ps),
+         "merged_from": parts, "cbsa_pop": {p["cbsa"]: p["texas_pop"] for p in ps}}
+    if all(p.get("growth") for p in ps):   # people-weighted
+        w = [p["texas_pop"] for p in ps]
+        e["growth"] = {"_doc": ps[0]["growth"].get("_doc", "") + "; the two metros' trends, people-weighted"}
+        for k in ("regional_pop", "regional_jobs"):
+            yrs = set.intersection(*(set(p["growth"][k]) for p in ps))
+            e["growth"][k] = {y: round(sum(p["growth"][k][y] * wi for p, wi in zip(ps, w)) / sum(w), 4) for y in sorted(yrs)}
+    b = [q for p in ps for q in (p.get("border") or [])]
+    if b:
+        e["border"] = b
+    keep = [m for m in metros if m["id"] not in parts]
+    keep.append(e)
+    keep.sort(key=lambda m: -m["texas_pop"])
+    return keep
+
+
+def valley_only():
+    """Apply merge_valley() to the registry as it is (no downloads)."""
+    with open(OUT, encoding="utf-8") as f:
+        reg = json.load(f)
+    reg["metros"] = merge_valley(reg["metros"])
+    with open(OUT, "w", encoding="utf-8") as f:
+        json.dump(reg, f, indent=1)
+        f.write("\n")
+    print([m["id"] for m in reg["metros"]][:8])
+
+
+def border_only():
+    """Apply border() to the registry as it is (no downloads)."""
+    with open(OUT, encoding="utf-8") as f:
+        reg = json.load(f)
+    for e in reg["metros"]:
+        b = border(e["id"]) or [q for mid in e.get("merged_from", []) for q in (border(mid) or [])] or None
+        if b:
+            e["border"] = b
+        else:
+            e.pop("border", None)
+    with open(OUT, "w", encoding="utf-8") as f:
+        json.dump(reg, f, indent=1)
+        f.write("\n")
+    print("border:", ", ".join(f"{e['id']} {sum(p['pedestrians_day'] + p['bus_day'] for p in e['border']):,}"
+                               for e in reg["metros"] if e.get("border")))
+
+
 ANCHORS = {
     "houston": [("Downtown Houston", 29.7604, -95.3698, "downtown", 0), ("Bush Intercontinental Airport", 29.9902, -95.3368, "airport", 30000),
                 ("Hobby Airport", 29.6454, -95.2789, "airport", 8000), ("Texas Medical Center", 29.7071, -95.3978, "medical", 30000),
@@ -187,8 +264,11 @@ def main():
             e["brt_name_pattern"] = BRT[mid]
         if mid in ANCHORS:
             e["anchors"] = [{"name": n, "lat": la, "lon": lo, "kind": k, "weight": w} for n, la, lo, k, w in ANCHORS[mid]]
+        if border(mid):
+            e["border"] = border(mid)
         metros.append(e)
     metros.sort(key=lambda e: -e["texas_pop"])
+    metros = merge_valley(metros)
     old, keep_top = {}, {}
     if os.path.exists(OUT):
         with open(OUT, encoding="utf-8") as f:
@@ -214,4 +294,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if "--border" in sys.argv:
+        border_only()
+    elif "--valley" in sys.argv:
+        valley_only()
+    else:
+        main()

@@ -1,0 +1,247 @@
+{
+ "base": {
+  "ratio": {
+   "pv": 192447.32798531812,
+   "metro_2050": 1638943.7434593518,
+   "metro_2100": 4892973.520175157,
+   "intercity_2100": 106189367.80837372,
+   "branches": 7,
+   "last_branch": 2099,
+   "branch_years": {
+    "hsr:OKC": 2072,
+    "hsr:LRD": 2089,
+    "hsr:VALLEY": 2085,
+    "hsr:MFE": 2087,
+    "hsr:BIGC": 2090,
+    "hsr:PANH": 2093,
+    "hsr:WEST": 2099
+   },
+   "spent": 657035.171024176,
+   "idle_years": 7,
+   "peak_km_building": 1130.9211355723958
+  },
+  "metros_first": {
+   "pv": 167188.62064378403,
+   "metro_2050": 1902276.8674984127,
+   "metro_2100": 4892973.520175157,
+   "intercity_2100": 106189367.80837372,
+   "branches": 7,
+   "last_branch": 2099,
+   "branch_years": {
+    "hsr:OKC": 2073,
+    "hsr:LRD": 2090,
+    "hsr:VALLEY": 2084,
+    "hsr:MFE": 2085,
+    "hsr:BIGC": 2091,
+    "hsr:PANH": 2092,
+    "hsr:WEST": 2099
+   },
+   "spent": 657035.171024176,
+   "idle_years": 6,
+   "peak_km_building": 1216.1278177622376
+  },
+  "whole_map": {
+   "pv": 218012.35728710197,
+   "metro_2050": 1717143.7623522799,
+   "metro_2100": 4892973.520175157,
+   "intercity_2100": 100132551.00394584,
+   "branches": 7,
+   "last_branch": 2085,
+   "branch_years": {
+    "hsr:OKC": 2038,
+    "hsr:LRD": 2042,
+    "hsr:VALLEY": 2074,
+    "hsr:MFE": 2085,
+    "hsr:BIGC": 2059,
+    "hsr:PANH": 2070,
+    "hsr:WEST": 2070
+   },
+   "spent": 477676.81102569494,
+   "idle_years": 3,
+   "peak_km_building": 1686.4634819635883
+  }
+ },
+ "tests": [
+  {
+   "item": "13/16",
+   "test": "Each metro guaranteed half its stream, the rest one queue",
+   "against": "ratio",
+   "result": {
+    "pv": 181718.2523500525,
+    "metro_2050": 1463136.3771134138,
+    "metro_2100": 4892973.520175157,
+    "intercity_2100": 106189367.80837372,
+    "branches": 7,
+    "last_branch": 2099,
+    "branch_years": {
+     "hsr:OKC": 2061,
+     "hsr:LRD": 2086,
+     "hsr:VALLEY": 2079,
+     "hsr:MFE": 2081,
+     "hsr:BIGC": 2088,
+     "hsr:PANH": 2092,
+     "hsr:WEST": 2099
+    },
+    "spent": 657035.171024176,
+    "idle_years": 0,
+    "peak_km_building": 1130.9211355723958
+   },
+   "note": ""
+  },
+  {
+   "item": "6",
+   "test": "At most 800 km of high-speed track under construction at once",
+   "against": "whole_map",
+   "result": {
+    "pv": 211770.61805342688,
+    "metro_2050": 1732215.5087569016,
+    "metro_2100": 4892973.520175157,
+    "intercity_2100": 100132551.00394584,
+    "branches": 7,
+    "last_branch": 2091,
+    "branch_years": {
+     "hsr:OKC": 2071,
+     "hsr:LRD": 2049,
+     "hsr:VALLEY": 2075,
+     "hsr:MFE": 2086,
+     "hsr:BIGC": 2072,
+     "hsr:PANH": 2083,
+     "hsr:WEST": 2091
+    },
+    "spent": 477676.81102569494,
+    "idle_years": 0,
+    "peak_km_building": 797.45062678649
+   },
+   "note": "0 idle years between the first start and the last opening (the plan: 3); at most 797 km at once (the plan: 1,686)"
+  },
+  {
+   "item": "6",
+   "test": "At most 500 km of high-speed track under construction at once",
+   "against": "whole_map",
+   "result": {
+    "pv": 202911.5354562689,
+    "metro_2050": 1836768.980333432,
+    "metro_2100": 4892973.520175157,
+    "intercity_2100": 93278919.9939586,
+    "branches": 5,
+    "last_branch": null,
+    "branch_years": {
+     "hsr:OKC": 2084,
+     "hsr:LRD": 2092,
+     "hsr:VALLEY": 2076,
+     "hsr:MFE": 2087,
+     "hsr:BIGC": 2095
+    },
+    "spent": 450662.9755452167,
+    "idle_years": 0,
+    "peak_km_building": 968.1673896363728
+   },
+   "note": "0 idle years between the first start and the last opening (the plan: 3); at most 968 km at once (the plan: 1,686)"
+  },
+  {
+   "item": "5",
+   "test": "The whole map's never-spent money as an operating endowment",
+   "against": "whole_map",
+   "result": {
+    "pv": 218012.35728710197,
+    "metro_2050": 1717143.7623522799,
+    "metro_2100": 4892973.520175157,
+    "intercity_2100": 100132551.00394584,
+    "branches": 7,
+    "last_branch": 2085,
+    "branch_years": {
+     "hsr:OKC": 2038,
+     "hsr:LRD": 2042,
+     "hsr:VALLEY": 2074,
+     "hsr:MFE": 2085,
+     "hsr:BIGC": 2059,
+     "hsr:PANH": 2070,
+     "hsr:WEST": 2070
+    },
+    "spent": 477676.81102569494,
+    "idle_years": 3,
+    "peak_km_building": 1686.4634819635883
+   },
+   "note": "from 2085, when building stops: it pays 100% of the operating gap from then to 2100 (31% of the gap 2025-2100) and leaves $169B in 2100, whose 3.5% a year pays 117% of 2100's gap for good"
+  },
+  {
+   "item": "20",
+   "test": "Houston - Corpus Christi in the program as higher-speed rail first",
+   "against": "whole_map",
+   "result": {
+    "pv": 216636.11841297973,
+    "metro_2050": 1714119.203328243,
+    "metro_2100": 4892973.520175157,
+    "intercity_2100": 97621744.35607086,
+    "branches": 7,
+    "last_branch": 2070,
+    "branch_years": {
+     "hsr:OKC": 2044,
+     "hsr:LRD": 2050,
+     "hsr:VALLEY": 2050,
+     "hsr:MFE": 2061,
+     "hsr:BIGC": 2059,
+     "hsr:PANH": 2070,
+     "hsr:WEST": 2070
+    },
+    "spent": 472064.2040045785,
+    "idle_years": 0,
+    "peak_km_building": 1408.8620518036641,
+    "note_cc": 2039
+   },
+   "note": "Corpus Christi opens 2039 (the plan: 2063); the Valley 2050 (the plan: 2074), McAllen 2061 (the plan: 2085)"
+  },
+  {
+   "item": "26",
+   "test": "Station-district bonds doubled where the metro outgrows Texas",
+   "against": "ratio",
+   "result": {
+    "pv": 194875.8940009753,
+    "metro_2050": 1655887.9474334102,
+    "metro_2100": 4892973.520175157,
+    "intercity_2100": 106189367.80837372,
+    "branches": 7,
+    "last_branch": 2097,
+    "branch_years": {
+     "hsr:OKC": 2068,
+     "hsr:LRD": 2087,
+     "hsr:VALLEY": 2085,
+     "hsr:MFE": 2085,
+     "hsr:BIGC": 2089,
+     "hsr:PANH": 2093,
+     "hsr:WEST": 2097
+    },
+    "spent": 646368.6785626842,
+    "idle_years": 3,
+    "peak_km_building": 1130.9211355723958
+   },
+   "note": "in Austin-Round Rock-San Marcos, Houston-Pasadena-The Woodlands, Odessa, San Antonio-New Braunfels"
+  },
+  {
+   "item": "23",
+   "test": "A frequent link from every high-speed station no metro station reaches",
+   "against": "whole_map",
+   "result": {
+    "pv": 217131.41568141134,
+    "metro_2050": 1714119.203328243,
+    "metro_2100": 4892973.520175157,
+    "intercity_2100": 100132551.00394584,
+    "branches": 7,
+    "last_branch": 2085,
+    "branch_years": {
+     "hsr:OKC": 2038,
+     "hsr:LRD": 2042,
+     "hsr:VALLEY": 2074,
+     "hsr:MFE": 2085,
+     "hsr:BIGC": 2059,
+     "hsr:PANH": 2070,
+     "hsr:WEST": 2070
+    },
+    "spent": 478316.81102569494,
+    "idle_years": 3,
+    "peak_km_building": 1686.4634819635883
+   },
+   "note": "16 stations (Abilene, Beaumont, Brazos Valley, Brenham, Brownsville, Columbus, Harlingen, Kingsville, Laredo, Longview, Lubbock, Midland, Seguin, Temple, Tyler, Victoria): $0.64B and $64M a year; riders not counted (the intercity model already assumes a way to the station)"
+  }
+ ]
+}

@@ -55,6 +55,7 @@ Mode rule (people + jobs within 800 m per route-km): metro >= 7,000 (6-45 km), s
 After the pruning, a local search on the full model (metro/lineplan.py) improves the network as a whole: J = new daily trips - 2.5 x ($M of capital + opex over the valuation years) - 1,000 for each must-serve anchor without a station. From 1 lines, 16,301 daily trips, $1.1B and 0 anchors unserved to 1 lines, 18,008 daily trips, $1.1B and 0 unserved (J +1,296).
 
 - Round 1: R005 every 6 min (was 8) (J +1,296)
+- Crowding (the full model's loads in 2050, peak hour, peak direction): no line over capacity.
 
 ## 3. Chosen lines
 
@@ -62,7 +63,7 @@ Chosen by the full model (metro/modelselect.py): the sketch drew a pool of 1 lin
 
 | # | line | mode | km | stops | density /route-km | capital $B | new trips/day | trips per $M | peak-hour load | why this mode |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | G01 Staples / Saratoga - Violet / Leopard | brt | 33.8 | 24 | 3,715 | 1.13 | 1,644 | 1.73 | 144 | 3,715 per route-km >= BRT 3,000 (< metro 7,000) |
+| 1 | G01 Staples / Saratoga - Violet / Leopard | brt | 33.8 | 24 | 3,715 | 1.13 | 1,644 | 1.78 | 144 | 3,715 per route-km >= BRT 3,000 (< metro 7,000) |
 
 ## 4. Rejected candidates
 
@@ -70,7 +71,7 @@ Chosen by the full model (metro/modelselect.py): the sketch drew a pool of 1 lin
 
 | candidate | mode | km | new trips/day | trips per $M | reason |
 |---|---|---|---|---|---|
-| R001 Tancahua / Lipan - Staples / Saratoga | brt | 13.9 | 2,767 | 4.08 | extended by R005 |
+| R001 Tancahua / Lipan - Staples / Saratoga | brt | 13.9 | 2,767 | 3.92 | extended by R005 |
 | R002 Tancahua / Lipan - Violet / Leopard | brt | 19.9 | 2 | 0.00 | duplicate: 100% of it within 400 m of chosen line R005 (Staples / Saratoga - Violet / Leopard), 0.0 km of its own |
 
 3 paths had no mode: 2 x too thin; 1 x 3,378 per route-km >= BRT 3,000 (< metro.

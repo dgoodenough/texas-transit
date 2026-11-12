@@ -1,2 +1,2 @@
 line_id,name,mode,status,color,headway_min,notes
-G01,Calton / McPherson - Sierra Vista Boulevard BRT,brt,proposed,#8e24aa,6,"generated (R001): 4,342 per route-km >= BRT 3,000 (< metro 7,000); full model: 4,439 new daily trips in 2050 (7.30 per $M incl. opex; 4,439 lost without it, 4,439 alone); sketch: 524 new daily trips for $0.43B capital (0.86 per $M incl. opex)"
+G01,Calton / McPherson - Sierra Vista Boulevard BRT,brt,proposed,#8e24aa,6,"generated (R001): 4,342 per route-km >= BRT 3,000 (< metro 7,000); full model: 5,272 new daily trips in 2050 (8.30 per $M incl. opex; 5,272 lost without it, 5,272 alone); sketch: 545 new daily trips for $0.45B capital (0.86 per $M incl. opex)"

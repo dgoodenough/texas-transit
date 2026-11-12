@@ -52,6 +52,7 @@ After the pruning, a local search on the full model (metro/lineplan.py) improves
 
 - Round 1: R001 every 6 min (was 8) (J +325)
 - Still unserved: Baylor University.
+- Crowding (the full model's loads in 2050, peak hour, peak direction): no line over capacity.
 
 ## 3. Chosen lines
 
@@ -59,7 +60,7 @@ Chosen by the full model (metro/modelselect.py): the sketch drew a pool of 1 lin
 
 | # | line | mode | km | stops | density /route-km | capital $B | new trips/day | trips per $M | peak-hour load | why this mode |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | G01 Baylor University - Hewitt Drive | brt | 14.4 | 11 | 5,013 | 0.49 | 485 | 0.69 | 25 | 5,013 per route-km >= BRT 3,000 (< metro 7,000) |
+| 1 | G01 Baylor University - Hewitt Drive | brt | 14.4 | 11 | 5,013 | 0.52 | 485 | 0.67 | 25 | 5,013 per route-km >= BRT 3,000 (< metro 7,000) |
 
 ## 4. Rejected candidates
 

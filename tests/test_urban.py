@@ -14,7 +14,7 @@ class RegistryTests(unittest.TestCase):
         self.by = {m["id"]: m for m in self.reg["metros"]}
 
     def test_every_texas_metro_but_dfw_with_a_per_resident_budget(self):
-        self.assertEqual(len(self.by), 25)
+        self.assertEqual(len(self.by), 24)   # McAllen and Brownsville-Harlingen as one Valley
         self.assertNotIn("19100", {m["cbsa"] for m in self.reg["metros"]})
         for m in self.reg["metros"]:
             years = 75 if m.get("buildout") or m.get("policies") else 30   # build-out and policy metros: DFW's whole horizon
@@ -37,7 +37,8 @@ class RegistryTests(unittest.TestCase):
         for m in self.reg["metros"]:
             if m["id"] == "houston":
                 continue
-            s = max(shares[m["cbsa"]], 0.001)
+            w = m.get("cbsa_pop") or {m["cbsa"]: 1.0}           # the Valley: its CBSAs' shares weighted by people
+            s = max(sum(shares[c] * v for c, v in w.items()) / sum(w.values()), 0.001)
             want = cal["asc_dfw"] + cal["slope_k"] * math.log(s / cal["share_dfw"])
             self.assertAlmostEqual(m["ridership_asc"]["asc"], want, places=3)
 

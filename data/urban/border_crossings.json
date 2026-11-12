@@ -1,0 +1,81 @@
+{
+ "source": "US Bureau of Transportation Statistics, Border Crossing Entry Data (data.bts.gov keg4-3bc2), 2024, inbound crossings a day at each port, averaged over the year",
+ "year": 2024,
+ "ports": [
+  {
+   "port_code": "2301",
+   "port": "Brownsville",
+   "metro": "brownsville",
+   "bridge": "Gateway international bridge, downtown Brownsville",
+   "lat": 25.8975,
+   "lon": -97.4985,
+   "bus_passengers_day": 97,
+   "personal_vehicle_passengers_day": 25161,
+   "pedestrians_day": 8166
+  },
+  {
+   "port_code": "2303",
+   "port": "Eagle Pass",
+   "metro": "eagle-pass",
+   "bridge": "Eagle Pass bridge I, downtown",
+   "lat": 28.7086,
+   "lon": -100.5049,
+   "bus_passengers_day": 488,
+   "personal_vehicle_passengers_day": 16312,
+   "pedestrians_day": 2936
+  },
+  {
+   "port_code": "2304",
+   "port": "Laredo",
+   "metro": "laredo",
+   "bridge": "Gateway to the Americas bridge, downtown Laredo",
+   "lat": 27.5003,
+   "lon": -99.5072,
+   "pedestrians_day": 8072,
+   "personal_vehicle_passengers_day": 27084,
+   "bus_passengers_day": 2256
+  },
+  {
+   "port_code": "2305",
+   "port": "Hidalgo",
+   "metro": "mcallen",
+   "bridge": "Hidalgo - Reynosa bridge",
+   "lat": 26.095,
+   "lon": -98.271,
+   "personal_vehicle_passengers_day": 27195,
+   "pedestrians_day": 6623,
+   "bus_passengers_day": 564
+  },
+  {
+   "port_code": "2309",
+   "port": "Progreso",
+   "metro": "mcallen",
+   "bridge": "Progreso bridge",
+   "lat": 26.0627,
+   "lon": -97.956,
+   "pedestrians_day": 3309,
+   "personal_vehicle_passengers_day": 8751
+  },
+  {
+   "port_code": "2401",
+   "port": "Ysleta",
+   "metro": "el-paso",
+   "bridge": "Zaragoza bridge, Ysleta",
+   "lat": 31.6726,
+   "lon": -106.3352,
+   "personal_vehicle_passengers_day": 17180,
+   "pedestrians_day": 3977
+  },
+  {
+   "port_code": "2402",
+   "port": "El Paso",
+   "metro": "el-paso",
+   "bridge": "Paso del Norte bridge, downtown El Paso (El Paso port: also Stanton and the Bridge of the Americas)",
+   "lat": 31.7486,
+   "lon": -106.4869,
+   "pedestrians_day": 12983,
+   "bus_passengers_day": 916,
+   "personal_vehicle_passengers_day": 34909
+  }
+ ]
+}

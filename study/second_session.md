@@ -307,3 +307,42 @@ In the order the governor set:
 5. **The acceptance test** (item 15): the line planner on DFW against the hand-drawn plan.
 
 Items 2, 9 and 23 are policy, adopted now; the model reports them but doesn't wait for them.
+
+## What came of it
+
+Every number below is on the final networks: all 24 metros regenerated at the 2.5 floor with airport spurs, terminal
+costs downtown, border crossers, the crowding check, metro tunnels only in the densest core, and one Valley
+(`study/urban_metros.md`, `study/timing.md`, `study/session2_tests.md`). The plan as it now stands, PV of net benefits
+2025-2100 at 3%: **$192.4B** under best ratio first, $167.2B metros first, **$218.0B** the whole map; 4.89M new daily
+metro trips in 2100 (1.72M of them in DFW), $4.5B a year of operating gap in 2100.
+
+| # | Item | What was done | What it showed |
+|---|---|---|---|
+| 1 | The fixed point | Floors 1, 1.75, 2.5 and 4 swept on every metro, each scheduled three ways (`study/fixed_point.md`) | **No fixed point**: the queue funds ratio-0 projects while it can't reach others, so no single cutoff is implied. PV rises with the floor up to 4 ($199.8B against $195.2B best ratio first) because fewer, better metro lines leave money for intercity rail, but metro trips in 2100 fall from 4.89M to 4.40M. **The governor kept 2.5.** |
+| 2 | Right-of-way and design only | Policy; `study/decade_review.py` reports it | Five corridors pass their ratio but fail the stress gate and get right-of-way and design only: Texas Central, both I-35 halves, I-10 Houston-San Antonio, Dallas-Shreveport |
+| 3 | Crowding | Full-model peak-hour loads in 2050 against each line's capacity at its headway; the headway tightens where it can (`metro/modelselect.py` capacity_fix) | Two lines over capacity statewide. Houston R079 (BRT, 817 an hour against 750): every 6 minutes instead of 8. **San Antonio S416** (BRT, 1,097 an hour against 1,000 at 6 minutes) is over capacity even at its shortest headway: a candidate for rail |
+| 4 | Operations as a budget line | `study/plan_record.py` reports the operating gap every decade | $4.5B a year by 2100 under best ratio first; unfunded unless item 5 is taken up |
+| 5 | Endowment | The whole map's never-spent money banked from 2085, when building stops | Pays 100% of the operating gap 2085-2100 (31% of 2025-2100) and leaves $169B in 2100, whose 3.5% a year covers 117% of that year's gap for good. No cost to PV: it's money the whole map never spends |
+| 6 | Steady pipeline | High-speed track under construction capped at 800 and 500 km | 800 km: no idle years (the plan has 3), last branch 2091 instead of 2085, PV −$6.2B. 500 km: −$15.1B and two branches miss 2100. **The pipeline costs value**; 800 km is the price of a steady office |
+| 7 | Cheaper metro grades | Tunnel only within 0.8 km of downtown, elevated to 1.5 km, at grade beyond (`candidates.hop_grade`) | In the final networks, not run alone. Austin builds 13 lines for $30.7B (was 18 for $35.3B) with three of four metro lines through downtown (was two) |
+| 8 | Growth-based streams | Each metro's stream follows its population against Texas's (`timing.metro_stream`) | Adopted in metros first and the hybrid; Austin's stream grows with its fourfold growth |
+| 9 | Station districts by right | Policy | The model already assumes it (DFW's station-area responses) |
+| 10 | Terminal costs | Tail track and turnback at every line ending downtown, from real projects (`candidates.terminal_cost`) | Changed nothing in Austin or San Antonio: their stubs had no through partner at the planner's merge angle. Through-running wasn't losing on terminals; it was losing on geometry |
+| 11 | Airport spurs | Variants of lines ending within 4 km of an off-graph terminal (`metro/spurs.py`) | Every airport anchor now served: Hobby (Houston), San Antonio, El Paso. San Antonio +7% trips; El Paso served for $0.3B less |
+| 12 | Turn penalties, an exact program | Deferred | Still not done |
+| 13/16 | Hybrid queue | Each metro guaranteed half its stream, the rest one queue | **PV −$10.7B**, and fewer metro trips by 2050 (1.46M against 1.64M): the guarantee buys weak lines early in small metros. Rejected |
+| 14 | Full share at the generator's floor | Answered by item 1 | The floor-1 sweep is this case: $267B of metro capital, PV $181.4B (−$13.8B). Stays rejected |
+| 15 | DFW acceptance test | `python -m metro check-dfw` (DFW Transit `reports/generator_dfw_check.md`) | Running; reported in DFW Transit when it finishes |
+| 17 | Fort Worth through trains | Checked | Already counted: the service patterns run Fort Worth-Dallas-Houston and Fort Worth-Dallas-San Antonio trains once the link exists. 1.62M trips a year, ratio 0.64; it ranks low on its own |
+| 18 | Border demand | BTS crossings at each port (pedestrians and bus passengers) added to the zone at the bridge (`metro/model.py` add_border) | El Paso 59,129 trips a day (was 49,758, +19%); Laredo +22%; the Valley's two bridges and Eagle Pass included |
+| 19 | Cross-border line | Blocked | Needs Ciudad Juárez zones and commutes (INEGI); not in reach |
+| 20 | The Gulf spine early | Houston-Corpus Christi in the program as higher-speed rail | Corpus Christi opens 2039 (was 2063), the Valley 2050 (was 2074), McAllen 2061 (was 2085), **for −$1.4B PV**. Cheap for 24 years sooner across South Texas: worth the governor's look |
+| 21 | One Valley | McAllen and Brownsville-Harlingen as one metro, one constant from both CBSAs' shares | 3 lines, $1.9B, 6,205 trips a day; the two networks were 4 lines, $2.8B, 12,095 trips. The merged constant is lower, so fewer lines clear the floor |
+| 22 | A peer prior for the constant | The Valley with a constant from peer metros with service | +69% trips (10,480 a day, 4 lines, $2.3B). The plan keeps the share-based constant; the test shows how much the Valley's number rests on it |
+| 23/24 | Station network | A frequent link from each of 16 high-speed stations no metro reaches, Midland included | $0.64B and $64M a year; PV −$0.9B with riders uncounted (the intercity model already assumes a way to the station). Adopted as connectivity, not as an investment |
+| 25 | Best line first | Checked under every schedule | Metros first and the whole map: in all 12 metros with lines. Best ratio first: 10 of 12; Houston's and College Station's best lines open 2036 and 2038, after a cheaper line that fit the budget sooner |
+| 26 | Station-area bonds | Land-tax bonds doubled where the metro outgrows Texas (Austin, Houston, San Antonio, Odessa) | **PV +$2.4B**, $10.6B less spent. The one money test that pays: worth adopting |
+
+**What the governor has to decide next:** the Gulf spine as higher-speed rail early (item 20, −$1.4B for South Texas
+24 years sooner), doubling station-area bonds in the fast-growing metros (item 26, +$2.4B), the endowment from 2085
+(item 5), and whether to accept the pipeline's cost (item 6). San Antonio's S416 needs a rail upgrade study.
