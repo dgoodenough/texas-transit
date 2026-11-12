@@ -12,7 +12,7 @@
   "brt": {
    "lines": 1,
    "km": 12.890923948401346,
-   "capital_musd": 442.72771845203977
+   "capital_musd": 469.72771845203977
   }
  },
  "stations_new": 11,
@@ -26,7 +26,7 @@
  "jobs_45_today": null,
  "asc": 0.3112,
  "asc_note": "set from the registry (asc +0.311; DFW +0.430): DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.54% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py); with a policy package on top (growth.tod, growth.capture)",
- "minutes": 0.04812532663345337,
+ "minutes": 0.056548301378885904,
  "feeder_boardings": 914.7827387436488,
  "feeder_boardings_today": 0.0,
  "feeder_opex_musd": 1.6466089297385678,

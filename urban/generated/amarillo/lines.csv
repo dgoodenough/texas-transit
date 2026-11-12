@@ -1,2 +1,2 @@
 line_id,name,mode,status,color,headway_min,notes
-G01,Wolflin / Amarillo - Highland / 16th Avenue BRT,brt,proposed,#8e24aa,6,"generated (R001): 5,370 per route-km >= BRT 3,000 (< metro 7,000); full model: 6,920 new daily trips in 2050 (10.86 per $M incl. opex; 6,920 lost without it, 6,920 alone); sketch: 1,713 new daily trips for $0.44B capital (2.69 per $M incl. opex)"
+G01,Wolflin / Amarillo - Highland / 16th Avenue BRT,brt,proposed,#8e24aa,6,"generated (R001): 5,370 per route-km >= BRT 3,000 (< metro 7,000); full model: 6,920 new daily trips in 2050 (10.42 per $M incl. opex; 6,920 lost without it, 6,920 alone); sketch: 1,713 new daily trips for $0.47B capital (2.58 per $M incl. opex)"

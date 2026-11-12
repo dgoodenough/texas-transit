@@ -53,6 +53,7 @@ After the pruning, a local search on the full model (metro/lineplan.py) improves
 
 - Round 1: R003 every 6 min (was 8) (J +1,601)
 - Round 1: R001 every 6 min (was 8) (J +841)
+- Crowding (the full model's loads in 2050, peak hour, peak direction): no line over capacity.
 
 ## 3. Chosen lines
 
@@ -60,8 +61,8 @@ Chosen by the full model (metro/modelselect.py): the sketch drew a pool of 2 lin
 
 | # | line | mode | km | stops | density /route-km | capital $B | new trips/day | trips per $M | peak-hour load | why this mode |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | G01 Texas A&M University - Villa Maria / John Sharp | brt | 9.1 | 7 | 4,121 | 0.31 | 459 | 1.03 | 25 | 4,121 per route-km >= BRT 3,000 (< metro 7,000) |
-| 2 | G02 Villa Maria / John Sharp - Alexandria / Southern Plantation | brt | 19.7 | 14 | 4,074 | 0.66 | 59 | 0.14 | 22 | 4,074 per route-km >= BRT 3,000 (< metro 7,000) |
+| 1 | G01 Texas A&M University - Villa Maria / John Sharp | brt | 9.1 | 7 | 4,121 | 0.34 | 459 | 0.97 | 25 | 4,121 per route-km >= BRT 3,000 (< metro 7,000) |
+| 2 | G02 Villa Maria / John Sharp - Alexandria / Southern Plantation | brt | 19.7 | 14 | 4,074 | 0.69 | 59 | 0.13 | 22 | 4,074 per route-km >= BRT 3,000 (< metro 7,000) |
 
 ## 4. Rejected candidates
 
