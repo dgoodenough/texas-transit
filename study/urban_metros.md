@@ -60,18 +60,18 @@ By the full model (DFW Transit `metro/modelselect.py`): the generator's quick sk
 
 | Metro | Pool | Kept | Cut by the full model | Best kept, trips per $M | Weakest kept | Highest-value line |
 |---|---|---|---|---|---|---|
-| Houston-Pasadena-The Woodlands | 31 | 30 | 1 | 18.4 | 3.5 | Ambassador / Post Oak - Durban Drive (brt, 17,877 trips) |
-| San Antonio-New Braunfels | 19 | 19 | 0 | 23.7 | 4.0 |  (brt, 29,975 trips) |
-| Austin-Round Rock-San Marcos | 13 | 13 | 0 | 47.8 | 5.7 | Nuckols Crossing / Teri - Cameron / Saint John's (brt, 49,766 trips) |
-| Rio Grande Valley (McAllen-Edinburg-Mission and Brownsville-Harlingen) | 3 | 3 | 0 | 4.0 | 3.6 | Colonel Rowe / Trenton - Kelly / Fir (brt, 2,397 trips) |
-| El Paso | 6 | 6 | 0 | 17.1 | 5.5 | Downtown El Paso - Balboa / Cadiz (brt, 10,235 trips) |
-| Corpus Christi | 1 | 1 | 0 | 10.0 | 10.0 | Staples / Saratoga - Violet / Leopard (brt, 18,008 trips) |
-| Lubbock | 1 | 1 | 0 | 13.4 | 13.4 | Avenue L / Avenue K - Frankford / 114th Street (brt, 13,718 trips) |
-| Waco | 1 | 1 | 0 | 5.4 | 5.4 | Baylor University - Hewitt Drive (brt, 4,294 trips) |
-| Amarillo | 1 | 1 | 0 | 10.5 | 10.5 | Wolflin / Amarillo - Highland / 16th Avenue (brt, 7,623 trips) |
-| College Station-Bryan | 2 | 2 | 0 | 14.9 | 12.0 | Texas A&M University - Villa Maria / John Sharp (brt, 7,545 trips) |
-| Laredo | 1 | 1 | 0 | 8.7 | 8.7 | Calton / McPherson - Sierra Vista Boulevard (brt, 6,056 trips) |
-| Odessa | 2 | 2 | 0 | 5.3 | 3.2 | Grant / 14th Street - Eastridge / Billy Hext (brt, 3,025 trips) |
+| Houston-Pasadena-The Woodlands | 31 | 30 | 1 | 18.4 | 3.5 | Gessner-San Felipe BRT (brt, 17,877 trips) |
+| San Antonio-New Braunfels | 19 | 19 | 0 | 23.7 | 4.0 | Flores-Harry Wurzbach BRT (brt, 29,975 trips) |
+| Austin-Round Rock-San Marcos | 13 | 13 | 0 | 47.8 | 5.7 | I-35-San Jacinto BRT (brt, 49,766 trips) |
+| Rio Grande Valley (McAllen-Edinburg-Mission and Brownsville-Harlingen) | 3 | 3 | 0 | 4.0 | 3.6 | Colonel Rowe BRT (brt, 2,397 trips) |
+| El Paso | 6 | 6 | 0 | 17.1 | 5.5 | Mesa BRT (brt, 10,235 trips) |
+| Corpus Christi | 1 | 1 | 0 | 10.0 | 10.0 | Leopard BRT (brt, 18,008 trips) |
+| Lubbock | 1 | 1 | 0 | 13.4 | 13.4 | Frankford-50th Street BRT (brt, 13,718 trips) |
+| Waco | 1 | 1 | 0 | 5.4 | 5.4 | Jack Kultgen-Valley Mills BRT (brt, 4,294 trips) |
+| Amarillo | 1 | 1 | 0 | 10.5 | 10.5 | Plains-10th Avenue BRT (brt, 7,623 trips) |
+| College Station-Bryan | 2 | 2 | 0 | 14.9 | 12.0 | Villa Maria BRT (brt, 7,545 trips) |
+| Laredo | 1 | 1 | 0 | 8.7 | 8.7 | Zapata-Bartlett BRT (brt, 6,056 trips) |
+| Odessa | 2 | 2 | 0 | 5.3 | 3.2 | 8th Street-Highway 80 BRT (brt, 3,025 trips) |
 
 ## With growth and station-area development, 2050 and 2100
 

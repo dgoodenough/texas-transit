@@ -25,7 +25,76 @@
       }
     ],
     "texas_pop": 868859,
-    "budget_musd": 8027
+    "budget_musd": 20067,
+    "growth": {
+      "_doc": "County trend (tools/build_growth.py); jobs relative to LODES 2023, growing with people",
+      "regional_pop": {
+        "2020": 1.0,
+        "2030": 1.0745,
+        "2040": 1.1414,
+        "2050": 1.2011,
+        "2060": 1.2536,
+        "2075": 1.3204,
+        "2100": 1.4042
+      },
+      "regional_jobs": {
+        "2023": 1.0,
+        "2030": 1.051,
+        "2040": 1.1165,
+        "2050": 1.1748,
+        "2060": 1.2263,
+        "2075": 1.2916,
+        "2100": 1.3735
+      }
+    },
+    "policies": true,
+    "anchors": [
+      {
+        "name": "Downtown El Paso",
+        "lat": 31.7587,
+        "lon": -106.4869,
+        "kind": "downtown",
+        "weight": 0
+      },
+      {
+        "name": "El Paso Airport",
+        "lat": 31.8072,
+        "lon": -106.3778,
+        "kind": "airport",
+        "weight": 4000
+      },
+      {
+        "name": "UTEP",
+        "lat": 31.7709,
+        "lon": -106.5047,
+        "kind": "university",
+        "weight": 12000
+      }
+    ],
+    "ridership_asc": {
+      "asc": 0.5052,
+      "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.77% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+    },
+    "border": [
+      {
+        "port": "Ysleta",
+        "bridge": "Zaragoza bridge, Ysleta",
+        "lat": 31.6726,
+        "lon": -106.3352,
+        "pedestrians_day": 3977,
+        "bus_day": 0,
+        "source": "US Bureau of Transportation Statistics, Border Crossing Entry Data (data.bts.gov keg4-3bc2), 2024, inbound crossings a day at each port, averaged over the year"
+      },
+      {
+        "port": "El Paso",
+        "bridge": "Paso del Norte bridge, downtown El Paso (El Paso port: also Stanton and the Bridge of the Americas)",
+        "lat": 31.7486,
+        "lon": -106.4869,
+        "pedestrians_day": 12983,
+        "bus_day": 916,
+        "source": "US Bureau of Transportation Statistics, Border Crossing Entry Data (data.bts.gov keg4-3bc2), 2024, inbound crossings a day at each port, averaged over the year"
+      }
+    ]
   },
   "sources": {
     "cbsa_delineation": {
@@ -170,6 +239,15 @@
         }
       },
       "checked_at": "2026-11-06T20:37:58+00:00"
+    },
+    "overture_gazetteer": {
+      "status": "ok",
+      "release": "2026-09-23.1",
+      "landmarks": 129,
+      "neighbourhoods": 23,
+      "towns": 19,
+      "license": "Overture Maps places (CDLA Permissive 2.0) and divisions (ODbL 1.0)",
+      "checked_at": "2026-11-12T03:50:16+00:00"
     }
   },
   "outputs": {
@@ -216,6 +294,12 @@
     "osm/rail.parquet": {
       "rows": 833,
       "written_at": "2026-11-06T20:37:58+00:00"
+    },
+    "gazetteer.json": {
+      "landmarks": 129,
+      "neighbourhoods": 23,
+      "towns": 19,
+      "written_at": "2026-11-12T03:50:16+00:00"
     }
   },
   "bbox": [
@@ -224,6 +308,6 @@
     -105.247,
     32.0968
   ],
-  "fetched_at": "2026-11-06T20:37:58+00:00",
+  "fetched_at": "2026-11-12T03:50:16+00:00",
   "missing": []
 }

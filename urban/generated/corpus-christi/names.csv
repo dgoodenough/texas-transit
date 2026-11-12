@@ -1,0 +1,26 @@
+kind,id,old,new,color,basis
+station,N0001,Staples Street,Staples / Saratoga,,cross streets Staples x Saratoga (151 m)
+station,N0002,Staples / Holly,Staples / Holly,,cross streets Staples x Holly (198 m)
+station,N0003,Staples / Padre Island,Staples / Padre Island,,cross streets Staples x Padre Island (152 m)
+station,N0004,Staples / Gollihar,Staples Street,,street South Staples Street (0 m)
+station,N0005,Staples / Carmel,Staples / Carmel,,cross streets Staples x Carmel (215 m)
+station,N0006,Staples / Doddridge,Color Capture Selfie Museum,,landmark Color Capture Selfie Museum (151 m)
+station,N0007,Staples / Texan,Staples / Texan,,cross streets Staples x Texan (142 m)
+station,N0008,Staples / Louisiana,Staples / Louisiana,,cross streets Staples x Louisiana (153 m)
+station,N0009,Staples / Alameda,Staples / Alameda,,cross streets Staples x Alameda (294 m)
+station,N0010,Staples / Agnes,Staples / Agnes,,cross streets Staples x Agnes (163 m)
+station,N0011,Lipan / Carancahua,Downtown,,neighbourhood Downtown (120 m)
+station,N0012,Brownlee / Antelope,Brownlee / Antelope,,cross streets Brownlee x Antelope (87 m)
+station,N0013,Leopard / Buddy Lawrence,Leopard / Buddy Lawrence,,cross streets Leopard x Buddy Lawrence (105 m)
+station,N0014,Leopard / Villa,Leopard / Villa,,cross streets Leopard x Villa (170 m)
+station,N0015,Leopard / Navigation,Leopard / Navigation,,cross streets Leopard x Navigation (30 m)
+station,N0016,Leopard / Lantana,Leopard / Lantana,,cross streets Leopard x Lantana (75 m)
+station,N0017,Leopard / Corn Products,Leopard / Corn Products,,cross streets Leopard x Corn Products (117 m)
+station,N0018,Leopard / Sedwick,Leopard / Sedwick,,cross streets Leopard x Sedwick (293 m)
+station,N0019,Leopard Street,Leopard Street,,street Leopard Street (0 m)
+station,N0020,Leopard / Tuloso,Leopard / Tuloso,,"nearest streets Leopard (0 m), Tuloso (499 m)"
+station,N0021,Leopard / Rand Morgan,Leopard / Rand Morgan,,cross streets Leopard x Rand Morgan (391 m)
+station,N0022,Leopard / Up River,Leopard / Up River,,"nearest streets Leopard (0 m), Up River (817 m)"
+station,N0023,Leopard / McKinzie,Leopard / McKinzie,,cross streets Leopard x McKinzie (146 m)
+station,N0024,Violet Road,Leopard / Violet,,cross streets Leopard x Violet (45 m)
+line,G01,Staples / Saratoga - Violet / Leopard BRT,Leopard BRT,#8e24aa,BRT: 58% of it on Leopard

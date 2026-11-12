@@ -26,9 +26,30 @@
     ],
     "texas_pop": 98331,
     "budget_musd": 908,
+    "growth": {
+      "_doc": "County trend (tools/build_growth.py); jobs relative to LODES 2023, growing with people",
+      "regional_pop": {
+        "2020": 1.0,
+        "2030": 1.043,
+        "2040": 1.0808,
+        "2050": 1.1139,
+        "2060": 1.1426,
+        "2075": 1.1786,
+        "2100": 1.2228
+      },
+      "regional_jobs": {
+        "2023": 1.0,
+        "2030": 1.0297,
+        "2040": 1.067,
+        "2050": 1.0997,
+        "2060": 1.1281,
+        "2075": 1.1636,
+        "2100": 1.2073
+      }
+    },
     "ridership_asc": {
-      "asc": -0.1269,
-      "source": "DFW's constant +0.4296 + 0.499 x ln(ACS 2020-24 transit share 0.22% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+      "asc": -0.1804,
+      "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.22% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
     }
   },
   "sources": {
@@ -145,6 +166,15 @@
         }
       },
       "checked_at": "2026-11-06T20:55:38+00:00"
+    },
+    "overture_gazetteer": {
+      "status": "ok",
+      "release": "2026-09-23.1",
+      "landmarks": 28,
+      "neighbourhoods": 0,
+      "towns": 3,
+      "license": "Overture Maps places (CDLA Permissive 2.0) and divisions (ODbL 1.0)",
+      "checked_at": "2026-11-12T03:52:02+00:00"
     }
   },
   "outputs": {
@@ -191,6 +221,12 @@
     "osm/rail.parquet": {
       "rows": 284,
       "written_at": "2026-11-06T20:55:38+00:00"
+    },
+    "gazetteer.json": {
+      "landmarks": 28,
+      "neighbourhoods": 0,
+      "towns": 3,
+      "written_at": "2026-11-12T03:52:02+00:00"
     }
   },
   "bbox": [
@@ -199,7 +235,7 @@
     -96.6941,
     29.0453
   ],
-  "fetched_at": "2026-11-06T20:55:38+00:00",
+  "fetched_at": "2026-11-12T03:52:02+00:00",
   "missing": [
     {
       "item": "existing/",

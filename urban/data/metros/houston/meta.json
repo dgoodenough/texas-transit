@@ -41,8 +41,78 @@
       }
     ],
     "texas_pop": 7149642,
-    "budget_musd": 66051,
-    "brt_name_pattern": "Silver Line|\\bBRT\\b"
+    "budget_musd": 165129,
+    "growth": {
+      "_doc": "County trend (tools/build_growth.py); jobs relative to LODES 2023, growing with people",
+      "regional_pop": {
+        "2020": 1.0,
+        "2030": 1.1919,
+        "2040": 1.3874,
+        "2050": 1.5813,
+        "2060": 1.7694,
+        "2075": 2.0333,
+        "2100": 2.408
+      },
+      "regional_jobs": {
+        "2023": 1.0,
+        "2030": 1.127,
+        "2040": 1.3118,
+        "2050": 1.4952,
+        "2060": 1.6731,
+        "2075": 1.9226,
+        "2100": 2.2769
+      }
+    },
+    "policies": true,
+    "brt_name_pattern": "Silver Line|\\bBRT\\b",
+    "anchors": [
+      {
+        "name": "Downtown Houston",
+        "lat": 29.7604,
+        "lon": -95.3698,
+        "kind": "downtown",
+        "weight": 0
+      },
+      {
+        "name": "Bush Intercontinental Airport",
+        "lat": 29.9902,
+        "lon": -95.3368,
+        "kind": "airport",
+        "weight": 30000
+      },
+      {
+        "name": "Hobby Airport",
+        "lat": 29.6454,
+        "lon": -95.2789,
+        "kind": "airport",
+        "weight": 8000
+      },
+      {
+        "name": "Texas Medical Center",
+        "lat": 29.7071,
+        "lon": -95.3978,
+        "kind": "medical",
+        "weight": 30000
+      },
+      {
+        "name": "University of Houston",
+        "lat": 29.7199,
+        "lon": -95.3422,
+        "kind": "university",
+        "weight": 20000
+      },
+      {
+        "name": "Rice University",
+        "lat": 29.7174,
+        "lon": -95.4018,
+        "kind": "university",
+        "weight": 4000
+      }
+    ],
+    "calibration": {
+      "weekday_boardings": 43920,
+      "source": "NTD 2024 average typical weekday, 60008 LR 42,946 + 60008 RB 974"
+    }
   },
   "sources": {
     "cbsa_delineation": {
@@ -214,6 +284,15 @@
         }
       },
       "checked_at": "2026-11-06T20:33:45+00:00"
+    },
+    "overture_gazetteer": {
+      "status": "ok",
+      "release": "2026-09-23.1",
+      "landmarks": 662,
+      "neighbourhoods": 133,
+      "towns": 81,
+      "license": "Overture Maps places (CDLA Permissive 2.0) and divisions (ODbL 1.0)",
+      "checked_at": "2026-11-12T03:49:29+00:00"
     }
   },
   "outputs": {
@@ -268,6 +347,12 @@
     "osm/rail.parquet": {
       "rows": 9113,
       "written_at": "2026-11-06T20:33:45+00:00"
+    },
+    "gazetteer.json": {
+      "landmarks": 662,
+      "neighbourhoods": 133,
+      "towns": 81,
+      "written_at": "2026-11-12T03:49:29+00:00"
     }
   },
   "bbox": [
@@ -276,6 +361,6 @@
     -94.2623,
     30.9386
   ],
-  "fetched_at": "2026-11-06T20:33:45+00:00",
+  "fetched_at": "2026-11-12T03:49:29+00:00",
   "missing": []
 }

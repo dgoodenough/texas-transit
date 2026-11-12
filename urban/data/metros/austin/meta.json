@@ -31,7 +31,64 @@
       }
     ],
     "texas_pop": 2283371,
-    "budget_musd": 21095
+    "budget_musd": 52737,
+    "growth": {
+      "_doc": "County trend (tools/build_growth.py); jobs relative to LODES 2023, growing with people",
+      "regional_pop": {
+        "2020": 1.0,
+        "2030": 1.3097,
+        "2040": 1.6507,
+        "2050": 2.0119,
+        "2060": 2.382,
+        "2075": 2.9305,
+        "2100": 3.7621
+      },
+      "regional_jobs": {
+        "2023": 1.0,
+        "2030": 1.1984,
+        "2040": 1.5104,
+        "2050": 1.8409,
+        "2060": 2.1795,
+        "2075": 2.6814,
+        "2100": 3.4423
+      }
+    },
+    "buildout": true,
+    "policies": true,
+    "anchors": [
+      {
+        "name": "Downtown Austin",
+        "lat": 30.2672,
+        "lon": -97.7431,
+        "kind": "downtown",
+        "weight": 0
+      },
+      {
+        "name": "Austin-Bergstrom Airport",
+        "lat": 30.1975,
+        "lon": -97.6664,
+        "kind": "airport",
+        "weight": 20000
+      },
+      {
+        "name": "University of Texas",
+        "lat": 30.2849,
+        "lon": -97.7341,
+        "kind": "university",
+        "weight": 25000
+      },
+      {
+        "name": "Texas State University",
+        "lat": 29.8884,
+        "lon": -97.9384,
+        "kind": "university",
+        "weight": 18000
+      }
+    ],
+    "ridership_asc": {
+      "asc": 0.6842,
+      "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 1.06% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+    }
   },
   "sources": {
     "cbsa_delineation": {
@@ -175,6 +232,15 @@
         }
       },
       "checked_at": "2026-11-06T20:36:02+00:00"
+    },
+    "overture_gazetteer": {
+      "status": "ok",
+      "release": "2026-09-23.1",
+      "landmarks": 259,
+      "neighbourhoods": 28,
+      "towns": 27,
+      "license": "Overture Maps places (CDLA Permissive 2.0) and divisions (ODbL 1.0)",
+      "checked_at": "2026-11-12T03:49:59+00:00"
     }
   },
   "outputs": {
@@ -224,6 +290,12 @@
     "osm/rail.parquet": {
       "rows": 829,
       "written_at": "2026-11-06T20:36:02+00:00"
+    },
+    "gazetteer.json": {
+      "landmarks": 259,
+      "neighbourhoods": 28,
+      "towns": 27,
+      "written_at": "2026-11-12T03:49:59+00:00"
     }
   },
   "bbox": [
@@ -232,6 +304,6 @@
     -96.9883,
     30.9538
   ],
-  "fetched_at": "2026-11-06T20:36:02+00:00",
+  "fetched_at": "2026-11-12T03:49:59+00:00",
   "missing": []
 }

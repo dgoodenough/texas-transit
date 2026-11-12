@@ -1,5 +1,5 @@
 station_id,name,lat,lon
-N0001,Wolflin / Port,35.191266,-101.916090
+N0001,Wolflin / Amarillo Boulevard,35.191266,-101.916090
 N0002,Plains / Bell,35.192551,-101.903904
 N0003,Plains / Avondale,35.196607,-101.892437
 N0004,Pecos / Dixie,35.202015,-101.877120
@@ -9,4 +9,4 @@ N0007,10th Avenue / Harrison,35.203877,-101.840327
 N0008,Taylor / 3rd Avenue,35.210442,-101.835197
 N0009,Taylor / 10th Avenue,35.223929,-101.832931
 N0010,15th Avenue / Grant,35.229351,-101.822771
-N0011,16th Avenue / 15th Avenue,35.229211,-101.806117
+N0011,16th Avenue / Highland,35.229211,-101.806117

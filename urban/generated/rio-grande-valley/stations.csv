@@ -1,5 +1,5 @@
 station_id,name,lat,lon
-N0001,Colonel Rowe Boulevard,26.264377,-98.210677
+N0001,Colonel Rowe / Trenton,26.264377,-98.210677
 N0002,Colonel Rowe / Dove,26.250859,-98.212983
 N0003,Colonel Rowe / Nolana,26.237339,-98.215269
 N0004,Colonel Rowe / Harvey,26.227201,-98.216991
@@ -8,8 +8,8 @@ N0006,Colonel Rowe / Hackberry,26.206920,-98.220402
 N0007,Business 83 / McColl,26.200092,-98.211996
 N0008,Center / Sugar,26.197349,-98.197122
 N0009,Center / Cage,26.195294,-98.185925
-N0010,Fir / Center,26.190103,-98.175190
-N0011,6th Street / Oklahoma,26.156965,-97.998671
+N0010,PSJA Stadium,26.190103,-98.175190
+N0011,Border / 6th Street,26.156965,-97.998671
 N0012,Westgate Drive,26.162406,-98.006430
 N0013,Hooks / Midway,26.164610,-98.018528
 N0014,Hooks / Victoria,26.167556,-98.034657
@@ -18,7 +18,7 @@ N0016,1st Street,26.172632,-98.062790
 N0017,Val Verde / Valverde,26.175629,-98.078906
 N0018,5th Street / Border,26.178578,-98.095034
 N0019,Tower Road,26.181559,-98.111155
-N0020,Alamo / Crockett,26.184513,-98.127282
+N0020,Alamo Road / Crockett,26.184513,-98.127282
 N0021,Stewart / Carroll,26.187459,-98.143411
 N0022,Center / 5th Street,26.190186,-98.159576
 N0023,Cage / Kelly,26.192199,-98.184398
@@ -26,8 +26,8 @@ N0024,Business 83 / 6th Street,26.202658,-98.225881
 N0025,Business 83 / 23rd Street,26.205534,-98.242185
 N0026,Business 83 / 29th Street,26.207599,-98.254432
 N0027,Business 83 / Bentsen,26.208750,-98.266835
-N0028,Business 83 / Shary,26.210259,-98.283374
-N0029,Shary Road,26.223000,-98.283788
+N0028,Richard Thompson Stadium,26.210259,-98.283374
+N0029,Shary / Griffin,26.223000,-98.283788
 N0030,Sam Houston / Fir,26.186363,-98.174060
 N0031,Sam Houston / Cage,26.187996,-98.185930
 N0032,Sam Houston / Jackson,26.190138,-98.201762

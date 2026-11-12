@@ -1,10 +1,10 @@
 station_id,name,lat,lon
 N0001,Avenue K / Mac Davis,33.589586,-101.848092
 N0002,Marsha Sharp / Avenue T,33.592343,-101.858197
-N0003,Marsha Sharp / 4th Street,33.592225,-101.874551
-N0004,Marsha Sharp Freeway,33.584310,-101.879088
+N0003,Jones AT&T Stadium,33.592225,-101.874551
+N0004,Texas Tech University,33.584310,-101.879088
 N0005,19th Street / Texas Tech,33.578027,-101.887213
-N0006,Memphis Avenue,33.568359,-101.896427
+N0006,Memphis / 24th Street,33.568359,-101.896427
 N0007,Memphis / 42nd Street,33.557204,-101.896424
 N0008,50th Street / Quaker,33.548781,-101.904140
 N0009,50th Street / Slide,33.548719,-101.921961
@@ -12,4 +12,4 @@ N0010,50th Street / Englewood,33.548768,-101.935335
 N0011,Frankford Avenue,33.541322,-101.939762
 N0012,Frankford / 73rd Street,33.526454,-101.939735
 N0013,Frankford / 92nd Street,33.511583,-101.939700
-N0014,Frankford / Chicago,33.496710,-101.939688
+N0014,Frankford / 114th Street,33.496710,-101.939688

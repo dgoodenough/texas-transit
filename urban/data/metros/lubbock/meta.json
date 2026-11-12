@@ -33,7 +33,41 @@
       }
     ],
     "texas_pop": 351268,
-    "budget_musd": 3245
+    "budget_musd": 3245,
+    "growth": {
+      "_doc": "County trend (tools/build_growth.py); jobs relative to LODES 2023, growing with people",
+      "regional_pop": {
+        "2020": 1.0,
+        "2030": 1.084,
+        "2040": 1.1629,
+        "2050": 1.2355,
+        "2060": 1.3014,
+        "2075": 1.3872,
+        "2100": 1.4982
+      },
+      "regional_jobs": {
+        "2023": 1.0,
+        "2030": 1.0573,
+        "2040": 1.1343,
+        "2050": 1.2052,
+        "2060": 1.2694,
+        "2075": 1.3531,
+        "2100": 1.4614
+      }
+    },
+    "anchors": [
+      {
+        "name": "Texas Tech University",
+        "lat": 33.5843,
+        "lon": -101.8783,
+        "kind": "university",
+        "weight": 20000
+      }
+    ],
+    "ridership_asc": {
+      "asc": 0.3112,
+      "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.54% / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+    }
   },
   "sources": {
     "cbsa_delineation": {
@@ -177,6 +211,15 @@
         }
       },
       "checked_at": "2026-11-06T20:43:01+00:00"
+    },
+    "overture_gazetteer": {
+      "status": "ok",
+      "release": "2026-09-23.1",
+      "landmarks": 70,
+      "neighbourhoods": 1,
+      "towns": 14,
+      "license": "Overture Maps places (CDLA Permissive 2.0) and divisions (ODbL 1.0)",
+      "checked_at": "2026-11-12T03:50:42+00:00"
     }
   },
   "outputs": {
@@ -227,6 +270,12 @@
     "osm/rail.parquet": {
       "rows": 404,
       "written_at": "2026-11-06T20:43:01+00:00"
+    },
+    "gazetteer.json": {
+      "landmarks": 70,
+      "neighbourhoods": 1,
+      "towns": 14,
+      "written_at": "2026-11-12T03:50:42+00:00"
     }
   },
   "bbox": [
@@ -235,6 +284,6 @@
     -101.058,
     33.9035
   ],
-  "fetched_at": "2026-11-06T20:43:01+00:00",
+  "fetched_at": "2026-11-12T03:50:42+00:00",
   "missing": []
 }

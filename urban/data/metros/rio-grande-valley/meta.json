@@ -84,7 +84,15 @@
         "bus_day": 97,
         "source": "US Bureau of Transportation Statistics, Border Crossing Entry Data (data.bts.gov keg4-3bc2), 2024, inbound crossings a day at each port, averaged over the year"
       }
-    ]
+    ],
+    "cbsa_pop": {
+      "32580": 870781,
+      "15180": 421017
+    },
+    "ridership_asc": {
+      "asc": -0.0108,
+      "source": "DFW's constant +0.4296 + 0.547 x ln(ACS 2020-24 transit share 0.30%, McAllen's and Brownsville-Harlingen's weighted by people / DFW's 0.67%); slope fitted on Houston (study/urban_metros.py)"
+    }
   },
   "sources": {
     "cbsa_delineation": {
@@ -203,6 +211,15 @@
         }
       },
       "checked_at": "2026-11-11T19:20:11+00:00"
+    },
+    "overture_gazetteer": {
+      "status": "ok",
+      "release": "2026-09-23.1",
+      "landmarks": 168,
+      "neighbourhoods": 3,
+      "towns": 33,
+      "license": "Overture Maps places (CDLA Permissive 2.0) and divisions (ODbL 1.0)",
+      "checked_at": "2026-11-12T03:50:09+00:00"
     }
   },
   "outputs": {
@@ -249,6 +266,12 @@
     "osm/rail.parquet": {
       "rows": 487,
       "written_at": "2026-11-11T19:20:11+00:00"
+    },
+    "gazetteer.json": {
+      "landmarks": 168,
+      "neighbourhoods": 3,
+      "towns": 33,
+      "written_at": "2026-11-12T03:50:09+00:00"
     }
   },
   "bbox": [
@@ -257,7 +280,7 @@
     -97.0473,
     26.6299
   ],
-  "fetched_at": "2026-11-11T19:20:11+00:00",
+  "fetched_at": "2026-11-12T03:50:09+00:00",
   "missing": [
     {
       "item": "existing/",

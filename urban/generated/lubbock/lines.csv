@@ -1,2 +1,2 @@
 line_id,name,mode,status,color,headway_min,notes
-G01,Avenue L / Avenue K - Frankford / 114th Street BRT,brt,proposed,#8e24aa,6,"generated (R002): 5,792 per route-km >= BRT 3,000 (< metro 7,000); full model: 12,155 new daily trips in 2050 (13.02 per $M incl. opex; 12,155 lost without it, 12,155 alone); sketch: 2,775 new daily trips for $0.65B capital (2.97 per $M incl. opex)"
+G01,Frankford-50th Street BRT,brt,proposed,#8e24aa,6,"generated (R002): 5,792 per route-km >= BRT 3,000 (< metro 7,000); full model: 12,155 new daily trips in 2050 (13.02 per $M incl. opex; 12,155 lost without it, 12,155 alone); sketch: 2,775 new daily trips for $0.65B capital (2.97 per $M incl. opex)"

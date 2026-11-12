@@ -1,12 +1,12 @@
 station_id,name,lat,lon
-N0001,8th Street / Jack Kultgen,31.545024,-97.123139
-N0002,Jack Kultgen / 11th Street,31.545575,-97.126453
+N0001,8th Street / Dutton,31.545024,-97.123139
+N0002,Jack Kultgen / 8th Street,31.545575,-97.126453
 N0003,Jack Kultgen / 18th Street,31.535581,-97.130210
 N0004,Valley Mills / Bagby,31.524805,-97.137820
 N0005,Valley Mills / Clay,31.526528,-97.154103
-N0006,Valley Mills / Waco,31.528526,-97.170385
-N0007,Waco / Lake Air,31.518470,-97.181770
+N0006,Valley Mills / Waco Drive,31.528526,-97.170385
+N0007,Waco Drive / Lake Air,31.518470,-97.181770
 N0008,Woodway Drive,31.509781,-97.194546
-N0009,Woodway / Texas Central,31.504337,-97.205096
-N0010,Hewitt / Estates,31.497955,-97.219660
-N0011,Hewitt / Chapel,31.487176,-97.211460
+N0009,Woodway Drive / Texas Central,31.504337,-97.205096
+N0010,Hewitt Drive / Estates,31.497955,-97.219660
+N0011,Hewitt Drive / Chapel,31.487176,-97.211460

@@ -1,0 +1,13 @@
+kind,id,old,new,color,basis
+station,N0001,Wolflin / Port,Wolflin / Amarillo Boulevard,,cross streets Wolflin x Amarillo Boulevard (209 m)
+station,N0002,Plains / Bell,Plains / Bell,,cross streets Plains x Bell (149 m)
+station,N0003,Plains / Avondale,Plains / Avondale,,cross streets Plains x Avondale (85 m)
+station,N0004,Pecos / Dixie,Pecos / Dixie,,cross streets Pecos x Dixie (2 m)
+station,N0005,10th Avenue / Georgia,10th Avenue / Georgia,,cross streets 10th Avenue x Georgia (98 m)
+station,N0006,10th Avenue / 11th Avenue,10th Avenue / 11th Avenue,,cross streets 10th Avenue x 11th Avenue (281 m)
+station,N0007,10th Avenue / Harrison,10th Avenue / Harrison,,cross streets 10th Avenue x Harrison (4 m)
+station,N0008,Taylor / 3rd Avenue,Taylor / 3rd Avenue,,cross streets Taylor x 3rd Avenue (17 m)
+station,N0009,Taylor / 10th Avenue,Taylor / 10th Avenue,,cross streets Taylor x 10th Avenue (19 m)
+station,N0010,15th Avenue / Grant,15th Avenue / Grant,,cross streets 15th Avenue x Grant (226 m)
+station,N0011,16th Avenue / 15th Avenue,16th Avenue / Highland,,cross streets 16th Avenue x Highland (208 m)
+line,G01,Wolflin / Amarillo - Highland / 16th Avenue BRT,Plains-10th Avenue BRT,#8e24aa,"BRT: 27% on Plains, 25% on 10th Avenue"
