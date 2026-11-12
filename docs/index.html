@@ -54,11 +54,21 @@ th{font-family:var(--display);font-weight:600;font-size:14px;text-transform:uppe
 .go a{display:inline-block;padding:10px 16px;border:1px solid var(--ink);border-radius:999px;color:var(--ink);text-decoration:none;font-weight:600}
 .go a.primary{background:var(--ink);color:var(--bg)}
 a{color:var(--metro)}
+nav.site{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;font-size:15px;border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:-40px}
+nav.site a{color:var(--ink);text-decoration:none}nav.site a:hover{text-decoration:underline}
+nav.site .brand{font-family:var(--display);font-weight:700;font-size:19px;margin-right:auto}
+#trips td{white-space:nowrap}#trips td:first-child{white-space:normal}
+.find{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.find select{font:inherit;font-size:16px;padding:8px 10px;border:1px solid var(--ink);border-radius:8px;background:var(--surface);color:var(--ink);max-width:100%}
+dl.terms{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:10px 18px;margin:0}
+dl.terms dt{font-weight:700}dl.terms dd{margin:0}
+@media (max-width:560px){dl.terms{grid-template-columns:1fr;gap:2px}dl.terms dd{margin-bottom:10px}}
 a:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 </style>
 </head>
 <body>
 <div class="wrap">
+<nav class="site" aria-label="Site"><a class="brand" href="index.html" aria-current="page">Texas Transit</a><a href="plan.html">The plan</a><a href="map.html">The map</a><a href="#metros">Metro maps</a><a href="#terms">Terms</a></nav>
 
 <header style="display:flex;flex-direction:column;gap:18px">
   <div class="eyebrow">Texas Transit · a statewide study · not an official plan</div>
@@ -94,6 +104,7 @@ a:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
     roads and rail, at DFW's rate per resident, then planned as a whole on the same demand model DFW's plan uses. On DFW
     itself, given the hand-drawn plan's money, the generator carries as many riders as the plan for each dollar. The big
     metros each have a full map: line and station pages, a trip planner from any address, and a diagram.</p>
+  <div class="find"><label for="findm"><b>Find your metro:</b></label><select id="findm"><option value="">Pick a metro…</option></select><span class="note" id="findnote"></span></div>
   <div class="cards" id="cards"></div>
   <p class="note" id="small"></p>
 </section>
@@ -106,6 +117,23 @@ a:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
     metro its own stream and lets intercity rail take the rest. <b>The whole map</b> is the cabinet's: high-speed rail built
     by a delivery office that gets cheaper as it goes, lighter standards on the thin legs, and the branches (Laredo, the
     Valley, Corpus Christi, the Panhandle, West Texas, Oklahoma City) on money of their own.</p>
+</section>
+
+<section aria-labelledby="h-terms" id="terms">
+  <div class="eyebrow">Words used here</div>
+  <h2 id="h-terms">The terms, in plain English</h2>
+  <dl class="terms">
+    <dt>High-speed rail</dt><dd>Trains at 250–320 km/h (155–200 mph) on their own track, like Texas Central's Dallas–Houston line; lighter versions run 200–250 km/h on single track with passing loops.</dd>
+    <dt>Conventional trains</dt><dd>Intercity trains on upgraded freight track at up to 79 mph (130 km/h), a few a day, to places high-speed rail doesn't reach (Monterrey, Kansas City, Memphis and others).</dd>
+    <dt>Metro</dt><dd>Light rail or subway inside a city, every 6 minutes in the plan, mostly on its own right-of-way.</dd>
+    <dt>BRT</dt><dd>Bus rapid transit: buses every 8 minutes in their own lanes, with stations, level boarding and signal priority, so they run like a train for much less.</dd>
+    <dt>Regional rail</dt><dd>Commuter trains on existing rail lines between the suburbs and downtown, every 20 minutes in the plan.</dd>
+    <dt>Ratio</dt><dd>The benefit-cost ratio: what a line gives travellers and everyone else over 50 years, divided by what it costs to build and run. Above 1, it pays for itself.</dd>
+    <dt>Wider benefits</dt><dd>Gains to people who don't ride: less congestion, fewer crashes, lower emissions, and the economic boost of better-connected cities.</dd>
+    <dt>Present value</dt><dd>Future benefits and costs counted in today's dollars, discounting each year by 3%, so a dollar in 2080 counts for less than one now.</dd>
+    <dt>Land tax</dt><dd>A share of the rise in property tax near new stations, borrowed against when the line opens to help pay for it.</dd>
+    <dt>Schedule</dt><dd>The order lines are built in under the yearly budget. The plan compares three: best ratio first, metros first, and the whole map.</dd>
+  </dl>
 </section>
 
 <section aria-labelledby="h-honest">
@@ -134,6 +162,8 @@ a:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 </div>
 <script>
 const fmt = n => Math.round(n).toLocaleString("en-US");
+// rounded for reading: 4.9 million, 120,000, 4,300
+const approx = n => n >= 1e6 ? (n / 1e6).toFixed(1) + " million" : n >= 1e4 ? fmt(Math.round(n / 1000) * 1000) : n >= 1000 ? fmt(Math.round(n / 100) * 100) : fmt(n);
 const money = m => (Math.abs(m) >= 1000 ? "$" + (m / 1000).toFixed(1) + "B" : "$" + fmt(m) + "M");
 const hm = m => (m >= 60 ? Math.floor(m / 60) + " h " : "") + String(Math.round(m % 60)).padStart(m >= 60 ? 2 : 1, "0") + (m >= 60 ? "" : " min");
 const LAB = {ratio: "Best ratio first", metros_first: "Metros first", whole_map: "The whole map"};
@@ -141,9 +171,9 @@ Promise.all([fetch("data/timeline.json").then(r => r.json()), fetch("data/interc
              fetch("data/map.json").then(r => r.json())]).then(([T, IC, M]) => {
   document.getElementById("budget").textContent = "$" + (T.budget_musd / 1000).toFixed(1) + "B";
   const S = T.scenarios.ratio, last = S.yearly[S.yearly.length - 1];
-  const big = [[fmt(last.urban_trips_day + last.dfw_trips_day), "new daily transit trips in the metros, DFW included"],
+  const big = [[approx(last.urban_trips_day + last.dfw_trips_day), "new daily transit trips in the metros, DFW included"],
                [(last.intercity_trips_year / 1e6).toFixed(0) + "M", "intercity rail trips a year"],
-               [fmt(last.flights_day), "fewer flights a day"],
+               [approx(last.flights_day), "fewer flights a day"],
                [money(S.pv), "worth, in present value at 3%, 2025–2100"]];
   document.getElementById("big").innerHTML = big.map(([n, l]) => `<div><b>${n}</b><span>${l}</span></div>`).join("");
   const hsr = T.projects.filter(p => p.layer === "hsr" && S.when[p.id]).length;
@@ -168,7 +198,7 @@ Promise.all([fetch("data/timeline.json").then(r => r.json()), fetch("data/interc
     const trips = ps.reduce((s, p) => s + p.trips_day, 0), cap = ps.reduce((s, p) => s + p.capital, 0);
     const name = m.name.split("-")[0];
     return `<div class="card"><h3><a href="${m.page}">${name} →</a></h3>`
-      + `<span>${ps.length} new lines, ${money(cap)}</span><span class="m">${fmt(trips)} new daily trips in 2050; the first line opens ${first < 9999 ? first : "after 2100"}</span></div>`;
+      + `<span>${ps.length} new lines, ${money(cap)}</span><span class="m">${approx(trips)} new daily trips once built (at 2050 levels); the first line opens ${first < 9999 ? first : "after 2100"}</span></div>`;
   });
   cards.unshift(`<div class="card"><h3><a href="https://dgoodenough.github.io/dfw-transit/map.html">Dallas–Fort Worth →</a></h3>`
     + `<span>DFW Transit's own plan: ${T.dfw.lines} new lines</span><span class="m">on its own timetable; what it doesn't spend goes to the rest of the state</span></div>`);
@@ -177,10 +207,22 @@ Promise.all([fetch("data/timeline.json").then(r => r.json()), fetch("data/interc
   const none = M.metros.filter(m => m.id !== "dfw" && !(byM[m.id] || []).length).length;
   document.getElementById("small").innerHTML = `The smaller metros with lines: ${small.join(", ")}. In ${none} more no corridor reaches the `
     + `density the generator needs for BRT or rail; they're on <a href="plan.html#urb-h">the plan's metro maps</a> and <a href="map.html">the statewide map</a>.`;
+  // find your metro: its own map if it has one, else the plan's metro view, or a note that it has no lines
+  const fm = document.getElementById("findm");
+  M.metros.slice().sort((a, b) => a.name.localeCompare(b.name)).forEach(m => {
+    const o = document.createElement("option"); o.value = m.id; o.textContent = m.id === "dfw" ? "Dallas–Fort Worth" : m.name.split(" (")[0]; fm.appendChild(o);
+  });
+  fm.addEventListener("change", () => {
+    const m = M.metros.find(x => x.id === fm.value);
+    if (!m) return;
+    const n = (byM[m.id] || []).length;
+    if (m.id !== "dfw" && !n) { document.getElementById("findnote").innerHTML = `No corridor in ${m.name.split(" (")[0]} reaches the density for BRT or rail; its intercity station is on <a href="map.html">the map</a>.`; return; }
+    location.href = m.id === "dfw" ? "https://dgoodenough.github.io/dfw-transit/map.html" : m.page || `plan.html?metro=${m.id}#urb-h`;
+  });
   // schedules
   document.querySelector("#scen tbody").innerHTML = ["ratio", "metros_first", "whole_map"].map(k => {
     const s = T.scenarios[k], y50 = s.yearly.find(r => r.year === 2050), y100 = s.yearly[s.yearly.length - 1];
-    return `<tr><td>${LAB[k]}</td><td>${money(s.pv)}</td><td>${money(s.pv_half_wider)}</td><td>${fmt(y50.urban_trips_day + y50.dfw_trips_day)}</td>`
+    return `<tr><td>${LAB[k]}</td><td>${money(s.pv)}</td><td>${money(s.pv_half_wider)}</td><td>${((y50.urban_trips_day + y50.dfw_trips_day) / 1e6).toFixed(1)}M</td>`
       + `<td>${(y100.intercity_trips_year / 1e6).toFixed(0)}M</td></tr>`;
   }).join("");
   document.getElementById("honest-gap").innerHTML = `<b>Running it costs more than fares bring in:</b> about ${money(last.opex - last.fares)} a year `

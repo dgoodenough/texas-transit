@@ -30,7 +30,12 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1
 #map{flex:1;min-width:0;background:var(--bg)}
 h1{font:700 26px/1.05 var(--display);margin:0 0 2px;letter-spacing:.01em}
 .sub{color:var(--muted);margin:0 0 10px;font-size:13px}
-.nav{display:flex;gap:12px;font-size:13px;margin-bottom:12px}
+.nav{display:flex;flex-wrap:wrap;gap:2px 12px;font-size:13px;margin-bottom:12px}
+.nav a{white-space:nowrap}
+details.layers>summary{cursor:pointer;font:600 13px var(--body);color:var(--focus);padding:4px 0}
+.legendl{display:flex;flex-direction:column;gap:3px;font-size:12.5px}
+.legendl span{display:flex;align-items:center;gap:8px}
+.ex{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0}.ex button{font:12px var(--body);border:1px solid var(--rule);background:transparent;color:var(--ink);border-radius:999px;padding:2px 8px;cursor:pointer}
 a{color:var(--focus)}
 h2{font:600 15px/1.2 var(--display);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:16px 0 6px;border-top:1px solid var(--rule);padding-top:12px}
 .year{display:flex;align-items:baseline;gap:10px}
@@ -73,22 +78,32 @@ select{width:100%;font:13px var(--body);padding:5px;background:var(--surface);co
   <h1>Texas Transit Map</h1>
   <p class="sub">The statewide plan at DFW Transit's spending rate, every line drawn, year by year.</p>
   <div class="body">
-  <div class="nav"><a href="index.html">← The story</a><a href="plan.html">The plan in numbers</a><a href="https://github.com/dgoodenough/texas-transit">Source</a><a href="https://dgoodenough.github.io/dfw-transit/map.html">DFW Transit's map</a></div>
+  <nav class="nav" aria-label="Site"><a href="index.html">The story</a><a href="plan.html">The plan</a><a href="https://dgoodenough.github.io/dfw-transit/map.html">DFW's map</a><a href="https://github.com/dgoodenough/texas-transit">Source</a></nav>
 
-  <div class="year"><output id="yout">2100</output><span class="small" id="ynote">every funded line open</span></div>
-  <input id="year" type="range" min="2025" max="2100" step="1" value="2100" aria-label="Year">
+  <div class="year"><output id="yout">2050</output><span class="small" id="ynote"></span></div>
+  <input id="year" type="range" min="2025" max="2100" step="1" value="2050" aria-label="Year">
   <div class="row"><button data-y="2025">Today</button><button data-y="2040">2040</button><button data-y="2050">2050</button><button data-y="2075">2075</button><button data-y="2100">2100</button><button id="play" type="button">▶ Play</button></div>
   <div class="seg" id="scen" role="group" aria-label="Scenario"><button data-key="ratio" aria-pressed="true">Best ratio first</button><button data-key="metros_first" aria-pressed="false">Metros first</button><button data-key="whole_map" aria-pressed="false">Whole map</button></div>
   <label class="t"><input type="checkbox" id="later" checked> Show what's built later (faint)</label>
 
   <h2>Trip between cities</h2>
-  <div class="row"><select id="tfrom" aria-label="From station"></select><select id="tto" aria-label="To station"></select></div>
+  <div class="row" style="flex-wrap:nowrap"><select id="tfrom" aria-label="From station"></select><button type="button" id="tswap" aria-label="Swap from and to" title="Swap">⇄</button><select id="tto" aria-label="To station"></select></div>
+  <div class="ex" id="tex" aria-label="Example trips"></div>
   <div id="tripout" class="small" aria-live="polite"></div>
 
   <h2>Lines</h2>
   <details id="linepanel"><summary>Every line, in the year and plan shown</summary><div id="linelist" class="small"></div></details>
 
-  <h2>Intercity</h2>
+  <h2>Legend</h2>
+  <div class="legendl">
+    <span><span class="sw" style="border-color:#c62828"></span>High-speed rail, coloured by family: <span style="color:#c62828">■</span><span style="color:#ad1457">■</span><span style="color:#ef6c00">■</span><span style="color:#8d6e63">■</span><span style="color:#6a1b9a">■</span></span>
+    <span><span class="sw" style="border-color:var(--conv);border-top-width:3px"></span>Conventional trains on today's track</span>
+    <span><span class="sw" style="border-color:var(--metro);border-top-width:3px"></span>Metro, BRT, regional rail: each line in its own colour</span>
+    <span><span class="sw d" style="border-color:var(--ink)"></span>Being built · <span style="opacity:.6">faint: later</span></span>
+  </div>
+  <p class="small" style="margin:4px 0 0">Zoom in to a metro to see its lines at full weight and its stations.</p>
+  <details class="layers"><summary>Show or hide layers</summary>
+  <h3 class="small" style="margin:8px 0 2px;text-transform:uppercase;letter-spacing:.06em">Intercity</h3>
   <label class="t"><input type="checkbox" data-layer="hsr" checked><span class="sw" style="border-color:var(--hsr)"></span>High-speed rail</label>
   <p class="m" style="margin:0 0 6px 26px;font-size:12px">By family: <span style="color:#c62828">■</span> the Triangle · <span style="color:#ad1457">■</span> Gulf Coast and east · <span style="color:#ef6c00">■</span> South Texas · <span style="color:#8d6e63">■</span> West Texas · <span style="color:#6a1b9a">■</span> north to Oklahoma</p>
   <label class="t"><input type="checkbox" data-layer="hsr_unfunded" checked><span class="sw d" style="border-color:var(--hsr-later)"></span>High-speed corridors not reached by 2100</label>
@@ -96,7 +111,7 @@ select{width:100%;font:13px var(--body);padding:5px;background:var(--surface);co
   <label class="t"><input type="checkbox" data-layer="conv" checked><span class="sw" style="border-color:var(--conv);border-top-width:3px"></span>Conventional trains (today's track)</label>
   <label class="t"><input type="checkbox" data-layer="stations" checked><span class="dot"></span>Intercity stations</label>
 
-  <h2>In the metros</h2>
+  <h3 class="small" style="margin:10px 0 2px;text-transform:uppercase;letter-spacing:.06em">In the metros</h3>
   <label class="t"><input type="checkbox" data-mode="metro" checked><span class="sw" style="border-color:var(--metro)"></span>Metro / light rail</label>
   <label class="t"><input type="checkbox" data-mode="brt" checked><span class="sw" style="border-color:var(--brt);border-top-width:3px"></span>Bus rapid transit</label>
   <label class="t"><input type="checkbox" data-mode="commuter" checked><span class="sw" style="border-color:var(--rail);border-top-width:3px"></span>Regional / commuter rail</label>
@@ -106,6 +121,7 @@ select{width:100%;font:13px var(--body);padding:5px;background:var(--surface);co
   <label class="t"><input type="checkbox" data-layer="dfw" checked>Dallas-Fort Worth (DFW Transit's plan)</label>
   <label class="t"><input type="checkbox" data-layer="others" checked>The other 24 metros</label>
   <label class="t"><input type="checkbox" data-layer="labels" checked>Metro names</label>
+  </details>
   <select id="jump" aria-label="Zoom to a metro"><option value="">Zoom to…</option><option value="state">The whole state</option></select>
 
   <h2>In <span id="yname">2100</span></h2>
@@ -206,7 +222,7 @@ Promise.all([fetch("data/state.json").then(r => r.json()), fetch("data/timeline.
     jump.value = "";
   });
 
-  let scen = "ratio", year = 2100, IC = null;   // IC: the trip planner's data (data/intercity.json)
+  let scen = "ratio", year = 2050, IC = null;   // IC: the trip planner's data (data/intercity.json)
   const on = {}; document.querySelectorAll("[data-layer],[data-mode]").forEach(i => { on[i.dataset.layer || i.dataset.mode] = i.checked; });
   const when = f => {   // [start, open] or null (never by 2100); today's lines open already
     if (f.status === "existing") return [2025, 2025];
@@ -229,13 +245,14 @@ Promise.all([fetch("data/state.json").then(r => r.json()), fetch("data/timeline.
     if (!on[f.mode]) return false;
     if (f.kind === "dfw" ? !on.dfw : !on.others) return false;
     if (f.status === "existing" ? !on.existing : !on.proposed) return false;
-    return st !== "never" && (st !== "later" || on.later);
+    return st !== "never" && (st !== "later" || (on.later && map.getZoom() >= 8));
   }
   function draw() {
     feats.forEach(f => {
       const st = state(f), vis = visible(f, st);
       if (!vis) { if (map.hasLayer(f.line)) map.removeLayer(f.line); return; }
       let w = WEIGHT[f.mode] || 2;
+      if (f.kind !== "hsr" && f.kind !== "conv" && map.getZoom() < 8) w *= 0.5;   // the whole state: metros as a light texture under the intercity lines
       if (f.kind === "hsr" && scen === "whole_map" && WP[f.id] && ["S3", "S4"].includes(WP[f.id].standard)) w = 3;   // lighter standard
       let style;
       if (st === "open") style = {color: color(f), weight: f.status === "existing" ? w * 0.75 : w, opacity: 0.95, dashArray: null};
@@ -428,12 +445,18 @@ Promise.all([fetch("data/state.json").then(r => r.json()), fetch("data/timeline.
       el.innerHTML = `<option value="">${k ? "To…" : "From…"}</option>` + names.map(n => `<option>${n}</option>`).join("");
       el.addEventListener("change", planTrip);
     });
+    const tf = document.getElementById("tfrom"), tt = document.getElementById("tto");
+    document.getElementById("tswap").addEventListener("click", () => { [tf.value, tt.value] = [tt.value, tf.value]; planTrip(); });
+    const ex = document.getElementById("tex");
+    ex.innerHTML = '<span class="small">Try:</span>' + (d.examples || []).filter(r => d.stations[r.from] && d.stations[r.to]).slice(0, 4)
+      .map(r => `<button type="button" data-f="${r.from}" data-t="${r.to}">${r.from} → ${r.to}</button>`).join("");
+    ex.querySelectorAll("button").forEach(b => b.addEventListener("click", () => { tf.value = b.dataset.f; tt.value = b.dataset.t; planTrip(); }));
     planTrip();
   }).catch(() => { document.getElementById("tripout").textContent = "The trip planner's data didn't load."; });
   const yin = document.getElementById("year");
   const setYear = y => {
     year = +y; yin.value = year; document.getElementById("yout").textContent = year;
-    document.getElementById("ynote").textContent = year === 2025 ? "today" : year === 2100 ? "end of the plan" : "";
+    document.getElementById("ynote").textContent = year === 2025 ? "today" : year === 2100 ? "end of the plan" : year === 2050 ? "halfway" : "";
     draw();
   };
   yin.addEventListener("input", () => setYear(yin.value));
@@ -456,7 +479,7 @@ Promise.all([fetch("data/state.json").then(r => r.json()), fetch("data/timeline.
   on.later = true;
   map.on("zoomend", draw);
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
-  setYear(2100);
+  setYear(2050);
 }).catch(e => { document.getElementById("stats").textContent = "Could not load the map data: " + e; });
 </script>
 </body>
