@@ -17,13 +17,13 @@
 | High-speed corridors open by 2100 | 16 of 16 | 16 of 16 | 16 of 16 |
 | High-speed km open by 2100 | 4,766 | 4,766 | 4,766 |
 | Branch corridors open by 2100 | 8 of 8 | 8 of 8 | 8 of 8 |
-| The last branch opens | 2097 | 2097 | 2069 |
+| The last branch opens | 2100 | 2097 | 2069 |
 | Intercity rail trips a year, 2100 | 106M | 106M | 98M |
 | New daily metro trips, 2100 (DFW included) | 4,893,260 | 4,893,260 | 4,893,260 |
 | Capital spent 2025-2100 (DFW included) | $646.4B | $646.4B | $461.5B |
 | Net benefit a year, 2100 (travellers, wider, fares less opex) | $22.9B | $22.9B | $21.1B |
-| Operating cost less fares a year, 2050 / 2100 | $2.4B / $4.5B | $3.8B / $4.5B | $2.7B / $5.3B |
-| Operating cost less fares, 2025-2100 (no budget pays it yet) | $249.8B | $302.0B | $298.7B |
+| Operating cost less fares a year, 2050 / 2100 | $2.3B / $4.5B | $3.8B / $4.5B | $2.7B / $5.3B |
+| Operating cost less fares, 2025-2100 (no budget pays it yet) | $221.2B | $302.0B | $298.7B |
 
 Budget: $9.0B a year statewide ($2.3B of it DFW's own plan), 2025-2100. High-speed km for the whole map are its redrawn, lighter-standard corridors; for the other two, today's cost model.
 
@@ -31,14 +31,14 @@ Budget: $9.0B a year statewide ($2.3B of it DFW's own plan), 2025-2100. High-spe
 
 | Corridor | Standard | Capital | Texas pays | Ratio (P10-P90) | Under stress | Best ratio first | Metros first | The whole map |
 |---|---|---|---|---|---|---|---|---|
-| Corpus Christi (Houston - Victoria - Corpus Christi) | 200 km/h single track first | $11.1B | $10.0B | 0.45 (0.23-0.98) | 0.22 | 2080 | 2079 | 2039 |
-| Oklahoma City (Dallas - Denton - Norman - Oklahoma City) | 250 km/h double track | $18.4B | $6.0B | 0.49 (0.24-1.17) | 0.22 | 2068 | 2070 | 2044 |
-| Rio Grande Valley (Corpus Christi - Kingsville - Harlingen - Brownsville) | 250 km/h single track, passing loops | $8.1B | $7.3B | 0.57 (0.27-1.42) | 0.25 | 2085 | 2085 | 2050 |
-| Laredo (San Antonio - Laredo) | 250 km/h single track, passing loops | $9.3B | $8.3B | 0.38 (0.20-0.83) | 0.19 | 2087 | 2087 | 2051 |
-| Big Country (Fort Worth - Weatherford - Abilene) | 250 km/h single track, passing loops | $8.9B | $8.1B | 0.28 (0.15-0.60) | 0.14 | 2089 | 2089 | 2058 |
-| McAllen (Harlingen - McAllen) | 250 km/h single track, passing loops | $2.5B | $2.2B | 0.22 (0.12-0.41) | 0.13 | 2085 | 2086 | 2061 |
-| Panhandle (Abilene - Lubbock - Amarillo) | 200 km/h single track first | $11.5B | $10.3B | 0.52 (0.27-1.11) | 0.25 | 2093 | 2093 | 2069 |
-| West Texas (Abilene - Midland - Odessa - El Paso) | 200 km/h single track first | $18.5B | $16.7B | 0.41 (0.20-1.01) | 0.18 | 2097 | 2097 | 2069 |
+| Corpus Christi (Houston - Victoria - Corpus Christi) | 200 km/h single track first | $11.1B | $10.0B | 0.45 (0.23-0.98) | 0.22 | 2072 | 2079 | 2039 |
+| Oklahoma City (Dallas - Denton - Norman - Oklahoma City) | 250 km/h double track | $18.4B | $6.0B | 0.49 (0.24-1.17) | 0.22 | 2050 | 2070 | 2044 |
+| Rio Grande Valley (Corpus Christi - Kingsville - Harlingen - Brownsville) | 250 km/h single track, passing loops | $8.1B | $7.3B | 0.57 (0.27-1.42) | 0.25 | 2076 | 2085 | 2050 |
+| Laredo (San Antonio - Laredo) | 250 km/h single track, passing loops | $9.3B | $8.3B | 0.38 (0.20-0.83) | 0.19 | 2100 | 2087 | 2051 |
+| Big Country (Fort Worth - Weatherford - Abilene) | 250 km/h single track, passing loops | $8.9B | $8.1B | 0.28 (0.15-0.60) | 0.14 | 2083 | 2089 | 2058 |
+| McAllen (Harlingen - McAllen) | 250 km/h single track, passing loops | $2.5B | $2.2B | 0.22 (0.12-0.41) | 0.13 | 2100 | 2086 | 2061 |
+| Panhandle (Abilene - Lubbock - Amarillo) | 200 km/h single track first | $11.5B | $10.3B | 0.52 (0.27-1.11) | 0.25 | 2086 | 2093 | 2069 |
+| West Texas (Abilene - Midland - Odessa - El Paso) | 200 km/h single track first | $18.5B | $16.7B | 0.41 (0.20-1.01) | 0.18 | 2092 | 2097 | 2069 |
 
 Capital and ratios are the whole map's (its cost model, standards and opening years); Texas pays the capital less the federal match and the partner states' share.
 
