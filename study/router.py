@@ -128,11 +128,15 @@ def main():
           "Line planning (`vendor/dfw-transit/metro/lineplan.py`): after the full model prunes the greedy's pool, a "
           "local search on the same model improves the network as a whole: it merges downtown stubs into through lines, "
           "adds or swaps lines to reach unserved anchors, drops lines other lines make redundant, swaps a weak line for "
-          "a better version of its corridor and sets each line's headway, maximizing new daily trips less 1 trip per $M "
-          "of cost (the pruning's floor) less a penalty for each unserved anchor. Routes between centers also pass "
+          "a better version of its corridor and sets each line's headway, maximizing new daily trips less 2.5 trips a day "
+          "per $M of cost (capital plus 20 years' operating: the plan's floor, `study/urban_metros.py` PLAN_FLOOR, kept by "
+          "`study/fixed_point.md`) less a penalty for each unserved anchor. Lines that end near an airport terminal off "
+          "the road graph get variants with a spur to it (`metro/spurs.py`), lines ending downtown pay for a terminal "
+          "(`candidates.terminal_cost`), and each line's peak load is checked against its capacity at its headway. Routes between centers also pass "
           "anchors no center stands on (a campus beside downtown), and a corridor dense enough for metro where no "
-          "freeway or major arterial runs gets BRT on its street. The comparison above is against the networks before "
-          "the line planner when run with that folder. What's not done: turn penalties in the road router (edge-based "
+          "freeway or major arterial runs gets BRT on its street. The comparison above is against the folder it is run "
+          "with (here the networks before the final regeneration: floor 2.5, airport spurs, terminal costs, border "
+          "crossers, the crowding check, metro tunnels only in the densest core). What's not done: turn penalties in the road router (edge-based "
           "routing), and an exact integer program in place of the local search.", ""]
     with open(os.path.join(ROOT, "study", "router.md"), "w", encoding="utf-8") as fh:
         fh.write("\n".join(L))

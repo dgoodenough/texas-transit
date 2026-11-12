@@ -1,5 +1,0 @@
-center_id,name,kind,lat,lon,activity,pop,jobs,peak_density_per_km2,peak_job_density_per_km2
-T01,International / Cleveland,town,25.907387,-97.480082,58210,39765,18445,5927,1809
-T02,Van Buren / 6th Street,town,26.191733,-97.69064,48256,28247,20009,5102,2992
-T03,Robertson / Sam Houston,town,26.128133,-97.62986,15289,10327,4962,3839,1147
-T04,Dennett Road,town,25.989399,-97.4931,9184,6614,2570,3007,748
