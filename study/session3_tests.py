@@ -54,11 +54,7 @@ def order_test(projects, budget, pop, dfw):
 
     def value(ps, o):
         ps = copy.deepcopy(ps)
-        for p in ps:
-            timing.ratio(p)
-            p["start"] = p["open"] = None   # a dependency later in the order counts as not open
-        by = {p["id"]: p for p in ps}
-        _, spend = timing.schedule(ps, budget, order=[by[i] for i in o if i in by])
+        _, spend = timing.schedule_in_order(ps, budget, o)
         return timing.pv_net(ps, spend, pop, dfw)
     ps = stressed(projects)
     for p in ps:

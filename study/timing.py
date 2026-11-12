@@ -813,10 +813,7 @@ def main():
         ps = copy.deepcopy(projects)
 
         def in_order(q):
-            by = {p["id"]: p for p in q}
-            for p in q:
-                p["start"] = p["open"] = None   # a project's dependency may come later in the order
-            return schedule(q, budget, order=[by[i] for i in order if i in by])
+            return schedule_in_order(q, budget, order)
         built, spend = settle(ps, in_order)
         rows = yearly(ps, spend, pop, dfw)
         for r in rows:
@@ -845,6 +842,37 @@ def pv_net(projects, spend, pop, dfw):
     return sum((r["benefit"] + r["wider"] + r["fares"] - r["opex"]) / 1.03 ** (r["year"] - YEARS[0]) for r in rows)
 
 
+def topo_order(ids, by):
+    """`ids` with every project after the ones it depends on (`after`), otherwise in the given order: a move
+    that puts a branch before its trunk keeps the branch's place relative to everything else."""
+    out, placed, waiting = [], set(), []
+
+    def ready(i):
+        return all(d in placed or d not in by for d in by[i]["after"])
+    for i in ids:
+        if i not in by:
+            continue
+        waiting.append(i)
+        moved = True
+        while moved:
+            moved = False
+            for w in list(waiting):
+                if ready(w):
+                    out.append(w)
+                    placed.add(w)
+                    waiting.remove(w)
+                    moved = True
+    return out + waiting
+
+
+def schedule_in_order(projects, budget, order):
+    """schedule() in a given order, made consistent (topo_order) and from a clean slate."""
+    by = {p["id"]: p for p in projects}
+    for p in projects:
+        p["start"] = p["open"] = None
+    return schedule(projects, budget, order=[by[i] for i in topo_order(order, by)])
+
+
 def optimize_order(projects, budget, pop, dfw, iters=OPT_ITERS, seed=OPT_SEED, log=print):
     """Local search over the build order (study/hsr_buildout.md, Phase 2, the mathematician's scheduling
     task): start from best ratio first and try swapping two projects or moving one earlier, keeping a
@@ -866,8 +894,8 @@ def optimize_order(projects, budget, pop, dfw, iters=OPT_ITERS, seed=OPT_SEED, l
         return r
     order = [p["id"] for p in sorted(ps, key=lambda p: -prio(p))]
 
-    def value(o):
-        _, spend = schedule(ps, budget, order=[by[i] for i in o])
+    def value(o):   # each order scheduled from a clean slate, dependencies first (no stale opening years)
+        _, spend = schedule_in_order(ps, budget, o)
         return pv_net(ps, spend, pop, dfw)
     best = base = value(order)
     n = len(order)
@@ -965,9 +993,7 @@ def optimizer_section(runs, budget, pop, dfw):
     ps = copy.deepcopy(g["projects"])
     by = {p["id"]: p for p in ps}
     greedy = {p["id"]: p.get("open") for p in g["projects"]}
-    for p in ps:
-        p["start"] = p["open"] = None
-    schedule(ps, budget, order=[by[i] for i in order])
+    schedule_in_order(ps, budget, order)
     moved = [((greedy[p["id"]] or 2101) - (p.get("open") or 2101), p) for p in ps
              if (greedy[p["id"]] or 2101) != (p.get("open") or 2101)]
     L = ["## Is best ratio first good enough?", "",
