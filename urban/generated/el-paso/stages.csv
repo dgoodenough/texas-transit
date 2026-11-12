@@ -1,1 +1,7 @@
 line_id,stage,kind,from_stop,to_stop,year_opens,until_year,via_line,headway_min,locked,note
+G01,1,starter,N0001,N0009,2027,,,,,"draft: the whole line, Wigwam Museum to Sierra Medical Center"
+G02,1,starter,N0010,N0016,2035,,,,,"draft: the whole line, University Medical Center-East to Nonap / Mark Twain"
+G03,1,starter,N0017,N0035,2047,,,,,"draft: the whole line, John Hayes / Pebble Hills to El Paso Airport"
+G04,1,starter,N0010,N0048,2059,,,,,"draft: the whole line, University Medical Center-East to Rushing / Fairbanks"
+G05,1,starter,N0001,N0010,2063,,,,,"draft: the whole line, Wigwam Museum to University Medical Center-East"
+G06,1,starter,N0017,N0016,2069,,,,,"draft: the whole line, John Hayes / Pebble Hills to Nonap / Mark Twain"

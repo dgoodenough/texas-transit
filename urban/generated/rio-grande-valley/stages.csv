@@ -1,1 +1,4 @@
 line_id,stage,kind,from_stop,to_stop,year_opens,until_year,via_line,headway_min,locked,note
+G01,1,starter,N0001,N0010,2093,,,,,"draft: the whole line, Colonel Rowe / Trenton to PSJA Stadium"
+G02,1,starter,N0011,N0029,2094,,,,,"draft: the whole line, Border / 6th Street to Shary / Griffin"
+G03,1,starter,N0030,N0039,2094,,,,,"draft: the whole line, Sam Houston / Fir to McColl / Olmo"
