@@ -53,6 +53,7 @@ After the pruning, a local search on the full model (metro/lineplan.py) improves
 
 - Round 1: R001 every 6 min (was 8) (J +256)
 - Round 1: R002 every 6 min (was 8) (J +141)
+- Crowding (the full model's loads in 2050, peak hour, peak direction): no line over capacity.
 
 ## 3. Chosen lines
 
