@@ -8,8 +8,8 @@ The plan: best ratio first $194.9B, the whole map $219.2B.
 
 | | Best ratio first's order | Optimized order | Gain |
 |---|---|---|---|
-| As planned | $193.9B | $202.5B | $8.6B (+4.4%) |
-| Under the stress (cost x1.45, riders x0.70) | $88.9B | $90.3B | $1.4B (+1.6%) |
+| As planned | $193.9B | $202.4B | $8.5B (+4.4%) |
+| Under the stress (cost x1.45, riders x0.70) | $96.2B | $103.0B | $6.8B (+7.1%) |
 
 **The gain holds under the stress**: the optimized order is better when the numbers come in worse too, so the governor's condition is met.
 
@@ -30,11 +30,12 @@ Every metro line's land-tax bonds halved: best ratio first $192.0B, $-2.9B again
 
 | The whole map | PV | Branches open (the last) | Most km building at once |
 |---|---|---|---|
-| The plan: uncapped, with learning | $219.2B | 8 (2069) | 1,654 |
-| Uncapped, no learning (no steady office) | $219.2B | 8 (2069) | 1,654 |
-| Capped at 800 km, with learning (the steady office) | $212.4B | 8 (2093) | 797 |
+| The plan: uncapped, no learning by build order | $219.2B | 8 (2069) | 1,654 |
+| Capped at 800 km, learning by build order (the steady office) | $217.1B | 8 (2084) | 796 |
 
-**The cap doesn't pay for itself** even with the learning credited only to it: $-6.8B against the uncapped whole map without learning.
+The learning saves $33.2B of high-speed capital under the cap.
+
+**The cap doesn't pay for itself** even with the learning credited only to it: $-2.1B against the uncapped whole map without learning.
 
 ## Item 11: every metro at Texas's growth
 
@@ -61,7 +62,7 @@ Flores-Harry Wurzbach BRT (S416) as metro on its alignment, against BRT, on the 
 
 | | Daily trips, the metro | Its capital | Its operating cost a year |
 |---|---|---|---|
-| BRT (the plan) | 348,271 | $0.8B | $0M |
-| Metro | 366,440 | $4.5B | $0M |
+| BRT (the plan) | 348,271 | $0.8B | $25M |
+| Metro | 366,440 | $4.5B | $49M |
 
-Metro adds 18,169 daily trips, 4.94 per $M of extra capital and 20 years' operating: the line planner's J +8,976. **Upgrade it**: rail clears the plan's floor of 2.5.
+Metro adds 18,169 daily trips, 4.36 per $M of extra capital and 20 years' operating: the line planner's J +7,743. **Upgrade it**: rail clears the plan's floor of 2.5.
