@@ -268,7 +268,7 @@ Promise.all([fetch("data/map.json").then(r => r.json()), fetch("data/timeline.js
       + ": " + ids.map(id => `${WPN[id] || id} ${w[id][1]}`).join(", ");
   }
   const NOTES = {
-    ratio: "Every project in one queue, best ratio first. The Triangle's high-speed lines come early (Austin–San Antonio and Texas Central 2033); under a third of the metro lines open by 2050; Laredo, Lubbock, Amarillo and El Paso are never reached.",
+    ratio: "Every project in one queue, best ratio first, then reordered by a search over the build order where that buys more (adopted in the cabinet's third session: it gains about 4%, and still gains when costs run 45% over and riders 30% under). The Triangle's high-speed lines come first; each metro's lines open as their value earns a place.",
     whole_map: "The cabinet's plan (study/hsr_buildout.md): high-speed rail built the way a permanent delivery office would, cheaper over time, thin legs to lighter standards, a federal match on the track in Texas, and, as in every plan here, the neighbouring states paying for the track in theirs with the federal money that comes with it. The branches have their own ring-fenced money (an eighth of a cent of sales tax plus the busier lines' operating surplus), so they never take a metro line's place, and a branch starts only once the line it hangs off has run three years. " + wholeMapYears() + ".",
     metros_first: `Each metro gets its own stream, its share of the budget at DFW's rate spread over ${T.metro_years} years from 2025, and builds its lines in order. Intercity rail takes the rest. The metros finish decades sooner; the high-speed lines open 10-15 years later.`};
   function useScenario(key) {

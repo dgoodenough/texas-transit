@@ -23,6 +23,7 @@ study/session3_tests.md and study/session3_tests.json.
 """
 import copy
 import json
+import math
 import os
 import sys
 
@@ -139,8 +140,11 @@ def s416_test():
             net = output.load_net(t, cfg, mode)
             res = model.run_future(ctx, net, 2050, want_loads=True)
             ln = net.lines[lid]
+            from metro import candidates
+            n = len(ln.stop_ids)
+            stops = [(i * ln.km / max(n - 1, 1), None, None) for i in range(n)]
             out[mode] = {"trips": res["daily_trips"], "capital": net.line_cost_musd(ln),
-                         "opex": net.opex_musd(2050).get(lid, 0.0), "name": ln.name}
+                         "opex": candidates.opex_musd(cfg, mode, stops, 6 if mode == "brt" else 8), "name": ln.name}
     b, mtr = out["brt"], out["metro"]
     d_trips, d_cap, d_opex = mtr["trips"] - b["trips"], mtr["capital"] - b["capital"], mtr["opex"] - b["opex"]
     floor = urban_metros.PLAN_FLOOR
@@ -201,26 +205,38 @@ def main():
           "open later or not at all.", ""]
 
     print("pipeline and learning ...")
-    no_learn = timing.hsr_cost_ratio("central", False)
-    wm_nl = copy.deepcopy(wm)
-    for p in wm_nl:
-        if p["id"] in no_learn:
-            p["capital"] *= no_learn[p["id"]]
-    a = s2.run(copy.deepcopy(wm_nl), lambda q: timing.whole_map(q, budget, pop), pop, dfw)
+    # the whole map costs each corridor with only the corridors it hangs off built before it, so it credits
+    # almost no learning; here the learning curve (texas/hsr.py learning_factor: 10% cheaper a doubling past
+    # 500 km, at most 25%) is applied by the km built statewide before each corridor starts, in the schedule's own
+    # order, and only where the steady office that earns it exists (the cap)
+    def learned(ps, fn, rounds=2):
+        m = s2.run(copy.deepcopy(ps), fn, pop, dfw)
+        for _ in range(rounds):
+            hs = sorted((p for p in m["projects"] if p["layer"] == "hsr" and p.get("start")), key=lambda p: p["start"])
+            f, cum = {}, 0.0
+            for p in hs:
+                f[p["id"]] = 1.0 if cum <= 500 else max(0.75, 0.9 ** math.log2(cum / 500))
+                cum += p.get("km", 0.0)
+            ps2 = copy.deepcopy(ps)
+            for p in ps2:
+                p["capital"] *= f.get(p["id"], 1.0)
+            m = s2.run(ps2, fn, pop, dfw)
+        m["learning_saved"] = sum(p["capital"] * (1 - f.get(p["id"], 1.0)) for p in ps if p["id"] in f)
+        return m
+    a = s2.run(copy.deepcopy(wm), lambda q: timing.whole_map(q, budget, pop), pop, dfw)
     timing.PIPELINE_KM = 800
     try:
-        b = s2.run(copy.deepcopy(wm), lambda q: timing.whole_map(q, budget, pop), pop, dfw)
+        b = learned(wm, lambda q: timing.whole_map(q, budget, pop))
     finally:
         timing.PIPELINE_KM = None
     res["pipeline"] = {"uncapped_no_learning": a["pv"], "capped_learning": b["pv"]}
     L += ["## Item 7: the steady pipeline, with the learning only under it", "",
           "| The whole map | PV | Branches open (the last) | Most km building at once |", "|---|---|---|---|",
-          f"| The plan: uncapped, with learning | {B(base['whole_map']['pv'])} | {base['whole_map']['branches']} "
-          f"({base['whole_map']['last_branch'] or 'not all'}) | {base['whole_map']['peak_km_building']:,.0f} |",
-          f"| Uncapped, no learning (no steady office) | {B(a['pv'])} | {a['branches']} ({a['last_branch'] or 'not all'}) | "
+          f"| The plan: uncapped, no learning by build order | {B(a['pv'])} | {a['branches']} ({a['last_branch'] or 'not all'}) | "
           f"{a['peak_km_building']:,.0f} |",
-          f"| Capped at 800 km, with learning (the steady office) | {B(b['pv'])} | {b['branches']} ({b['last_branch'] or 'not all'}) | "
+          f"| Capped at 800 km, learning by build order (the steady office) | {B(b['pv'])} | {b['branches']} ({b['last_branch'] or 'not all'}) | "
           f"{b['peak_km_building']:,.0f} |", "",
+          f"The learning saves {B(b['learning_saved'])} of high-speed capital under the cap.", "",
           (f"**The cap pays for itself** once the learning is credited only to the steady office: {B(b['pv'] - a['pv'])} "
            "more than the uncapped whole map without it." if b["pv"] > a["pv"] else
            f"**The cap doesn't pay for itself** even with the learning credited only to it: {B(b['pv'] - a['pv'])} against "

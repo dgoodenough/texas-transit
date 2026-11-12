@@ -807,6 +807,22 @@ def main():
         runs[key] = {"projects": ps, "built": built, "rows": rows}
     print("optimizing the order ...")
     runs["optimized"] = optimize_order(projects, budget, pop, dfw)
+    if ADOPT_ORDER:   # the plan's main schedule in the optimized order (study/third_session.md item 3; its gain held
+        order = runs["optimized"][0]   # under the stress: study/session3_tests.md)
+        runs["greedy"] = runs["ratio"]
+        ps = copy.deepcopy(projects)
+
+        def in_order(q):
+            by = {p["id"]: p for p in q}
+            for p in q:
+                p["start"] = p["open"] = None   # a project's dependency may come later in the order
+            return schedule(q, budget, order=[by[i] for i in order if i in by])
+        built, spend = settle(ps, in_order)
+        rows = yearly(ps, spend, pop, dfw)
+        for r in rows:
+            r["net"] = r["benefit"] + r["wider"] + r["fares"] - r["opex"]
+            r["net_users"] = r["benefit"] + r["fares"] - r["opex"]
+        runs["ratio"] = {"projects": ps, "built": built, "rows": rows}
     print("what it takes ...")
     runs["takes"] = what_it_takes(runs, budget, pop)
     print("levers ...")
@@ -819,6 +835,7 @@ def main():
 
 P90_COST = math.exp(1.2816 * 0.26)   # a P90 cost overrun at RISK_SIGMA["cost"]
 OPT_ITERS, OPT_SEED = 4000, 7
+ADOPT_ORDER = True   # best ratio first's projects in the search's order (study/third_session.md, item 3)
 
 
 def pv_net(projects, spend, pop, dfw):
@@ -944,9 +961,12 @@ def optimizer_section(runs, budget, pop, dfw):
     if not runs.get("optimized"):
         return []
     order, base, best = runs["optimized"]
-    ps = copy.deepcopy(runs["ratio"]["projects"])
+    g = runs.get("greedy", runs["ratio"])
+    ps = copy.deepcopy(g["projects"])
     by = {p["id"]: p for p in ps}
-    greedy = {p["id"]: p.get("open") for p in runs["ratio"]["projects"]}
+    greedy = {p["id"]: p.get("open") for p in g["projects"]}
+    for p in ps:
+        p["start"] = p["open"] = None
     schedule(ps, budget, order=[by[i] for i in order])
     moved = [((greedy[p["id"]] or 2101) - (p.get("open") or 2101), p) for p in ps
              if (greedy[p["id"]] or 2101) != (p.get("open") or 2101)]
@@ -959,8 +979,22 @@ def optimizer_section(runs, budget, pop, dfw):
          "| Project | Opens: best ratio first | Optimized |", "|---|---|---|"]
     for d, p in sorted(moved, key=lambda x: -abs(x[0]))[:12]:
         L.append(f"| {label(p)} | {greedy[p['id']] or 'not by 2100'} | {p.get('open') or 'not by 2100'} |")
-    L += ["", ("The gain is small: best ratio first stays the plan's rule, and the search is a check on it." if best / base - 1 < 0.03
-               else "The gain is large enough that the plan should consider scheduling by the optimized order."), ""]
+    L += ["", ("**The plan builds in the optimized order** (the third session, item 3: the gain held under the Auditor's "
+               "stress, `study/session3_tests.md`): its main schedule is best ratio first improved by this search, and "
+               "every \"best ratio first\" figure in this study is for that order. Each metro's first line, both ways:" if ADOPT_ORDER
+               else ("The gain is small: best ratio first stays the plan's rule, and the search is a check on it." if best / base - 1 < 0.03
+                     else "The gain is large enough that the plan should consider scheduling by the optimized order.")), ""]
+    if ADOPT_ORDER:
+        first = {}
+        for p in ps:
+            if p["layer"] == "urban":
+                f = first.setdefault(p["metro_name"], [9999, 9999])
+                f[0] = min(f[0], greedy[p["id"]] or 9999)
+                f[1] = min(f[1], p.get("open") or 9999)
+        L += ["| Metro | First line: best ratio first's order | The optimized order |", "|---|---|---|"]
+        for mname, (a, b) in sorted(first.items(), key=lambda kv: kv[1][1]):
+            L.append(f"| {mname} | {a if a < 9999 else 'not by 2100'} | {b if b < 9999 else 'not by 2100'} |")
+        L.append("")
     return L
 
 
