@@ -233,6 +233,24 @@ def main():
     write(base, tests)
 
 
+def best_first(base):
+    """Item 25: in each metro, does its best line (the highest ratio) open first, or in the first year any opens?"""
+    out = {}
+    for k, b in base.items():
+        by = {}
+        for p in b["projects"]:
+            if p["layer"] == "urban" and p.get("open"):
+                by.setdefault(p["metro_name"], []).append(p)
+        late = []
+        for metro, ps in sorted(by.items()):
+            best = max(ps, key=lambda p: p["bcr"])
+            first = min(p["open"] for p in ps)
+            if best["open"] > first:
+                late.append(f"{metro.split(',')[0].split('-')[0]} ({best['open']}, the first line {first})")
+        out[k] = (len(by), late)
+    return out
+
+
 def write(base, tests):
     B = lambda v: f"${v / 1e3:,.1f}B"  # noqa: E731
     label = {"ratio": "best ratio first", "metros_first": "metros first", "whole_map": "the whole map"}
@@ -252,6 +270,11 @@ def write(base, tests):
         L.append(f"| {item} | {name} | {label[k]} | {B(m['pv'])} | {B(m['pv'] - b['pv'])} | "
                  f"{m['metro_2050'] / 1e6:.2f}M / {m['metro_2100'] / 1e6:.2f}M | {m['branches']} of 7 "
                  f"({m['last_branch'] or 'not all'}) | {B(m['spent'])} | {note} |")
+    L.append("")
+    L += ["**Item 25: does each metro's best line open first?** (the line with the highest ratio opens in the first year "
+          "any of that metro's lines does)", ""]
+    for k, (n, late) in best_first(base).items():
+        L.append(f"- {label[k]}: in {n - len(late)} of {n} metros" + (". Not in " + "; ".join(late) if late else "") + ".")
     L.append("")
     with open(os.path.join(ROOT, "study", "session2_tests.md"), "w", encoding="utf-8") as f:
         f.write("\n".join(L))
