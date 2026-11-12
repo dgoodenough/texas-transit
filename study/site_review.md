@@ -113,7 +113,7 @@ announce. Legends that rely on colour alone now also say "each line in its own c
   Antonio → Dallas, Houston → McAllen).
 
 **The metro pages**
-- Open in 2050.
+- Open in 2050 (the Valley's in 2093, its first year: see below).
 - The diagram's "Waterways" legend row is hidden where the region has no rivers or lakes to draw.
 
 ## Not done, and why
@@ -122,6 +122,11 @@ announce. Legends that rely on colour alone now also say "each line in its own c
   the tangle; a separate dot layer would add a fourth way of drawing a metro.
 - **Full metro pages for the 19 smaller metros.** Most have one or two lines; the plan's metro panel shows them, and
   Find your metro sends readers there.
+- **The Valley's page covers only 2093-2100.** A metro page runs from the first year every schedule has a line open
+  (a year with no station has nothing to model), and best ratio first opens the Valley's first line in 2093, so
+  "Metros first" and "The whole map" can't show the Valley's earlier years there; the statewide map and the plan
+  do. A year grid per schedule would fix it, in dfw-transit's page builder. It goes away if the governor gives the
+  Valley an earlier first line (below).
 - **Inline definitions** (a tap on "BRT" anywhere) would mean touching every sentence; the glossary is one link away
   from the top bar.
 
