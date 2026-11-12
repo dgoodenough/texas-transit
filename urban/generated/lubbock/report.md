@@ -53,6 +53,7 @@ Mode rule (people + jobs within 800 m per route-km): metro >= 7,000 (6-45 km), s
 After the pruning, a local search on the full model (metro/lineplan.py) improves the network as a whole: J = new daily trips - 2.5 x ($M of capital + opex over the valuation years) - 1,000 for each must-serve anchor without a station. From 1 lines, 12,155 daily trips, $0.7B and 0 anchors unserved to 1 lines, 13,718 daily trips, $0.7B and 0 unserved (J +1,330).
 
 - Round 1: R002 every 6 min (was 8) (J +1,330)
+- Crowding (the full model's loads in 2050, peak hour, peak direction): no line over capacity.
 
 ## 3. Chosen lines
 
@@ -68,8 +69,8 @@ Chosen by the full model (metro/modelselect.py): the sketch drew a pool of 1 lin
 
 | candidate | mode | km | new trips/day | trips per $M | reason |
 |---|---|---|---|---|---|
-| R003 Texas Tech University - Frankford / 114th Street | brt | 11.7 | 119 | 0.21 | duplicate: 100% of it within 400 m of chosen line R002 (Avenue L / Avenue K - Frankford / 114th Street), 0.0 km of its own |
-| R001 Avenue L / Avenue K - Texas Tech University | metro | 6.8 | 506 | 0.17 | duplicate: 67% of it within 400 m of chosen line R002 (Avenue L / Avenue K - Frankford / 114th Street), 2.3 km of its own |
+| R003 Texas Tech University - Frankford / 114th Street | brt | 11.7 | 119 | 0.20 | duplicate: 100% of it within 400 m of chosen line R002 (Avenue L / Avenue K - Frankford / 114th Street), 0.0 km of its own |
+| R001 Avenue L / Avenue K - Texas Tech University | metro | 6.8 | 506 | 0.16 | duplicate: 67% of it within 400 m of chosen line R002 (Avenue L / Avenue K - Frankford / 114th Street), 2.3 km of its own |
 
 0 paths had no mode: .
 

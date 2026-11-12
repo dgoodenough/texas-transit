@@ -1,2 +1,2 @@
 line_id,name,mode,status,color,headway_min,notes
-G01,Staples / Saratoga - Violet / Leopard BRT,brt,proposed,#8e24aa,6,"generated (R005): 3,715 per route-km >= BRT 3,000 (< metro 7,000); full model: 16,301 new daily trips in 2050 (10.01 per $M incl. opex; 16,301 lost without it, 16,301 alone); sketch: 1,644 new daily trips for $0.66B capital (1.73 per $M incl. opex); extends R001"
+G01,Staples / Saratoga - Violet / Leopard BRT,brt,proposed,#8e24aa,6,"generated (R005): 3,715 per route-km >= BRT 3,000 (< metro 7,000); full model: 16,301 new daily trips in 2050 (10.01 per $M incl. opex; 16,301 lost without it, 16,301 alone); sketch: 1,644 new daily trips for $0.64B capital (1.78 per $M incl. opex); extends R001"
