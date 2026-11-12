@@ -192,3 +192,38 @@ is 'what happens when the costs come in high?' The answer has to be in the plan,
 4. **The public face** (items 8, 12): the parity review, then the site in its phases.
 
 Items 1, 4, 9 and 10 are adopted now; the plan reports them, and the tests above don't wait for them.
+
+## What came of it
+
+Every number is from the plan as it now stands (`study/timing.md`, `study/session3_tests.md`,
+`study/decade_review.md`). The adoptions changed the plan itself:
+
+| Schedule | Before the session | After | With half the wider benefits |
+|---|---|---|---|
+| Best ratio first (now in the optimized order) | $192.5B | **$202.4B** | $161.0B |
+| Metros first | $167.3B | $171.2B | $128.9B |
+| The whole map | $218.0B | **$219.2B** | $172.0B |
+
+The tests below compare against best ratio first in its own order ($194.9B with the bonds and the Gulf spine), as
+the second session's did.
+
+| # | Item | Answer | What came of it |
+|---|---|---|---|
+| 1 | The binding stress gate | Adopted | The decade review now says, for every corridor and metro line, how much better than today's estimate its numbers must come in to pass. Of the metro lines, 1 of 80 passes as estimated (I-35-San Jacinto BRT); the median of the rest needs costs 48% under the estimate or riders 91% over it. No high-speed corridor passes; at the whole map's costs Texas Central needs costs 29% under the estimate or riders 42% over |
+| 2 | The plan with half the wider benefits | Adopted | In `study/timing.md` beside the headline and on the site's story and plan pages: $161.0B best ratio first, $128.9B metros first, $172.0B the whole map |
+| 3 | The optimized build order | **Adopted**: the condition was met | +$8.5B as planned (+4.4%) and +$6.8B under the stress (+7.1%): the order is better when the numbers come in worse too. The plan's main schedule now builds in it. Every metro's first line opens the same year or earlier (Lubbock and Amarillo 2027, not 2037; the Valley 2046, not 2060). Testing it found a flaw in the search: it valued an order with opening years left over from its previous try, so an order putting a branch before its trunk looked better than it schedules; fixed (`timing.topo_order`) before the result above |
+| 4 | Doubled station-area bonds where the metro outgrows Texas | Adopted | +$2.4B (Austin, Houston, San Antonio, Odessa) |
+| 5 | An operating endowment from 2050 | Tested: **not worth it before 2085** | Banking 10% of the budget from 2050 costs $3.5B of value (best ratio first) and pays only 20% of the 2050-2100 operating gap; under the whole map it costs $0.4B and pays 17%. Nothing is left in 2100 either way. The gap grows faster than a share of the budget can fill it; the whole map's own endowment from 2085, when building stops, remains the better instrument (second session, item 5) |
+| 6 | Half the land-tax revenue | Tested | −$2.9B and $11.9B more spent from the statewide budget: the lines it delays, not their value. The plan keeps the full estimate and the doubled bonds; Finance's caution is the sensitivity |
+| 7 | An 800 km pipeline, crediting the learning only to it | Tested: **the cap still doesn't pay** | Credited by build order, the learning curve saves $33.2B of high-speed capital under the cap, but the capped whole map is still $2.1B behind the uncapped one, and its last branch opens in 2084 instead of 2069. Closer than the second session's −$6.3B, but the plan stays uncapped. (The test also found that the whole map's own costs credit almost no learning: each corridor is costed with only its parents built before it.) |
+| 8 | The whole map at today's costs on the site | Adopted (already there) | The plan page's levers switch high-speed costs between "as built today" and "a delivery office that learns" |
+| 9 | The Gulf spine as higher-speed rail early | Adopted | Houston - Victoria - Corpus Christi is in the Connectivity Program as 200 km/h single track: under the whole map all eight program corridors are open by 2069 (the seven before: 2085) |
+| 10 | No line until its station districts are zoned | Adopted as policy | In the decade review with item 1 |
+| 11 | Every metro at Texas's growth | Tested | −$13.6B and 3.30M new daily metro trips in 2100 instead of 4.89M. Austin depends most on its own growth (−27% riders in 2050), Houston and San Antonio less (−7%, −5%); the metros growing slower than Texas gain (El Paso +18%, Corpus Christi +34%). The plan's metro numbers rest on trend growth, and Austin's most of all |
+| 12 | DFW's site for every metro, and a statewide trip planner | Adopted and built | All five phases of `study/site_parity.md`: agency-style names, a DFW-style map page for each big metro, the statewide trip planner and line panel, the story page, and editable tables with DFW's validator |
+| 13 | San Antonio's S416 as rail | Tested: **upgrade it** | As metro on its alignment it adds 18,169 daily trips in 2050 for $3.7B more capital and $24M a year more to run: 4.36 trips per $M, over the plan's floor of 2.5 (the line planner's J +7,743). To apply at San Antonio's next regeneration |
+| 14 | The cross-border line | Referred | To CBP and the municipio of Juárez; no state money until the inspection station and the queue are settled |
+
+**What the governor has left to decide:** whether to cap the pipeline anyway, for deliverability, at $2.1B (item 7);
+and whether the plan should be presented at state-rate growth, which takes $13.6B and a third of the 2100 metro riders
+off the headline but survives a hearing on Austin's 3.8 times (item 11).

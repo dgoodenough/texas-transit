@@ -1,1 +1,20 @@
 line_id,from_year,headway_min,note
+G01,2027,6,draft: the line planner's headway
+G02,2027,6,draft: the line planner's headway
+G03,2027,8,draft: the mode's default headway
+G04,2027,8,draft: the mode's default headway
+G05,2046,8,draft: the mode's default headway
+G06,2047,8,draft: the mode's default headway
+G07,2047,12,draft: the line planner's headway
+G08,2058,6,draft: the mode's default headway
+G09,2059,4,draft: the line planner's headway
+G10,2059,8,draft: the mode's default headway
+G11,2062,4,draft: the line planner's headway
+G12,2062,4,draft: the line planner's headway
+G13,2062,8,draft: the mode's default headway
+G14,2065,4,draft: the line planner's headway
+G15,2068,8,draft: the mode's default headway
+G16,2074,8,draft: the mode's default headway
+G17,2074,8,draft: the mode's default headway
+G18,2074,8,draft: the mode's default headway
+G19,2074,8,draft: the mode's default headway

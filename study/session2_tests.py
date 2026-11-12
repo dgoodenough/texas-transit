@@ -51,7 +51,7 @@ def run(ps, fn, pop, dfw):
     return metrics(ps, rows, spend, pop, dfw)
 
 
-BRANCHES = list(finance.CONNECTIVITY)   # the plan's seven, whatever a test adds to the program
+BRANCHES = list(finance.CONNECTIVITY)   # the plan's program, whatever a test adds to it
 
 
 def metrics(ps, rows, spend, pop, dfw):
@@ -185,23 +185,24 @@ def main():
                   f"pays {forever:.0%} of 2100's gap for good"))
 
     print("gulf spine ...")
-    saved_c, saved_s = list(finance.CONNECTIVITY), dict(timing.WHOLE_MAP_HSR["standards"])
-    try:
-        finance.CONNECTIVITY.append("hsr:CC")
-        timing.WHOLE_MAP_HSR["standards"]["CC"] = "S4"
-        wm2 = timing.whole_map_projects(projects, log=lambda *a: None)
-        m = run(wm2, lambda q: timing.whole_map(q, budget, pop), pop, dfw)
-        cc = next(p for p in m["projects"] if p["id"] == "hsr:CC")
-        m["note_cc"] = cc.get("open")
-    finally:
-        finance.CONNECTIVITY[:] = saved_c
-        timing.WHOLE_MAP_HSR["standards"].clear()
-        timing.WHOLE_MAP_HSR["standards"].update(saved_s)
-    b_cc = next((p.get("open") for p in base["whole_map"]["projects"] if p["id"] == "hsr:CC"), None)
-    tests.append(("20", "Houston - Corpus Christi in the program as higher-speed rail first", "whole_map", m,
-                  f"Corpus Christi opens {m['note_cc']} (the plan: {b_cc}); the Valley {m['branch_years'].get('hsr:VALLEY')} "
-                  f"(the plan: {base['whole_map']['branch_years'].get('hsr:VALLEY')}), McAllen "
-                  f"{m['branch_years'].get('hsr:MFE')} (the plan: {base['whole_map']['branch_years'].get('hsr:MFE')})"))
+    if "hsr:CC" not in finance.CONNECTIVITY:   # adopted in the third session (study/third_session.md, item 9): then the plan has it
+        saved_c, saved_s = list(finance.CONNECTIVITY), dict(timing.WHOLE_MAP_HSR["standards"])
+        try:
+            finance.CONNECTIVITY.append("hsr:CC")
+            timing.WHOLE_MAP_HSR["standards"]["CC"] = "S4"
+            wm2 = timing.whole_map_projects(projects, log=lambda *a: None)
+            m = run(wm2, lambda q: timing.whole_map(q, budget, pop), pop, dfw)
+            cc = next(p for p in m["projects"] if p["id"] == "hsr:CC")
+            m["note_cc"] = cc.get("open")
+        finally:
+            finance.CONNECTIVITY[:] = saved_c
+            timing.WHOLE_MAP_HSR["standards"].clear()
+            timing.WHOLE_MAP_HSR["standards"].update(saved_s)
+        b_cc = next((p.get("open") for p in base["whole_map"]["projects"] if p["id"] == "hsr:CC"), None)
+        tests.append(("20", "Houston - Corpus Christi in the program as higher-speed rail first", "whole_map", m,
+                      f"Corpus Christi opens {m['note_cc']} (the plan: {b_cc}); the Valley {m['branch_years'].get('hsr:VALLEY')} "
+                      f"(the plan: {base['whole_map']['branch_years'].get('hsr:VALLEY')}), McAllen "
+                      f"{m['branch_years'].get('hsr:MFE')} (the plan: {base['whole_map']['branch_years'].get('hsr:MFE')})"))
 
     print("land tax ...")
     ps = copy.deepcopy(projects)
@@ -264,11 +265,11 @@ def write(base, tests):
     for k in ("ratio", "metros_first", "whole_map"):
         b = base[k]
         L.append(f"| | The plan: {label[k]} | | {B(b['pv'])} | | {b['metro_2050'] / 1e6:.2f}M / {b['metro_2100'] / 1e6:.2f}M | "
-                 f"{b['branches']} of 7 ({b['last_branch'] or 'not all'}) | {B(b['spent'])} | |")
+                 f"{b['branches']} of {len(BRANCHES)} ({b['last_branch'] or 'not all'}) | {B(b['spent'])} | |")
     for item, name, k, m, note in tests:
         b = base[k]
         L.append(f"| {item} | {name} | {label[k]} | {B(m['pv'])} | {B(m['pv'] - b['pv'])} | "
-                 f"{m['metro_2050'] / 1e6:.2f}M / {m['metro_2100'] / 1e6:.2f}M | {m['branches']} of 7 "
+                 f"{m['metro_2050'] / 1e6:.2f}M / {m['metro_2100'] / 1e6:.2f}M | {m['branches']} of {len(BRANCHES)} "
                  f"({m['last_branch'] or 'not all'}) | {B(m['spent'])} | {note} |")
     L.append("")
     L += ["**Item 25: does each metro's best line open first?** (the line with the highest ratio opens in the first year "

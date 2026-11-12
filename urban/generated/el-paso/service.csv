@@ -1,1 +1,7 @@
 line_id,from_year,headway_min,note
+G01,2027,6,draft: the line planner's headway
+G02,2035,6,draft: the line planner's headway
+G03,2047,6,draft: the line planner's headway
+G04,2059,6,draft: the line planner's headway
+G05,2063,4,draft: the line planner's headway
+G06,2069,8,draft: the mode's default headway

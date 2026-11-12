@@ -62,7 +62,8 @@ SCENARIOS = (("ratio", "Best ratio first"), ("metros_first", "Metros first"), ("
 # The whole map (study/hsr_buildout.md, Phase 2): central unit costs with the learning curve, the thin legs
 # built to lighter standards, and a ring-fenced Connectivity Program for the branches (texas/finance.py)
 WHOLE_MAP_HSR = {"case": "central", "learning": True, "drawn": True,
-                 "standards": {"OKC": "S2", "LRD": "S3", "VALLEY": "S3", "MFE": "S3", "BIGC": "S3", "PANH": "S4", "WEST": "S4"}}
+                 "standards": {"OKC": "S2", "LRD": "S3", "VALLEY": "S3", "MFE": "S3", "BIGC": "S3", "PANH": "S4", "WEST": "S4",
+                               "CC": "S4"}}   # the Gulf spine as 200 km/h single track first (study/third_session.md, item 9)
 UPGRADE_TRIPS = 3e6   # a leg built below full standard earns an upgrade at this many trips a year
 GATE_YEARS = 3        # a Connectivity Program branch starts only after its trunk has run this long (study/hsr_buildout.md)
 
@@ -192,6 +193,16 @@ def urban_trajectory(s):
     return base, traj, URBAN_BASE_YEAR
 
 
+BOND_MULT = 2.0   # station-area bonds where the metro outgrows Texas (study/third_session.md, item 4; session 2's item 26)
+
+
+def outgrows(metro_id):
+    """Does the metro grow faster than Texas to 2100 (its own model runs against the state's trend)?"""
+    pop = texas_pop()
+    a, b = metro_pop(metro_id, 2020), metro_pop(metro_id, 2100)
+    return bool(a and b and b / a > pop[2100] / pop[2020])
+
+
 def urban_projects():
     reg = json.load(open(os.path.join(ROOT, "urban", "metros.json"), encoding="utf-8"))
     out = []
@@ -212,6 +223,7 @@ def urban_projects():
         # the feeder buses the network adds (study/urban_metros.py), in the base year, shared out like the riders
         feeder = ((s.get("future") or {}).get(str(base_year)) or s).get("feeder_opex_musd", 0.0)
         dist = districts(m["id"], [r["cand_id"] for r in rows])
+        bond_mult = BOND_MULT if outgrows(m["id"]) else 1.0
         prev = None
         for r in rows:
             trips = model * share_of(r) / sketch if sketch else 0.0
@@ -220,7 +232,7 @@ def urban_projects():
             benefit = trips / URBAN_B_PER_DOLLAR * URBAN_DAYS / 1e6
             fares = trips * URBAN_FARE * URBAN_DAYS / 1e6
             pid = f"{m['id']}:{r['cand_id']}"
-            out.append({"id": pid, "layer": "urban", "metro": m["id"], "metro_name": m["name"].split(",")[0],
+            out.append({"id": pid, "layer": "urban", "metro": m["id"], "metro_name": m["name"].split(",")[0].split(" (")[0],
                         "name": r["name"], "mode": r["mode"], "km": float(r["km"]),
                         "capital": float(r["capital_musd"]),
                         "opex": float(r["opex_musd_yr"]) + max(feeder, 0.0) * (share_of(r) / sketch if sketch else 0.0),
@@ -229,7 +241,7 @@ def urban_projects():
                         "wider": trips * URBAN_WIDER_PER_TRIP * URBAN_DAYS / 1e6,
                         "agglom": benefit * BEN["agglomeration_share"]["urban"],
                         "district_pop": dp, "district_jobs": dj, "new_stations": dn,
-                        "land_tax_year": tax_year, "bond": min(bond, float(r["capital_musd"])),
+                        "land_tax_year": tax_year, "bond": min(bond * bond_mult, float(r["capital_musd"])),
                         "base_year": base_year, "traj": traj, "after": [prev] if prev else [], "build": BUILD_YEARS[r["mode"]]})
             prev = pid
     return out
@@ -795,6 +807,19 @@ def main():
         runs[key] = {"projects": ps, "built": built, "rows": rows}
     print("optimizing the order ...")
     runs["optimized"] = optimize_order(projects, budget, pop, dfw)
+    if ADOPT_ORDER:   # the plan's main schedule in the optimized order (study/third_session.md item 3; its gain held
+        order = runs["optimized"][0]   # under the stress: study/session3_tests.md)
+        runs["greedy"] = runs["ratio"]
+        ps = copy.deepcopy(projects)
+
+        def in_order(q):
+            return schedule_in_order(q, budget, order)
+        built, spend = settle(ps, in_order)
+        rows = yearly(ps, spend, pop, dfw)
+        for r in rows:
+            r["net"] = r["benefit"] + r["wider"] + r["fares"] - r["opex"]
+            r["net_users"] = r["benefit"] + r["fares"] - r["opex"]
+        runs["ratio"] = {"projects": ps, "built": built, "rows": rows}
     print("what it takes ...")
     runs["takes"] = what_it_takes(runs, budget, pop)
     print("levers ...")
@@ -807,6 +832,7 @@ def main():
 
 P90_COST = math.exp(1.2816 * 0.26)   # a P90 cost overrun at RISK_SIGMA["cost"]
 OPT_ITERS, OPT_SEED = 4000, 7
+ADOPT_ORDER = True   # best ratio first's projects in the search's order (study/third_session.md, item 3)
 
 
 def pv_net(projects, spend, pop, dfw):
@@ -814,6 +840,37 @@ def pv_net(projects, spend, pop, dfw):
     operating cost) of everything open, 2025-2100: what a schedule buys with the same budget."""
     rows = yearly(projects, spend, pop, dfw)
     return sum((r["benefit"] + r["wider"] + r["fares"] - r["opex"]) / 1.03 ** (r["year"] - YEARS[0]) for r in rows)
+
+
+def topo_order(ids, by):
+    """`ids` with every project after the ones it depends on (`after`), otherwise in the given order: a move
+    that puts a branch before its trunk keeps the branch's place relative to everything else."""
+    out, placed, waiting = [], set(), []
+
+    def ready(i):
+        return all(d in placed or d not in by for d in by[i]["after"])
+    for i in ids:
+        if i not in by:
+            continue
+        waiting.append(i)
+        moved = True
+        while moved:
+            moved = False
+            for w in list(waiting):
+                if ready(w):
+                    out.append(w)
+                    placed.add(w)
+                    waiting.remove(w)
+                    moved = True
+    return out + waiting
+
+
+def schedule_in_order(projects, budget, order):
+    """schedule() in a given order, made consistent (topo_order) and from a clean slate."""
+    by = {p["id"]: p for p in projects}
+    for p in projects:
+        p["start"] = p["open"] = None
+    return schedule(projects, budget, order=[by[i] for i in topo_order(order, by)])
 
 
 def optimize_order(projects, budget, pop, dfw, iters=OPT_ITERS, seed=OPT_SEED, log=print):
@@ -837,8 +894,8 @@ def optimize_order(projects, budget, pop, dfw, iters=OPT_ITERS, seed=OPT_SEED, l
         return r
     order = [p["id"] for p in sorted(ps, key=lambda p: -prio(p))]
 
-    def value(o):
-        _, spend = schedule(ps, budget, order=[by[i] for i in o])
+    def value(o):   # each order scheduled from a clean slate, dependencies first (no stale opening years)
+        _, spend = schedule_in_order(ps, budget, o)
         return pv_net(ps, spend, pop, dfw)
     best = base = value(order)
     n = len(order)
@@ -932,10 +989,11 @@ def optimizer_section(runs, budget, pop, dfw):
     if not runs.get("optimized"):
         return []
     order, base, best = runs["optimized"]
-    ps = copy.deepcopy(runs["ratio"]["projects"])
+    g = runs.get("greedy", runs["ratio"])
+    ps = copy.deepcopy(g["projects"])
     by = {p["id"]: p for p in ps}
-    greedy = {p["id"]: p.get("open") for p in runs["ratio"]["projects"]}
-    schedule(ps, budget, order=[by[i] for i in order])
+    greedy = {p["id"]: p.get("open") for p in g["projects"]}
+    schedule_in_order(ps, budget, order)
     moved = [((greedy[p["id"]] or 2101) - (p.get("open") or 2101), p) for p in ps
              if (greedy[p["id"]] or 2101) != (p.get("open") or 2101)]
     L = ["## Is best ratio first good enough?", "",
@@ -947,8 +1005,22 @@ def optimizer_section(runs, budget, pop, dfw):
          "| Project | Opens: best ratio first | Optimized |", "|---|---|---|"]
     for d, p in sorted(moved, key=lambda x: -abs(x[0]))[:12]:
         L.append(f"| {label(p)} | {greedy[p['id']] or 'not by 2100'} | {p.get('open') or 'not by 2100'} |")
-    L += ["", ("The gain is small: best ratio first stays the plan's rule, and the search is a check on it." if best / base - 1 < 0.03
-               else "The gain is large enough that the plan should consider scheduling by the optimized order."), ""]
+    L += ["", ("**The plan builds in the optimized order** (the third session, item 3: the gain held under the Auditor's "
+               "stress, `study/session3_tests.md`): its main schedule is best ratio first improved by this search, and "
+               "every \"best ratio first\" figure in this study is for that order. Each metro's first line, both ways:" if ADOPT_ORDER
+               else ("The gain is small: best ratio first stays the plan's rule, and the search is a check on it." if best / base - 1 < 0.03
+                     else "The gain is large enough that the plan should consider scheduling by the optimized order.")), ""]
+    if ADOPT_ORDER:
+        first = {}
+        for p in ps:
+            if p["layer"] == "urban":
+                f = first.setdefault(p["metro_name"], [9999, 9999])
+                f[0] = min(f[0], greedy[p["id"]] or 9999)
+                f[1] = min(f[1], p.get("open") or 9999)
+        L += ["| Metro | First line: best ratio first's order | The optimized order |", "|---|---|---|"]
+        for mname, (a, b) in sorted(first.items(), key=lambda kv: kv[1][1]):
+            L.append(f"| {mname} | {a if a < 9999 else 'not by 2100'} | {b if b < 9999 else 'not by 2100'} |")
+        L.append("")
     return L
 
 
@@ -1110,6 +1182,8 @@ def scenario_section(runs):
                    ("net_users", "Travellers' gain + fares - operating cost, present value"),
                    ("net", "All benefits + fares - operating cost, present value")):
         L.append(f"| {lab} | {money(pv(a['rows'], k))} | {money(pv(b['rows'], k))} |")
+    L.append(f"| The same with the wider benefits halved | {money(pv(a['rows'], 'net') - 0.5 * pv(a['rows'], 'wider'))} | "
+             f"{money(pv(b['rows'], 'net') - 0.5 * pv(b['rows'], 'wider'))} |")
     L += ["", "When the intercity lines open:", "", "| Line | Best ratio first | Metros first |", "|---|---|---|"]
     bw = {p["id"]: p for p in b["projects"]}
     for p in sorted((p for p in a["projects"] if p["layer"] != "urban"), key=lambda p: (p["open"] or 9999)):
@@ -1206,7 +1280,13 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
           f"daily metro transit trips ({last['dfw_trips_day']:,.0f} in DFW), {last['intercity_trips_year'] / 1e6:.0f}M intercity "
           f"rail trips a year, about {last['flights_day']:.0f} fewer flights a day, {money(last['benefit'])} a year of "
           f"travellers' gain and {money(last['wider'])} of wider benefits, and {money(last['opex'] - last['fares'])} a year "
-          "more to operate than fares bring in.", ""]
+          "more to operate than fares bring in.", "",
+          "**What it's worth, and with half the wider benefits** (the Auditor's figure, `study/third_session.md` item 2): the "
+          "present value in 2025 at 3% of the plan's net benefits 2025-2100 is "
+          + ", ".join(f"{money(pv(runs[k]['rows'], 'net'))} {lab.lower()}" for k, lab in SCENARIOS if k in runs)
+          + "; with the wider benefits halved (they're allowances, not modelled: `texas/benefits.json`), "
+          + ", ".join(f"{money(pv(runs[k]['rows'], 'net') - 0.5 * pv(runs[k]['rows'], 'wider'))}" for k, _ in SCENARIOS if k in runs)
+          + ".", ""]
     # how sure
     asc = runs.get("asc") or {}
     lo, hi = ic.load_params()["hsr"].get("asc_range", [None, None])
@@ -1359,7 +1439,9 @@ def write(runs, pop, dfw, plan, budget, dfw_tax_year):
                                    for p in runs["whole_map"]["projects"] if p["layer"] == "hsr"],
             "scenarios": {key: {"label": lab,
                                 "when": {p["id"]: [p["start"], p["open"]] for p in runs[key]["projects"] if p.get("open")},
-                                "yearly": [rnd(r, 1) for r in runs[key]["rows"]]}
+                                "yearly": [rnd(r, 1) for r in runs[key]["rows"]],
+                                "pv": round(pv(runs[key]["rows"], "net")),
+                                "pv_half_wider": round(pv(runs[key]["rows"], "net") - 0.5 * pv(runs[key]["rows"], "wider"))}
                           for key, lab in SCENARIOS}}
     with open(os.path.join(ROOT, "docs", "data", "timeline.json"), "w", encoding="utf-8") as f:
         json.dump(data, f, separators=(",", ":"))

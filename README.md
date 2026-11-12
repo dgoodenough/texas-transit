@@ -96,11 +96,9 @@ high-speed rail versus metro systems is an output, not an input.
    a ring-fenced Connectivity Program (`study/hsr_buildout.md`).
    The high-speed stations meet DFW's network on foot: Dallas beside Union Station, Fort Worth at
    Fort Worth Central. A second scenario, **metros first**, gives each metro its own budget stream
-   and builds the metros decades sooner. The site (`docs/`, published with GitHub Pages) has the
-   overview (`docs/index.html`, data from `tools/build_site.py`, metro maps from
-   `tools/build_metro_maps.py`) and a **statewide map** (`docs/map.html`, data from
-   `tools/build_state_map.py`): every line from high-speed rail to streetcars, toggles by mode,
-   region and status, a year slider and both scenarios. High-speed lines are drawn along Texas
+   and builds the metros decades sooner. The site (`docs/`, published with GitHub Pages; see "The site" below) has the
+   story (`docs/index.html`), the plan by year (`docs/plan.html`), a **statewide map** with a trip
+   planner (`docs/map.html`) and a DFW-style map for each big metro (`docs/metros/`). High-speed lines are drawn along Texas
    Central's corridor and NCTCOG's I-30 alignment where proposals exist, along the named highways
    elsewhere (`texas/hsr_alignments.json`; the model's track km are unchanged).
    Generated BRT follows streets lined with people and jobs, not highways (DFW Transit's street
@@ -129,10 +127,21 @@ high-speed rail versus metro systems is an output, not an input.
 ## The site
 
 `docs/` is the website, served by GitHub Pages (Settings, Pages: deploy from the `main` branch,
-`/docs` folder): `index.html` (the plan by year) and `map.html` (the statewide map). Rebuild its
-data after a model run with `python study/timing.py`, `python tools/build_site.py`,
-`python tools/build_metro_maps.py` and `python tools/build_state_map.py`, then regenerate the plan's
-record with `python study/decade_review.py` and `python study/plan_record.py`.
+`/docs` folder), in DFW Transit's style (`study/site_parity.md`):
+
+- `index.html`: the story, its numbers read from the model's data
+- `plan.html`: the plan by year (the dashboard: the three schedules, the levers, every metro)
+- `map.html`: the statewide map, with a line panel, station pages and a **trip planner** between any two
+  high-speed stations in any year and schedule, handing over to the metro maps
+- `metros/<id>.html`: DFW Transit's own map page for each big metro (line and station pages, a door-to-door
+  trip planner, data layers, a diagram), on the metro's own model
+
+Rebuild after a model run, in this order: `python study/timing.py`, `python study/decade_review.py`,
+`python study/plan_record.py`, then `python tools/build_site.py`, `python tools/build_metro_maps.py`,
+`python tools/build_state_map.py`, `python tools/build_metro_pages.py`, `python tools/build_trip_planner.py`
+and `python tools/build_site.py` again (it links the metro pages). Names come from DFW Transit's
+`metro/names.py` (hand fixes in `urban/names/<id>/`); each metro's editable tables (`stages.csv`,
+`service.csv`) and validation report from `python tools/metro_tables.py`.
 
 ## Reusing DFW Transit's code
 

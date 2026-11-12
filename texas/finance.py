@@ -29,7 +29,9 @@ TRIANGLE_SURPLUS = True
 FEDERAL_SHARE = 0.10
 OUT_FEDERAL_SHARE = 0.50
 PARTNER_SHARE = 0.50
-CONNECTIVITY = ["hsr:OKC", "hsr:LRD", "hsr:VALLEY", "hsr:MFE", "hsr:BIGC", "hsr:PANH", "hsr:WEST"]
+# The Connectivity Program's corridors; Houston - Victoria - Corpus Christi joined in the third session (item 9: the
+# Gulf spine early, so the Valley's branches don't wait on a trunk low in the queue)
+CONNECTIVITY = ["hsr:OKC", "hsr:LRD", "hsr:VALLEY", "hsr:MFE", "hsr:BIGC", "hsr:PANH", "hsr:WEST", "hsr:CC"]
 
 
 def rail_fund(year, pop=None, base_year=2025):

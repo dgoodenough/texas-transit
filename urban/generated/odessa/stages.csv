@@ -1,1 +1,3 @@
 line_id,stage,kind,from_stop,to_stop,year_opens,until_year,via_line,headway_min,locked,note
+G01,1,starter,N0001,N0008,2046,,,,,"draft: the whole line, Grant / 10th Street to Billy Hext / Eastridge"
+G02,1,starter,N0001,N0015,2081,,,,,"draft: the whole line, Grant / 10th Street to 91st Street / Rainbow"

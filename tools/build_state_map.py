@@ -98,7 +98,7 @@ def main():
         lat = lon = n = 0.0
         for ln in d["lines"]:
             pts = simplify(ln["pts"], TOL_M)
-            lines.append({"metro": mid, "name": ln["name"], "mode": ln["mode"], "status": ln["status"],
+            lines.append({"metro": mid, "name": ln["name"], "mode": ln["mode"], "status": ln["status"], "color": ln.get("color"),
                           "project": ln.get("project"), "year": ln.get("year"), "pts": rnd(pts)})
             for a, b in ln["pts"]:
                 lat, lon, n = lat + a, lon + b, n + 1

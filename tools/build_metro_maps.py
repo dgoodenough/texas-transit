@@ -103,7 +103,7 @@ def metro(mid):
             if r["mode"] == "bus":
                 continue
             for pts in segs:
-                lines.append({"id": lid, "name": r["name"], "mode": r["mode"], "status": r["status"],
+                lines.append({"id": lid, "name": r["name"], "mode": r["mode"], "status": r["status"], "color": r.get("color"),
                               "project": proj.get(lid), "pts": latlon(pts, SIMPLIFY_M)})
         serve = {}
         for r in csv.DictReader(open(os.path.join(d, "line_stops.csv"), encoding="utf-8")):
@@ -122,8 +122,13 @@ def metro(mid):
 
 def dfw():
     plan = json.load(open(os.path.join(ROOT, "data", "dfw", "dfw_plan.json"), encoding="utf-8"))
+    colors = {}   # DFW Transit's own line colours: its network, and the lines the 2 million plan adds
+    for p in ("network/lines.csv", "scenarios/two_million/lines.add.csv", "scenarios/two_million/extra/lines.csv"):
+        f = os.path.join(ROOT, "vendor", "dfw-transit", p)
+        if os.path.exists(f):
+            colors.update({r["line_id"]: r["color"] for r in csv.DictReader(open(f, encoding="utf-8")) if r.get("color")})
     lines = [{"id": ln["id"], "name": ln["name"], "mode": ln["mode"], "status": "existing" if sg["year"] <= 2025 else "proposed",
-              "year": sg["year"], "pts": latlon([tuple(p) for p in sg["pts"]], SIMPLIFY_M)}
+              "year": sg["year"], "color": colors.get(ln["id"]), "pts": latlon([tuple(p) for p in sg["pts"]], SIMPLIFY_M)}
              for ln in plan["lines"] for sg in ln["segments"] if len(sg["pts"]) >= 2]
     stations = [{"name": s["name"], "lat": round(s["lat"], 5), "lon": round(s["lon"], 5), "lines": s["lines"].split(";"),
                  "year": s["year"]} for s in plan["stations"]]

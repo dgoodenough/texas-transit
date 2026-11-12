@@ -1,0 +1,70 @@
+{
+ "base": {
+  "ratio": 194901.09856398636,
+  "whole_map": 219179.5226695613
+ },
+ "order": {
+  "planned": [
+   193894.32897158113,
+   202354.79925389253
+  ],
+  "stressed": [
+   96159.27088309145,
+   102963.29776994952
+  ]
+ },
+ "endowment": [
+  {
+   "schedule": "ratio",
+   "share": 0.05,
+   "pv": 193347.17682406254,
+   "covered": 0.09842103729366254,
+   "fund_2100": 0.0
+  },
+  {
+   "schedule": "ratio",
+   "share": 0.1,
+   "pv": 191430.70295851602,
+   "covered": 0.19960851374109195,
+   "fund_2100": 0.0
+  },
+  {
+   "schedule": "whole_map",
+   "share": 0.05,
+   "pv": 218984.01770415207,
+   "covered": 0.08461828160281848,
+   "fund_2100": 0.0
+  },
+  {
+   "schedule": "whole_map",
+   "share": 0.1,
+   "pv": 218765.42259973753,
+   "covered": 0.17013203771761323,
+   "fund_2100": 0.0
+  }
+ ],
+ "land_tax_half": 192044.6577327583,
+ "pipeline": {
+  "uncapped_no_learning": 219179.5226695613,
+  "capped_learning": 217105.0826246004
+ },
+ "growth": 181300.00473627294,
+ "s416": {
+  "line": "G01",
+  "name": "Flores-Harry Wurzbach BRT",
+  "brt": {
+   "trips": 348270.9693873861,
+   "capital": 846.5192415120855,
+   "opex": 24.5796579591602,
+   "name": "Flores-Harry Wurzbach BRT"
+  },
+  "metro": {
+   "trips": 366439.5838947391,
+   "capital": 4523.756460389733,
+   "opex": 49.22871383216694,
+   "name": "Flores-Harry Wurzbach BRT"
+  },
+  "dJ": 7743.068666508538,
+  "per_musd": 4.356753781699683
+ }
+}

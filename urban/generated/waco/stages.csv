@@ -1,1 +1,2 @@
 line_id,stage,kind,from_stop,to_stop,year_opens,until_year,via_line,headway_min,locked,note
+G01,1,starter,N0001,N0011,2068,,,,,"draft: the whole line, 8th Street / Dutton to Hewitt Drive / Chapel"

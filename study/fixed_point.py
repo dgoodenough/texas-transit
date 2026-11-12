@@ -125,7 +125,7 @@ def write(res, plan_floor):
         L.append(f"| {r['floor']:g}{' (the plan)' if r['floor'] == plan_floor else ''} | {r['metro_lines']} | {B(r['metro_capital'])} | "
                  + " | ".join(B(r[k]['pv']) for k in SCEN)
                  + f" | {a['metro_2050'] / 1e6:.2f}M / {a['metro_2100'] / 1e6:.2f}M | {B(a['unspent'])} / {B(w['unspent'])} | "
-                 f"{a['hsr_built']} of 16, {a['branches']} of 7 | {B(a['gap_2100'])} |")
+                 f"{a['hsr_built']} of 16, {a['branches']} of {len(timing.finance.CONNECTIVITY)} | {B(a['gap_2100'])} |")
     best = {k: max(res, key=lambda r: r[k]["pv"]) for k in SCEN}
     L += ["", "**The queue's margin** under best ratio first, and the floor it implies (the ratio over k, the ratio a "
           "trip a day per $M is worth in this plan's valuation, the median over the metro lines):", "",
