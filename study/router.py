@@ -136,8 +136,9 @@ def main():
           "anchors no center stands on (a campus beside downtown), and a corridor dense enough for metro where no "
           "freeway or major arterial runs gets BRT on its street. The comparison above is against the folder it is run "
           "with (here the networks before the final regeneration: floor 2.5, airport spurs, terminal costs, border "
-          "crossers, the crowding check, metro tunnels only in the densest core). What's not done: turn penalties in the road router (edge-based "
-          "routing), and an exact integer program in place of the local search.", ""]
+          "crossers, the crowding check, metro tunnels only in the densest core). Where a metro's pool makes at most 4,096 networks, every one is then "
+          "evaluated on the full model and the best kept (the exact program, `lineplan.Planner.exact`). Turn penalties on "
+          "the line paths (`candidates._search_turns`) were tested and are off: they found no better network.", ""]
     with open(os.path.join(ROOT, "study", "router.md"), "w", encoding="utf-8") as fh:
         fh.write("\n".join(L))
     print("\n".join(L))
