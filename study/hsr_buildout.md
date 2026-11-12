@@ -19,11 +19,11 @@
 | Branch corridors open by 2100 | 7 of 7 | 7 of 7 | 7 of 7 |
 | The last branch opens | 2099 | 2099 | 2085 |
 | Intercity rail trips a year, 2100 | 106M | 106M | 100M |
-| New daily metro trips, 2100 (DFW included) | 4,892,974 | 4,892,974 | 4,892,974 |
-| Capital spent 2025-2100 (DFW included) | $657.0B | $657.0B | $477.7B |
-| Net benefit a year, 2100 (travellers, wider, fares less opex) | $22.8B | $22.8B | $21.6B |
+| New daily metro trips, 2100 (DFW included) | 4,893,260 | 4,893,260 | 4,893,260 |
+| Capital spent 2025-2100 (DFW included) | $657.1B | $657.1B | $477.7B |
+| Net benefit a year, 2100 (travellers, wider, fares less opex) | $22.9B | $22.9B | $21.6B |
 | Operating cost less fares a year, 2050 / 2100 | $2.3B / $4.5B | $3.6B / $4.5B | $2.9B / $5.1B |
-| Operating cost less fares, 2025-2100 (no budget pays it yet) | $247.6B | $297.5B | $280.5B |
+| Operating cost less fares, 2025-2100 (no budget pays it yet) | $247.4B | $297.1B | $280.4B |
 
 Budget: $9.0B a year statewide ($2.3B of it DFW's own plan), 2025-2100. High-speed km for the whole map are its redrawn, lighter-standard corridors; for the other two, today's cost model.
 
@@ -50,7 +50,7 @@ From every lever on, switching one off; and from none, switching one on (the who
 | a delivery office that learns (against costs as built today) | 7 of 7 | 2094 | $245.9B | 7 of 7 | 2095 |
 | the Rail Fund | 7 of 7 | 2091 | $192.7B | 6 of 7 | not all by 2100 |
 | the Triangle's surplus pledged | 7 of 7 | 2085 | $192.7B | 5 of 7 | not all by 2100 |
-| the 10% federal match | 7 of 7 | 2090 | $231.8B | 7 of 7 | 2097 |
+| the 10% federal match | 7 of 7 | 2090 | $231.8B | 7 of 7 | 2098 |
 | the neighbouring states paying for the track in theirs (with the federal money granted to them) | 7 of 7 | 2088 | $210.4B | 6 of 7 | not all by 2100 |
 
 Every lever on: 7 of 7, the last in 2085, $192.7B of high-speed capital from Texas. None: 4 of 7, $277.6B.

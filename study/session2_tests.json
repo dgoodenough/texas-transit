@@ -1,9 +1,9 @@
 {
  "base": {
   "ratio": {
-   "pv": 192447.32798531812,
+   "pv": 192472.68886890647,
    "metro_2050": 1638943.7434593518,
-   "metro_2100": 4892973.520175157,
+   "metro_2100": 4893260.534807133,
    "intercity_2100": 106189367.80837372,
    "branches": 7,
    "last_branch": 2099,
@@ -16,14 +16,14 @@
     "hsr:PANH": 2093,
     "hsr:WEST": 2099
    },
-   "spent": 657035.171024176,
+   "spent": 657089.0175530227,
    "idle_years": 7,
    "peak_km_building": 1130.9211355723958
   },
   "metros_first": {
-   "pv": 167188.62064378403,
-   "metro_2050": 1902276.8674984127,
-   "metro_2100": 4892973.520175157,
+   "pv": 167309.82744176095,
+   "metro_2050": 1902189.2435721436,
+   "metro_2100": 4893260.534807133,
    "intercity_2100": 106189367.80837372,
    "branches": 7,
    "last_branch": 2099,
@@ -36,14 +36,14 @@
     "hsr:PANH": 2092,
     "hsr:WEST": 2099
    },
-   "spent": 657035.171024176,
+   "spent": 657089.0175530227,
    "idle_years": 6,
    "peak_km_building": 1216.1278177622376
   },
   "whole_map": {
-   "pv": 218012.35728710197,
+   "pv": 218038.30277121018,
    "metro_2050": 1717143.7623522799,
-   "metro_2100": 4892973.520175157,
+   "metro_2100": 4893260.534807133,
    "intercity_2100": 100132551.00394584,
    "branches": 7,
    "last_branch": 2085,
@@ -56,7 +56,7 @@
     "hsr:PANH": 2070,
     "hsr:WEST": 2070
    },
-   "spent": 477676.81102569494,
+   "spent": 477730.6575545417,
    "idle_years": 3,
    "peak_km_building": 1686.4634819635883
   }
@@ -67,9 +67,9 @@
    "test": "Each metro guaranteed half its stream, the rest one queue",
    "against": "ratio",
    "result": {
-    "pv": 181718.2523500525,
-    "metro_2050": 1463136.3771134138,
-    "metro_2100": 4892973.520175157,
+    "pv": 182037.04346520427,
+    "metro_2050": 1463048.7531871446,
+    "metro_2100": 4893260.534807133,
     "intercity_2100": 106189367.80837372,
     "branches": 7,
     "last_branch": 2099,
@@ -82,7 +82,7 @@
      "hsr:PANH": 2092,
      "hsr:WEST": 2099
     },
-    "spent": 657035.171024176,
+    "spent": 657089.0175530227,
     "idle_years": 0,
     "peak_km_building": 1130.9211355723958
    },
@@ -93,9 +93,9 @@
    "test": "At most 800 km of high-speed track under construction at once",
    "against": "whole_map",
    "result": {
-    "pv": 211770.61805342688,
-    "metro_2050": 1732215.5087569016,
-    "metro_2100": 4892973.520175157,
+    "pv": 211762.03958552508,
+    "metro_2050": 1731521.2411358817,
+    "metro_2100": 4893260.534807133,
     "intercity_2100": 100132551.00394584,
     "branches": 7,
     "last_branch": 2091,
@@ -108,7 +108,7 @@
      "hsr:PANH": 2083,
      "hsr:WEST": 2091
     },
-    "spent": 477676.81102569494,
+    "spent": 477730.6575545417,
     "idle_years": 0,
     "peak_km_building": 797.45062678649
    },
@@ -119,9 +119,9 @@
    "test": "At most 500 km of high-speed track under construction at once",
    "against": "whole_map",
    "result": {
-    "pv": 202911.5354562689,
+    "pv": 202917.9117860487,
     "metro_2050": 1836768.980333432,
-    "metro_2100": 4892973.520175157,
+    "metro_2100": 4893260.534807133,
     "intercity_2100": 93278919.9939586,
     "branches": 5,
     "last_branch": null,
@@ -132,7 +132,7 @@
      "hsr:MFE": 2087,
      "hsr:BIGC": 2095
     },
-    "spent": 450662.9755452167,
+    "spent": 450716.82207406353,
     "idle_years": 0,
     "peak_km_building": 968.1673896363728
    },
@@ -143,9 +143,9 @@
    "test": "The whole map's never-spent money as an operating endowment",
    "against": "whole_map",
    "result": {
-    "pv": 218012.35728710197,
+    "pv": 218038.30277121018,
     "metro_2050": 1717143.7623522799,
-    "metro_2100": 4892973.520175157,
+    "metro_2100": 4893260.534807133,
     "intercity_2100": 100132551.00394584,
     "branches": 7,
     "last_branch": 2085,
@@ -158,7 +158,7 @@
      "hsr:PANH": 2070,
      "hsr:WEST": 2070
     },
-    "spent": 477676.81102569494,
+    "spent": 477730.6575545417,
     "idle_years": 3,
     "peak_km_building": 1686.4634819635883
    },
@@ -169,9 +169,9 @@
    "test": "Houston - Corpus Christi in the program as higher-speed rail first",
    "against": "whole_map",
    "result": {
-    "pv": 216636.11841297973,
+    "pv": 216678.65231997077,
     "metro_2050": 1714119.203328243,
-    "metro_2100": 4892973.520175157,
+    "metro_2100": 4893260.534807133,
     "intercity_2100": 97621744.35607086,
     "branches": 7,
     "last_branch": 2070,
@@ -184,7 +184,7 @@
      "hsr:PANH": 2070,
      "hsr:WEST": 2070
     },
-    "spent": 472064.2040045785,
+    "spent": 472118.05053342535,
     "idle_years": 0,
     "peak_km_building": 1408.8620518036641,
     "note_cc": 2039
@@ -196,9 +196,9 @@
    "test": "Station-district bonds doubled where the metro outgrows Texas",
    "against": "ratio",
    "result": {
-    "pv": 194875.8940009753,
+    "pv": 194901.09856398636,
     "metro_2050": 1655887.9474334102,
-    "metro_2100": 4892973.520175157,
+    "metro_2100": 4893260.534807133,
     "intercity_2100": 106189367.80837372,
     "branches": 7,
     "last_branch": 2097,
@@ -211,7 +211,7 @@
      "hsr:PANH": 2093,
      "hsr:WEST": 2097
     },
-    "spent": 646368.6785626842,
+    "spent": 646422.525091531,
     "idle_years": 3,
     "peak_km_building": 1130.9211355723958
    },
@@ -222,9 +222,9 @@
    "test": "A frequent link from every high-speed station no metro station reaches",
    "against": "whole_map",
    "result": {
-    "pv": 217131.41568141134,
+    "pv": 217153.82386158258,
     "metro_2050": 1714119.203328243,
-    "metro_2100": 4892973.520175157,
+    "metro_2100": 4893260.534807133,
     "intercity_2100": 100132551.00394584,
     "branches": 7,
     "last_branch": 2085,
@@ -237,7 +237,7 @@
      "hsr:PANH": 2070,
      "hsr:WEST": 2070
     },
-    "spent": 478316.81102569494,
+    "spent": 478370.6575545417,
     "idle_years": 3,
     "peak_km_building": 1686.4634819635883
    },

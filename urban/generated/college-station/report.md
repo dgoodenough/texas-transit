@@ -53,6 +53,7 @@ After the pruning, a local search on the full model (metro/lineplan.py) improves
 
 - Round 1: R003 every 6 min (was 8) (J +1,601)
 - Round 1: R001 every 6 min (was 8) (J +841)
+- Exact program: every network the pool's 3 lines can make within the money (8) evaluated on the full model; the local search's network is the optimum.
 - Crowding (the full model's loads in 2050, peak hour, peak direction): no line over capacity.
 
 ## 3. Chosen lines
