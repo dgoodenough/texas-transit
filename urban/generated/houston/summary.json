@@ -5,61 +5,61 @@
  "pop": 7149642.0,
  "jobs": 3347878.0,
  "budget_musd": 165129,
- "capital_musd": 60323.29863230945,
- "opex_new_musd": 1417.7762601497545,
- "lines": 26,
+ "capital_musd": 65437.48883636115,
+ "opex_new_musd": 1426.6442821703931,
+ "lines": 30,
  "by_mode": {
   "brt": {
-   "lines": 17,
-   "km": 383.7675399798658,
-   "capital_musd": 13048.711242285599
+   "lines": 19,
+   "km": 460.51342721104163,
+   "capital_musd": 15774.594815809758
   },
   "metro": {
    "lines": 7,
-   "km": 259.2958529550364,
-   "capital_musd": 48553.3758601181
+   "km": 252.83941732849954,
+   "capital_musd": 47087.93392076944
   },
   "commuter": {
-   "lines": 2,
-   "km": 119.31547801202822,
-   "capital_musd": 6029.196510541271
+   "lines": 4,
+   "km": 241.70555909084646,
+   "capital_musd": 12246.595238376402
   }
  },
- "stations_new": 409,
+ "stations_new": 462,
  "existing_lines": 4,
- "pop_800m": 0.1725918584454998,
+ "pop_800m": 0.18691677149709035,
  "pop_800m_today": 0.019600701685482995,
  "trips_today": 66571.0130673025,
- "trips": 369231.14008668676,
- "boardings": 467673.68150349107,
- "jobs_45": 101294.90808311097,
+ "trips": 376154.6710928103,
+ "boardings": 474973.1718174359,
+ "jobs_45": 98735.93815235757,
  "jobs_45_today": 23428.019035580506,
  "asc": 0.875,
  "asc_note": "calibrated here (asc +0.875; DFW +0.430): today's lines carry 43,920 weekday boardings (NTD 2024 average typical weekday, 60008 LR 42,946 + 60008 RB 974); with a policy package on top (growth.tod, growth.capture, access.feeder, access.micromobility, access.kiss_ride, access.walk_max_m, access.walk_circuity, access.pnr_min_km, access.pnr_suburban, ridership.parking_policy)",
- "minutes": 120.52510542472204,
- "feeder_boardings": 136956.8878635593,
+ "minutes": 111.50062111616134,
+ "feeder_boardings": 143719.815220378,
  "feeder_boardings_today": 33365.834495618496,
- "feeder_opex_musd": 186.46389606229343,
+ "feeder_opex_musd": 198.63716530456708,
  "commutes": 2383979.7416098914,
- "share": 0.04075793422257887,
+ "share": 0.04152219484607156,
  "future": {
   "2050": {
-   "trips": 780744.2119991456,
+   "trips": 770891.8971058418,
    "trips_today_lines": 174300.34887850282,
-   "pop": 11382784.438569274,
-   "jobs": 5108971.679514244,
-   "share": 0.056475325712721146,
-   "share_today_lines": 0.012608058853935056,
-   "feeder_opex_musd": 345.72617330601594
+   "pop": 11382590.28470674,
+   "jobs": 5102508.637694496,
+   "share": 0.05583328729142512,
+   "share_today_lines": 0.012624028726290952,
+   "feeder_opex_musd": 360.75560908271433
   },
   "2100": {
-   "trips": 1400674.913943694,
+   "trips": 1389104.228610822,
    "trips_today_lines": 248896.76345155796,
-   "pop": 17335263.947925285,
-   "jobs": 7782460.667263759,
-   "share": 0.06651259349185717,
-   "share_today_lines": 0.011819137391617407,
-   "feeder_opex_musd": 662.5953402873889
+   "pop": 17334966.532278012,
+   "jobs": 7772526.8441443695,
+   "share": 0.06604745216605831,
+   "share_today_lines": 0.011834243060935301,
+   "feeder_opex_musd": 694.434329737287
   }
  }
 }
