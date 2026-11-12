@@ -59,24 +59,24 @@ With travellers' gain alone, 2 projects reach a ratio of 1; with the wider benef
 
 | Now reaches 1 | Layer | Capital | Ratio, users only | Ratio, all benefits |
 |---|---|---|---|---|
-| Austin-Round Rock-San Marcos: US-290 - Yager / Thompkins (metro) | urban | $8.2B | 0.95 | 1.42 |
-| Austin-Round Rock-San Marcos: Austin-Bergstrom Airport - I-35 / Oltorf (brt) | urban | $410M | 0.83 | 1.24 |
-| San Antonio-New Braunfels:  (brt) | urban | $975M | 0.83 | 1.23 |
-| Austin-Round Rock-San Marcos: Research / Great Hills - Robert S Light Boulevard (metro) | urban | $9.6B | 0.82 | 1.23 |
-| Austin-Round Rock-San Marcos: Downtown Austin - McNeil / Deep Wood (regional rail) | urban | $1.5B | 0.80 | 1.19 |
-| Austin-Round Rock-San Marcos: Hunters Chase / Research - Clawson / Southridge (metro) | urban | $5.7B | 0.80 | 1.19 |
-| Austin-Round Rock-San Marcos: Hunters Chase / Research - SH-130 / Chris Kelley (brt) | urban | $823M | 0.76 | 1.13 |
-| El Paso: Downtown El Paso - Balboa / Cadiz (brt) | urban | $389M | 0.76 | 1.13 |
-| Houston-Pasadena-The Woodlands: Barryknoll / Memorial City - Bellfort / Barrington Place (brt) | urban | $714M | 0.75 | 1.12 |
-| Houston-Pasadena-The Woodlands: Ambassador / Post Oak - Durban Drive (brt) | urban | $612M | 0.71 | 1.06 |
-| Austin-Round Rock-San Marcos: Rundberg / Northgate - Sunrise / Old Settlers (brt) | urban | $905M | 0.71 | 1.06 |
+| Austin-Round Rock-San Marcos: Green Line (metro) | urban | $8.2B | 0.95 | 1.42 |
+| Austin-Round Rock-San Marcos: Riverside-Presidential BRT (brt) | urban | $410M | 0.83 | 1.24 |
+| San Antonio-New Braunfels: Flores-Harry Wurzbach BRT (brt) | urban | $975M | 0.83 | 1.23 |
+| Austin-Round Rock-San Marcos: Orange Line (metro) | urban | $9.6B | 0.82 | 1.23 |
+| Austin-Round Rock-San Marcos: Round Rock Line (regional rail) | urban | $1.5B | 0.80 | 1.19 |
+| Austin-Round Rock-San Marcos: Blue Line (metro) | urban | $5.7B | 0.80 | 1.19 |
+| Austin-Round Rock-San Marcos: McNeil-Gattis School BRT (brt) | urban | $823M | 0.76 | 1.13 |
+| El Paso: Mesa BRT (brt) | urban | $389M | 0.76 | 1.13 |
+| Houston-Pasadena-The Woodlands: Gessner-Sam Houston BRT (brt) | urban | $714M | 0.75 | 1.12 |
+| Houston-Pasadena-The Woodlands: Gessner-San Felipe BRT (brt) | urban | $612M | 0.71 | 1.06 |
+| Austin-Round Rock-San Marcos: Northgate-Old Settlers Boulevard BRT (brt) | urban | $905M | 0.71 | 1.06 |
 | Texas Central: Dallas - Brazos Valley - Houston | hsr | $34.5B | 0.82 | 1.06 |
-| San Antonio-New Braunfels: Rittiman / Fratt - Truemper / Valley Hi (brt) | urban | $1.1B | 0.71 | 1.06 |
-| San Antonio-New Braunfels: Clark / Hot Wells - Flores / Southcross (brt) | urban | $200M | 0.71 | 1.05 |
-| College Station-Bryan: Villa Maria / John Sharp - Alexandria / Southern Plantation (brt) | urban | $686M | 0.70 | 1.05 |
-| San Antonio-New Braunfels: Bandera / Loop 410 - Clark / Hot Wells (metro) | urban | $5.9B | 0.70 | 1.04 |
-| College Station-Bryan: Texas A&M University - Villa Maria / John Sharp (brt) | urban | $340M | 0.69 | 1.03 |
-| San Antonio-New Braunfels: Frio City / Brady - South Texas Medical Center (metro) | urban | $4.1B | 0.68 | 1.01 |
+| San Antonio-New Braunfels: Rittiman-Truemper BRT (brt) | urban | $1.1B | 0.71 | 1.06 |
+| San Antonio-New Braunfels: Southcross BRT (brt) | urban | $200M | 0.71 | 1.05 |
+| College Station-Bryan: Villa Maria-Wellborn BRT (brt) | urban | $686M | 0.70 | 1.05 |
+| San Antonio-New Braunfels: Green Line (metro) | urban | $5.9B | 0.70 | 1.04 |
+| College Station-Bryan: Villa Maria BRT (brt) | urban | $340M | 0.69 | 1.03 |
+| San Antonio-New Braunfels: Blue Line (metro) | urban | $4.1B | 0.68 | 1.01 |
 | I-35 south: Austin - San Marcos - San Antonio | hsr | $15.8B | 0.80 | 1.00 |
 
 ## Land tax near new urban stations
@@ -114,94 +114,94 @@ Within about 400 m is a walk between platforms: all five are, with DFW's station
 
 | Year | Opening | Layer | Capital | Land-tax bonds | Ratio |
 |---|---|---|---|---|---|
-| 2027 | Austin-Round Rock-San Marcos: Nuckols Crossing / Teri - Cameron / Saint John's (brt) | urban | $658M | $496M | 2.42 |
-| 2027 | San Antonio-New Braunfels:  (brt) | urban | $975M | $390M | 1.23 |
-| 2027 | El Paso: Downtown El Paso - Balboa / Cadiz (brt) | urban | $389M | $153M | 1.13 |
-| 2027 | Houston-Pasadena-The Woodlands: Ambassador / Post Oak - Durban Drive (brt) | urban | $612M | $264M | 1.06 |
-| 2027 | College Station-Bryan: Texas A&M University - Villa Maria / John Sharp (brt) | urban | $340M | $83M | 1.03 |
-| 2027 | San Antonio-New Braunfels: Blanco / Sir Winston - Ingram / Waters Edge (brt) | urban | $874M | $437M | 0.97 |
-| 2027 | Lubbock: Avenue L / Avenue K - Frankford / 114th Street (brt) | urban | $654M | $207M | 0.96 |
+| 2027 | Austin-Round Rock-San Marcos: I-35-San Jacinto BRT (brt) | urban | $658M | $496M | 2.42 |
+| 2027 | San Antonio-New Braunfels: Flores-Harry Wurzbach BRT (brt) | urban | $975M | $390M | 1.23 |
+| 2027 | El Paso: Mesa BRT (brt) | urban | $389M | $153M | 1.13 |
+| 2027 | Houston-Pasadena-The Woodlands: Gessner-San Felipe BRT (brt) | urban | $612M | $264M | 1.06 |
+| 2027 | College Station-Bryan: Villa Maria BRT (brt) | urban | $340M | $83M | 1.03 |
+| 2027 | San Antonio-New Braunfels: Wurzbach-Loop 410 BRT (brt) | urban | $874M | $437M | 0.97 |
+| 2027 | Lubbock: Frankford-50th Street BRT (brt) | urban | $654M | $207M | 0.96 |
 | 2033 | Texas Central: Dallas - Brazos Valley - Houston | hsr | $34.5B |  | 1.06 |
-| 2034 | San Antonio-New Braunfels: Rittiman / Fratt - Truemper / Valley Hi (brt) | urban | $1.1B | $169M | 1.06 |
-| 2035 | San Antonio-New Braunfels: Cliffbrier / Gallery Ridge - Sunset / Treeline Park (brt) | urban | $907M | $249M | 0.95 |
+| 2034 | San Antonio-New Braunfels: Rittiman-Truemper BRT (brt) | urban | $1.1B | $169M | 1.06 |
+| 2035 | San Antonio-New Braunfels: Cliffbrier-Sunset BRT (brt) | urban | $907M | $249M | 0.95 |
 | 2035 | I-10: Houston - Columbus - Seguin - San Antonio | hsr | $29.4B |  | 0.94 |
-| 2035 | Amarillo: Wolflin / Amarillo - Highland / 16th Avenue (brt) | urban | $470M | $144M | 0.89 |
-| 2036 | Houston-Pasadena-The Woodlands: Barryknoll / Memorial City - Bellfort / Barrington Place (brt) | urban | $714M | $333M | 1.12 |
-| 2037 | San Antonio-New Braunfels: Fredericksburg / Hillcrest - O'Connor Road (brt) | urban | $829M | $102M | 0.78 |
-| 2037 | El Paso: Pellicano / George Dieter - Nonap / Mark Twain (brt) | urban | $334M | $75M | 0.78 |
-| 2037 | Houston-Pasadena-The Woodlands: Bob White / Bellfort - Austin / Grants Lake (brt) | urban | $642M | $228M | 0.75 |
-| 2038 | College Station-Bryan: Villa Maria / John Sharp - Alexandria / Southern Plantation (brt) | urban | $686M | $71M | 1.05 |
-| 2040 | Houston-Pasadena-The Woodlands: Barryknoll / Memorial City - University of Houston (brt) | urban | $1.0B | $340M | 0.76 |
-| 2041 | San Antonio-New Braunfels: Rittiman / Fratt - Sunset / Treeline Park (brt) | urban | $414M |  | 0.69 |
+| 2035 | Amarillo: Plains-10th Avenue BRT (brt) | urban | $470M | $144M | 0.89 |
+| 2036 | Houston-Pasadena-The Woodlands: Gessner-Sam Houston BRT (brt) | urban | $714M | $333M | 1.12 |
+| 2037 | San Antonio-New Braunfels: Fredericksburg-O'Connor BRT (brt) | urban | $829M | $102M | 0.78 |
+| 2037 | El Paso: Rojas BRT (brt) | urban | $334M | $75M | 0.78 |
+| 2037 | Houston-Pasadena-The Woodlands: Lexington-Airport BRT (brt) | urban | $642M | $228M | 0.75 |
+| 2038 | College Station-Bryan: Villa Maria-Wellborn BRT (brt) | urban | $686M | $71M | 1.05 |
+| 2040 | Houston-Pasadena-The Woodlands: Barryknoll-Fertitta Center BRT (brt) | urban | $1.0B | $340M | 0.76 |
+| 2041 | San Antonio-New Braunfels: Rittiman-Harry Wurzbach BRT (brt) | urban | $414M |  | 0.69 |
 | 2042 | I-35 north: Dallas - Waco - Temple - Austin | hsr | $29.3B |  | 0.93 |
-| 2042 | Corpus Christi: Staples / Saratoga - Violet / Leopard (brt) | urban | $1.1B | $228M | 0.83 |
+| 2042 | Corpus Christi: Leopard BRT (brt) | urban | $1.1B | $228M | 0.83 |
 | 2043 | I-35 south: Austin - San Marcos - San Antonio | hsr | $15.8B |  | 1.00 |
-| 2044 | Austin-Round Rock-San Marcos: Lamar / 45th Street - Gattis School / Lawnmont (brt) | urban | $850M | $265M | 1.56 |
-| 2044 | Austin-Round Rock-San Marcos: Downtown Austin - McNeil / Deep Wood (regional rail) | urban | $1.5B | $90M | 1.19 |
-| 2047 | Austin-Round Rock-San Marcos: US-290 - Yager / Thompkins (metro) | urban | $8.2B | $216M | 1.42 |
-| 2047 | Austin-Round Rock-San Marcos: Austin-Bergstrom Airport - I-35 / Oltorf (brt) | urban | $410M | $87M | 1.24 |
-| 2047 | Austin-Round Rock-San Marcos: Research / Great Hills - Robert S Light Boulevard (metro) | urban | $9.6B | $272M | 1.23 |
-| 2047 | Austin-Round Rock-San Marcos: Hunters Chase / Research - Clawson / Southridge (metro) | urban | $5.7B | $555M | 1.19 |
-| 2047 | Austin-Round Rock-San Marcos: Hunters Chase / Research - SH-130 / Chris Kelley (brt) | urban | $823M | $75M | 1.13 |
-| 2047 | Austin-Round Rock-San Marcos: Rundberg / Northgate - Sunrise / Old Settlers (brt) | urban | $905M | $263M | 1.06 |
-| 2048 | Houston-Pasadena-The Woodlands: Cali / Peakwood - Forest Heights / Royal Gardens (brt) | urban | $1.0B | $286M | 0.86 |
-| 2048 | Houston-Pasadena-The Woodlands: Tidwell / Hollister - Louetta Road (brt) | urban | $797M | $193M | 0.86 |
-| 2048 | Houston-Pasadena-The Woodlands: Club Creek / Woodfair - Crabb River Road (brt) | urban | $887M | $45M | 0.79 |
-| 2048 | Houston-Pasadena-The Woodlands: Cali / Peakwood - Cassowary Drive (brt) | urban | $986M | $206M | 0.76 |
-| 2048 | El Paso:  (brt) | urban | $977M | $264M | 0.72 |
-| 2048 | Houston-Pasadena-The Woodlands: Dairy Ashford / Spirit - University of Houston (metro) | urban | $6.7B | $656M | 0.70 |
-| 2049 | Laredo: Calton / McPherson - Sierra Vista Boulevard (brt) | urban | $454M | $101M | 0.69 |
-| 2049 | Odessa: Grant / 14th Street - Eastridge / Billy Hext (brt) | urban | $374M | $91M | 0.59 |
-| 2050 | Austin-Round Rock-San Marcos: Riata Trace Parkway - Vargas / Riverside (metro) | urban | $4.7B | $115M | 0.83 |
-| 2050 | Houston-Pasadena-The Woodlands: Edloe / Richmond - Eagle Springs / Timber Forest (regional rail) | urban | $2.2B | $19M | 0.71 |
-| 2051 | Austin-Round Rock-San Marcos: Gattis School / Lawnmont - Austin / Leander (brt) | urban | $599M | $59M | 0.80 |
-| 2051 | Houston-Pasadena-The Woodlands: Dallas / Montrose - Cherry Brook Lane (brt) | urban | $998M | $230M | 0.76 |
-| 2051 | Houston-Pasadena-The Woodlands: Bush Intercontinental Airport - Pony Express / Willow Crossing (brt) | urban | $1.0B | $214M | 0.71 |
-| 2051 | Houston-Pasadena-The Woodlands: Park Row / Vanderwilt - Highway Boulevard (brt) | urban | $450M | $86M | 0.70 |
-| 2051 | Austin-Round Rock-San Marcos: Downtown Austin - US-183 (regional rail) | urban | $2.7B | $5M | 0.66 |
-| 2051 | Houston-Pasadena-The Woodlands: Texas Medical Center - Northpark Drive (regional rail) | urban | $3.2B | $65M | 0.66 |
-| 2054 | Houston-Pasadena-The Woodlands: Eldridge / Enclave - University of Houston (metro) | urban | $7.1B | $439M | 0.74 |
-| 2054 | Houston-Pasadena-The Woodlands: Sam Houston / Imperial Valley - Eagle Springs / Timber Forest (brt) | urban | $935M | $102M | 0.68 |
+| 2044 | Austin-Round Rock-San Marcos: I-35 BRT (brt) | urban | $850M | $265M | 1.56 |
+| 2044 | Austin-Round Rock-San Marcos: Round Rock Line (regional rail) | urban | $1.5B | $90M | 1.19 |
+| 2047 | Austin-Round Rock-San Marcos: Green Line (metro) | urban | $8.2B | $216M | 1.42 |
+| 2047 | Austin-Round Rock-San Marcos: Riverside-Presidential BRT (brt) | urban | $410M | $87M | 1.24 |
+| 2047 | Austin-Round Rock-San Marcos: Orange Line (metro) | urban | $9.6B | $272M | 1.23 |
+| 2047 | Austin-Round Rock-San Marcos: Blue Line (metro) | urban | $5.7B | $555M | 1.19 |
+| 2047 | Austin-Round Rock-San Marcos: McNeil-Gattis School BRT (brt) | urban | $823M | $75M | 1.13 |
+| 2047 | Austin-Round Rock-San Marcos: Northgate-Old Settlers Boulevard BRT (brt) | urban | $905M | $263M | 1.06 |
+| 2048 | Houston-Pasadena-The Woodlands: Cypress Creek-Fallbrook BRT (brt) | urban | $1.0B | $286M | 0.86 |
+| 2048 | Houston-Pasadena-The Woodlands: Jones-Gessner BRT (brt) | urban | $797M | $193M | 0.86 |
+| 2048 | Houston-Pasadena-The Woodlands: Southwest Freeway-Lexington BRT (brt) | urban | $887M | $45M | 0.79 |
+| 2048 | Houston-Pasadena-The Woodlands: Grogans Mill-Holzwarth BRT (brt) | urban | $986M | $206M | 0.76 |
+| 2048 | El Paso: Gateway-Zaragoza BRT (brt) | urban | $977M | $264M | 0.72 |
+| 2048 | Houston-Pasadena-The Woodlands: Blue Line (metro) | urban | $6.7B | $656M | 0.70 |
+| 2049 | Laredo: Zapata-Bartlett BRT (brt) | urban | $454M | $101M | 0.69 |
+| 2049 | Odessa: 8th Street-Highway 80 BRT (brt) | urban | $374M | $91M | 0.59 |
+| 2050 | Austin-Round Rock-San Marcos: Purple Line (metro) | urban | $4.7B | $115M | 0.83 |
+| 2050 | Houston-Pasadena-The Woodlands: Atascocita Line (regional rail) | urban | $2.2B | $19M | 0.71 |
+| 2051 | Austin-Round Rock-San Marcos: Mays-I-35 BRT (brt) | urban | $599M | $59M | 0.80 |
+| 2051 | Houston-Pasadena-The Woodlands: Dallas-Cherry Brook BRT (brt) | urban | $998M | $230M | 0.76 |
+| 2051 | Houston-Pasadena-The Woodlands: Sam Houston BRT (brt) | urban | $1.0B | $214M | 0.71 |
+| 2051 | Houston-Pasadena-The Woodlands: Colonial-Highway Boulevard BRT (brt) | urban | $450M | $86M | 0.70 |
+| 2051 | Austin-Round Rock-San Marcos: Leander Line (regional rail) | urban | $2.7B | $5M | 0.66 |
+| 2051 | Houston-Pasadena-The Woodlands: Kingwood Line (regional rail) | urban | $3.2B | $65M | 0.66 |
+| 2054 | Houston-Pasadena-The Woodlands: Orange Line (metro) | urban | $7.1B | $439M | 0.74 |
+| 2054 | Houston-Pasadena-The Woodlands: Will Clayton-Sam Houston BRT (brt) | urban | $935M | $102M | 0.68 |
 | 2056 | Fort Worth - Dallas | hsr | $10.3B |  | 0.59 |
-| 2057 | Houston-Pasadena-The Woodlands: Downtown Houston - Fairfield Park / Fairfield Green (regional rail) | urban | $2.2B | $100M | 0.81 |
-| 2057 | Houston-Pasadena-The Woodlands: Mangum / Watonga - Austin / Grants Lake (metro) | urban | $7.7B | $384M | 0.76 |
-| 2058 | Houston-Pasadena-The Woodlands: Ambassador / Post Oak - Woodforest Boulevard (metro) | urban | $8.0B | $277M | 0.69 |
-| 2058 | Houston-Pasadena-The Woodlands: Bush Intercontinental Airport - Northpark Drive (brt) | urban | $589M | $38M | 0.66 |
-| 2058 | Houston-Pasadena-The Woodlands: Ambassador / Post Oak - Clearwood / Edgebrook (metro) | urban | $6.0B | $167M | 0.62 |
-| 2058 | Waco: Baylor University - Hewitt Drive (brt) | urban | $516M | $129M | 0.58 |
-| 2059 | Austin-Round Rock-San Marcos: Texas State University - Robert S Light Boulevard (brt) | urban | $785M | $62M | 0.68 |
-| 2059 | El Paso: Pellicano / George Dieter - Prince Edward / Rushing (brt) | urban | $953M | $58M | 0.66 |
-| 2060 | San Antonio-New Braunfels: San Antonio Airport - O'Connor Road (brt) | urban | $415M |  | 0.63 |
-| 2060 | Houston-Pasadena-The Woodlands:  (brt) | urban | $625M | $78M | 0.50 |
+| 2057 | Houston-Pasadena-The Woodlands: Cypress Line (regional rail) | urban | $2.2B | $100M | 0.81 |
+| 2057 | Houston-Pasadena-The Woodlands: Gold Line (metro) | urban | $7.7B | $384M | 0.76 |
+| 2058 | Houston-Pasadena-The Woodlands: Brown Line (metro) | urban | $8.0B | $277M | 0.69 |
+| 2058 | Houston-Pasadena-The Woodlands: Terminal-Northpark Drive BRT (brt) | urban | $589M | $38M | 0.66 |
+| 2058 | Houston-Pasadena-The Woodlands: Teal Line (metro) | urban | $6.0B | $167M | 0.62 |
+| 2058 | Waco: Jack Kultgen-Valley Mills BRT (brt) | urban | $516M | $129M | 0.58 |
+| 2059 | Austin-Round Rock-San Marcos: I-35 to Sessom BRT (brt) | urban | $785M | $62M | 0.68 |
+| 2059 | El Paso: University Medical Center-East-Rushing BRT (brt) | urban | $953M | $58M | 0.66 |
+| 2060 | San Antonio-New Braunfels: Nacogdoches BRT (brt) | urban | $415M |  | 0.63 |
+| 2060 | Houston-Pasadena-The Woodlands: Edgebrook Drive-Burke BRT (brt) | urban | $625M | $78M | 0.50 |
 | 2062 | Dallas - Tyler - Longview - Shreveport | hsr | $27.0B |  | 0.65 |
-| 2063 | San Antonio-New Braunfels: Clark / Hot Wells - Flores / Southcross (brt) | urban | $200M | $53M | 1.05 |
-| 2063 | San Antonio-New Braunfels: Frio City / Brady - South Texas Medical Center (metro) | urban | $4.1B | $116M | 1.01 |
-| 2063 | San Antonio-New Braunfels: Fredericksburg / I-10 - Culebra / Ingram (metro) | urban | $2.8B | $68M | 0.92 |
-| 2063 | El Paso: Downtown El Paso - Pellicano / George Dieter (metro) | urban | $5.1B | $161M | 0.68 |
-| 2063 | Odessa: Grant / 14th Street - 91st Street / Evans (brt) | urban | $376M | $40M | 0.43 |
-| 2064 | Rio Grande Valley (McAllen-Edinburg-Mission and Brownsville-Harlingen): Colonel Rowe / Trenton - Kelly / Fir (brt) | urban | $444M | $134M | 0.45 |
-| 2065 | Houston-Pasadena-The Woodlands: Texas Medical Center - Westview / Wilson (regional rail) | urban | $4.6B | $58M | 0.62 |
-| 2065 | Houston-Pasadena-The Woodlands: Millbend Drive - Grand Parkway (brt) | urban | $420M | $47M | 0.62 |
-| 2066 | San Antonio-New Braunfels: Bandera / Loop 410 - Clark / Hot Wells (metro) | urban | $5.9B | $164M | 1.04 |
-| 2066 | San Antonio-New Braunfels: UTSA - Sunset / Treeline Park (metro) | urban | $4.1B | $160M | 0.87 |
-| 2066 | San Antonio-New Braunfels: Sonterra Boulevard - Harry Wurzbach Road (brt) | urban | $839M | $118M | 0.81 |
-| 2067 | Rio Grande Valley (McAllen-Edinburg-Mission and Brownsville-Harlingen): 6th Street / Border - Shary / Griffin (brt) | urban | $1.1B | $185M | 0.45 |
-| 2068 | Houston-Pasadena-The Woodlands: High Star / Hillcroft - Park Row / Vanderwilt (metro) | urban | $5.8B | $338M | 0.66 |
-| 2068 | Houston-Pasadena-The Woodlands: Cherry Brook Lane - Repsdorph / NASA (brt) | urban | $910M | $122M | 0.59 |
-| 2068 | Houston-Pasadena-The Woodlands: Cherry Brook Lane - FM 646 (brt) | urban | $1.1B | $137M | 0.59 |
-| 2068 | Houston-Pasadena-The Woodlands: Downtown Houston - Miller Ranch Road (metro) | urban | $5.7B | $58M | 0.58 |
-| 2068 | Houston-Pasadena-The Woodlands: NASA / SH-3 - Miller Ranch Road (brt) | urban | $948M | $132M | 0.44 |
-| 2069 | San Antonio-New Braunfels: Blanco / Sir Winston - Cliffbrier / Gallery Ridge (metro) | urban | $4.4B | $89M | 0.75 |
-| 2069 | San Antonio-New Braunfels: Vance Jackson / Fredericksburg - Wilderness Oak / Bulverde Green (brt) | urban | $1.1B | $53M | 0.70 |
-| 2069 | San Antonio-New Braunfels: Schertz / Savannah - Conrads / I-35 (brt) | urban | $1.0B | $118M | 0.53 |
-| 2069 | San Antonio-New Braunfels: Sonterra Boulevard - O'Connor Road (brt) | urban | $334M | $25M | 0.46 |
-| 2069 | San Antonio-New Braunfels: Glen Haven / Glen Mont - O'Connor Road (brt) | urban | $414M | $47M | 0.45 |
-| 2069 | San Antonio-New Braunfels: La Cantera / Vance Jackson - Cliffbrier / Gallery Ridge (brt) | urban | $590M | $86M | 0.45 |
-| 2070 | El Paso: John Hayes / Pebble Hills - Nonap / Mark Twain (brt) | urban | $576M | $42M | 0.47 |
-| 2070 | Rio Grande Valley (McAllen-Edinburg-Mission and Brownsville-Harlingen): Kelly / Fir - McColl / Hi Line (brt) | urban | $447M | $56M | 0.44 |
+| 2063 | San Antonio-New Braunfels: Southcross BRT (brt) | urban | $200M | $53M | 1.05 |
+| 2063 | San Antonio-New Braunfels: Blue Line (metro) | urban | $4.1B | $116M | 1.01 |
+| 2063 | San Antonio-New Braunfels: Red Line (metro) | urban | $2.8B | $68M | 0.92 |
+| 2063 | El Paso: Red Line (metro) | urban | $5.1B | $161M | 0.68 |
+| 2063 | Odessa: Andrews BRT (brt) | urban | $376M | $40M | 0.43 |
+| 2064 | Rio Grande Valley (McAllen-Edinburg-Mission and Brownsville-Harlingen): Colonel Rowe BRT (brt) | urban | $444M | $134M | 0.45 |
+| 2065 | Houston-Pasadena-The Woodlands: Conroe Line (regional rail) | urban | $4.6B | $58M | 0.62 |
+| 2065 | Houston-Pasadena-The Woodlands: Rayford-Grogans Mill BRT (brt) | urban | $420M | $47M | 0.62 |
+| 2066 | San Antonio-New Braunfels: Green Line (metro) | urban | $5.9B | $164M | 1.04 |
+| 2066 | San Antonio-New Braunfels: Orange Line (metro) | urban | $4.1B | $160M | 0.87 |
+| 2066 | San Antonio-New Braunfels: Blanco Road-Broadway BRT (brt) | urban | $839M | $118M | 0.81 |
+| 2067 | Rio Grande Valley (McAllen-Edinburg-Mission and Brownsville-Harlingen): Business 83-Hooks BRT (brt) | urban | $1.1B | $185M | 0.45 |
+| 2068 | Houston-Pasadena-The Woodlands: Pink Line (metro) | urban | $5.8B | $338M | 0.66 |
+| 2068 | Houston-Pasadena-The Woodlands: Fairmont-Bay Area BRT (brt) | urban | $910M | $122M | 0.59 |
+| 2068 | Houston-Pasadena-The Woodlands: Galveston Road-SH-3 BRT (brt) | urban | $1.1B | $137M | 0.59 |
+| 2068 | Houston-Pasadena-The Woodlands: Lime Line (metro) | urban | $5.7B | $58M | 0.58 |
+| 2068 | Houston-Pasadena-The Woodlands: Broadway BRT (brt) | urban | $948M | $132M | 0.44 |
+| 2069 | San Antonio-New Braunfels: Purple Line (metro) | urban | $4.4B | $89M | 0.75 |
+| 2069 | San Antonio-New Braunfels: Blanco Road-US-281 BRT (brt) | urban | $1.1B | $53M | 0.70 |
+| 2069 | San Antonio-New Braunfels: I-35 BRT (brt) | urban | $1.0B | $118M | 0.53 |
+| 2069 | San Antonio-New Braunfels: Loop 1604 BRT (brt) | urban | $334M | $25M | 0.46 |
+| 2069 | San Antonio-New Braunfels: O'Connor BRT (brt) | urban | $414M | $47M | 0.45 |
+| 2069 | San Antonio-New Braunfels: Loop 1604 to La Cantera Parkway BRT (brt) | urban | $590M | $86M | 0.45 |
+| 2070 | El Paso: Joe Battle-Rojas BRT (brt) | urban | $576M | $42M | 0.47 |
+| 2070 | Rio Grande Valley (McAllen-Edinburg-Mission and Brownsville-Harlingen): McColl BRT (brt) | urban | $447M | $56M | 0.44 |
 | 2071 | Sunset: Houston - Lake Charles - Lafayette - New Orleans | conventional | $2.1B |  | 0.41 |
 | 2071 | I-20: Dallas - Shreveport - Monroe - Jackson | conventional | $2.6B |  | 0.41 |
-| 2071 | Houston-Pasadena-The Woodlands: Aliana Trace / Grand - Highway Boulevard (brt) | urban | $1.1B | $222M | 0.41 |
+| 2071 | Houston-Pasadena-The Woodlands: Aliana Trace Drive-Highway Boulevard BRT (brt) | urban | $1.1B | $222M | 0.41 |
 | 2072 | Dallas - Denton - Norman - Oklahoma City | hsr | $29.8B |  | 0.50 |
 | 2076 | Gulf Coast: Houston - Beaumont - Lake Charles - Lafayette - Baton Rouge - New Orleans | hsr | $53.4B |  | 0.45 |
 | 2078 | US 290: Houston - Brenham - Austin | hsr | $23.6B |  | 0.37 |
@@ -253,16 +253,16 @@ A local search over the build order (4,000 tries, swapping projects or moving on
 | Project | Opens: best ratio first | Optimized |
 |---|---|---|
 | Gulf Coast: Houston - Beaumont - Lake Charles - Lafayette - Baton Rouge - New Orleans | 2076 | 2040 |
-| Houston-Pasadena-The Woodlands: Cherry Brook Lane - Repsdorph / NASA (brt) | 2068 | 2092 |
-| Houston-Pasadena-The Woodlands: Aliana Trace / Grand - Highway Boulevard (brt) | 2071 | 2092 |
+| Houston-Pasadena-The Woodlands: Fairmont-Bay Area BRT (brt) | 2068 | 2092 |
+| Houston-Pasadena-The Woodlands: Aliana Trace Drive-Highway Boulevard BRT (brt) | 2071 | 2092 |
 | US 290: Houston - Brenham - Austin | 2078 | 2098 |
 | Fort Worth - Dallas | 2056 | 2073 |
 | Dallas - Denton - Norman - Oklahoma City | 2072 | 2059 |
-| El Paso: Pellicano / George Dieter - Nonap / Mark Twain (brt) | 2037 | 2049 |
-| Odessa: Grant / 14th Street - Eastridge / Billy Hext (brt) | 2049 | 2061 |
-| Houston-Pasadena-The Woodlands: Ambassador / Post Oak - Clearwood / Edgebrook (metro) | 2058 | 2069 |
-| San Antonio-New Braunfels: San Antonio Airport - O'Connor Road (brt) | 2060 | 2071 |
-| San Antonio-New Braunfels: Fredericksburg / I-10 - Culebra / Ingram (metro) | 2063 | 2074 |
+| El Paso: Rojas BRT (brt) | 2037 | 2049 |
+| Odessa: 8th Street-Highway 80 BRT (brt) | 2049 | 2061 |
+| Houston-Pasadena-The Woodlands: Teal Line (metro) | 2058 | 2069 |
+| San Antonio-New Braunfels: Nacogdoches BRT (brt) | 2060 | 2071 |
+| San Antonio-New Braunfels: Red Line (metro) | 2063 | 2074 |
 | McAllen: Harlingen - McAllen | 2087 | 2098 |
 
 The gain is large enough that the plan should consider scheduling by the optimized order.

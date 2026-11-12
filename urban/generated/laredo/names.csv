@@ -1,0 +1,11 @@
+kind,id,old,new,color,basis
+station,N0001,McPherson / Hillside,Calton / McPherson,,cross streets Calton x McPherson (104 m)
+station,N0002,Bartlett / Bustamante,Bartlett / Bustamante,,cross streets Bartlett x Bustamante (204 m)
+station,N0003,Bartlett / Lyon,Bartlett / Lyon,,cross streets Bartlett x Lyon (131 m)
+station,N0004,Bartlett / Corpus Christi,Bartlett / Corpus Christi,,cross streets Bartlett x Corpus Christi (148 m)
+station,N0005,Zapata Highway,Zapata Highway,,street North Zapata Highway (0 m)
+station,N0006,Zapata / Santa Barbara,Santo Niño,,neighbourhood Santo Niño (141 m)
+station,N0007,Zapata / Palo Blanco,Zapata / Palo Blanco,,cross streets Zapata x Palo Blanco (429 m)
+station,N0008,Zapata / La Pita Mangana,Zapata / La Pita Mangana,,cross streets Zapata x La Pita Mangana (189 m)
+station,N0009,Sierra Vista / Birch,Sierra Vista Boulevard,,street Sierra Vista Boulevard (0 m)
+line,G01,Calton / McPherson - Sierra Vista Boulevard BRT,Zapata-Bartlett BRT,#8e24aa,"BRT: 53% on Zapata, 29% on Bartlett"

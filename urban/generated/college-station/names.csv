@@ -1,0 +1,22 @@
+kind,id,old,new,color,basis
+station,N0001,Bizzell Street,Texas A&M University,,landmark Texas A&M University (182 m)
+station,N0002,College Avenue,College Avenue,,street South College Avenue (0 m)
+station,N0003,College / Sulphur Springs,College / Sulphur Springs,,cross streets College x Sulphur Springs (3 m)
+station,N0004,Villa Maria / Willis Vanhook,Villa Maria / Willis Vanhook,,cross streets Villa Maria x Willis Vanhook (104 m)
+station,N0005,Villa Maria Road,Villa Maria Road,,street West Villa Maria Road (0 m)
+station,N0006,Villa Maria / Traditions,Villa Maria / Traditions,,cross streets Villa Maria x Traditions (360 m)
+station,N0007,John Sharp Parkway,Villa Maria / John Sharp,,"nearest streets Villa Maria (0 m), John Sharp (389 m)"
+station,N0008,Traditions Boulevard,Traditions Boulevard,,street Traditions Boulevard (3 m)
+station,N0009,Villa Maria / Harvey Mitchell,Villa Maria / Harvey Mitchell,,"nearest streets Villa Maria (0 m), Harvey Mitchell (935 m)"
+station,N0010,Villa Maria / Finfeather,Villa Maria / Finfeather,,"nearest streets Villa Maria (0 m), Finfeather (516 m)"
+station,N0011,College / Villa Maria,College / Villa Maria,,cross streets College x Villa Maria (4 m)
+station,N0012,College / North Avenue,College / North Avenue,,"nearest streets College (0 m), North Avenue (590 m)"
+station,N0013,George Bush / Dexter,George Bush / Dexter,,cross streets George Bush x Dexter (166 m)
+station,N0014,Wellborn / Holleman,Wellborn / Holleman,,cross streets Wellborn x Holleman (279 m)
+station,N0015,Wellborn / Southwest Parkway,Wellborn / Southwest Parkway,,cross streets Wellborn x Southwest Parkway (377 m)
+station,N0016,Wellborn Road,Wellborn Road,,street Wellborn Road (0 m)
+station,N0017,Wellborn / Rock Prairie,Wellborn / Rock Prairie,,cross streets Wellborn x Rock Prairie (367 m)
+station,N0018,William D Fitch / Eagle,William D Fitch / Eagle,,cross streets William D Fitch x Eagle (118 m)
+station,N0019,Barron / Alexandria,Barron / Alexandria,,cross streets Barron x Alexandria (382 m)
+line,G01,Texas A&M University - Villa Maria / John Sharp BRT,Villa Maria BRT,#8e24aa,BRT: 65% of it on Villa Maria
+line,G02,Villa Maria / John Sharp - Alexandria / Southern Plantation BRT,Villa Maria-Wellborn BRT,#00897b,"BRT: 32% on Villa Maria, 30% on Wellborn"

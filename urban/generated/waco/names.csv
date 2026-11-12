@@ -1,0 +1,13 @@
+kind,id,old,new,color,basis
+station,N0001,8th Street / Jack Kultgen,8th Street / Dutton,,cross streets 8th Street x Dutton (124 m)
+station,N0002,Jack Kultgen / 11th Street,Jack Kultgen / 8th Street,,cross streets Jack Kultgen x 8th Street (174 m)
+station,N0003,Jack Kultgen / 18th Street,Jack Kultgen / 18th Street,,cross streets Jack Kultgen x 18th Street (56 m)
+station,N0004,Valley Mills / Bagby,Valley Mills / Bagby,,cross streets Valley Mills x Bagby (24 m)
+station,N0005,Valley Mills / Clay,Valley Mills / Clay,,cross streets Valley Mills x Clay (43 m)
+station,N0006,Valley Mills / Waco,Valley Mills / Waco Drive,,cross streets Valley Mills x Waco Drive (7 m)
+station,N0007,Waco / Lake Air,Waco Drive / Lake Air,,cross streets Waco Drive x Lake Air (251 m)
+station,N0008,Woodway Drive,Woodway Drive,,street Woodway Drive (0 m)
+station,N0009,Woodway / Texas Central,Woodway Drive / Texas Central,,cross streets Woodway Drive x Texas Central (51 m)
+station,N0010,Hewitt / Estates,Hewitt Drive / Estates,,cross streets Hewitt Drive x Estates (90 m)
+station,N0011,Hewitt / Chapel,Hewitt Drive / Chapel,,cross streets Hewitt Drive x Chapel (308 m)
+line,G01,Baylor University - Hewitt Drive BRT,Jack Kultgen-Valley Mills BRT,#8e24aa,"BRT: 24% on Jack Kultgen, 24% on Valley Mills"

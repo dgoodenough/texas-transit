@@ -1,0 +1,16 @@
+kind,id,old,new,color,basis
+station,N0001,Avenue K / Mac Davis,Avenue K / Mac Davis,,cross streets Avenue K x Mac Davis (66 m)
+station,N0002,Marsha Sharp / Avenue T,Marsha Sharp / Avenue T,,cross streets Marsha Sharp x Avenue T (155 m)
+station,N0003,Marsha Sharp / 4th Street,Jones AT&T Stadium,,landmark Jones AT&T Stadium (197 m)
+station,N0004,Marsha Sharp Freeway,Texas Tech University,,landmark Texas Tech University (74 m)
+station,N0005,19th Street / Texas Tech,19th Street / Texas Tech,,cross streets 19th Street x Texas Tech (54 m)
+station,N0006,Memphis Avenue,Memphis / 24th Street,,cross streets Memphis x 24th Street (442 m)
+station,N0007,Memphis / 42nd Street,Memphis / 42nd Street,,cross streets Memphis x 42nd Street (112 m)
+station,N0008,50th Street / Quaker,50th Street / Quaker,,cross streets 50th Street x Quaker (88 m)
+station,N0009,50th Street / Slide,50th Street / Slide,,cross streets 50th Street x Slide (43 m)
+station,N0010,50th Street / Englewood,50th Street / Englewood,,cross streets 50th Street x Englewood (69 m)
+station,N0011,Frankford Avenue,Frankford Avenue,,street Frankford Avenue (0 m)
+station,N0012,Frankford / 73rd Street,Frankford / 73rd Street,,cross streets Frankford x 73rd Street (109 m)
+station,N0013,Frankford / 92nd Street,Frankford / 92nd Street,,cross streets Frankford x 92nd Street (170 m)
+station,N0014,Frankford / Chicago,Frankford / 114th Street,,"nearest streets Frankford (0 m), 114th Street (687 m)"
+line,G01,Avenue L / Avenue K - Frankford / 114th Street BRT,Frankford-50th Street BRT,#8e24aa,"BRT: 32% on Frankford, 22% on 50th Street"

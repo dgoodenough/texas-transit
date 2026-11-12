@@ -1,5 +1,5 @@
 station_id,name,lat,lon
-N0001,Mesa / San Antonio,31.758837,-106.487168
+N0001,Wigwam Museum,31.758837,-106.487168
 N0002,Mesa / Cliff,31.766914,-106.494286
 N0003,Mesa / University,31.774990,-106.501405
 N0004,Mesa / Mesita,31.784098,-106.505654
@@ -7,15 +7,15 @@ N0005,Mesa / Brentwood,31.793495,-106.509351
 N0006,Mesa / Castellano,31.806141,-106.509133
 N0007,Mesa / Festival,31.818120,-106.515671
 N0008,Mesa / Crestmont,31.827852,-106.526603
-N0009,Sunland Park / Cromo,31.821375,-106.539030
-N0010,George Dieter / Scott Simpson,31.744547,-106.302714
+N0009,Sierra Medical Center,31.821375,-106.539030
+N0010,University Medical Center-East,31.744547,-106.302714
 N0011,George Dieter / Chito Samaniego,31.733691,-106.301571
 N0012,Rojas / Pullman,31.725320,-106.297451
 N0013,Rojas / Don Haskins,31.711665,-106.289275
 N0014,Rojas Drive,31.702344,-106.275297
 N0015,Rojas / Eastlake,31.692232,-106.262314
-N0016,Nonap / Rojas,31.684465,-106.249751
-N0017,John Hayes Street,31.782039,-106.216825
+N0016,Nonap / Mark Twain,31.684465,-106.249751
+N0017,John Hayes / Pebble Hills,31.782039,-106.216825
 N0018,Pebble Hills / Rich Beem,31.782026,-106.230182
 N0019,Pebble Hills / Zaragoza,31.782532,-106.243433
 N0020,Zaragoza / Charles R Schulte,31.773234,-106.255602
@@ -28,23 +28,23 @@ N0026,Gateway / Lee Trevino,31.739448,-106.323946
 N0027,Gateway / Vista de Oro,31.748157,-106.337478
 N0028,Gateway / Sumac,31.754525,-106.347789
 N0029,Gateway / Viscount,31.763028,-106.361525
-N0030,Gateway / Tony Lama,31.769345,-106.371877
+N0030,Las Fuentes Mall,31.769345,-106.371877
 N0031,Gateway Boulevard,31.776239,-106.386809
 N0032,Airway / Edgemere,31.782804,-106.395007
 N0033,Boeing Drive,31.792165,-106.389098
 N0034,Boeing / Montana,31.798609,-106.384256
-N0035,Hawkins / Butterfield Trail,31.807200,-106.377800
+N0035,El Paso Airport,31.807200,-106.377800
 N0036,Gateway / Industrial,31.774065,-106.382085
 N0037,Airway / Gateway,31.779458,-106.391976
 N0038,Boeing / Airway,31.791840,-106.395203
 N0039,Airport / Airway,31.796752,-106.404090
-N0040,Airport / Butterfield Trail,31.811655,-106.404368
+N0040,Vantage College El Paso Central,31.811655,-106.404368
 N0041,Fred Wilson / Sergeant Major,31.826152,-106.405922
 N0042,Fred Wilson Road,31.826329,-106.423371
 N0043,Railroad / Marshall,31.833731,-106.430321
 N0044,Diana / Railroad,31.847050,-106.422812
 N0045,Diana Drive,31.861973,-106.423101
-N0046,Dyer / Diana,31.876889,-106.423202
+N0046,North East,31.876889,-106.423202
 N0047,Rushing / Dyer,31.889179,-106.420396
 N0048,Rushing / Fairbanks,31.903980,-106.421691
 N0049,Myrtle / Cotton,31.764901,-106.477741

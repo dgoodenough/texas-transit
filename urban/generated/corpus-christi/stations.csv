@@ -1,15 +1,15 @@
 station_id,name,lat,lon
-N0001,Staples Street,27.684273,-97.384731
+N0001,Staples / Saratoga,27.684273,-97.384731
 N0002,Staples / Holly,27.696734,-97.376873
 N0003,Staples / Padre Island,27.706107,-97.371020
-N0004,Staples / Gollihar,27.718962,-97.374139
+N0004,Staples Street,27.718962,-97.374139
 N0005,Staples / Carmel,27.728172,-97.380318
-N0006,Staples / Doddridge,27.737385,-97.386491
+N0006,Color Capture Selfie Museum,27.737385,-97.386491
 N0007,Staples / Texan,27.749678,-97.394704
 N0008,Staples / Louisiana,27.761974,-97.402914
 N0009,Staples / Alameda,27.775864,-97.401355
 N0010,Staples / Agnes,27.786546,-97.402224
-N0011,Lipan / Carancahua,27.794669,-97.398609
+N0011,Downtown,27.794669,-97.398609
 N0012,Brownlee / Antelope,27.796491,-97.408853
 N0013,Leopard / Buddy Lawrence,27.796706,-97.421009
 N0014,Leopard / Villa,27.797000,-97.437104
@@ -22,4 +22,4 @@ N0020,Leopard / Tuloso,27.818283,-97.529250
 N0021,Leopard / Rand Morgan,27.824256,-97.543989
 N0022,Leopard / Up River,27.830378,-97.558642
 N0023,Leopard / McKinzie,27.837958,-97.572405
-N0024,Violet Road,27.845683,-97.586062
+N0024,Leopard / Violet,27.845683,-97.586062

@@ -1,0 +1,18 @@
+kind,id,old,new,color,basis
+station,N0001,Grant / 10th Street,Grant / 10th Street,,cross streets Grant x 10th Street (231 m)
+station,N0002,8th Street / Muskingum,8th Street / Muskingum,,cross streets 8th Street x Muskingum (122 m)
+station,N0003,8th Street / Nabors,8th Street / Nabors,,cross streets 8th Street x Nabors (219 m)
+station,N0004,8th Street / Highway 80,8th Street / Highway 80,,cross streets 8th Street x Highway 80 (412 m)
+station,N0005,Highway 80,Highway 80,,street East Highway 80 (0 m)
+station,N0006,Highway 80 / Country Club,Highway 80 / Country Club,,cross streets Highway 80 x Country Club (26 m)
+station,N0007,Marco / Billy Hext,Marco / Billy Hext,,cross streets Marco x Billy Hext (149 m)
+station,N0008,Billy Hext Road,Billy Hext / Eastridge,,cross streets Billy Hext x Eastridge (74 m)
+station,N0009,Andrews / 23rd Street,Andrews / 23rd Street,,cross streets Andrews x 23rd Street (50 m)
+station,N0010,Andrews / 38th Street,Andrews / 38th Street,,cross streets Andrews x 38th Street (91 m)
+station,N0011,Andrews / 52nd Street,Andrews / 52nd Street,,cross streets Andrews x 52nd Street (5 m)
+station,N0012,Andrews Highway,Andrews Highway,,street Andrews Highway (0 m)
+station,N0013,Andrews / Golder,Andrews / Golder,,"nearest streets Andrews (0 m), Golder (813 m)"
+station,N0014,Andrews / 87th Street,Andrews / 87th Street,,cross streets Andrews x 87th Street (47 m)
+station,N0015,91st Street / Rainbow,91st Street / Rainbow,,cross streets 91st Street x Rainbow (67 m)
+line,G01,Grant / 14th Street - Eastridge / Billy Hext BRT,8th Street-Highway 80 BRT,#8e24aa,"BRT: 40% on 8th Street, 37% on Highway 80"
+line,G02,Grant / 14th Street - 91st Street / Evans BRT,Andrews BRT,#00897b,BRT: 86% of it on Andrews
